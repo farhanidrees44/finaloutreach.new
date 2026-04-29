@@ -1,0 +1,15 @@
+/* TEAM */
+  Founder & Strategy: TBD — replace with real name
+  Site: https://finaloutreach.com
+  Location: Remote — Americas & EMEA
+
+/* THANKS */
+  Customers, partners, and the operators who answer our cold emails.
+
+/* SITE */
+  Last update: 2026/04
+  Language: English
+  Doctype: HTML5
+  Standards: HTML5, CSS, ES2022
+  Components: React 19, Next.js 16
+  Software: Next.js, Tailwind CSS v4, Framer Motion, Resend
