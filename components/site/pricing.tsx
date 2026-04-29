@@ -1,0 +1,148 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
+import { SectionEyebrow } from "./section-eyebrow"
+import { SITE } from "@/lib/site-data"
+
+const PACKAGES = [
+  {
+    name: "Starter engagement",
+    price: "$3,500",
+    cadence: "/ month",
+    blurb: "For founders ready to test cold outreach.",
+    items: ["1 campaign", "2,000 prospects", "Weekly reports"],
+    fit: "Pre-seed to Series A",
+    cta: "Book intro call",
+    featured: false,
+  },
+  {
+    name: "Growth engagement",
+    price: "$7,500",
+    cadence: "/ month",
+    blurb: "For teams scaling outbound seriously.",
+    items: ["3 campaigns", "8,000 prospects", "Dedicated strategist"],
+    fit: "Series A to Series B",
+    cta: "Book intro call",
+    featured: true,
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    cadence: "",
+    blurb: "For revenue teams treating outbound as a channel.",
+    items: ["Unlimited campaigns", "Full SDR team", "Custom integrations"],
+    fit: "Series B+ and established",
+    cta: "Book strategy call",
+    featured: false,
+  },
+]
+
+export function Pricing() {
+  return (
+    <section
+      id="pricing"
+      className="border-t border-ink-08 bg-cream"
+    >
+      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <SectionEyebrow number="09" label="Pricing" />
+            <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]">
+              Simple, transparent{" "}
+              <span className="font-serif-italic text-ink-60">
+                engagements.
+              </span>
+            </h2>
+          </div>
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
+            Pick a starting point. We'll customize the rest on the call.
+          </p>
+        </div>
+
+        <ul className="mt-14 flex flex-col gap-4">
+          {PACKAGES.map((p, i) => (
+            <motion.li
+              key={p.name}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.06 }}
+              className={cn(
+                "group relative grid grid-cols-1 gap-8 rounded-2xl border bg-background p-7 transition-all duration-300 hover:-translate-y-0.5 sm:p-9 lg:grid-cols-[260px_1fr_280px] lg:items-center lg:gap-10",
+                p.featured
+                  ? "border-ink/80 hover:border-ink"
+                  : "border-ink-08 hover:border-ink/25",
+              )}
+            >
+              {p.featured && (
+                <span className="absolute -top-3 left-7 rounded-full bg-ink px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-background">
+                  Most popular
+                </span>
+              )}
+
+              <div className="flex flex-col gap-2">
+                <h3 className="text-[22px] font-medium tracking-display text-ink sm:text-[26px]">
+                  {p.name}
+                </h3>
+                <p className="text-[14px] text-ink-60">{p.blurb}</p>
+              </div>
+
+              <div className="flex flex-col gap-4 border-t border-ink-08 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-[40px] font-semibold leading-none tabular tracking-display text-ink">
+                    {p.price}
+                  </span>
+                  {p.cadence && (
+                    <span className="text-[14px] text-ink-60">
+                      {p.cadence}
+                    </span>
+                  )}
+                </div>
+                <ul className="flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[14px] text-ink-60">
+                  {p.items.map((it, idx) => (
+                    <li key={it} className="flex items-center gap-1.5">
+                      <span className="text-ink">{it}</span>
+                      {idx < p.items.length - 1 && (
+                        <span aria-hidden="true" className="text-ink-40">
+                          ·
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[12.5px] uppercase tracking-[0.14em] text-ink-40">
+                  Best for: {p.fit}
+                </p>
+              </div>
+
+              <div className="flex lg:justify-end">
+                <a
+                  href={SITE.calendly}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "inline-flex h-12 items-center gap-2 rounded-full px-5 text-[14.5px] font-medium transition-all active:scale-[0.97]",
+                    p.featured
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-ink text-background hover:bg-ink/90",
+                  )}
+                >
+                  {p.cta}
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </div>
+            </motion.li>
+          ))}
+        </ul>
+
+        <p className="mt-8 text-center text-[13px] text-ink-60">
+          All engagements include free infrastructure setup —{" "}
+          <span className="text-ink">$1,500 value</span>.
+        </p>
+      </div>
+    </section>
+  )
+}
