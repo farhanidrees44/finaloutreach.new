@@ -13,7 +13,7 @@ import { RICH_INDUSTRIES } from "@/lib/industries-data"
 import { AUTHORS } from "@/lib/authors"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date()
+  const now = new Date("2026-05-01T00:00:00.000Z")
   const base = SITE.domain
 
   const staticRoutes: MetadataRoute.Sitemap = [
