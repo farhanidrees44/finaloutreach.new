@@ -13,7 +13,7 @@ import {
 
 export const SITE = {
   name: "FinalOutreach",
-  domain: "https://finaloutreach.com",
+  domain: "https://www.finaloutreach.com",
   tagline: "Cold email and lead generation for B2B teams",
   description:
     "We book qualified sales meetings for B2B teams that actually want to grow. $47M+ pipeline generated. 12,400+ meetings booked. Trusted by 200+ companies.",
