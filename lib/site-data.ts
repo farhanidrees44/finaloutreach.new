@@ -187,7 +187,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "We build ICP lists by tech stack, funding round, and hiring signals, then run a 3-channel sequence across email, LinkedIn, and targeted ads.",
     metric: { value: "$2.1M", label: "Pipeline in 90 days for a Series A AI company" },
-    exampleClient: "Helio AI",
+    exampleClient: "Series A AI SaaS",
   },
   {
     slug: "agencies",
@@ -202,7 +202,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "Positioning-first outreach targeting ops and growth leads at companies that just raised or hired a new CMO.",
     metric: { value: "47", label: "Qualified calls per month for a 12-person agency" },
-    exampleClient: "Verge Studio",
+    exampleClient: "12-person marketing agency",
   },
   {
     slug: "consulting",
@@ -217,7 +217,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "Senior-voice copy, tight ICP, and LinkedIn-first outreach to decision-makers at companies hitting our trigger criteria.",
     metric: { value: "$180K", label: "Saved vs hiring two internal SDRs" },
-    exampleClient: "Northwind Consulting",
+    exampleClient: "Mid-market consulting firm",
   },
   {
     slug: "fintech",
@@ -232,7 +232,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "Compliance-friendly infrastructure, proof-led copy, and referrals engineered through peer-company targeting.",
     metric: { value: "11x", label: "Pipeline ROI for a Series B fintech" },
-    exampleClient: "Ledger Systems",
+    exampleClient: "Series B fintech",
   },
   {
     slug: "healthtech",
@@ -247,7 +247,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "Clinical-voice copy, buying-committee mapping, and a pilot-first CTA that works for hospital systems.",
     metric: { value: "14", label: "Health-system pilots in 6 months" },
-    exampleClient: "Veridian Health",
+    exampleClient: "Series A healthtech",
   },
   {
     slug: "b2b-services",
@@ -262,7 +262,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "A 2-channel outbound engine that runs every week, whether you are slammed with client work or not.",
     metric: { value: "22", label: "Meetings per month, every month, for 18 months" },
-    exampleClient: "Atlas Partners",
+    exampleClient: "B2B services firm",
   },
   {
     slug: "manufacturing",
@@ -277,7 +277,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "Account-based outreach to plant managers and procurement leads, with offline follow-up orchestrated through your reps.",
     metric: { value: "6", label: "Net-new enterprise accounts in year one" },
-    exampleClient: "Forge Industrial",
+    exampleClient: "Industrial manufacturing OEM",
   },
   {
     slug: "real-estate",
@@ -292,7 +292,7 @@ export const INDUSTRIES: Industry[] = [
     approach:
       "Real-time trigger-based targeting (funding, hiring, relocation) paired with a broker-voice sequence.",
     metric: { value: "$48M", label: "Deal volume attributed to our campaigns" },
-    exampleClient: "Hearth CRE",
+    exampleClient: "Regional CRE firm",
   },
 ]
 
@@ -312,12 +312,12 @@ export type CaseStudy = {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "helio-ai",
-    client: "Helio AI",
+    client: "Series A B2B SaaS",
     industry: "B2B SaaS",
     timeline: "90 days",
     headline: "$2.1M pipeline in 90 days for a Series A AI startup",
     challenge:
-      "Helio AI had raised a $14M Series A and needed to 3x its pipeline inside a single quarter. Their in-house SDR team of two was overwhelmed and their founder was personally prospecting on nights and weekends.",
+      "The client had raised a $14M Series A and needed to 3x its pipeline inside a single quarter. Their in-house SDR team of two was overwhelmed and their founder was personally prospecting on nights and weekends.",
     solution:
       "We ran a 3-channel sequence across cold email, LinkedIn, and a targeted pilot on retargeting ads. Lists were built from VC portfolio movement, hiring triggers, and product-led signals.",
     results: [
@@ -333,18 +333,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "We were skeptical at first. 60 days later, we’re scaling our sales team to keep up.",
-      name: "Sarah Chen",
-      role: "VP Marketing, Helio AI",
+      name: "Client",
+      role: "VP Marketing",
     },
   },
   {
     slug: "verge-studio",
-    client: "Verge Studio",
+    client: "Marketing agency",
     industry: "Marketing agency",
     timeline: "120 days",
     headline: "Filled the calendar from 0 to 47 calls per month",
     challenge:
-      "Verge Studio, a 12-person brand agency, had grown exclusively through referrals. When two major clients offboarded the same quarter, they needed predictable outbound in weeks, not months.",
+      "This 12-person brand agency had grown exclusively through referrals. When two major clients offboarded the same quarter, the team needed predictable outbound in weeks, not months.",
     solution:
       "Positioning-first messaging that led with a proprietary brand audit. ICP targeted companies that recently hired a new CMO or raised Series B.",
     results: [
@@ -360,18 +360,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "Best outbound partner we’ve ever worked with. Booked 47 calls our first month.",
-      name: "David Park",
-      role: "Founder, Verge Studio",
+      name: "Client",
+      role: "Founder",
     },
   },
   {
     slug: "northwind-consulting",
-    client: "Northwind Consulting",
+    client: "Consulting firm",
     industry: "B2B services",
     timeline: "6 months",
     headline: "Replaced two SDRs with our team — saved $180K",
     challenge:
-      "Northwind was running two in-house SDRs at a fully-loaded cost of over $200K per year, with uneven output and high turnover. They wanted consistent pipeline without the management overhead.",
+      "The client was running two in-house SDRs at a fully-loaded cost of over $200K per year, with uneven output and high turnover. They wanted consistent pipeline without the management overhead.",
     solution:
       "Full done-for-you outbound with senior-voice copywriting, target-account lists built from industry events, and a dedicated SDR for reply handling.",
     results: [
@@ -387,18 +387,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "The team thinks like operators, not an agency. Pipeline doubled, headcount didn’t.",
-      name: "Liam O'Connor",
-      role: "CRO, Northwind Consulting",
+      name: "Client",
+      role: "CRO",
     },
   },
   {
     slug: "ledger-systems",
-    client: "Ledger Systems",
+    client: "Series B fintech",
     industry: "Fintech",
     timeline: "8 months",
     headline: "11x pipeline ROI for a Series B fintech breaking into enterprise",
     challenge:
-      "Ledger had strong mid-market traction but enterprise buyers would not respond to their self-serve playbook. Long procurement cycles required a true outbound motion.",
+      "This Series B fintech had strong mid-market traction but enterprise buyers would not respond to their self-serve playbook. Long procurement cycles required a true outbound motion.",
     solution:
       "Buying-committee mapping, senior-voice copy, and a trust-first sequence that opened with a security-ready pilot offer.",
     results: [
@@ -414,18 +414,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "Every dollar we put in returned ten back inside a single quarter.",
-      name: "Nia Okoro",
-      role: "Head of Revenue, Ledger Systems",
+      name: "Client",
+      role: "Head of Revenue",
     },
   },
   {
     slug: "veridian-health",
-    client: "Veridian Health",
+    client: "Series A healthtech",
     industry: "Healthtech",
     timeline: "6 months",
     headline: "14 health-system pilots in 6 months for a Series A healthtech",
     challenge:
-      "Veridian had a great product but a 14-month sales cycle with hospital systems and no consistent top-of-funnel.",
+      "The client had a strong product but a 14-month sales cycle with hospital systems and no consistent top-of-funnel.",
     solution:
       "Clinical-voice copy, targeted outreach to VPs of operations at IDNs, and a pilot-first CTA that matched how hospitals actually buy.",
     results: [
@@ -440,18 +440,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "They understood our buyer inside two weeks. It took our last agency a year.",
-      name: "Dr. Maya Sen",
-      role: "Chief Commercial Officer, Veridian Health",
+      name: "Client",
+      role: "Chief Commercial Officer",
     },
   },
   {
     slug: "atlas-partners",
-    client: "Atlas Partners",
+    client: "B2B services firm",
     industry: "B2B services",
     timeline: "18 months",
     headline: "22 meetings per month, every month, for 18 straight months",
     challenge:
-      "Atlas wanted a boring result: the same number of qualified meetings every single month, with zero variance, while the partners stayed billable.",
+      "This team wanted a boring result: the same number of qualified meetings every single month, with zero variance, while the partners stayed billable.",
     solution:
       "A 2-channel outbound engine with disciplined list replenishment and zero copy drift. We treated pipeline like a utility, not a campaign.",
     results: [
@@ -466,20 +466,20 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "It is genuinely the most boring line item on our P&L. That is the highest compliment we can give.",
-      name: "Harriet Vance",
-      role: "Managing Partner, Atlas Partners",
+      name: "Client",
+      role: "Managing Partner",
     },
   },
   {
     slug: "forge-industrial",
-    client: "Forge Industrial",
+    client: "Industrial manufacturing OEM",
     industry: "Manufacturing",
     timeline: "12 months",
     headline: "6 net-new enterprise accounts for a 60-year-old industrial OEM",
     challenge:
-      "Forge had grown for six decades on trade shows and rep referrals. With a new private-equity owner pushing for 18% ARR growth, the leadership team needed a digital outbound motion their senior reps would actually trust — without sounding like a SaaS company.",
+      "The client had grown for six decades on trade shows and rep referrals. With a new private-equity owner pushing for 18% ARR growth, the leadership team needed a digital outbound motion their senior reps would actually trust — without sounding like a SaaS company.",
     solution:
-      "Account-based outreach to plant managers and procurement leads at Tier-1 manufacturers, with offline follow-up orchestrated through Forge's regional reps. Targeting was triggered by capex announcements, hiring spikes, and supply-chain reshoring signals.",
+      "Account-based outreach to plant managers and procurement leads at Tier-1 manufacturers, with offline follow-up orchestrated through the client's regional reps. Targeting was triggered by capex announcements, hiring spikes, and supply-chain reshoring signals.",
     results: [
       "6 net-new enterprise accounts closed inside year one",
       "$4.1M in incremental contract value attributed to outbound",
@@ -493,18 +493,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "We were genuinely worried digital outbound would feel wrong for our buyer. Six new logos later, that worry is gone.",
-      name: "Marcus Reilly",
-      role: "VP Sales, Forge Industrial",
+      name: "Client",
+      role: "VP Sales",
     },
   },
   {
     slug: "hearth-cre",
-    client: "Hearth CRE",
+    client: "Regional CRE firm",
     industry: "Commercial real estate",
     timeline: "9 months",
     headline: "$48M in sourced deal volume for a regional CRE firm",
     challenge:
-      "Hearth's brokers were billing hours, not prospecting time. Their lead lists were stale within a quarter and they had no consistent way to reach owners and operators outside their personal networks during a down market.",
+      "The client's brokers were billing hours, not prospecting time. Their lead lists were stale within a quarter and they had no consistent way to reach owners and operators outside their personal networks during a down market.",
     solution:
       "Real-time, trigger-based targeting on funding events, hiring spikes, and corporate relocations, paired with a broker-voice sequence written specifically for owner-operators and family offices.",
     results: [
@@ -520,18 +520,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "Outbound finally feels like a brokerage tool, not a SaaS gimmick. The deal flow is real.",
-      name: "Priya Mehta",
-      role: "Managing Principal, Hearth CRE",
+      name: "Client",
+      role: "Managing Principal",
     },
   },
   {
     slug: "apex-cybersecurity",
-    client: "Apex Cybersecurity",
+    client: "Series B cybersecurity",
     industry: "Cybersecurity",
     timeline: "6 months",
     headline: "$3.7M in CISO pipeline for a Series B cyber startup",
     challenge:
-      "Apex's product solved a real problem but CISOs ignored generic outbound. They needed a peer-credible motion that could survive procurement and security review without burning the founders' personal LinkedIn networks.",
+      "The client's product solved a real problem but CISOs ignored generic outbound. This team needed a peer-credible motion that could survive procurement and security review without burning the founders' personal LinkedIn networks.",
     solution:
       "Founder-voice copy reviewed by a former CISO, ICP narrowed to 1,200 named accounts with a clear trigger event, and a long-form sequence that opened with a security-cleared mini-audit, not a demo request.",
     results: [
@@ -547,18 +547,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "We finally have a motion that does not embarrass us in front of CISOs. It actually opens doors.",
-      name: "Theo Park",
-      role: "Co-founder, Apex Cybersecurity",
+      name: "Client",
+      role: "Co-founder",
     },
   },
   {
     slug: "brightpath-logistics",
-    client: "BrightPath Logistics",
+    client: "Growth-stage 3PL",
     industry: "Logistics",
     timeline: "5 months",
     headline: "31 enterprise shipper meetings for a fast-growing 3PL",
     challenge:
-      "BrightPath had grown to $40M revenue almost entirely through inbound and reseller channels. They needed direct relationships with Fortune 1000 shippers, but their internal team had never run real outbound and the freight market was tightening.",
+      "This logistics team had grown to $40M revenue almost entirely through inbound and reseller channels. They needed direct relationships with Fortune 1000 shippers, but their internal team had never run real outbound and the freight market was tightening.",
     solution:
       "Triple-channel sequencing across email, LinkedIn, and direct mail, gated by RFP-cycle triggers and freight-spend intelligence. Replies were handled by a dedicated SDR briefed on each prospect's existing freight network.",
     results: [
@@ -574,8 +574,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     quote: {
       text: "Every quarter we say we will hire SDRs internally, and every quarter the FinalOutreach team out-performs. We stopped hiring SDRs.",
-      name: "Anya Volkov",
-      role: "CRO, BrightPath Logistics",
+      name: "Client",
+      role: "CRO",
     },
   },
 ]

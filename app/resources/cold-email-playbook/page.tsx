@@ -3,10 +3,15 @@ import { ArrowRight, Download } from "lucide-react"
 import { Breadcrumbs, PageHeader, PageShell } from "@/components/site/page-shell"
 
 export const metadata: Metadata = {
-  title: "Cold email playbook — Free 60-page guide",
+  title: "Cold email playbook — Free download",
   description:
-    "Our 60-page cold email playbook covering deliverability, copy, sequencing, and measurement. Free download.",
+    "Free cold email playbook covering deliverability, copy, sequencing, and measurement. Direct PDF download — no email gate.",
   alternates: { canonical: "/resources/cold-email-playbook" },
+  openGraph: {
+    title: "Cold email playbook — FinalOutreach",
+    description:
+      "Free cold email playbook covering deliverability, copy, sequencing, and measurement.",
+  },
 }
 
 const CHAPTERS = [
@@ -31,7 +36,7 @@ export default function PlaybookPage() {
         eyebrow="Free playbook"
         title="The cold email playbook we wished we had in 2019."
         italicize="cold email playbook"
-        description="60 pages, six chapters, zero theory. The exact systems we use with every client — open, free, no email required."
+        description="Six chapters, zero theory. The systems we use with clients — open, free, no email required."
       />
 
       <section className="border-t border-ink-08">

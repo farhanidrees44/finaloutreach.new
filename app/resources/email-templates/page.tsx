@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react"
 import { Breadcrumbs, PageCta, PageHeader, PageShell } from "@/components/site/page-shell"
 
 export const metadata: Metadata = {
-  title: "Email templates library — 10 cold emails that worked",
+  title: "Cold email templates — structures that get replies",
   description:
-    "Ten of our highest-performing cold email templates, with the reply rates we saw and the win conditions for each.",
+    "Ten cold email template angles with the win conditions for each — the same structures we use in live B2B outbound campaigns.",
   alternates: { canonical: "/resources/email-templates" },
 }
 
@@ -33,9 +33,9 @@ export default function TemplatesPage() {
       <Breadcrumbs items={crumbs} />
       <PageHeader
         eyebrow="Templates"
-        title="10 cold email templates that booked $1M+ in pipeline."
-        italicize="$1M+ in pipeline"
-        description="Each one with the real reply rate range and the conditions you need to hit for it to work. Steal them, change them, ship them."
+        title="Cold email structures we actually ship."
+        italicize="actually ship"
+        description="Ten template angles with the conditions they need to work. Steal the structure, rewrite for your offer, then test."
       />
 
       <section className="border-t border-ink-08">
@@ -57,14 +57,19 @@ export default function TemplatesPage() {
                     Win condition: {t.condition}
                   </p>
                 </div>
-                <span className="text-[26px] font-medium leading-none tabular tracking-display">
-                  {t.reply}
-                </span>
+                <div className="md:text-right">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-40">
+                    Typical range
+                  </p>
+                  <span className="text-[26px] font-medium leading-none tabular tracking-display">
+                    {t.reply}
+                  </span>
+                </div>
                 <a
-                  href="#"
+                  href="/#final-cta"
                   className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-ink-08 px-4 text-[13px] font-medium text-ink transition-all hover:border-ink/30"
                 >
-                  View template <ArrowRight className="size-3.5" />
+                  Get full copy <ArrowRight className="size-3.5" />
                 </a>
               </li>
             ))}

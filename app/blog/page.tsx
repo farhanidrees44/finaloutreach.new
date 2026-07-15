@@ -10,11 +10,12 @@ import { CtaButton } from "@/components/site/cta-button"
 export const metadata: Metadata = {
   title: "Cold email and B2B outreach blog",
   description:
-    "Tactics, templates, and teardowns from the team that has booked 12,400+ B2B meetings. Cold email, LinkedIn outreach, deliverability, and lead generation.",
+    "Tactics, templates, and teardowns from operators who run cold email and LinkedIn outbound for B2B teams — deliverability, copy, and appointment setting.",
   alternates: { canonical: "/blog" },
   openGraph: {
     title: "Cold email and B2B outreach blog | FinalOutreach",
-    description: "Tactics, templates, and teardowns from the team behind 12,400+ booked meetings.",
+    description:
+      "Practical cold email and LinkedIn outbound tactics from operators who live in the tools.",
     url: "/blog",
     type: "website",
   },
@@ -30,7 +31,7 @@ export default function BlogIndexPage() {
     <PageShell
       eyebrow="The blog"
       title="Cold email tactics, frameworks, and teardowns."
-      description="Everything we have learned booking 12,400+ qualified meetings — distilled into long-form posts you can actually use."
+      description="Practical frameworks from running live cold email and LinkedIn campaigns — distilled into long-form posts you can actually use."
     >
       <JsonLd
         data={[

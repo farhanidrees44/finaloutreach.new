@@ -1,17 +1,17 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
 import {
   Breadcrumbs,
   PageCta,
   PageHeader,
   PageShell,
 } from "@/components/site/page-shell"
+import { ArrowUpRight } from "lucide-react"
 import { CASE_STUDIES, SITE } from "@/lib/site-data"
 
-const PAGE_TITLE = "B2B cold email case studies — Real outbound results"
+const PAGE_TITLE = "B2B outbound case studies — anonymized results"
 const PAGE_DESCRIPTION =
-  "Detailed case-study breakdowns of recent client wins across B2B SaaS, fintech, healthtech, cybersecurity, manufacturing, agencies, and B2B services. Real cycles, real numbers, real lessons."
+  "Anonymized outbound case-study breakdowns across B2B SaaS, fintech, healthtech, agencies, and more. Named clients appear only with written permission."
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -21,10 +21,6 @@ export const metadata: Metadata = {
     "lead generation case studies",
     "outbound sales case studies",
     "appointment setting case studies",
-    "cold email results",
-    "SaaS pipeline case study",
-    "fintech outbound case study",
-    "healthtech outbound case study",
   ],
   alternates: { canonical: "/case-studies" },
   openGraph: {
@@ -32,20 +28,11 @@ export const metadata: Metadata = {
     url: `${SITE.domain}/case-studies`,
     description: PAGE_DESCRIPTION,
     siteName: SITE.name,
-    images: [
-      {
-        url: `${SITE.domain}/og.jpg`,
-        width: 1200,
-        height: 630,
-        alt: `${SITE.name} case studies`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    images: [`${SITE.domain}/og.jpg`],
   },
 }
 
@@ -55,40 +42,30 @@ export default function CaseStudiesPage() {
     { name: "Case studies", href: "/case-studies" },
   ]
 
-  // Aggregates rendered above the listing for instant credibility.
-  const totalStudies = CASE_STUDIES.length
-  const industries = Array.from(
-    new Set(CASE_STUDIES.map((c) => c.industry)),
-  ).length
-  const aggregateStats = [
-    { v: `${totalStudies}`, l: "Case studies" },
-    { v: `${industries}`, l: "Industries covered" },
-    { v: "$47M+", l: "Pipeline generated" },
-    { v: "12,400+", l: "Meetings booked" },
-  ]
+  const industries = Array.from(new Set(CASE_STUDIES.map((c) => c.industry))).length
 
   return (
     <PageShell breadcrumbs={crumbs}>
       <Breadcrumbs items={crumbs} />
       <PageHeader
         eyebrow="Case studies"
-        title="Recent wins. The results speak."
-        italicize="results speak"
-        description="A growing collection of detailed outbound case studies. Real numbers, real cycles, real lessons — across B2B SaaS, fintech, healthtech, cybersecurity, manufacturing, agencies, and more."
+        title="Outbound results by industry and stage."
+        italicize="results"
+        description="These breakdowns are anonymized until a client gives written permission to be named. Metrics describe engagement types — not invented testimonials."
       />
 
-      {/* Aggregate KPI strip — instant proof above the fold */}
       <section className="mx-auto max-w-7xl px-6 pb-16 md:pb-20">
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-08 bg-ink-08 md:grid-cols-4">
-          {aggregateStats.map((s) => (
-            <div
-              key={s.l}
-              className="flex flex-col gap-1.5 bg-card p-6 sm:p-7"
-            >
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-08 bg-ink-08 md:grid-cols-3">
+          {[
+            { v: `${CASE_STUDIES.length}`, l: "Anonymized studies" },
+            { v: `${industries}`, l: "Industries covered" },
+            { v: "Named", l: "Only with permission" },
+          ].map((s) => (
+            <div key={s.l} className="flex flex-col gap-1.5 bg-card p-6 sm:p-7">
               <dt className="text-[11px] uppercase tracking-[0.16em] text-ink-40">
                 {s.l}
               </dt>
-              <dd className="text-[32px] font-medium leading-none tabular tracking-display sm:text-[40px]">
+              <dd className="text-[28px] font-medium leading-none tracking-display sm:text-[36px]">
                 {s.v}
               </dd>
             </div>
@@ -103,7 +80,7 @@ export default function CaseStudiesPage() {
               key={c.slug}
               href={`/case-studies/${c.slug}`}
               className="group flex flex-col justify-between gap-8 rounded-2xl border border-ink-08 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25 sm:p-10"
-              aria-label={`Read the ${c.client} case study: ${c.headline}`}
+              aria-label={`Read the ${c.industry} case study: ${c.headline}`}
             >
               <div className="flex flex-wrap gap-2">
                 <span className="rounded-full border border-ink-08 px-2.5 py-1 text-[11px] uppercase tracking-[0.14em] text-ink-40">
@@ -123,7 +100,7 @@ export default function CaseStudiesPage() {
                 <div className="mt-8 grid grid-cols-3 gap-4">
                   {c.metrics.map((m) => (
                     <div key={m.l} className="flex flex-col gap-1">
-                      <span className="text-[26px] font-medium leading-none tabular tracking-display sm:text-[30px]">
+                      <span className="text-[26px] font-medium leading-none tabular-nums tracking-display sm:text-[30px]">
                         {m.v}
                       </span>
                       <span className="text-[10.5px] uppercase tracking-[0.14em] text-ink-40">

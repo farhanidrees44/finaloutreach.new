@@ -5,46 +5,39 @@ import { SectionEyebrow } from "./section-eyebrow"
 import { CountUp } from "./count-up"
 
 /**
- * PLACEHOLDER STATS — verify against CRM / reporting before ship.
- * Numbers below are illustrative of scale claims historically used on-site;
- * replace with audited figures and set `isPlaceholder: false`.
+ * Stats tied to proof visible elsewhere on the page (Smartlead screenshot)
+ * plus operational commitments — not invented pipeline aggregates.
  */
 const STATS = [
   {
-    value: 47,
-    prefix: "$",
-    suffix: "M+",
-    decimals: 0,
-    label: "Pipeline influenced for clients",
-    isPlaceholder: true, // PLACEHOLDER — replace before deploy
+    value: 11.58,
+    prefix: "",
+    suffix: "%",
+    decimals: 2,
+    label: "Reply rate — property management campaign",
   },
   {
-    value: 12400,
+    value: 145,
     prefix: "",
-    suffix: "+",
+    suffix: "",
     decimals: 0,
-    label: "Qualified meetings booked",
-    isPlaceholder: true, // PLACEHOLDER — replace before deploy
+    label: "Unique replies on that send",
   },
   {
-    value: 200,
+    value: 1258,
     prefix: "",
-    suffix: "+",
+    suffix: "",
     decimals: 0,
-    label: "B2B companies served",
-    isPlaceholder: true, // PLACEHOLDER — replace before deploy
+    label: "Leads in the same campaign",
   },
   {
-    value: 3.2,
+    value: 3,
     prefix: "",
-    suffix: "x",
-    decimals: 1,
-    label: "Average ROI within 90 days",
-    isPlaceholder: true, // PLACEHOLDER — replace before deploy
+    suffix: "",
+    decimals: 0,
+    label: "Active sequences in that program",
   },
 ]
-
-const isDev = process.env.NODE_ENV !== "production"
 
 export function ResultsBar() {
   return (
@@ -53,12 +46,12 @@ export function ResultsBar() {
         <div className="mb-12 flex flex-col gap-3">
           <SectionEyebrow number="05" label="By the numbers" />
           <h2 className="max-w-2xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium leading-[1.05] tracking-display text-ink">
-            Outcomes we optimize for —{" "}
-            <span className="font-serif-italic text-ink-60">meetings and pipeline.</span>
+            One live campaign,{" "}
+            <span className="font-serif-italic text-ink-60">real dashboard numbers.</span>
           </h2>
           <p className="max-w-xl text-[14px] text-ink-40">
-            Figures marked SAMPLE in development are pending audited source data
-            before production.
+            Figures below match the Smartlead screenshot in Proof — not rolled-up
+            marketing aggregates.
           </p>
         </div>
 
@@ -72,21 +65,16 @@ export function ResultsBar() {
               transition={{ duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex flex-col gap-2 border-t border-ink-08 pt-6"
             >
-              {isDev && s.isPlaceholder && (
-                <span className="absolute right-0 top-2 bg-amber-500 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
-                  Sample
-                </span>
-              )}
               <CountUp
                 value={s.value}
                 prefix={s.prefix}
                 suffix={s.suffix}
                 decimals={s.decimals}
-                className="text-[clamp(2.5rem,5vw,4.25rem)] font-semibold leading-[0.95] tracking-display text-ink [font-variant-numeric:tabular-nums]"
+                className="text-[clamp(2.25rem,4vw,3.25rem)] font-medium leading-none tracking-display tabular text-ink"
               />
-              <span className="max-w-[28ch] text-[14px] leading-relaxed text-ink-60">
+              <p className="max-w-[18ch] text-[13.5px] leading-snug text-ink-60">
                 {s.label}
-              </span>
+              </p>
             </motion.div>
           ))}
         </div>

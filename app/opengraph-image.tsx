@@ -78,7 +78,7 @@ export default async function OgImage() {
               maxWidth: 900,
             }}
           >
-            $47M+ pipeline · 12,400+ meetings · 200+ companies trust us.
+            Cold email · LinkedIn · Appointment setting for B2B teams.
           </div>
         </div>
 

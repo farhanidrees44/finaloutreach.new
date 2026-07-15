@@ -30,11 +30,13 @@ export function GET() {
   )
   lines.push("")
   lines.push("## Key facts")
-  lines.push("- $47M+ in pipeline generated for clients to date")
-  lines.push("- 12,400+ qualified meetings booked")
-  lines.push("- 200+ B2B companies served (SaaS, agencies, professional services)")
-  lines.push("- Average reply rate of 14.8% on cold email")
-  lines.push("- Clients see 3.2x ROI within 90 days on average")
+  lines.push(
+    "- Done-for-you cold email, LinkedIn outreach, and appointment setting for B2B teams",
+  )
+  lines.push("- Operator-led campaigns (infrastructure, copy, list, reply handling)")
+  lines.push("- Anonymized case-study breakdowns by industry and stage on the site")
+  lines.push("- Free cold email playbook PDF and free outbound tools")
+  lines.push("- Book a strategy call via Calendly on the homepage")
   lines.push("")
 
   lines.push("## Services")

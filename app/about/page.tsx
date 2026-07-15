@@ -71,10 +71,10 @@ export default function AboutPage() {
               on what looked like a solvable problem.
             </p>
             <p>
-              Seven years later, we are a team of senior operators running
-              pipeline for 200+ B2B companies — from Series A startups to
-              billion-dollar enterprises. We have generated $47M+ in attributed
-              pipeline and booked 12,400+ meetings.
+              Today we are a team of senior operators running outbound for
+              B2B teams — from Series A startups to established service firms.
+              Named logos and dollar aggregates appear only when we can stand
+              behind them with permission and source data.
             </p>
             <p>
               The rules have not changed since day one: senior operators on

@@ -18,7 +18,7 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const title = (url.searchParams.get("title") ?? SITE.name).slice(0, 140)
   const kicker = (url.searchParams.get("kicker") ?? SITE.tagline).slice(0, 60)
-  const stat = (url.searchParams.get("stat") ?? "$47M+ pipeline · 12,400+ meetings").slice(0, 80)
+  const stat = (url.searchParams.get("stat") ?? "Cold email · LinkedIn · Appointment setting").slice(0, 80)
 
   return new ImageResponse(
     <div

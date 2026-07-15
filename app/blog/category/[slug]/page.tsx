@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!cat) return { title: "Category not found" }
   return {
     title: `${cat} articles`,
-    description: `Every ${cat.toLowerCase()} article from FinalOutreach — tactics, frameworks, and teardowns from a team that has booked 12,400+ B2B meetings.`,
+    description: `Every ${cat.toLowerCase()} article from FinalOutreach — tactics, frameworks, and teardowns on cold email and B2B outbound.`,
     alternates: { canonical: `/blog/category/${slug}` },
   }
 }
@@ -42,7 +42,7 @@ export default async function BlogCategoryPage({ params }: { params: Promise<Par
     <PageShell
       eyebrow={`Category: ${cat}`}
       title={`${cat} articles`}
-      description={`Every article we have published in ${cat}. Practical, no-fluff tactics from our work booking 12,400+ qualified meetings.`}
+      description={`Every article we have published in ${cat}. Practical, no-fluff tactics from live outbound work.`}
       breadcrumbs={[
         { label: "Home", href: "/" },
         { label: "Blog", href: "/blog" },

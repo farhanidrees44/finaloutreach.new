@@ -25,12 +25,11 @@ export async function generateMetadata({
   // Pick a tight, click-worthy description: result-led if possible.
   const description =
     cs.results[0] && cs.results[0].length <= 160
-      ? `${cs.client} (${cs.industry}) — ${cs.results[0]}.`
+      ? `${cs.industry} outbound — ${cs.results[0]}.`
       : cs.challenge.slice(0, 160)
 
-  // Keywords mined from concrete fields keep the tags accurate and useful.
+  // Keywords mined from industry fields — no invented company-name targeting.
   const keywords = [
-    `${cs.client} case study`,
     `${cs.industry} cold email case study`,
     `${cs.industry} lead generation case study`,
     `B2B outbound case study`,
@@ -41,30 +40,21 @@ export async function generateMetadata({
   const url = `${SITE.domain}/case-studies/${cs.slug}`
 
   return {
-    title: `${cs.client} — ${cs.headline}`,
+    title: `${cs.industry} outbound case study — ${cs.timeline}`,
     description,
     keywords,
     alternates: { canonical: `/case-studies/${cs.slug}` },
     openGraph: {
       type: "article",
-      title: `${cs.client} case study — ${cs.headline}`,
+      title: `${cs.headline}`,
       description,
       url,
       siteName: SITE.name,
-      images: [
-        {
-          url: `${SITE.domain}/og.jpg`,
-          width: 1200,
-          height: 630,
-          alt: `${cs.client} case study — ${cs.headline}`,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${cs.client} — ${cs.headline}`,
+      title: cs.headline,
       description,
-      images: [`${SITE.domain}/og.jpg`],
     },
   }
 }

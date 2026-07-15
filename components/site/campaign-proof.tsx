@@ -82,9 +82,9 @@ export function CampaignProofGallery() {
               <span className="font-serif-italic text-ink-60">screenshots.</span>
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
-              Anonymized dashboards from work we actually ran — industry and stage
-              only, unless a client has approved naming. Cards below are ready for
-              upload.
+              Live campaign and booking-density screenshots — industry and stage
+              only. Named company logos and faces appear only with written
+              permission.
             </p>
           </div>
           <div className="flex gap-2">

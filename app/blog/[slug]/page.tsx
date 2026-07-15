@@ -175,8 +175,8 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
             Want us to run this playbook for your team?
           </h2>
           <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-            We have booked 12,400+ qualified meetings using exactly the frameworks above. If you would rather not run
-            it yourself, we will run it for you.
+            Prefer a done-for-you team? We run the same infrastructure, copy, and
+            reply handling for B2B companies that would rather not build it in-house.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <CtaButton href={SITE.calendly}>Book a strategy call</CtaButton>

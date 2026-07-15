@@ -32,14 +32,14 @@ export function CaseStudies() {
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
               Named companies and faces appear only with written permission.
-              Slots below are placeholders until those permissions are in place.
+              Browse anonymized industry breakdowns, or book a call for live examples.
             </p>
           </div>
           <Link
             href="/case-studies"
             className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink"
           >
-            <span className="link-underline">Browse case study pages</span>
+            <span className="link-underline">View anonymized case studies</span>
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
         </div>

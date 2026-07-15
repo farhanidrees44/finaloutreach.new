@@ -23,6 +23,7 @@ import {
   serviceSchema,
   faqSchema,
 } from "@/lib/seo/schemas"
+import { walkthroughVideoSchema } from "@/lib/seo/video"
 import { HOMEPAGE_FAQ } from "@/data/homepage-faq"
 import { SITE } from "@/lib/site-data"
 
@@ -54,6 +55,7 @@ export default function HomePage() {
               answer: item.answer,
             })),
           ),
+          walkthroughVideoSchema(),
         ]}
       />
       <SmoothScroll>
