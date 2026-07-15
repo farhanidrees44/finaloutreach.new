@@ -5,68 +5,18 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Plus } from "lucide-react"
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
-
-const QA = [
-  {
-    q: "How quickly can we start?",
-    a: "Kickoff happens within 5 business days of signing. First emails go out around day 21 once domains are warmed properly.",
-  },
-  {
-    q: "What's the minimum commitment?",
-    a: "Three months. Cold outreach needs at least one full optimization cycle before you can fairly judge it.",
-  },
-  {
-    q: "Do you guarantee meetings?",
-    a: "We guarantee inbox placement, response volume, and process — not specific meeting counts. Anyone who promises numbers is lying.",
-  },
-  {
-    q: "What industries do you work with?",
-    a: "B2B SaaS, agencies, consulting, professional services, fintech. We pass on anything that needs to sell to gatekeepers.",
-  },
-  {
-    q: "How is this different from Belkins or Martal?",
-    a: "Smaller roster, senior strategists own the account, and our copy isn't templated. We take 10 clients per quarter, not 100.",
-  },
-  {
-    q: "What happens to leads we don't close?",
-    a: "All replies, lists, and contact data are yours. We hand off a fully enriched CRM-ready file at the end of the engagement.",
-  },
-  {
-    q: "Can we see real campaign data?",
-    a: "Yes. On the strategy call we'll show you anonymized dashboards from current clients in similar industries.",
-  },
-  {
-    q: "What if it doesn't work?",
-    a: "Months 2 and 3 are at 50% if your campaign hasn't hit its agreed reply rate threshold. We share the risk.",
-  },
-]
-
-// FAQPage schema — drives Google rich snippets (answer expanders in search).
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: QA.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-}
+import { HOMEPAGE_FAQ } from "@/data/homepage-faq"
 
 export function Faq() {
   const [openIdx, setOpenIdx] = useState<number | null>(0)
 
   return (
-    <section className="border-t border-ink-08 bg-background">
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
+    <section id="faq" className="border-t border-ink-08 bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[360px_1fr] lg:gap-20">
           <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
-            <SectionEyebrow number="08" label="Questions" />
-            <h2 className="text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[52px]">
+            <SectionEyebrow number="10" label="Questions" />
+            <h2 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
               Common questions,{" "}
               <span className="font-serif-italic text-ink-60">honest</span>{" "}
               answers.
@@ -78,11 +28,11 @@ export function Faq() {
           </div>
 
           <ul className="flex flex-col">
-            {QA.map((item, i) => {
+            {HOMEPAGE_FAQ.map((item, i) => {
               const open = openIdx === i
               return (
                 <motion.li
-                  key={item.q}
+                  key={item.question}
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -96,7 +46,7 @@ export function Faq() {
                     className="group flex w-full items-start justify-between gap-6 py-6 text-left"
                   >
                     <h3 className="text-[17px] font-medium leading-tight tracking-tight text-ink sm:text-[18px]">
-                      {item.q}
+                      {item.question}
                     </h3>
                     <span
                       className={cn(
@@ -123,7 +73,7 @@ export function Faq() {
                         className="overflow-hidden"
                       >
                         <p className="max-w-2xl pb-7 pr-12 text-[15px] leading-[1.7] text-ink-60">
-                          {item.a}
+                          {item.answer}
                         </p>
                       </motion.div>
                     )}

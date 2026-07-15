@@ -5,9 +5,11 @@ import { useInView } from "framer-motion"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Linkedin, Twitter, Youtube } from "lucide-react"
+import Image from "next/image"
 import { Logo } from "./logo"
 import { NewsletterForm } from "./newsletter-form"
 import { SITE } from "@/lib/site-data"
+import { CERTIFICATIONS } from "@/data/certifications"
 
 type FooterLink = { label: string; href: string }
 
@@ -101,8 +103,8 @@ export function Footer() {
             <Logo />
             
             <p className="max-w-sm text-[15px] leading-[1.7] text-ink-60">
-              The cold outreach partner trusted by 200+ B2B companies to fill
-              their pipelines with high-intent prospects.
+              Done-for-you cold email, LinkedIn outreach, and appointment
+              setting — run by operators who live in the tools, not slide decks.
             </p>
 
             {/* Newsletter */}
@@ -177,8 +179,32 @@ export function Footer() {
           </motion.div>
         </div>
 
+        {/* Credential strip — secondary trust touchpoint */}
+        <motion.div variants={itemVariants} className="my-10">
+          <p className="mb-4 text-[11px] uppercase tracking-[0.16em] text-ink-40">
+            Credentials
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            {CERTIFICATIONS.map((c) => (
+              <div
+                key={c.id}
+                className="relative h-12 w-12 overflow-hidden rounded-md border border-ink-08 bg-cream/60"
+                title={`${c.title} · ${c.issuer}`}
+              >
+                <Image
+                  src={c.certificateImage}
+                  alt={`${c.title} badge`}
+                  fill
+                  className="object-contain p-1"
+                  sizes="48px"
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Divider */}
-        <motion.div variants={itemVariants} className="my-12 h-px bg-ink-08" />
+        <motion.div variants={itemVariants} className="mb-12 h-px bg-ink-08" />
 
         {/* Bottom bar */}
         <motion.div

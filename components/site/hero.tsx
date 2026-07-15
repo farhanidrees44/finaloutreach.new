@@ -1,90 +1,118 @@
 "use client"
 
+import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
-import { ScarcityBadge } from "./scarcity-badge"
 import { MagneticButton } from "./magnetic-button"
-import { WebGLGradient } from "./webgl-gradient"
-import { VimeoEmbed } from "./vimeo-embed"
-import { SITE } from "@/lib/site-data"
+import { HeroBackground } from "./hero-background"
 
-const HERO_VIDEO_URL =
-  process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "https://youtu.be/H4ddyQjC9As"
+const headlineLines = [
+  ["Cold", "email,", "LinkedIn,", "and"],
+  ["appointment", "setting —"],
+  ["__run", "by", "operators."],
+]
+
+const container = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.12 },
+  },
+}
+
+const wordVariants = {
+  hidden: { y: "110%", opacity: 0 },
+  visible: {
+    y: "0%",
+    opacity: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+}
 
 export function Hero() {
-  return (
-    <section className="noise-bg relative isolate overflow-hidden pb-24 pt-20 sm:pt-24 md:pb-32 md:pt-28">
-      <WebGLGradient />
+  const reduced = useReducedMotion()
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-32 -top-32 -z-10 size-96 rounded-full opacity-20 blur-3xl conic-shimmer"
-      />
+  return (
+    <section className="noise-bg relative isolate overflow-hidden pb-20 pt-20 sm:pt-28 md:pb-24 md:pt-32">
+      <HeroBackground />
+
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 -z-10 h-[640px] grid-lines opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
       />
 
-      <div className="mx-auto max-w-[88rem] px-6 md:px-10 lg:px-12">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,8fr)] lg:gap-12 xl:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] xl:gap-16">
-          <div className="flex flex-col items-start text-left">
-            <ScarcityBadge />
+      <div className="mx-auto flex max-w-5xl flex-col items-center px-6 text-center">
+        <motion.p
+          initial={reduced ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-[12px] uppercase tracking-[0.2em] text-ink-40"
+        >
+          Done-for-you B2B outbound
+        </motion.p>
 
-            <h1 className="mt-6 text-balance font-display text-[40px] font-medium leading-[1.02] tracking-[-0.02em] text-ink sm:text-[52px] lg:text-[58px] xl:text-[64px]">
-              Outbound that books{" "}
-              <span className="relative whitespace-nowrap">
-                <span className="font-serif-italic text-[1.08em] gradient-text-animated">
-                  real
-                </span>
-              </span>{" "}
-              meetings.
-            </h1>
+        <motion.h1
+          variants={container}
+          initial={reduced ? false : "hidden"}
+          animate="visible"
+          className="mt-7 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-display text-ink"
+        >
+          {headlineLines.map((line, lineIdx) => (
+            <span key={lineIdx} className="block overflow-hidden pb-[0.04em]">
+              <span className="inline-flex flex-wrap justify-center gap-x-[0.22em] gap-y-1">
+                {line.map((word, wordIdx) => {
+                  const isItalic = word.startsWith("__")
+                  const display = isItalic ? word.slice(2) : word
+                  return (
+                    <span key={`${lineIdx}-${wordIdx}`} className="inline-block overflow-hidden">
+                      <motion.span
+                        variants={reduced ? undefined : wordVariants}
+                        className={
+                          isItalic
+                            ? "inline-block font-serif-italic text-[1.08em] gradient-text-animated"
+                            : "inline-block"
+                        }
+                      >
+                        {display}
+                      </motion.span>
+                      {wordIdx < line.length - 1 && " "}
+                    </span>
+                  )
+                })}
+              </span>
+            </span>
+          ))}
+        </motion.h1>
 
-            <p className="mt-6 max-w-xl text-pretty text-[17px] leading-[1.55] text-ink-60 sm:text-[18px]">
-              Hand-built targeting, deliverability-first infrastructure, and
-              SDRs who close — one team, no agency layers.
-            </p>
+        <motion.p
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: reduced ? 0 : 0.75 }}
+          className="mt-8 max-w-2xl text-pretty text-[17px] leading-[1.6] text-ink-60 sm:text-[19px]"
+        >
+          A small hands-on team that builds lists, warms domains, writes
+          sequences, and books meetings into your calendar — not a slide-deck
+          consultancy.
+        </motion.p>
 
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
-              <MagneticButton href={SITE.calendly} size="lg" variant="primary">
-                Book a strategy call
-              </MagneticButton>
-              <a
-                href="/case-studies"
-                className="group inline-flex items-center gap-1.5 px-2 py-3 text-[15px] font-medium text-ink"
-              >
-                <span className="link-underline">See case studies</span>
-                <ArrowUpRight
-                  className="size-[18px] text-ink transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  strokeWidth={1.75}
-                />
-              </a>
-            </div>
-          </div>
-
-          <div id="hero-video" className="relative w-full scroll-mt-24">
-            {/* Soft purple/blue ambient glow */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_center,oklch(0.55_0.24_295/0.22),transparent_70%)] blur-3xl"
-            />
-            {/* Secondary cyan glow for depth */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-10 -right-10 -z-10 size-72 rounded-full bg-[radial-gradient(circle,oklch(0.74_0.16_200/0.25),transparent_70%)] blur-2xl"
-            />
-            {/* Gradient ring frame */}
-            <div className="relative rounded-[2rem] bg-gradient-to-br from-vibrant-purple/30 via-vibrant-blue/20 to-vibrant-cyan/30 p-[2px] shadow-[0_40px_120px_-30px_rgba(80,40,200,0.45)]">
-              <div className="overflow-hidden rounded-[calc(2rem-2px)] bg-card">
-                <VimeoEmbed
-                  url={HERO_VIDEO_URL}
-                  title="FinalOutreach in 90 seconds"
-                  className="!max-w-none !rounded-none !border-0 !shadow-none"
-                  autoplay
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <motion.div
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: reduced ? 0 : 0.9 }}
+          className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
+        >
+          <MagneticButton href="/contact" size="lg" variant="primary">
+            Book a strategy call
+          </MagneticButton>
+          <a
+            href="#campaign-proof"
+            className="group inline-flex items-center gap-1.5 px-2 py-3 text-[15px] font-medium text-ink"
+          >
+            <span className="link-underline">See the proof</span>
+            <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        </motion.div>
       </div>
     </section>
   )

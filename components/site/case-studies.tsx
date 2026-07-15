@@ -153,7 +153,7 @@ export function CaseStudies() {
         {/* Header */}
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionEyebrow number="03" label="Case studies" />
+            <SectionEyebrow number="08" label="Case studies" />
             <h2
               id={headingId}
               className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]"

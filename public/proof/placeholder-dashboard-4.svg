@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="Placeholder LinkedIn campaign metrics">
+  <rect width="960" height="600" fill="#FAFAF7"/>
+  <rect x="32" y="32" width="896" height="536" rx="16" fill="#fff" stroke="#E5E2DA"/>
+  <rect x="56" y="80" width="828" height="40" rx="8" fill="#F0EDE6"/>
+  <rect x="56" y="140" width="828" height="40" rx="8" fill="#F0EDE6"/>
+  <rect x="56" y="200" width="828" height="40" rx="8" fill="#F0EDE6"/>
+  <rect x="56" y="260" width="828" height="40" rx="8" fill="#F0EDE6"/>
+  <rect x="56" y="320" width="828" height="40" rx="8" fill="#F0EDE6"/>
+  <text x="480" y="420" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" fill="#8A8578">SAMPLE  LinkedIn metrics placeholder</text>
+  <text x="480" y="450" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#B0AB9F">Placeholder dashboard 4</text>
+</svg>

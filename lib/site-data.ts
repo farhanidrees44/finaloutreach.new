@@ -16,7 +16,7 @@ export const SITE = {
   domain: "https://www.finaloutreach.com",
   tagline: "Cold email and lead generation for B2B teams",
   description:
-    "We book qualified sales meetings for B2B teams that actually want to grow. $47M+ pipeline generated. 12,400+ meetings booked. Trusted by 200+ companies.",
+    "Done-for-you cold email, LinkedIn outreach, and appointment setting for B2B teams — run by operators who live in the tools, not slide decks.",
   email: "hello@finaloutreach.com",
   location: "Remote — Americas & EMEA",
   twitter: "@finaloutreach",

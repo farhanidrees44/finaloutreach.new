@@ -49,8 +49,8 @@ export function Pricing() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionEyebrow number="09" label="Pricing" />
-            <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]">
+            <SectionEyebrow number="11" label="Pricing" />
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.05] tracking-display text-ink">
               Simple, transparent{" "}
               <span className="font-serif-italic text-ink-60">
                 engagements.
@@ -58,7 +58,7 @@ export function Pricing() {
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
-            Pick a starting point. We'll customize the rest on the call.
+            Pick a starting point. We&apos;ll customize the rest on the call.
           </p>
         </div>
 
@@ -71,14 +71,14 @@ export function Pricing() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.06 }}
               className={cn(
-                "group relative grid grid-cols-1 gap-8 rounded-2xl border bg-background p-7 transition-all duration-300 hover:-translate-y-0.5 sm:p-9 lg:grid-cols-[260px_1fr_280px] lg:items-center lg:gap-10",
+                "group relative grid grid-cols-1 gap-8 rounded-2xl border bg-background p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-32px_rgba(20,20,16,0.45)] sm:p-9 lg:grid-cols-[260px_1fr_280px] lg:items-center lg:gap-10",
                 p.featured
-                  ? "border-ink/80 hover:border-ink"
+                  ? "scale-[1.01] border-primary/50 shadow-[0_0_0_1px_oklch(0.55_0.14_155/0.25),0_20px_50px_-28px_oklch(0.55_0.14_155/0.45)] hover:border-primary"
                   : "border-ink-08 hover:border-ink/25",
               )}
             >
               {p.featured && (
-                <span className="absolute -top-3 left-7 rounded-full bg-ink px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-background">
+                <span className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-primary-foreground">
                   Most popular
                 </span>
               )}
