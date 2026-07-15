@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Navigation } from "@/components/site/navigation"
+import { SiteNavigation } from "@/components/site/site-navigation"
 import { Hero } from "@/components/site/hero"
 import { OurStackMarquee } from "@/components/site/our-stack-marquee"
 import { Certifications } from "@/components/site/certifications"
@@ -59,7 +59,7 @@ export default function HomePage() {
       />
       <SmoothScroll>
         <div className="relative min-h-screen bg-background text-ink">
-          <Navigation />
+          <SiteNavigation />
           <main id="main">
             <Hero />
             <OurStackMarquee />
