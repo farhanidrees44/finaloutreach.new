@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Instrument_Serif, Bricolage_Grotesque } from "next/f
 import { Analytics } from "@vercel/analytics/next"
 import { SITE } from "@/lib/site-data"
 import { AnalyticsScripts } from "@/components/site/analytics-scripts"
+import { JsonLd } from "@/components/seo/json-ld"
+import { organizationSchema } from "@/lib/seo/schemas"
 import "./globals.css"
 
 const geistSans = Geist({
@@ -115,6 +117,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${bricolage.variable} bg-background`}
     >
       <body className="font-sans antialiased">
+        <JsonLd data={organizationSchema()} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-background"

@@ -184,16 +184,16 @@ export function Footer() {
           <p className="mb-4 text-[11px] uppercase tracking-[0.16em] text-ink-40">
             Credentials
           </p>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             {CERTIFICATIONS.map((c) => (
               <div
                 key={c.id}
-                className="relative h-12 w-12 overflow-hidden rounded-md border border-ink-08 bg-cream/60"
+                className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-ink-08 bg-cream/60"
                 title={`${c.title} · ${c.issuer}`}
               >
                 <Image
                   src={c.certificateImage}
-                  alt={`${c.title} badge`}
+                  alt={`${c.title} badge from ${c.issuer}`}
                   fill
                   className="object-contain p-1"
                   sizes="48px"

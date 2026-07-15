@@ -44,14 +44,16 @@ export function Certifications() {
               )}
 
               <div className="relative flex aspect-[4/3] items-center justify-center bg-ink/[0.03] p-6">
-                <Image
-                  src={cert.certificateImage}
-                  alt={`${cert.title} certificate from ${cert.issuer}`}
-                  width={280}
-                  height={280}
-                  className="max-h-full w-auto object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
+                <div className="relative mx-auto aspect-square w-full max-w-[200px]">
+                  <Image
+                    src={cert.certificateImage}
+                    alt={`${cert.title} credential badge issued by ${cert.issuer}`}
+                    fill
+                    className="object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
+                    sizes="200px"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
               <div className="flex flex-1 flex-col gap-2 p-5">

@@ -1,165 +1,116 @@
 "use client"
 
-/**
- * Recognizable monochrome wordmarks for tools we operate.
- * Logos shown for identification only — not partnership claims.
- * Prefer official brand-kit SVGs when replacing these marks.
- */
+/** Compact 24px icon marks — same visual weight for every tool. */
 
-import type { ReactElement, ReactNode } from "react"
+import type { ReactElement } from "react"
 
-type LogoProps = {
-  title?: string
-  className?: string
-}
+type MarkProps = { className?: string; title?: string }
 
-function Wordmark({
-  title,
-  className,
-  children,
-}: {
-  title: string
-  className?: string
-  children: ReactNode
-}) {
+export function ApolloIcon({ className, title = "Apollo" }: MarkProps) {
   return (
-    <svg
-      viewBox="0 0 160 40"
-      role="img"
-      aria-label={title}
-      className={className}
-      fill="currentColor"
-    >
-      <title>{title}</title>
-      {children}
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 3.2a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8Zm0 13.1a7.4 7.4 0 0 1-5.5-2.5 1.2 1.2 0 0 1 .2-1.7 8.6 8.6 0 0 1 10.6 0 1.2 1.2 0 0 1 .2 1.7 7.4 7.4 0 0 1-5.5 2.5Z" />
     </svg>
   )
 }
 
-export function ApolloMark({ title = "Apollo", className }: LogoProps) {
+export function ZoomInfoIcon({ className, title = "ZoomInfo" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <circle cx="14" cy="20" r="10" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <circle cx="14" cy="20" r="3.5" />
-      <text x="32" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="18" letterSpacing="-0.5">
-        Apollo
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M4 5h7.2L7.6 12 11.2 19H4l3.6-7L4 5Zm8.8 0H20l-3.6 7L20 19h-7.2l3.6-7-3.6-7Z" />
+    </svg>
   )
 }
 
-export function ZoomInfoMark({ title = "ZoomInfo", className }: LogoProps) {
+export function SmartleadIcon({ className, title = "Smartlead" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <text x="0" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="18" letterSpacing="-0.6">
-        ZoomInfo
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M5 20V4l7 8 7-8v16" strokeLinejoin="round" />
+    </svg>
   )
 }
 
-export function SmartleadMark({ title = "Smartlead", className }: LogoProps) {
+export function InstantlyIcon({ className, title = "Instantly" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <path d="M8 28 V12 l8 10 8-10 v16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-      <text x="32" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="17" letterSpacing="-0.5">
-        Smartlead
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M13 2 4 14h6l-1 8 11-14h-6l-1-6Z" />
+    </svg>
   )
 }
 
-export function InstantlyMark({ title = "Instantly", className }: LogoProps) {
+export function GoHighLevelIcon({ className, title = "GoHighLevel" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <path d="M12 8 L20 20 H14 L18 32 L8 18 H14 Z" />
-      <text x="28" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="17" letterSpacing="-0.5">
-        Instantly
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M6 18V9l4 4.5L14 7l4 11H6Zm8.5-3.2L14 11.2l-1.5 3.6h2Z" />
+    </svg>
   )
 }
 
-export function GoHighLevelMark({ title = "GoHighLevel", className }: LogoProps) {
+export function HubSpotIcon({ className, title = "HubSpot" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <text x="0" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="15" letterSpacing="-0.4">
-        GoHighLevel
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <circle cx="7" cy="8" r="2.2" />
+      <circle cx="17" cy="8" r="2.2" />
+      <circle cx="12" cy="16" r="2.2" />
+      <path d="M7 8h10M7 8l5 8M17 8l-5 8" fill="none" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
   )
 }
 
-export function HubSpotStackMark({ title = "HubSpot", className }: LogoProps) {
+export function ClayIcon({ className, title = "Clay" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <circle cx="8" cy="12" r="4" />
-      <circle cx="22" cy="12" r="4" />
-      <circle cx="15" cy="26" r="4" />
-      <path d="M8 12 L22 12 M8 12 L15 26 M22 12 L15 26" stroke="currentColor" strokeWidth="1.6" fill="none" />
-      <text x="34" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="17" letterSpacing="-0.5">
-        HubSpot
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M4 18a8 8 0 0 1 16 0" />
+      <path d="M7 18a5 5 0 0 1 10 0" />
+      <path d="M10 18a2 2 0 0 1 4 0" />
+    </svg>
   )
 }
 
-export function ClayMark({ title = "Clay", className }: LogoProps) {
+export function HeyReachIcon({ className, title = "HeyReach" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <path d="M6 28 a12 12 0 0 1 24 0" fill="none" stroke="currentColor" strokeWidth="3" />
-      <path d="M10 28 a8 8 0 0 1 16 0" fill="none" stroke="currentColor" strokeWidth="3" />
-      <path d="M14 28 a4 4 0 0 1 8 0" fill="none" stroke="currentColor" strokeWidth="3" />
-      <text x="40" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="18" letterSpacing="-0.5">
-        Clay
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M8 11a4 4 0 1 1 8 0v7h-2.2v-6.5a1.8 1.8 0 1 0-3.6 0V18H8v-7Z" />
+      <path d="M3 10h2.5M5 7.5 6.8 9M5 12.5 6.8 11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
   )
 }
 
-export function HeyReachMark({ title = "HeyReach", className }: LogoProps) {
+export function LemlistIcon({ className, title = "lemlist" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <text x="0" y="27" fontFamily="Georgia,serif" fontWeight="600" fontSize="18" letterSpacing="-0.3">
-        heyreach
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M4 5h3v14H4V5Zm5 7c0-4.4 3-7 7.2-7C20.5 5 22 7.2 22 10.4c0 4.3-3.1 7.6-8.2 7.6H9V12Zm3.1 0v3.4h1.7c2.7 0 4.3-1.5 4.3-3.6 0-1.9-1.3-3.1-3.4-3.1-1.8 0-2.6 1-2.6 3.3Z" />
+    </svg>
   )
 }
 
-export function LemlistMark({ title = "lemlist", className }: LogoProps) {
+export function SalesforceIcon({ className, title = "Salesforce" }: MarkProps) {
   return (
-    <Wordmark title={title} className={className}>
-      <text x="0" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="18" letterSpacing="-0.6">
-        lemlist
-      </text>
-    </Wordmark>
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M10.2 6.2a3.6 3.6 0 0 1 3.3-2.1c1.3 0 2.4.6 3.1 1.6A4.1 4.1 0 0 1 21 9.8a3.7 3.7 0 0 1-1.1 7h-9.2A4.6 4.6 0 0 1 6 12.6c0-.5.1-1 .2-1.4A3.9 3.9 0 0 1 10.2 6.2Z" />
+    </svg>
   )
 }
 
-export function SalesforceMark({ title = "Salesforce", className }: LogoProps) {
-  return (
-    <Wordmark title={title} className={className}>
-      <ellipse cx="18" cy="20" rx="16" ry="12" fill="none" stroke="currentColor" strokeWidth="2" />
-      <text x="40" y="27" fontFamily="ui-sans-serif,system-ui,sans-serif" fontWeight="700" fontSize="15" letterSpacing="-0.4">
-        Salesforce
-      </text>
-    </Wordmark>
-  )
-}
-
-export const STACK_LOGO_MAP: Record<
-  string,
-  (props: LogoProps) => ReactElement
-> = {
-  apollo: ApolloMark,
-  zoominfo: ZoomInfoMark,
-  smartlead: SmartleadMark,
-  instantly: InstantlyMark,
-  gohighlevel: GoHighLevelMark,
-  hubspot: HubSpotStackMark,
-  clay: ClayMark,
-  heyreach: HeyReachMark,
-  lemlist: LemlistMark,
-  salesforce: SalesforceMark,
+export const STACK_ICON_MAP: Record<string, (p: MarkProps) => ReactElement> = {
+  apollo: ApolloIcon,
+  zoominfo: ZoomInfoIcon,
+  smartlead: SmartleadIcon,
+  instantly: InstantlyIcon,
+  gohighlevel: GoHighLevelIcon,
+  hubspot: HubSpotIcon,
+  clay: ClayIcon,
+  heyreach: HeyReachIcon,
+  lemlist: LemlistIcon,
+  salesforce: SalesforceIcon,
 }

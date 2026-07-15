@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { SiteNavigation } from "@/components/site/site-navigation"
 import { Hero } from "@/components/site/hero"
+import { VideoSection } from "@/components/site/video-section"
 import { OurStackMarquee } from "@/components/site/our-stack-marquee"
 import { Certifications } from "@/components/site/certifications"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
@@ -18,7 +19,6 @@ import { StickyMobileCta } from "@/components/site/sticky-mobile-cta"
 import { SmoothScroll } from "@/components/site/smooth-scroll"
 import { JsonLd } from "@/components/seo/json-ld"
 import {
-  organizationSchema,
   websiteSchema,
   serviceSchema,
   faqSchema,
@@ -46,7 +46,6 @@ export default function HomePage() {
     <>
       <JsonLd
         data={[
-          organizationSchema(),
           websiteSchema(),
           serviceSchema(),
           faqSchema(
@@ -62,6 +61,7 @@ export default function HomePage() {
           <SiteNavigation />
           <main id="main">
             <Hero />
+            <VideoSection />
             <OurStackMarquee />
             <Certifications />
             <CampaignProofGallery />

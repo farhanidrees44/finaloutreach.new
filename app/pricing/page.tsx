@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { ArrowRight, Check } from "lucide-react"
 import { Breadcrumbs, PageCta, PageHeader, PageShell } from "@/components/site/page-shell"
 import { RelatedLinks } from "@/components/site/related-links"
+import { JsonLd } from "@/components/seo/json-ld"
+import { faqSchema } from "@/lib/seo/schemas"
 import { SITE } from "@/lib/site-data"
 
 export const metadata: Metadata = {
@@ -11,6 +12,29 @@ export const metadata: Metadata = {
     "Straightforward pricing for our cold email, LinkedIn, appointment setting, and infrastructure services. No lock-in, no hidden fees.",
   alternates: { canonical: "/pricing" },
 }
+
+const PRICING_FAQ = [
+  {
+    question: "Do you charge a setup fee?",
+    answer:
+      "For Launch and Growth, no. Enterprise engagements may include a one-time setup fee for complex data and infrastructure work.",
+  },
+  {
+    question: "How long is the contract?",
+    answer:
+      "90-day initial commitment, then month-to-month. No auto-renewals, no lock-in.",
+  },
+  {
+    question: "Who owns the data?",
+    answer:
+      "You do. Domains, mailboxes, contact lists, CRM data — all yours. We transfer everything if we ever part ways.",
+  },
+  {
+    question: "How fast until I see meetings?",
+    answer:
+      "Most clients see their first qualified meetings inside 3–4 weeks. Infrastructure warm-up takes 2 weeks, then the first campaign launches.",
+  },
+]
 
 const TIERS = [
   {
@@ -66,6 +90,7 @@ export default function PricingPage() {
   ]
   return (
     <PageShell breadcrumbs={crumbs}>
+      <JsonLd data={faqSchema(PRICING_FAQ)} />
       <Breadcrumbs items={crumbs} />
       <PageHeader
         eyebrow="Pricing"
@@ -140,15 +165,10 @@ export default function PricingPage() {
       <section className="border-t border-ink-08 bg-cream">
         <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-            {[
-              { q: "Do you charge a setup fee?", a: "For Launch and Growth, no. Enterprise engagements may include a one-time setup fee for complex data and infrastructure work." },
-              { q: "How long is the contract?", a: "90-day initial commitment, then month-to-month. No auto-renewals, no lock-in." },
-              { q: "Who owns the data?", a: "You do. Domains, mailboxes, contact lists, CRM data — all yours. We transfer everything if we ever part ways." },
-              { q: "How fast until I see meetings?", a: "Most clients see their first qualified meetings inside 3–4 weeks. Infrastructure warm-up takes 2 weeks, then the first campaign launches." },
-            ].map((f) => (
-              <div key={f.q}>
-                <h3 className="text-[22px] font-medium tracking-display text-ink">{f.q}</h3>
-                <p className="mt-3 text-[15px] leading-[1.65] text-ink-60">{f.a}</p>
+            {PRICING_FAQ.map((f) => (
+              <div key={f.question}>
+                <h3 className="text-[22px] font-medium tracking-display text-ink">{f.question}</h3>
+                <p className="mt-3 text-[15px] leading-[1.65] text-ink-60">{f.answer}</p>
               </div>
             ))}
           </div>

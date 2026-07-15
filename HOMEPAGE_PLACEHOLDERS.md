@@ -1,58 +1,32 @@
 # Homepage rebuild — placeholder gate checklist
 
-This documents what must be real before shipping the rebuilt homepage to production.
+## Punch-list status (pre-launch review)
 
-## Data files to populate
+| Item | Status |
+|------|--------|
+| Hero headline visible on load | Fixed — direct `animate`, no whileInView stuck opacity |
+| Our Stack marquee | Fixed — LogoBadge + icon marks, CSS infinite loop, pause on hover |
+| Process section dead space | Fixed — compact step cards + per-step visuals (no 80vh voids) |
+| Campaign screenshots | Fixed — intentional “Screenshot pending upload” cards |
+| Case studies honesty | Fixed — `data/homepage-case-studies.ts` placeholders + SAMPLE ribbon |
+| Booking timezone | Fixed — visitor `Intl` timezone; Calendly owns slot TZ |
+| Video section | Added — placeholder poster + play; set `VIDEO_SRC` when ready |
+| LogoBadge consistency | Added — used on Our Stack; certs/footer use fixed square boxes |
+| Org / FAQ / Service JSON-LD | Root Organization; homepage + pricing FAQ; services Service |
+| `/llms.txt` | Served via `app/llms.txt/route.ts` |
 
-| File | Status | What you need |
-|------|--------|---------------|
-| `data/certifications.ts` | **Ready** — badge images from your uploads in `/public/certifications` | Add public `verifyUrl` links where platforms expose them; confirm `dateEarned` |
-| `data/campaign-proof.ts` | **Placeholder-gated** | Replace SVG placeholders with real redacted campaign screenshots under `/public/proof`. Set `isPlaceholder: false` |
-| `data/bookings-proof.ts` | **Placeholder-gated** | Replace the anonymized booking array with real past appointments (role + industry/stage only). Keep `isLiveFeed: false` unless wired to a live API |
-| `data/testimonials.ts` | **Placeholder-gated** | Real quotes with written permission + real names/companies only. Set `isPlaceholder: false` |
-| `data/stack-tools.ts` | Ready | Optional: swap wordmarks for official brand-kit SVGs |
-| `data/homepage-faq.ts` | Ready | Shared by FAQ UI + FAQPage JSON-LD |
+## Data files to populate before honest launch
 
-## Sections with SAMPLE ribbons (dev only)
+| File | What you need |
+|------|---------------|
+| `data/certifications.ts` | Public `verifyUrl` links |
+| `data/campaign-proof.ts` | Real redacted screenshots; set `isPlaceholder: false` |
+| `data/bookings-proof.ts` | Real anonymized bookings |
+| `data/testimonials.ts` | Permissioned quotes |
+| `data/homepage-case-studies.ts` | Permissioned case cards |
+| `components/site/video-section.tsx` | Set `VIDEO_SRC` + real poster |
+| ResultsBar stats | Audited figures |
 
-`NODE_ENV !== "production"` shows amber **SAMPLE** ribbons on:
+## Still on you (not buildable by code alone)
 
-- Stats in `ResultsBar` (all four figures pending audit)
-- Campaign proof gallery items where `isPlaceholder: true`
-- Testimonial cards where `isPlaceholder: true`
-- Certification cards only when `isPlaceholder: true` (currently all real badges)
-
-These ribbons are stripped automatically in production builds. Still do **not** ship unverified stats/testimonials/campaign shots.
-
-## Non-negotiables already enforced
-
-1. **No “Trusted by [Stripe/Slack/…]”** — replaced by **Our Stack** marquee with identification disclaimer.
-2. **Tools ≠ clients** — Apollo, Instantly, GHL, HubSpot, Clay, HeyReach, etc. framed as tools we operate.
-3. **No invented testimonials** — old fabricated names removed; placeholders only until permission exists.
-4. **Bookings widget** labeled **Recent bookings / Showcase**, never “Live”.
-5. **Calendar screenshots you attached** (third-party personal calendars) were **not** used as proof assets — they informed the widget UX only.
-
-## Before deploy — quick pass
-
-- [ ] Swap campaign dashboard images + captions
-- [ ] Confirm or replace homepage stats with audited numbers
-- [ ] Add real testimonials (or hide the Voice section until ready)
-- [ ] Paste verification URLs into certifications
-- [ ] Confirm case studies on the page only use clients with naming permission
-- [ ] Push to `farhanidrees44/finaloutreach.new` (Vercel → `finaloutreach-new.vercel.app`)
-
-## New homepage section order
-
-1. Hero  
-2. Our Stack  
-3. Recognitions / Credentials  
-4. Campaign proof gallery (+ lightbox)  
-5. Bookings proof widget  
-6. Results (count-up)  
-7. Services  
-8. Process (scroll-linked)  
-9. Case studies  
-10. Testimonials (placeholder-gated)  
-11. FAQ (+ FAQPage JSON-LD)  
-12. Pricing  
-13. Final CTA  
+Real campaign screenshots, the video file/link, audited numbers, and permissioned testimonials/case studies.

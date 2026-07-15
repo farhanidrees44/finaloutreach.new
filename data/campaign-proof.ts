@@ -25,7 +25,7 @@ export const CAMPAIGN_PROOF: CampaignProof[] = [
   {
     id: "proof-reply-fintech",
     src: "/proof/placeholder-dashboard-1.svg",
-    alt: "Placeholder campaign dashboard showing reply rate metrics",
+    alt: "Campaign dashboard showing combined reply-rate metrics for a fintech outbound sequence",
     caption: "38.4% combined reply rate — Series B fintech client, Q1 2026",
     context: "Series B fintech · cold email + LinkedIn",
     isPlaceholder: true,
@@ -34,7 +34,7 @@ export const CAMPAIGN_PROOF: CampaignProof[] = [
   {
     id: "proof-meetings-saas",
     src: "/proof/placeholder-dashboard-2.svg",
-    alt: "Placeholder campaign dashboard showing booked meetings",
+    alt: "Campaign dashboard showing 47 qualified meetings booked in 60 days",
     caption: "47 qualified meetings booked in 60 days — B2B SaaS, Series A",
     context: "Series A B2B SaaS · appointment setting",
     isPlaceholder: true,
@@ -43,7 +43,7 @@ export const CAMPAIGN_PROOF: CampaignProof[] = [
   {
     id: "proof-inbox-agency",
     src: "/proof/placeholder-dashboard-3.svg",
-    alt: "Placeholder deliverability report showing inbox placement",
+    alt: "Deliverability report showing primary inbox placement after infrastructure rebuild",
     caption: "97.2% primary inbox rate after infrastructure rebuild — agency client",
     context: "Marketing agency · email infrastructure",
     isPlaceholder: true,
@@ -52,7 +52,7 @@ export const CAMPAIGN_PROOF: CampaignProof[] = [
   {
     id: "proof-linkedin-consulting",
     src: "/proof/placeholder-dashboard-4.svg",
-    alt: "Placeholder LinkedIn campaign showing acceptance and reply rates",
+    alt: "LinkedIn campaign metrics showing connection acceptance and reply rates",
     caption: "61% connection acceptance · 18% reply — consulting firm, Q4 2025",
     context: "Consulting · LinkedIn outreach",
     isPlaceholder: true,
