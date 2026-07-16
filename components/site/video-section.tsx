@@ -7,17 +7,17 @@ import { motion, useReducedMotion } from "framer-motion"
 import { Play } from "lucide-react"
 import { SectionEyebrow } from "./section-eyebrow"
 import {
-  WALKTHROUGH_YOUTUBE_ID,
-  WALKTHROUGH_YOUTUBE_URL,
+  WALKTHROUGH_VIMEO_EMBED_URL,
+  WALKTHROUGH_VIMEO_URL,
 } from "@/lib/seo/video"
 
-const YT_EMBED = `https://www.youtube-nocookie.com/embed/${WALKTHROUGH_YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&color=white`
+const VIMEO_EMBED = `${WALKTHROUGH_VIMEO_EMBED_URL}&autoplay=1`
 const POSTER = "/proof/video-poster.jpg"
 
 /**
- * Custom play façade — no YouTube chrome until the visitor clicks play.
+ * Custom play façade — no Vimeo player until the visitor clicks play.
  * Does not autoplay on page load. Indexable via VideoObject JSON-LD +
- * canonical YouTube link (rendered for crawlers).
+ * canonical Vimeo link (rendered for crawlers).
  */
 export function VideoSection() {
   const reduced = useReducedMotion()
@@ -47,7 +47,7 @@ export function VideoSection() {
         >
           {playing ? (
             <iframe
-              src={YT_EMBED}
+              src={VIMEO_EMBED}
               title="FinalOutreach — how we run outbound for B2B teams"
               className="absolute inset-0 h-full w-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -84,14 +84,14 @@ export function VideoSection() {
         </motion.div>
 
         <p className="mt-5 text-center text-[13px] text-ink-40">
-          Prefer YouTube?{" "}
+          Prefer Vimeo?{" "}
           <Link
-            href={WALKTHROUGH_YOUTUBE_URL}
+            href={WALKTHROUGH_VIMEO_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-ink underline-offset-4 hover:underline"
           >
-            Watch on YouTube
+            Watch on Vimeo
           </Link>
         </p>
       </div>

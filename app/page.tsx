@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { SiteNavigation } from "@/components/site/site-navigation"
 import { Hero } from "@/components/site/hero"
 import { OurStackMarquee } from "@/components/site/our-stack-marquee"
-import { VideoSection } from "@/components/site/video-section"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
 import { BookingsProof } from "@/components/site/bookings-proof"
 import { ResultsBar } from "@/components/site/results-bar"
@@ -68,7 +67,6 @@ export default function HomePage() {
           <main id="main">
             <Hero />
             <OurStackMarquee />
-            <VideoSection />
             <CampaignProofGallery />
             <BookingsProof />
             <ResultsBar />
