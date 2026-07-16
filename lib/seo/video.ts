@@ -1,8 +1,7 @@
 import { SITE } from "@/lib/site-data"
 
-export const WALKTHROUGH_VIMEO_ID = "1210546084"
-export const WALKTHROUGH_VIMEO_URL = `https://vimeo.com/${WALKTHROUGH_VIMEO_ID}`
-export const WALKTHROUGH_VIMEO_EMBED_URL = `https://player.vimeo.com/video/${WALKTHROUGH_VIMEO_ID}?badge=0&autopause=0&player_id=0&app_id=58479`
+export const WALKTHROUGH_YOUTUBE_ID = "H4ddyQjC9As"
+export const WALKTHROUGH_YOUTUBE_URL = `https://www.youtube.com/watch?v=${WALKTHROUGH_YOUTUBE_ID}`
 
 export function walkthroughVideoSchema() {
   return {
@@ -13,8 +12,8 @@ export function walkthroughVideoSchema() {
       "A short walkthrough of FinalOutreach targeting, email infrastructure, sequencing, and appointment handoff for B2B teams.",
     thumbnailUrl: [`${SITE.domain}/proof/video-poster.jpg`],
     uploadDate: "2025-01-01",
-    contentUrl: WALKTHROUGH_VIMEO_URL,
-    embedUrl: WALKTHROUGH_VIMEO_EMBED_URL,
+    contentUrl: WALKTHROUGH_YOUTUBE_URL,
+    embedUrl: `https://www.youtube.com/embed/${WALKTHROUGH_YOUTUBE_ID}`,
     publisher: {
       "@type": "Organization",
       name: SITE.name,
