@@ -389,30 +389,54 @@
   @media (min-width: 768px) {
     .marquee-track--premium .marquee { animation-duration: 70s; }
   }
-  /* Logos carousel — clearly perceptible right→left motion at the same
-     pace as Stripe / Linear trust strips (~50-60 px/s). Faster than
-     the generic premium marquee so the "always-on" slide is obvious
-     even at a glance, but still slow enough that each chip is readable. */
+  /* Logos carousel — always-on right→left motion on phone/tablet/desktop.
+     Uses !important so OS “reduce motion” / nested rules can’t freeze it.
+     Hover pause is desktop-only; touch devices keep scrolling. */
   .marquee-track--logos .marquee {
-    animation: marquee 28s linear infinite;
+    animation: marquee 24s linear infinite !important;
+    animation-play-state: running !important;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform;
   }
   @media (min-width: 640px) {
-    .marquee-track--logos .marquee { animation-duration: 34s; }
+    .marquee-track--logos .marquee { animation-duration: 30s !important; }
   }
   @media (min-width: 1024px) {
-    .marquee-track--logos .marquee { animation-duration: 40s; }
+    .marquee-track--logos .marquee { animation-duration: 36s !important; }
   }
-  /* Pause only on devices that truly hover — keep continuous scroll on touch */
+  /* Pause only on fine-pointer hover — never on touch */
   @media (hover: hover) and (pointer: fine) {
-    .marquee-track:hover .marquee,
-    .marquee-track:focus-within .marquee { animation-play-state: paused; }
+    .marquee-track:not(.marquee-track--logos):hover .marquee,
+    .marquee-track:not(.marquee-track--logos):focus-within .marquee {
+      animation-play-state: paused;
+    }
+    .marquee-track--logos:hover .marquee,
+    .marquee-track--logos:focus-within .marquee {
+      animation-play-state: paused !important;
+    }
     .marquee-track:hover .marquee-premium,
     .marquee-track:focus-within .marquee-premium { animation-play-state: paused; }
   }
   .marquee-premium { animation: marquee 38s linear infinite; }
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  /* Hero decorative waves under the play button */
+  .hero-wave {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hero-wave-sway 2.8s ease-in-out infinite;
+  }
+  .hero-wave--a { animation-duration: 2.6s; }
+  .hero-wave--b { animation-duration: 3.2s; animation-delay: -0.7s; }
+  .hero-wave--c { animation-duration: 3.8s; animation-delay: -1.4s; }
+  @keyframes hero-wave-sway {
+    0%, 100% { transform: translateY(0) scaleX(1); }
+    33% { transform: translateY(-3px) scaleX(1.015); }
+    66% { transform: translateY(2px) scaleX(0.985); }
   }
 
   /* ───── EDGE FADES ───── */
@@ -708,11 +732,18 @@
 
   /* ───── REDUCE MOTION ───── */
   @media (prefers-reduced-motion: reduce) {
-    .marquee, .marquee-premium, .pulse-dot, .cta-pulse,
+    .marquee-track:not(.marquee-track--logos) .marquee,
+    .marquee-premium, .pulse-dot, .cta-pulse,
     .blob-drift-a, .blob-drift-b, .hero-mesh,
     .gradient-text-animated, .conic-shimmer,
-    .inbox-float, .reply-slide-in {
+    .inbox-float, .reply-slide-in,
+    .hero-wave {
       animation: none !important;
+    }
+    /* Stack logos keep scrolling on all devices (slower when OS asks for less motion) */
+    .marquee-track--logos .marquee {
+      animation: marquee 42s linear infinite !important;
+      animation-play-state: running !important;
     }
     .reveal-up {
       opacity: 1 !important;

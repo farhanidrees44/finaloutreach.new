@@ -50,6 +50,10 @@ function StackLogoCard({
   )
 }
 
+/**
+ * Our Stack — infinite RTL logo marquee.
+ * Motion is CSS-driven and forced on for all viewports (see globals.css).
+ */
 export function OurStackMarquee() {
   // Duplicate once for a seamless -50% translateX loop (right → left)
   const items = [...STACK_TOOLS, ...STACK_TOOLS]
@@ -70,9 +74,11 @@ export function OurStackMarquee() {
         </p>
       </div>
 
-      {/* Always-on RTL marquee — works on phone, tablet, desktop */}
       <div className="marquee-track marquee-track--logos relative overflow-hidden mask-fade-x-40 sm:mask-fade-x-80">
-        <div className="marquee flex w-max items-center gap-3 px-4 will-change-transform sm:gap-5 sm:px-6">
+        <div
+          className="marquee flex w-max items-center gap-3 px-4 sm:gap-5 sm:px-6"
+          style={{ animationPlayState: "running" }}
+        >
           {items.map((tool, idx) => (
             <StackLogoCard
               key={`${tool.id}-${idx}`}

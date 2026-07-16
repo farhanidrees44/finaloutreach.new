@@ -33,41 +33,79 @@ export function Hero() {
           <a
             href="#watch"
             aria-label="Watch how FinalOutreach runs outbound"
-            className="group relative z-10 grid size-14 place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_12px_40px_-16px_rgba(15,15,15,0.35)] transition-transform duration-300 hover:scale-105"
+            className="group relative z-10 grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.4)] transition-transform duration-300 hover:scale-105 sm:size-[5rem]"
           >
             <span
               aria-hidden
               className="absolute inset-0 animate-ping rounded-full bg-vibrant-purple/15 opacity-40 [animation-duration:2.4s]"
             />
-            <Play className="relative size-5 fill-ink pl-0.5" aria-hidden />
+            <Play className="relative size-6 fill-ink pl-0.5 sm:size-7" aria-hidden />
           </a>
           <svg
             aria-hidden
-            viewBox="0 0 420 36"
-            className="pointer-events-none -mt-3 h-9 w-full max-w-[420px]"
+            viewBox="0 0 420 40"
+            className="pointer-events-none -mt-2 h-10 w-full max-w-[440px] overflow-visible"
             fill="none"
           >
             <path
+              className="hero-wave hero-wave--a"
               d="M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20"
               stroke="oklch(0.62 0.18 250)"
-              strokeWidth="2.2"
+              strokeWidth="2.4"
               strokeLinecap="round"
-              opacity="0.55"
-            />
+              opacity="0.6"
+            >
+              <animate
+                attributeName="d"
+                dur="2.8s"
+                repeatCount="indefinite"
+                values="
+                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20;
+                  M8 18 C 70 28, 120 10, 180 26 S 300 22, 412 14;
+                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20
+                "
+              />
+            </path>
             <path
+              className="hero-wave hero-wave--b"
               d="M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24"
               stroke="oklch(0.55 0.24 295)"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
-              opacity="0.7"
-            />
+              opacity="0.75"
+            >
+              <animate
+                attributeName="d"
+                dur="3.4s"
+                begin="-0.8s"
+                repeatCount="indefinite"
+                values="
+                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24;
+                  M12 20 C 90 32, 140 14, 210 30 S 320 26, 408 16;
+                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24
+                "
+              />
+            </path>
             <path
+              className="hero-wave hero-wave--c"
               d="M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26"
               stroke="oklch(0.68 0.20 35)"
-              strokeWidth="1.6"
+              strokeWidth="1.8"
               strokeLinecap="round"
-              opacity="0.45"
-            />
+              opacity="0.5"
+            >
+              <animate
+                attributeName="d"
+                dur="4s"
+                begin="-1.5s"
+                repeatCount="indefinite"
+                values="
+                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26;
+                  M20 22 C 100 30, 160 16, 230 28 S 340 24, 400 18;
+                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26
+                "
+              />
+            </path>
           </svg>
         </motion.div>
 
