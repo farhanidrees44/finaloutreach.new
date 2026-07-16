@@ -33,15 +33,23 @@ import { SITE } from "@/lib/site-data"
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: "Booked Meetings from Cold Email & LinkedIn Outreach",
+  title: "FinalOutreach | The Last Cold Email Agency You'll Ever Hire",
   description:
-    "Done-for-you cold email, LinkedIn outreach, and appointment setting that puts qualified meetings on your calendar — warm domains, verified lists, sequences, and reply handling.",
+    "Most B2B teams burn 3-4 agencies before finding one that works. We're built to be your last one — done-for-you outbound, run by operators who live in the tools.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: `Booked Meetings from Outbound — ${SITE.name}`,
+    title: "FinalOutreach | The Last Cold Email Agency You'll Ever Hire",
     description:
-      "Operators who warm domains, build lists, run sequences, and book meetings into your calendar.",
+      "Most B2B teams burn 3-4 agencies before finding one that works. We're built to be your last one — done-for-you outbound, run by operators who live in the tools.",
     url: SITE.domain,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FinalOutreach | The Last Cold Email Agency You'll Ever Hire",
+    description:
+      "Most B2B teams burn 3-4 agencies before finding one that works. We're built to be your last one — done-for-you outbound, run by operators who live in the tools.",
+    creator: SITE.twitter,
+    site: SITE.twitter,
   },
 }
 
