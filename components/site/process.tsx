@@ -9,6 +9,7 @@ import {
   Rocket,
   TrendingUp,
 } from "lucide-react"
+import Image from "next/image"
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
@@ -20,7 +21,7 @@ const STEPS = [
     when: "Week 1",
     desc: "We map your offer, decode your buyer, and lock the exact accounts worth chasing. No spray-and-pray. Every prospect is a deliberate match for what you sell.",
     Icon: Compass,
-    visual: "discovery" as const,
+    image: "/process/step-1-discovery.png",
   },
   {
     n: "02",
@@ -28,7 +29,7 @@ const STEPS = [
     when: "Week 2",
     desc: "DNS locked, lists verified, and domains warmed for ~21 days before we ramp volume — so placement holds when sequences go live. We never send from your primary domain.",
     Icon: Server,
-    visual: "infra" as const,
+    image: "/process/step-2-infrastructure.png",
   },
   {
     n: "03",
@@ -36,7 +37,7 @@ const STEPS = [
     when: "Week 3",
     desc: "Sequences engineered around your ICP's pain — not templates, not AI sludge. Real research, real angles, real reasons your prospect will reply.",
     Icon: PenLine,
-    visual: "copy" as const,
+    image: "/process/step-3-copy.png",
   },
   {
     n: "04",
@@ -44,7 +45,7 @@ const STEPS = [
     when: "Week 4",
     desc: "Campaigns go live. We A/B test subject lines, openers, and angles weekly. You see leading indicators by day 5 and meetings by week 2.",
     Icon: Rocket,
-    visual: "launch" as const,
+    image: "/process/step-4-launch.png",
   },
   {
     n: "05",
@@ -52,7 +53,7 @@ const STEPS = [
     when: "Ongoing",
     desc: "What works gets doubled. What doesn't gets cut. You see the dashboard every Friday, and the meetings every day.",
     Icon: TrendingUp,
-    visual: "scale" as const,
+    image: "/process/step-5-scale.png",
   },
 ]
 
@@ -85,7 +86,7 @@ export function Process() {
         <div className="mt-14 hidden gap-12 lg:grid lg:grid-cols-[1fr_1.05fr]">
           <div className="relative">
             <div className="sticky top-28">
-              <div className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-ink-08 bg-background shadow-[0_24px_60px_-36px_rgba(15,15,15,0.25)]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-ink-08 bg-[#f4f5f7] shadow-[0_24px_60px_-36px_rgba(15,15,15,0.25)]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={STEPS[active].n}
@@ -93,9 +94,16 @@ export function Process() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={reduced ? undefined : { opacity: 0, y: -8 }}
                     transition={{ duration: 0.35 }}
-                    className="absolute inset-0 flex items-center justify-center p-8"
+                    className="absolute inset-0"
                   >
-                    <StepVisual kind={STEPS[active].visual} />
+                    <Image
+                      src={STEPS[active].image}
+                      alt={STEPS[active].title}
+                      fill
+                      sizes="(min-width: 1024px) 40vw, 90vw"
+                      className="object-contain"
+                      priority={active === 0}
+                    />
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -161,8 +169,14 @@ export function Process() {
               transition={{ duration: 0.45, delay: i * 0.04 }}
               className="flex flex-col gap-4"
             >
-              <div className="aspect-[16/10] overflow-hidden rounded-2xl border border-ink-08 bg-background p-6">
-                <StepVisual kind={step.visual} />
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-ink-08 bg-[#f4f5f7]">
+                <Image
+                  src={step.image}
+                  alt={step.title}
+                  fill
+                  sizes="90vw"
+                  className="object-contain"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-ink-40">
@@ -198,98 +212,3 @@ export function Process() {
   )
 }
 
-function StepVisual({
-  kind,
-}: {
-  kind: "discovery" | "infra" | "copy" | "launch" | "scale"
-}) {
-  if (kind === "discovery") {
-    return (
-      <div className="relative mx-auto aspect-square w-full max-w-[260px]">
-        <div className="absolute inset-0 rounded-full border border-ink-08" />
-        <div className="absolute inset-[16%] rounded-full border border-ink-08" />
-        <div className="absolute inset-[32%] rounded-full border border-ink/30" />
-        <div className="absolute inset-[46%] rounded-full bg-ink" />
-        <span className="absolute left-0 top-4 rounded-full border border-ink-08 bg-background px-2 py-0.5 text-[10px] text-ink-60">
-          Series A
-        </span>
-        <span className="absolute bottom-4 right-0 rounded-full bg-ink px-2 py-0.5 text-[10px] text-background">
-          Ideal ICP
-        </span>
-      </div>
-    )
-  }
-  if (kind === "infra") {
-    return (
-      <div className="mx-auto flex w-full max-w-[300px] flex-col gap-2.5">
-        {[92, 88, 76, 64].map((v, i) => (
-          <div key={i} className="flex flex-col gap-1">
-            <div className="flex justify-between text-[11px] text-ink-60">
-              <span className="font-mono">domain-{i + 1}.co</span>
-              <span className="tabular-nums text-ink">{v}%</span>
-            </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-ink-08">
-              <div className="h-full rounded-full bg-ink" style={{ width: `${v}%` }} />
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-  if (kind === "copy") {
-    return (
-      <div className="mx-auto w-full max-w-[300px] rounded-xl border border-ink-08 bg-cream/50 p-4 text-left text-[12px] leading-relaxed text-ink-60">
-        <p className="text-[11px] uppercase tracking-[0.14em] text-ink-40">Opener · v3</p>
-        <p className="mt-2 text-ink">Subject: saw your post on attribution</p>
-        <p className="mt-2">
-          Caught your post on multi-touch — the{" "}
-          <span className="rounded bg-amber/40 px-0.5 text-ink">budget bleed</span>{" "}
-          point hit a nerve.
-        </p>
-      </div>
-    )
-  }
-  if (kind === "launch") {
-    return (
-      <div className="mx-auto grid w-full max-w-[300px] grid-cols-3 gap-3">
-        {[
-          ["3,420", "Sent"],
-          ["64%", "Open"],
-          ["22%", "Reply"],
-        ].map(([n, l]) => (
-          <div key={l} className="rounded-xl border border-ink-08 bg-cream/40 p-3 text-center">
-            <div className="text-[18px] font-medium tabular-nums text-ink">{n}</div>
-            <div className="mt-1 text-[10px] uppercase tracking-[0.14em] text-ink-40">{l}</div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-  return (
-    <div className="mx-auto flex w-full max-w-[300px] flex-col gap-3">
-      <svg viewBox="0 0 280 90" className="h-24 w-full">
-        <path
-          d="M0 70 L40 65 L80 58 L120 48 L160 36 L200 28 L240 16 L280 10"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          className="text-ink"
-        />
-      </svg>
-      <div className="grid grid-cols-3 gap-2 text-center">
-        <div>
-          <div className="text-[16px] font-medium text-ink">Pipeline</div>
-          <div className="text-[10px] uppercase tracking-wider text-ink-40">Growing</div>
-        </div>
-        <div>
-          <div className="text-[16px] font-medium text-ink">Demos</div>
-          <div className="text-[10px] uppercase tracking-wider text-ink-40">Weekly</div>
-        </div>
-        <div>
-          <div className="text-[16px] font-medium text-ink">ROI</div>
-          <div className="text-[10px] uppercase tracking-wider text-ink-40">Tracked</div>
-        </div>
-      </div>
-    </div>
-  )
-}
