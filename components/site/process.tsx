@@ -82,11 +82,11 @@ export function Process() {
           </p>
         </div>
 
-        {/* Desktop: sticky preview + step list (tight, not 80vh voids) */}
-        <div className="mt-14 hidden gap-12 lg:grid lg:grid-cols-[1fr_1.05fr]">
+        {/* Desktop: sticky preview + step list */}
+        <div className="mt-14 hidden gap-10 lg:grid lg:grid-cols-[1.25fr_0.85fr] xl:gap-12">
           <div className="relative">
-            <div className="sticky top-28">
-              <div className="relative aspect-[1523/688] overflow-hidden rounded-3xl border border-ink-08 bg-[#f4f5f7] shadow-[0_24px_60px_-36px_rgba(15,15,15,0.25)]">
+            <div className="sticky top-24">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] border border-ink-08 bg-[#eef0f3] shadow-[0_28px_70px_-40px_rgba(15,15,15,0.35)]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={STEPS[active].n}
@@ -100,9 +100,9 @@ export function Process() {
                       src={STEPS[active].image}
                       alt={STEPS[active].title}
                       fill
-                      sizes="(min-width: 1024px) 560px, 90vw"
+                      sizes="(min-width: 1280px) 720px, (min-width: 1024px) 58vw, 90vw"
                       quality={100}
-                      className="object-cover object-center"
+                      className="scale-[1.42] object-cover object-center"
                       priority={active === 0}
                     />
                   </motion.div>
@@ -170,14 +170,14 @@ export function Process() {
               transition={{ duration: 0.45, delay: i * 0.04 }}
               className="flex flex-col gap-4"
             >
-              <div className="relative aspect-[1523/688] overflow-hidden rounded-2xl border border-ink-08 bg-[#f4f5f7]">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] border border-ink-08 bg-[#eef0f3]">
                 <Image
                   src={step.image}
                   alt={step.title}
                   fill
                   sizes="92vw"
                   quality={100}
-                  className="object-cover object-center"
+                  className="scale-[1.42] object-cover object-center"
                 />
               </div>
               <div>
