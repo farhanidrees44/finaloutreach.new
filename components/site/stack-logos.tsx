@@ -102,6 +102,15 @@ export function SalesforceIcon({ className, title = "Salesforce" }: MarkProps) {
   )
 }
 
+export function ZapierIcon({ className, title = "Zapier" }: MarkProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden={!title}>
+      {title ? <title>{title}</title> : null}
+      <path d="M12 2.2 13.4 8.1 19.3 6.7 15.9 11.2 21.8 12.6 15.9 14 19.3 18.5 13.4 17.1 12 23 10.6 17.1 4.7 18.5 8.1 14 2.2 12.6 8.1 11.2 4.7 6.7 10.6 8.1 12 2.2Z" />
+    </svg>
+  )
+}
+
 export const STACK_ICON_MAP: Record<string, (p: MarkProps) => ReactElement> = {
   apollo: ApolloIcon,
   zoominfo: ZoomInfoIcon,
@@ -113,4 +122,5 @@ export const STACK_ICON_MAP: Record<string, (p: MarkProps) => ReactElement> = {
   heyreach: HeyReachIcon,
   lemlist: LemlistIcon,
   salesforce: SalesforceIcon,
+  zapier: ZapierIcon,
 }

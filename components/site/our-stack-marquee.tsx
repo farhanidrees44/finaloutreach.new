@@ -7,6 +7,7 @@ import { LogoBadge } from "./logo-badge"
 /**
  * Infinite CSS marquee — tools duplicated 2× for seamless loop.
  * Pause on hover via .marquee-track:hover rules in globals.css.
+ * Raster logos under /public/stack use equal 48×48 circular badges.
  */
 export function OurStackMarquee() {
   const items = [...STACK_TOOLS, ...STACK_TOOLS]
@@ -15,7 +16,7 @@ export function OurStackMarquee() {
     <section
       id="our-stack"
       aria-labelledby="our-stack-heading"
-      className="relative overflow-hidden border-y border-ink-08 py-12 sm:py-14"
+      className="relative overflow-hidden border-y border-ink-08 bg-[#F7F7F4] py-12 sm:py-14"
     >
       <div className="mx-auto max-w-7xl px-6">
         <p
@@ -28,7 +29,7 @@ export function OurStackMarquee() {
       </div>
 
       <div className="marquee-track relative overflow-hidden mask-fade-x-80">
-        <div className="marquee flex w-max items-center gap-10 px-6 sm:gap-12">
+        <div className="marquee flex w-max items-center gap-10 px-6 sm:gap-14">
           {items.map((tool, idx) => {
             const Icon = STACK_ICON_MAP[tool.slug]
             const ariaHide = idx >= STACK_TOOLS.length
@@ -38,7 +39,10 @@ export function OurStackMarquee() {
                 name={tool.name}
                 size="md"
                 ariaHidden={ariaHide}
-                mark={Icon ? <Icon className="h-6 w-6" /> : null}
+                src={tool.src}
+                mark={
+                  !tool.src && Icon ? <Icon className="h-6 w-6" /> : null
+                }
               />
             )
           })}
