@@ -394,16 +394,22 @@
      the generic premium marquee so the "always-on" slide is obvious
      even at a glance, but still slow enough that each chip is readable. */
   .marquee-track--logos .marquee {
-    animation-duration: 30s;
+    animation: marquee 28s linear infinite;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
+    .marquee-track--logos .marquee { animation-duration: 34s; }
+  }
+  @media (min-width: 1024px) {
     .marquee-track--logos .marquee { animation-duration: 40s; }
   }
-  .marquee-track:hover .marquee,
-  .marquee-track:focus-within .marquee { animation-play-state: paused; }
+  /* Pause only on devices that truly hover — keep continuous scroll on touch */
+  @media (hover: hover) and (pointer: fine) {
+    .marquee-track:hover .marquee,
+    .marquee-track:focus-within .marquee { animation-play-state: paused; }
+    .marquee-track:hover .marquee-premium,
+    .marquee-track:focus-within .marquee-premium { animation-play-state: paused; }
+  }
   .marquee-premium { animation: marquee 38s linear infinite; }
-  .marquee-track:hover .marquee-premium,
-  .marquee-track:focus-within .marquee-premium { animation-play-state: paused; }
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -413,6 +419,10 @@
   .mask-fade-x {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+  .mask-fade-x-40 {
+    mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 40px, black calc(100% - 40px), transparent 100%);
   }
   .mask-fade-x-80 {
     mask-image: linear-gradient(to right, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);

@@ -20,8 +20,7 @@ export const STACK_TOOLS: StackTool[] = [
   { id: "apollo", name: "Apollo", slug: "apollo", src: "/logos/apollo.svg" },
   { id: "zoominfo", name: "ZoomInfo", slug: "zoominfo", src: "/logos/zoominfo.png" },
   { id: "smartlead", name: "Smartlead", slug: "smartlead", src: "/logos/smartlead.png" },
-  // Instantly — not present in E:\finaloutreach logos (leave broken until you drop it)
-  { id: "instantly", name: "Instantly", slug: "instantly", src: "/logos/instantly.svg" },
+  { id: "instantly", name: "Instantly", slug: "instantly", src: "/logos/instantly.png" },
   {
     id: "gohighlevel",
     name: "GoHighLevel",
