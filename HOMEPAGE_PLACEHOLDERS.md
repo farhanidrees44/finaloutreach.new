@@ -2,7 +2,9 @@
 
 | Area | Status |
 | --- | --- |
-| Campaign / calendar proof images | Wired — `/public/proof/smartlead-*.png`, `calendar-proof-*.png` |
+| Apollo / Instantly / HeyReach logos | Brand-color SVG identification marks in `/public/stack/` — swap for official press-kit assets when available |
+| Tool Stack layout | Static 4×2 card grid (full color, hover lift) — no marquee |
+| Nav mega-menu | Unified Services / Industries / Tools panel with CTA strip |
 | Video walkthrough | Custom façade + click-to-play YouTube (`H4ddyQjC9As`); VideoObject JSON-LD; no autoplay on load |
 | Case studies (homepage) | Honest placeholders in `data/homepage-case-studies.ts` until permissioned |
 | Case studies (`/case-studies`) | Anonymized segment clients; no fabricated dollar aggregates |

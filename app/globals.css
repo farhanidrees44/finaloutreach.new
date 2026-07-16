@@ -58,6 +58,9 @@
 
   --accent: oklch(0.55 0.24 295);
   --accent-foreground: oklch(0.985 0.003 95);
+  /* Warm accent for mega-menu icon tiles / soft lifts — not a second brand palette */
+  --accent-warm: oklch(0.78 0.16 86);
+  --accent-warm-muted: oklch(0.78 0.16 86 / 0.14);
   --amber-foreground: oklch(0.156 0 0);
 
   --destructive: oklch(0.55 0.22 27);
@@ -139,6 +142,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-warm: var(--accent-warm);
+  --color-accent-warm-muted: var(--accent-warm-muted);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
