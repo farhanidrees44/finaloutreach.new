@@ -4,11 +4,11 @@ import { motion, useReducedMotion } from "framer-motion"
 import { ArrowUpRight, Play } from "lucide-react"
 import { MagneticButton } from "./magnetic-button"
 import { HeroBackground } from "./hero-background"
+import { SITE } from "@/lib/site-data"
 
 const headlineLines = [
-  ["Cold", "email,", "LinkedIn,", "and"],
-  ["appointment", "setting —"],
-  ["__run", "by", "operators."],
+  ["Booked", "meetings", "on", "your"],
+  ["calendar —", "__not", "slide", "decks."],
 ]
 
 /**
@@ -39,7 +39,7 @@ export function Hero() {
           Done-for-you B2B outbound
         </motion.p>
 
-        <h1 className="mt-6 max-w-[20ch] text-balance text-[clamp(2.5rem,6.5vw,5.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+        <h1 className="mt-6 max-w-[18ch] text-balance text-[clamp(2.5rem,6.5vw,5.25rem)] font-medium leading-[1.05] tracking-display text-ink">
           {headlineLines.map((line, lineIdx) => (
             <span key={lineIdx} className="block pb-[0.02em]">
               <span className="inline-flex flex-wrap justify-center gap-x-[0.22em] gap-y-1">
@@ -83,9 +83,9 @@ export function Hero() {
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.55 }}
           className="mt-7 max-w-2xl text-pretty text-[17px] leading-[1.6] text-ink-60 sm:text-[19px]"
         >
-          A small hands-on team that builds lists, warms domains, writes
-          sequences, and books meetings into your calendar — not a slide-deck
-          consultancy.
+          We warm domains, build verified lists, write sequences, and handle
+          replies — so qualified meetings land on your calendar, not in a
+          quarterly report.
         </motion.p>
 
         <motion.div
@@ -94,22 +94,22 @@ export function Hero() {
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.7 }}
           className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
         >
-          <MagneticButton href="/contact" size="lg" variant="primary">
+          <MagneticButton href={SITE.calendly} size="lg" variant="primary">
             Book a strategy call
           </MagneticButton>
           <a
-            href="#watch"
-            className="group inline-flex items-center gap-1.5 px-2 py-3 text-[15px] font-medium text-ink"
-          >
-            <Play className="size-4 fill-ink/20" aria-hidden />
-            <span className="link-underline">Watch how it works</span>
-          </a>
-          <a
             href="#campaign-proof"
-            className="group inline-flex items-center gap-1.5 px-2 py-3 text-[15px] font-medium text-ink-60"
+            className="group inline-flex items-center gap-1.5 px-2 py-3 text-[15px] font-medium text-ink"
           >
             <span className="link-underline">See the proof</span>
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="#watch"
+            className="group inline-flex items-center gap-1.5 px-2 py-3 text-[15px] font-medium text-ink-60"
+          >
+            <Play className="size-4 fill-ink/20" aria-hidden />
+            <span className="link-underline">Watch how it works</span>
           </a>
         </motion.div>
       </div>

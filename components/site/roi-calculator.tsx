@@ -54,15 +54,20 @@ export function RoiCalculator() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-vibrant-purple/20 bg-vibrant-purple/[0.04] px-3 py-1 text-[12px] font-medium uppercase tracking-[0.14em] text-vibrant-purple">
             <Calculator className="size-3.5" strokeWidth={2.2} />
-            ROI calculator
+            07 · ROI model
           </span>
           <h2 className="max-w-3xl text-balance text-fluid-2xl font-medium tracking-display text-ink">
-            See what 40 qualified meetings a month is{" "}
+            Estimate what qualified meetings could be{" "}
             <span className="font-serif-italic gradient-text-animated">
-              actually worth
+              worth
             </span>{" "}
-            to your business.
+            at your ACV.
           </h2>
+          <p className="max-w-xl text-[15px] leading-relaxed text-ink-60">
+            A simple model — not a guarantee. Adjust ACV, meeting volume, and
+            close rate to see a directional annual return vs. a Growth-tier
+            engagement.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
@@ -130,12 +135,12 @@ export function RoiCalculator() {
 
             <div className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.14em] text-white/60">
               <TrendingUp className="size-3.5" strokeWidth={2.2} />
-              Projected return
+              Model estimate
             </div>
 
             <div>
               <div className="text-[12px] uppercase tracking-[0.10em] text-white/50">
-                Annual revenue from booked meetings
+                Estimated annual revenue (if meetings close)
               </div>
               <div className="mt-2 text-fluid-3xl font-semibold tabular tracking-mega text-white">
                 {fmt(annual)}

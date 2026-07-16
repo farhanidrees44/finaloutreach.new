@@ -76,15 +76,15 @@ export function CampaignProofGallery() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionEyebrow number="03" label="Proof" />
+            <SectionEyebrow number="02" label="Proof" />
             <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
               Real campaign{" "}
               <span className="font-serif-italic text-ink-60">screenshots.</span>
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
-              Live campaign and booking-density screenshots — industry and stage
-              only. Named company logos and faces appear only with written
-              permission.
+              Numbers you can read on the glass — Smartlead reply rates and
+              calendar density. Industry and stage only; named logos and faces
+              appear only with written permission.
             </p>
           </div>
           <div className="flex gap-2">

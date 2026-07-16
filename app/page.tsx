@@ -1,16 +1,18 @@
 import type { Metadata } from "next"
 import { SiteNavigation } from "@/components/site/site-navigation"
 import { Hero } from "@/components/site/hero"
-import { VideoSection } from "@/components/site/video-section"
 import { OurStackMarquee } from "@/components/site/our-stack-marquee"
-import { Certifications } from "@/components/site/certifications"
+import { VideoSection } from "@/components/site/video-section"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
 import { BookingsProof } from "@/components/site/bookings-proof"
 import { ResultsBar } from "@/components/site/results-bar"
 import { Services } from "@/components/site/services"
 import { Process } from "@/components/site/process"
-import { CaseStudies } from "@/components/site/case-studies"
+import { RoiCalculator } from "@/components/site/roi-calculator"
+import { FounderStory } from "@/components/site/founder-story"
+import { LiveCampaignInvite } from "@/components/site/live-campaign-invite"
 import { Testimonials } from "@/components/site/testimonials"
+import { Certifications } from "@/components/site/certifications"
 import { Faq } from "@/components/site/faq"
 import { Pricing } from "@/components/site/pricing"
 import { FinalCta } from "@/components/site/final-cta"
@@ -19,6 +21,7 @@ import { StickyMobileCta } from "@/components/site/sticky-mobile-cta"
 import { SmoothScroll } from "@/components/site/smooth-scroll"
 import { JsonLd } from "@/components/seo/json-ld"
 import {
+  organizationSchema,
   websiteSchema,
   serviceSchema,
   faqSchema,
@@ -30,14 +33,14 @@ import { SITE } from "@/lib/site-data"
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: "Cold Email & Appointment Setting Agency",
+  title: "Booked Meetings from Cold Email & LinkedIn Outreach",
   description:
-    "Done-for-you cold email, LinkedIn outreach, and appointment setting for B2B teams — run by operators who live in the tools, not slide decks.",
+    "Done-for-you cold email, LinkedIn outreach, and appointment setting that puts qualified meetings on your calendar — warm domains, verified lists, sequences, and reply handling.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: `Cold Email & Appointment Setting — ${SITE.name}`,
+    title: `Booked Meetings from Outbound — ${SITE.name}`,
     description:
-      "Operators who run cold email, LinkedIn, and appointment setting end-to-end for B2B teams.",
+      "Operators who warm domains, build lists, run sequences, and book meetings into your calendar.",
     url: SITE.domain,
   },
 }
@@ -47,6 +50,7 @@ export default function HomePage() {
     <>
       <JsonLd
         data={[
+          organizationSchema(),
           websiteSchema(),
           serviceSchema(),
           faqSchema(
@@ -63,16 +67,18 @@ export default function HomePage() {
           <SiteNavigation />
           <main id="main">
             <Hero />
-            <VideoSection />
             <OurStackMarquee />
-            <Certifications />
+            <VideoSection />
             <CampaignProofGallery />
             <BookingsProof />
             <ResultsBar />
             <Services />
             <Process />
-            <CaseStudies />
+            <RoiCalculator />
+            <FounderStory />
+            <LiveCampaignInvite />
             <Testimonials />
+            <Certifications />
             <Faq />
             <Pricing />
             <FinalCta />

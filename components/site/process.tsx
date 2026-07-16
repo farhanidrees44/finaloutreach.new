@@ -26,7 +26,7 @@ const STEPS = [
     n: "02",
     title: "Infrastructure & list building",
     when: "Week 2",
-    desc: "Domains warmed, DNS bulletproofed, prospect lists scrubbed and verified. We never send from your primary domain — your reputation stays untouched.",
+    desc: "DNS locked, lists verified, and domains warmed for ~21 days before we ramp volume — so placement holds when sequences go live. We never send from your primary domain.",
     Icon: Server,
     visual: "infra" as const,
   },
@@ -69,15 +69,15 @@ export function Process() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionEyebrow number="07" label="Process" />
+            <SectionEyebrow number="06" label="Process" />
             <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.05] tracking-display text-ink">
               How we book meetings,{" "}
               <span className="font-serif-italic text-ink-60">step by step.</span>
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
-            From kickoff call to filled calendar in under 30 days. No agency
-            theatre, no endless onboarding decks.
+            From kickoff to calendar — domains warm ~21 days before volume so
+            inbox placement holds. No agency theatre, no endless decks.
           </p>
         </div>
 

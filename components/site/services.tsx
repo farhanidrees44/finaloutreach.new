@@ -183,7 +183,7 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionEyebrow number="06" label="Services" />
+            <SectionEyebrow number="05" label="Services" />
             <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]">
               Services that{" "}
               <span className="font-serif-italic gradient-text-animated">

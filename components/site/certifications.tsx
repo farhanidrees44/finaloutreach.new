@@ -16,14 +16,14 @@ export function Certifications() {
     >
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="max-w-2xl">
-          <SectionEyebrow number="02" label="Recognitions" />
+          <SectionEyebrow number="10" label="Credentials" />
           <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
-            Credentials from the{" "}
-            <span className="font-serif-italic text-ink-60">tools we operate.</span>
+            Platform credentials we{" "}
+            <span className="font-serif-italic text-ink-60">hold &amp; operate under.</span>
           </h2>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
-            Real certifications from platforms in our delivery stack — not client logos,
-            not invented badges.
+            Badges from tools in our delivery stack — not client endorsements or
+            invented awards.
           </p>
         </div>
 
@@ -74,11 +74,7 @@ export function Certifications() {
                     View credential
                     <ExternalLink className="size-3.5" />
                   </a>
-                ) : (
-                  <span className="mt-auto pt-3 text-[12px] text-ink-40">
-                    Badge on file — verification URL pending
-                  </span>
-                )}
+                ) : null}
               </div>
             </motion.li>
           ))}

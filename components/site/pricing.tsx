@@ -49,7 +49,7 @@ export function Pricing() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionEyebrow number="11" label="Pricing" />
+            <SectionEyebrow number="12" label="Pricing" />
             <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.05] tracking-display text-ink">
               Simple, transparent{" "}
               <span className="font-serif-italic text-ink-60">

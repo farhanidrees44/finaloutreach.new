@@ -48,7 +48,7 @@ export function FounderStory() {
   return (
     <section id="about" className="border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
-        <SectionEyebrow number="06" label="About the founder" />
+        <SectionEyebrow number="08" label="About the founder" />
 
         <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left — Image composition */}
@@ -177,9 +177,9 @@ export function FounderStory() {
               <p>
                 I started FinalOutreach because I was tired of watching
                 founders burn cash on agencies that deliver slide decks instead
-                of pipeline. After sending 5M+ cold emails and booking 12,400+
-                meetings for B2B SaaS companies, I know what actually moves the
-                needle.
+                of pipeline. Years inside cold email deliverability, list
+                building, and appointment setting taught me what actually moves
+                the needle — and what wastes budget.
               </p>
               <p>
                 We keep the roster intentionally small, take the calls

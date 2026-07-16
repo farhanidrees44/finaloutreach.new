@@ -36,7 +36,7 @@ export function BookingsProof() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_420px] lg:gap-16">
           <div>
-            <SectionEyebrow number="04" label="Appointments" />
+            <SectionEyebrow number="03" label="Appointments" />
             <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
               Calendars that fill —{" "}
               <span className="font-serif-italic text-ink-60">not slide decks.</span>

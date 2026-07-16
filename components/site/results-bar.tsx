@@ -44,7 +44,7 @@ export function ResultsBar() {
     <section className="relative overflow-hidden border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="mb-12 flex flex-col gap-3">
-          <SectionEyebrow number="05" label="By the numbers" />
+          <SectionEyebrow number="04" label="By the numbers" />
           <h2 className="max-w-2xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium leading-[1.05] tracking-display text-ink">
             One live campaign,{" "}
             <span className="font-serif-italic text-ink-60">real dashboard numbers.</span>
