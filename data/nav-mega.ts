@@ -16,6 +16,12 @@ import {
   Landmark,
   HeartPulse,
   LineChart,
+  MailSearch,
+  ShieldAlert,
+  Globe,
+  Sparkles,
+  Calculator,
+  Flame,
 } from "lucide-react"
 
 export type MegaLink = {
@@ -23,9 +29,16 @@ export type MegaLink = {
   title: string
   subtitle: string
   icon?: LucideIcon
-  /** Raster mark for Tools column (stack logos) */
-  logoSrc?: string
   featured?: boolean
+}
+
+export type MegaTool = {
+  href: string
+  title: string
+  subtitle: string
+  category: string
+  speed: string
+  icon: LucideIcon
 }
 
 export const MEGA_SERVICES: MegaLink[] = [
@@ -101,36 +114,58 @@ export const MEGA_INDUSTRIES: MegaLink[] = [
   },
 ]
 
-/** Free tools — listed under Tools column footer / mobile accordion */
-export const MEGA_FREE_TOOLS: MegaLink[] = [
+/** Live free tools at /tools — Tools nav panel only (not vendor stack). */
+export const MEGA_FREE_TOOLS: MegaTool[] = [
   {
     href: "/tools/subject-line-tester",
-    title: "Subject line tester",
-    subtitle: "Score clarity, spam risk, and open potential.",
+    title: "Subject Line Tester",
+    subtitle:
+      "Score any subject line against 14 deliverability and open-rate factors.",
+    category: "Copy",
+    speed: "<2s",
+    icon: MailSearch,
   },
   {
     href: "/tools/spam-word-checker",
-    title: "Spam word checker",
-    subtitle: "Flag phrases that tank deliverability.",
+    title: "Spam Word Checker",
+    subtitle:
+      "Highlight every spam-trigger word, all-caps run, and risky phrase before you hit send.",
+    category: "Deliverability",
+    speed: "<1s",
+    icon: ShieldAlert,
   },
   {
     href: "/tools/domain-health-checker",
-    title: "Domain health checker",
-    subtitle: "SPF, DKIM, and DMARC at a glance.",
+    title: "Domain Health Checker",
+    subtitle: "Check SPF, DKIM, DMARC, and MX records on any domain in seconds.",
+    category: "Deliverability",
+    speed: "~3s",
+    icon: Globe,
   },
   {
     href: "/tools/cold-email-generator",
-    title: "Cold email generator",
-    subtitle: "Draft a first-touch angle in minutes.",
+    title: "Cold Email Generator",
+    subtitle:
+      "Generate a 3-step cold email sequence built around your offer and persona.",
+    category: "Copy",
+    speed: "<5s",
+    icon: Sparkles,
   },
   {
     href: "/tools/roi-calculator",
-    title: "ROI calculator",
-    subtitle: "Model meetings and pipeline from outbound spend.",
+    title: "ROI Calculator",
+    subtitle:
+      "Model the revenue, payback, and ROI of a cold outbound program in seconds.",
+    category: "Strategy",
+    speed: "<1s",
+    icon: Calculator,
   },
   {
     href: "/tools/warmup-calculator",
-    title: "Warmup calculator",
-    subtitle: "Plan safe daily send volume while warming.",
+    title: "Warmup Calculator",
+    subtitle: "Day-by-day warmup schedule for a brand-new sending domain.",
+    category: "Deliverability",
+    speed: "<1s",
+    icon: Flame,
   },
 ]

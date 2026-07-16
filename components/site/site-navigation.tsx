@@ -7,25 +7,20 @@ import {
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
 } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { AnimatePresence, motion } from "framer-motion"
-import {
-  ArrowRight,
-  ChevronDown,
-  Menu,
-  X,
-} from "lucide-react"
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "./logo"
 import { SITE } from "@/lib/site-data"
-import { STACK_TOOLS } from "@/data/stack-tools"
 import {
   MEGA_FREE_TOOLS,
   MEGA_INDUSTRIES,
   MEGA_SERVICES,
   type MegaLink,
+  type MegaTool,
 } from "@/data/nav-mega"
 
 type MegaTab = "Services" | "Industries" | "Tools"
@@ -75,34 +70,59 @@ function MegaItem({
   )
 }
 
-function StackLogoChip({
-  name,
-  src,
+function ToolTile({
+  tool,
   onNavigate,
 }: {
-  name: string
-  src: string
+  tool: MegaTool
   onNavigate?: () => void
 }) {
+  const Icon = tool.icon
   return (
     <Link
-      href="/#our-stack"
+      href={tool.href}
       onClick={onNavigate}
-      className="group flex items-center gap-2.5 rounded-xl border border-ink-08 bg-card px-2.5 py-2 transition-all duration-200 hover:border-ink-20 hover:shadow-[var(--shadow-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-      title={name}
+      className="group flex gap-3 rounded-xl border border-ink-08 bg-card p-3 transition-all duration-200 hover:border-ink-20 hover:bg-accent-warm-muted/60 hover:shadow-[var(--shadow-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"
     >
-      <span className="relative block size-8 shrink-0 overflow-hidden rounded-lg bg-cream">
-        <Image
-          src={src}
-          alt=""
-          fill
-          className="object-contain p-1"
-          sizes="32px"
-          unoptimized={src.endsWith(".svg")}
-        />
+      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-warm-muted text-ink">
+        <Icon className="size-[18px]" strokeWidth={1.75} aria-hidden />
       </span>
-      <span className="truncate text-[13px] font-medium text-ink">{name}</span>
+      <span className="min-w-0">
+        <span className="mb-1.5 flex flex-wrap items-center gap-1.5">
+          <span className="rounded-full bg-ink-04 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.08em] text-ink-40">
+            {tool.category}
+          </span>
+          <span className="rounded-full bg-accent-warm-muted px-2 py-0.5 text-[10px] font-semibold tabular text-ink">
+            {tool.speed}
+          </span>
+        </span>
+        <span className="block text-[14.5px] font-medium leading-snug text-ink">
+          {tool.title}
+        </span>
+        <span className="mt-0.5 block text-[12.5px] leading-snug text-ink-40">
+          {tool.subtitle}
+        </span>
+      </span>
     </Link>
+  )
+}
+
+function PanelChrome({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) {
+  return (
+    <div
+      className={cn(
+        "overflow-hidden rounded-2xl border border-ink-08 bg-card shadow-[var(--shadow-xl)]",
+        className,
+      )}
+    >
+      {children}
+    </div>
   )
 }
 
@@ -111,8 +131,7 @@ export function SiteNavigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileGroup, setMobileGroup] = useState<string | null>(null)
-  const [megaOpen, setMegaOpen] = useState(false)
-  const [activeTab, setActiveTab] = useState<MegaTab>("Services")
+  const [activeTab, setActiveTab] = useState<MegaTab | null>(null)
 
   const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -129,22 +148,19 @@ export function SiteNavigation() {
   const openMega = useCallback(
     (tab: MegaTab) => {
       clearTimers()
-      openTimer.current = setTimeout(() => {
-        setActiveTab(tab)
-        setMegaOpen(true)
-      }, 110)
+      openTimer.current = setTimeout(() => setActiveTab(tab), 110)
     },
     [clearTimers],
   )
 
   const closeMegaDelayed = useCallback(() => {
     clearTimers()
-    closeTimer.current = setTimeout(() => setMegaOpen(false), 200)
+    closeTimer.current = setTimeout(() => setActiveTab(null), 200)
   }, [clearTimers])
 
   const closeMegaNow = useCallback(() => {
     clearTimers()
-    setMegaOpen(false)
+    setActiveTab(null)
   }, [clearTimers])
 
   useEffect(() => {
@@ -162,7 +178,7 @@ export function SiteNavigation() {
   }, [mobileOpen])
 
   useEffect(() => {
-    if (!megaOpen) return
+    if (!activeTab) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeMegaNow()
@@ -175,7 +191,7 @@ export function SiteNavigation() {
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [megaOpen, activeTab, closeMegaNow])
+  }, [activeTab, closeMegaNow])
 
   useEffect(() => () => clearTimers(), [clearTimers])
 
@@ -184,11 +200,8 @@ export function SiteNavigation() {
       e.preventDefault()
       clearTimers()
       setActiveTab(tab)
-      setMegaOpen(true)
       requestAnimationFrame(() => {
-        panelRef.current
-          ?.querySelector<HTMLElement>("a[href]")
-          ?.focus()
+        panelRef.current?.querySelector<HTMLElement>("a[href]")?.focus()
       })
     }
   }
@@ -197,7 +210,7 @@ export function SiteNavigation() {
     if (e.key === "Tab" && panelRef.current) {
       const links = Array.from(
         panelRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled])',
+          "a[href], button:not([disabled])",
         ),
       )
       if (!links.length) return
@@ -226,6 +239,9 @@ export function SiteNavigation() {
     }
   }
 
+  const footerLinkClass =
+    "mt-2 inline-flex items-center gap-1 px-2.5 py-2 text-[13px] font-medium text-ink-60 transition-colors hover:text-ink"
+
   return (
     <header className="pointer-events-none sticky top-0 z-50">
       <div className="pointer-events-none flex justify-center px-4">
@@ -248,28 +264,29 @@ export function SiteNavigation() {
 
           <ul className="hidden items-center gap-0.5 lg:flex">
             {MEGA_TABS.map((tab) => (
-              <li key={tab}>
+              <li
+                key={tab}
+                className="relative"
+                onMouseEnter={() => openMega(tab)}
+                onMouseLeave={closeMegaDelayed}
+              >
                 <button
                   type="button"
                   data-mega-trigger={tab}
-                  aria-expanded={megaOpen && activeTab === tab}
-                  aria-controls={panelId}
+                  aria-expanded={activeTab === tab}
+                  aria-controls={activeTab === tab ? panelId : undefined}
                   aria-haspopup="true"
                   className={cn(
                     "inline-flex items-center gap-1 rounded-full px-3 py-2 text-[13.5px] font-medium transition-colors duration-200",
-                    megaOpen && activeTab === tab
+                    activeTab === tab
                       ? "text-ink"
                       : "text-ink-60 hover:text-ink",
                   )}
-                  onMouseEnter={() => openMega(tab)}
                   onFocus={() => openMega(tab)}
                   onClick={() => {
                     clearTimers()
-                    if (megaOpen && activeTab === tab) closeMegaNow()
-                    else {
-                      setActiveTab(tab)
-                      setMegaOpen(true)
-                    }
+                    if (activeTab === tab) closeMegaNow()
+                    else setActiveTab(tab)
                   }}
                   onKeyDown={(e) => onTriggerKeyDown(tab, e)}
                 >
@@ -277,10 +294,112 @@ export function SiteNavigation() {
                   <ChevronDown
                     className={cn(
                       "size-3 transition-transform",
-                      megaOpen && activeTab === tab && "rotate-180",
+                      activeTab === tab && "rotate-180",
                     )}
                   />
                 </button>
+
+                {/* Isolated panel — only the active trigger’s content */}
+                <AnimatePresence>
+                  {activeTab === tab && (
+                    <motion.div
+                      id={panelId}
+                      ref={panelRef}
+                      role="region"
+                      aria-label={`${tab} menu`}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={spring}
+                      className={cn(
+                        "absolute top-full z-50 hidden pt-3 lg:block",
+                        tab === "Tools"
+                          ? "left-1/2 w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2"
+                          : "left-0 w-[min(22rem,calc(100vw-2rem))]",
+                      )}
+                      onMouseEnter={clearTimers}
+                      onMouseLeave={closeMegaDelayed}
+                      onKeyDown={onPanelKeyDown}
+                    >
+                      <PanelChrome>
+                        {tab === "Services" && (
+                          <div className="p-4">
+                            <p className="mb-3 px-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-40">
+                              Services
+                            </p>
+                            <div className="flex flex-col gap-0.5">
+                              {MEGA_SERVICES.map((item) => (
+                                <MegaItem
+                                  key={item.href}
+                                  item={item}
+                                  onNavigate={closeMegaNow}
+                                />
+                              ))}
+                            </div>
+                            <Link
+                              href="/services"
+                              onClick={closeMegaNow}
+                              className={footerLinkClass}
+                            >
+                              All services
+                              <ArrowRight className="size-3.5" />
+                            </Link>
+                          </div>
+                        )}
+
+                        {tab === "Industries" && (
+                          <div className="p-4">
+                            <p className="mb-3 px-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-40">
+                              Industries
+                            </p>
+                            <div className="flex flex-col gap-0.5">
+                              {MEGA_INDUSTRIES.map((item) => (
+                                <MegaItem
+                                  key={item.href}
+                                  item={item}
+                                  onNavigate={closeMegaNow}
+                                />
+                              ))}
+                            </div>
+                            <Link
+                              href="/industries"
+                              onClick={closeMegaNow}
+                              className={footerLinkClass}
+                            >
+                              View all industries
+                              <ArrowRight className="size-3.5" />
+                            </Link>
+                          </div>
+                        )}
+
+                        {tab === "Tools" && (
+                          <div className="p-4">
+                            <p className="mb-3 px-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-40">
+                              Free tools
+                            </p>
+                            <div className="grid grid-cols-2 gap-2.5">
+                              {MEGA_FREE_TOOLS.map((tool) => (
+                                <ToolTile
+                                  key={tool.href}
+                                  tool={tool}
+                                  onNavigate={closeMegaNow}
+                                />
+                              ))}
+                            </div>
+                            <Link
+                              href="/tools"
+                              onClick={closeMegaNow}
+                              className={footerLinkClass}
+                            >
+                              See all free tools
+                              <ArrowRight className="size-3.5" />
+                            </Link>
+                          </div>
+                        )}
+                      </PanelChrome>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </li>
             ))}
             <li>
@@ -334,142 +453,10 @@ export function SiteNavigation() {
               <Menu className="size-4" />
             </button>
           </div>
-
-          {/* Mega-menu panel — full width under nav pill */}
-          <AnimatePresence>
-            {megaOpen && (
-              <motion.div
-                id={panelId}
-                ref={panelRef}
-                role="region"
-                aria-label="Site sections"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
-                transition={spring}
-                className="absolute left-0 right-0 top-full z-50 hidden pt-3 lg:block"
-                onMouseEnter={clearTimers}
-                onMouseLeave={closeMegaDelayed}
-                onKeyDown={onPanelKeyDown}
-              >
-                <div className="overflow-hidden rounded-2xl border border-ink-08 bg-card shadow-[var(--shadow-xl)]">
-                  <div className="grid grid-cols-3 gap-0 divide-x divide-ink-08">
-                    {/* Services */}
-                    <div
-                      className={cn(
-                        "p-4 transition-opacity duration-200",
-                        activeTab !== "Services" && "opacity-55 hover:opacity-100",
-                      )}
-                    >
-                      <p className="mb-3 px-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-40">
-                        Services
-                      </p>
-                      <div className="flex flex-col gap-0.5">
-                        {MEGA_SERVICES.map((item) => (
-                          <MegaItem
-                            key={item.href}
-                            item={item}
-                            onNavigate={closeMegaNow}
-                          />
-                        ))}
-                      </div>
-                      <Link
-                        href="/services"
-                        onClick={closeMegaNow}
-                        className="mt-2 inline-flex items-center gap-1 px-2.5 py-2 text-[13px] font-medium text-ink-60 transition-colors hover:text-ink"
-                      >
-                        All services
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </div>
-
-                    {/* Industries */}
-                    <div
-                      className={cn(
-                        "p-4 transition-opacity duration-200",
-                        activeTab !== "Industries" && "opacity-55 hover:opacity-100",
-                      )}
-                    >
-                      <p className="mb-3 px-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-40">
-                        Industries
-                      </p>
-                      <div className="flex flex-col gap-0.5">
-                        {MEGA_INDUSTRIES.map((item) => (
-                          <MegaItem
-                            key={item.href}
-                            item={item}
-                            onNavigate={closeMegaNow}
-                          />
-                        ))}
-                      </div>
-                      <Link
-                        href="/industries"
-                        onClick={closeMegaNow}
-                        className="mt-2 inline-flex items-center gap-1 px-2.5 py-2 text-[13px] font-medium text-ink-60 transition-colors hover:text-ink"
-                      >
-                        View all industries
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </div>
-
-                    {/* Tools — real stack logos */}
-                    <div
-                      className={cn(
-                        "p-4 transition-opacity duration-200",
-                        activeTab !== "Tools" && "opacity-55 hover:opacity-100",
-                      )}
-                    >
-                      <p className="mb-3 px-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-40">
-                        Tools we run
-                      </p>
-                      <div className="grid grid-cols-2 gap-2">
-                        {STACK_TOOLS.map((tool) => (
-                          <StackLogoChip
-                            key={tool.id}
-                            name={tool.name}
-                            src={tool.src}
-                            onNavigate={closeMegaNow}
-                          />
-                        ))}
-                      </div>
-                      <Link
-                        href="/tools"
-                        onClick={closeMegaNow}
-                        className="mt-3 inline-flex items-center gap-1 px-2.5 py-2 text-[13px] font-medium text-ink-60 transition-colors hover:text-ink"
-                      >
-                        Free outbound tools
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Conversion strip */}
-                  <div className="flex items-center justify-between gap-4 border-t border-ink-08 bg-cream/80 px-5 py-3.5">
-                    <p className="text-[13px] text-ink-60">
-                      Ready to fill the calendar?{" "}
-                      <span className="font-medium text-ink">
-                        20-minute strategy call.
-                      </span>
-                    </p>
-                    <a
-                      href={SITE.calendly}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={closeMegaNow}
-                      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-primary px-4 text-[13px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
-                    >
-                      Book a strategy call
-                      <ArrowRight className="size-3.5" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </motion.nav>
       </div>
 
-      {/* Mobile accordion — no mega-menu attempt */}
+      {/* Mobile accordion */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -516,12 +503,11 @@ export function SiteNavigation() {
                   {
                     label: "Tools",
                     items: [
-                      { href: "/#our-stack", label: "Our stack" },
                       ...MEGA_FREE_TOOLS.map((s) => ({
                         href: s.href,
                         label: s.title,
                       })),
-                      { href: "/tools", label: "All free tools" },
+                      { href: "/tools", label: "See all free tools" },
                     ],
                   },
                 ] as const
