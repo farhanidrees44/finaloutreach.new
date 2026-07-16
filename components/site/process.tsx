@@ -3,13 +3,13 @@
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion"
 import {
   ArrowRight,
+  Check,
   Compass,
-  Server,
   PenLine,
   Rocket,
+  Server,
   TrendingUp,
 } from "lucide-react"
-import Image from "next/image"
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
@@ -20,47 +20,70 @@ const STEPS = [
     title: "Discovery & ICP definition",
     when: "Week 1",
     desc: "We map your offer, decode your buyer, and lock the exact accounts worth chasing. No spray-and-pray. Every prospect is a deliberate match for what you sell.",
+    outcomes: [
+      "Sharpened ICP & messaging angles",
+      "Named-account target list",
+      "Win-criteria & disqualification rules",
+    ],
     Icon: Compass,
-    image: "/process/step-1-discovery.png",
+    visual: "discovery" as const,
   },
   {
     n: "02",
     title: "Infrastructure & list building",
     when: "Week 2",
     desc: "DNS locked, lists verified, and domains warmed for ~21 days before we ramp volume — so placement holds when sequences go live. We never send from your primary domain.",
+    outcomes: [
+      "Dedicated sending domains, fully warmed",
+      "SPF, DKIM, DMARC & BIMI configured",
+      "Triple-verified prospect list (≤2% bounce)",
+    ],
     Icon: Server,
-    image: "/process/step-2-infrastructure.png",
+    visual: "infra" as const,
   },
   {
     n: "03",
     title: "Copy & sequence creation",
     when: "Week 3",
     desc: "Sequences engineered around your ICP's pain — not templates, not AI sludge. Real research, real angles, real reasons your prospect will reply.",
+    outcomes: [
+      "Custom multi-step sequence per persona",
+      "A/B/C subject-line + opener variants",
+      "Reply playbook for the SDR team",
+    ],
     Icon: PenLine,
-    image: "/process/step-3-copy.png",
+    visual: "copy" as const,
   },
   {
     n: "04",
     title: "Launch & optimize",
     when: "Week 4",
     desc: "Campaigns go live. We A/B test subject lines, openers, and angles weekly. You see leading indicators by day 5 and meetings by week 2.",
+    outcomes: [
+      "Live campaigns across all inboxes",
+      "Weekly experiments on copy & cadence",
+      "First booked meetings inside 14 days",
+    ],
     Icon: Rocket,
-    image: "/process/step-4-launch.png",
+    visual: "launch" as const,
   },
   {
     n: "05",
     title: "Scale & report",
     when: "Ongoing",
     desc: "What works gets doubled. What doesn't gets cut. You see the dashboard every Friday, and the meetings every day.",
+    outcomes: [
+      "Friday performance & pipeline review",
+      "Quarterly scaling plan tied to revenue",
+      "Always-on optimisation by your pod",
+    ],
     Icon: TrendingUp,
-    image: "/process/step-5-scale.png",
+    visual: "scale" as const,
   },
-]
+] as const
 
-/**
- * Compact step narrative — each step has its own illustration beside the
- * copy. Replaces the broken sticky/80vh pattern that created dead space.
- */
+type Step = (typeof STEPS)[number]
+
 export function Process() {
   const reduced = useReducedMotion()
   const [active, setActive] = useState(0)
@@ -82,29 +105,21 @@ export function Process() {
           </p>
         </div>
 
-        {/* Desktop: sticky preview + step list */}
-        <div className="mt-14 hidden gap-10 lg:grid lg:grid-cols-[1.25fr_0.85fr] xl:gap-12">
+        {/* Desktop: sticky preview + step accordion */}
+        <div className="mt-14 hidden gap-10 lg:grid lg:grid-cols-[1.15fr_0.9fr] xl:gap-12">
           <div className="relative">
             <div className="sticky top-24">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] border border-ink-08 bg-[#eef0f3] shadow-[0_28px_70px_-40px_rgba(15,15,15,0.35)]">
+              <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[1.75rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-6 shadow-[0_28px_70px_-40px_rgba(15,15,15,0.35)] md:p-8">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={STEPS[active].n}
-                    initial={reduced ? false : { opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={reduced ? undefined : { opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0"
+                    initial={reduced ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduced ? undefined : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.32 }}
+                    className="w-full max-w-md"
                   >
-                    <Image
-                      src={STEPS[active].image}
-                      alt={STEPS[active].title}
-                      fill
-                      sizes="(min-width: 1280px) 720px, (min-width: 1024px) 58vw, 90vw"
-                      quality={100}
-                      className="scale-[1.42] object-cover object-center"
-                      priority={active === 0}
-                    />
+                    <StepPanel kind={STEPS[active].visual} />
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -140,16 +155,32 @@ export function Process() {
                     </h3>
                     <AnimatePresence initial={false}>
                       {open && (
-                        <motion.p
-                          key="desc"
+                        <motion.div
+                          key="body"
                           initial={reduced ? false : { height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={reduced ? undefined : { height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden text-[14.5px] leading-[1.65] text-ink-60"
+                          className="overflow-hidden"
                         >
-                          <span className="mt-3 block pb-1">{step.desc}</span>
-                        </motion.p>
+                          <p className="mt-3 text-[14.5px] leading-[1.65] text-ink-60">
+                            {step.desc}
+                          </p>
+                          <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
+                            {step.outcomes.map((item) => (
+                              <li
+                                key={item}
+                                className="flex items-start gap-2 text-[13px] leading-snug text-ink"
+                              >
+                                <Check
+                                  className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
+                                  strokeWidth={2.5}
+                                />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </button>
@@ -159,7 +190,7 @@ export function Process() {
           </ol>
         </div>
 
-        {/* Mobile: stacked steps each with its visual */}
+        {/* Mobile: stacked steps with panel */}
         <ol className="mt-12 flex flex-col gap-10 lg:hidden">
           {STEPS.map((step, i) => (
             <motion.li
@@ -170,15 +201,8 @@ export function Process() {
               transition={{ duration: 0.45, delay: i * 0.04 }}
               className="flex flex-col gap-4"
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] border border-ink-08 bg-[#eef0f3]">
-                <Image
-                  src={step.image}
-                  alt={step.title}
-                  fill
-                  sizes="92vw"
-                  quality={100}
-                  className="scale-[1.42] object-cover object-center"
-                />
+              <div className="flex items-center justify-center rounded-[1.5rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-5">
+                <StepPanel kind={step.visual} />
               </div>
               <div>
                 <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-ink-40">
@@ -214,3 +238,331 @@ export function Process() {
   )
 }
 
+function StepPanel({ kind }: { kind: Step["visual"] }) {
+  if (kind === "discovery") {
+    return (
+      <div className="w-full rounded-2xl border border-ink-08 bg-background p-5 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.35)]">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+            ICP fit score
+          </p>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-bright/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-dark">
+            <span className="size-1.5 rounded-full bg-emerald-bright" />
+            92% match
+          </span>
+        </div>
+
+        <div className="mt-4 flex items-center gap-3 rounded-xl border border-ink-08 bg-cream/50 px-3 py-2.5">
+          <span className="grid size-9 place-items-center rounded-lg bg-vibrant-purple/15 text-[12px] font-bold text-vibrant-purple">
+            LI
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[13px] font-medium text-ink">Lavender Inc.</p>
+            <p className="text-[11px] text-ink-40">Series A · RevOps SaaS</p>
+          </div>
+          <span className="shrink-0 text-[13px] font-semibold tabular-nums text-ink">
+            $18M
+          </span>
+        </div>
+
+        <ul className="mt-4 flex flex-col gap-2.5">
+          {[
+            ["Industry", 96],
+            ["Headcount", 88],
+            ["Tech stack", 91],
+            ["Funding", 84],
+            ["Intent signals", 79],
+          ].map(([label, score]) => (
+            <li key={label as string}>
+              <div className="mb-1 flex justify-between text-[11px]">
+                <span className="text-ink-60">{label}</span>
+                <span className="font-medium tabular-nums text-ink">{score}%</span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-ink-08">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-electric-blue to-vibrant-purple"
+                  style={{ width: `${score}%` }}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  if (kind === "infra") {
+    return (
+      <div className="w-full rounded-2xl border border-ink-08 bg-background p-5 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.35)]">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+            Domain warmup
+          </p>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-bright/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-dark">
+            <span className="size-1.5 rounded-full bg-emerald-bright" />
+            Healthy
+          </span>
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          {[
+            ["316", "Sent / day"],
+            ["A-", "Reputation"],
+            ["14/21", "Day"],
+          ].map(([n, l]) => (
+            <div
+              key={l}
+              className="rounded-xl border border-ink-08 bg-cream/40 px-2 py-2.5 text-center"
+            >
+              <div className="text-[15px] font-semibold tabular-nums text-electric-blue">
+                {n}
+              </div>
+              <div className="mt-0.5 text-[9px] uppercase tracking-[0.12em] text-ink-40">
+                {l}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <ul className="mt-4 flex flex-col gap-3">
+          {[
+            ["go.acme-sales.com", 118, 120, true],
+            ["team.acme-sales.com", 95, 100, true],
+            ["outreach.acme-co.io", 54, 80, false],
+            ["hi.acme-co.io", 38, 80, false],
+          ].map(([domain, cur, max, healthy]) => {
+            const pct = Math.round((Number(cur) / Number(max)) * 100)
+            return (
+              <li key={domain as string}>
+                <div className="mb-1 flex items-center justify-between gap-2 text-[11px]">
+                  <span className="flex items-center gap-1.5 font-mono text-ink-60">
+                    <span
+                      className={cn(
+                        "size-1.5 rounded-full",
+                        healthy ? "bg-emerald-bright" : "bg-amber",
+                      )}
+                    />
+                    {domain}
+                  </span>
+                  <span className="tabular-nums text-ink">
+                    {cur}/{max}
+                  </span>
+                </div>
+                <div className="h-1.5 overflow-hidden rounded-full bg-ink-08">
+                  <div
+                    className={cn(
+                      "h-full rounded-full",
+                      healthy
+                        ? "bg-gradient-to-r from-electric-blue to-vibrant-purple"
+                        : "bg-amber",
+                    )}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {["SPF", "DKIM", "DMARC", "BIMI"].map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 rounded-full bg-emerald-bright/12 px-2 py-0.5 text-[10px] font-medium text-emerald-dark"
+            >
+              <Check className="size-2.5" strokeWidth={3} />
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (kind === "copy") {
+    return (
+      <div className="w-full rounded-2xl border border-ink-08 bg-background p-5 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.35)]">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+            Sequence · CMOs · Series B
+          </p>
+          <span className="rounded-full bg-electric-blue/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-electric-blue">
+            v3.2 · Active
+          </span>
+        </div>
+
+        <ul className="mt-4 flex flex-col gap-2">
+          {[
+            ["Opener", "attribution angle", "Day 0", "21%", true],
+            ["Bump", "case study link", "Day 3", "14%", false],
+            ["Value", "12-min teardown", "Day 7", "9%", false],
+            ["Breakup", "permission close", "Day 12", "6%", false],
+          ].map(([type, angle, day, rate, active]) => (
+            <li
+              key={type as string}
+              className={cn(
+                "flex items-center gap-3 rounded-xl border px-3 py-2.5",
+                active
+                  ? "border-electric-blue/25 bg-electric-blue/8"
+                  : "border-ink-08 bg-cream/30",
+              )}
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-[12px] font-medium text-ink">
+                  {type} · {angle}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-ink-40">
+                  {day}
+                </p>
+              </div>
+              <span
+                className={cn(
+                  "rounded-full px-2 py-0.5 text-[11px] font-semibold tabular-nums",
+                  active
+                    ? "bg-electric-blue text-white"
+                    : "bg-ink-08 text-ink-60",
+                )}
+              >
+                {rate}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-4 flex items-center justify-between rounded-xl border border-ink-08 bg-cream/40 px-3 py-2.5">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.12em] text-ink-40">
+              Combined reply
+            </p>
+            <p className="text-[15px] font-semibold tabular-nums text-ink">
+              38.4%
+            </p>
+          </div>
+          <p className="text-[12px] font-medium text-emerald-dark">
+            vs target +12.4 pts ↑
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (kind === "launch") {
+    return (
+      <div className="w-full rounded-2xl border border-ink-08 bg-background p-5 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.35)]">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+            Live campaign signals
+          </p>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-bright/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-dark">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-bright" />
+            Live
+          </span>
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-2.5">
+          {[
+            ["3,420", "Sent"],
+            ["64%", "Open"],
+            ["22%", "Reply"],
+          ].map(([n, l]) => (
+            <div
+              key={l}
+              className="rounded-xl border border-ink-08 bg-cream/40 p-3 text-center"
+            >
+              <div className="text-[18px] font-medium tabular-nums text-ink">
+                {n}
+              </div>
+              <div className="mt-1 text-[10px] uppercase tracking-[0.14em] text-ink-40">
+                {l}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 rounded-xl border border-ink-08 bg-cream/40 px-3 py-2.5">
+          <p className="text-[11px] text-ink-40">Leading indicator · Day 5</p>
+          <p className="mt-1 text-[13px] font-medium text-ink">
+            Positive replies trending +18% vs opener A
+          </p>
+        </div>
+
+        <div className="mt-3 flex gap-2">
+          {["Subject A", "Subject B", "Subject C"].map((v, i) => (
+            <span
+              key={v}
+              className={cn(
+                "rounded-lg border px-2.5 py-1.5 text-[11px]",
+                i === 0
+                  ? "border-electric-blue/30 bg-electric-blue/10 font-medium text-electric-blue"
+                  : "border-ink-08 text-ink-40",
+              )}
+            >
+              {v}
+            </span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="w-full rounded-2xl border border-ink-08 bg-background p-5 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.35)]">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+          Weekly reporting
+        </p>
+        <span className="rounded-full bg-vibrant-purple/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-vibrant-purple">
+          Friday
+        </span>
+      </div>
+
+      <svg viewBox="0 0 280 90" className="mt-3 h-20 w-full">
+        <path
+          d="M0 70 L40 65 L80 58 L120 48 L160 36 L200 28 L240 16 L280 10 L280 90 L0 90 Z"
+          className="fill-vibrant-purple/10"
+        />
+        <path
+          d="M0 70 L40 65 L80 58 L120 48 L160 36 L200 28 L240 16 L280 10"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          className="text-vibrant-purple"
+        />
+      </svg>
+
+      <div className="mt-2 grid grid-cols-3 gap-2 text-center">
+        {[
+          ["Pipeline", "Growing"],
+          ["Demos", "Weekly"],
+          ["ROI", "Tracked"],
+        ].map(([k, v]) => (
+          <div key={k}>
+            <div className="text-[14px] font-medium text-ink">{k}</div>
+            <div className="text-[10px] uppercase tracking-wider text-ink-40">
+              {v}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {[
+          ["Meetings booked", "12"],
+          ["Pipeline added", "$284K"],
+        ].map(([k, v]) => (
+          <div
+            key={k}
+            className="rounded-xl border border-ink-08 bg-cream/40 px-3 py-2 text-center"
+          >
+            <p className="text-[10px] uppercase tracking-[0.12em] text-ink-40">
+              {k}
+            </p>
+            <p className="mt-0.5 text-[14px] font-semibold tabular-nums text-ink">
+              {v}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
