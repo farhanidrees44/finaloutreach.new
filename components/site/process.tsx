@@ -86,22 +86,23 @@ export function Process() {
         <div className="mt-14 hidden gap-12 lg:grid lg:grid-cols-[1fr_1.05fr]">
           <div className="relative">
             <div className="sticky top-28">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-ink-08 bg-[#f4f5f7] shadow-[0_24px_60px_-36px_rgba(15,15,15,0.25)]">
+              <div className="relative aspect-[1523/688] overflow-hidden rounded-3xl border border-ink-08 bg-[#f4f5f7] shadow-[0_24px_60px_-36px_rgba(15,15,15,0.25)]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={STEPS[active].n}
-                    initial={reduced ? false : { opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={reduced ? undefined : { opacity: 0, y: -8 }}
-                    transition={{ duration: 0.35 }}
+                    initial={reduced ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={reduced ? undefined : { opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                     className="absolute inset-0"
                   >
                     <Image
                       src={STEPS[active].image}
                       alt={STEPS[active].title}
                       fill
-                      sizes="(min-width: 1024px) 40vw, 90vw"
-                      className="object-contain"
+                      sizes="(min-width: 1024px) 560px, 90vw"
+                      quality={100}
+                      className="object-cover object-center"
                       priority={active === 0}
                     />
                   </motion.div>
@@ -169,13 +170,14 @@ export function Process() {
               transition={{ duration: 0.45, delay: i * 0.04 }}
               className="flex flex-col gap-4"
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-ink-08 bg-[#f4f5f7]">
+              <div className="relative aspect-[1523/688] overflow-hidden rounded-2xl border border-ink-08 bg-[#f4f5f7]">
                 <Image
                   src={step.image}
                   alt={step.title}
                   fill
-                  sizes="90vw"
-                  className="object-contain"
+                  sizes="92vw"
+                  quality={100}
+                  className="object-cover object-center"
                 />
               </div>
               <div>
