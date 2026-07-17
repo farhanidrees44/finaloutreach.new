@@ -14,11 +14,11 @@ export function Logo({ className }: { className?: string }) {
     >
       <Image
         src="/logo.png"
-        alt="FinalOutreach.com — Reach further. Convert smarter."
-        width={388}
-        height={120}
+        alt="FinalOutreach — Reach further. Convert smarter."
+        width={421}
+        height={160}
         priority
-        className="h-10 w-auto sm:h-11"
+        className="h-12 w-auto sm:h-14 md:h-[3.75rem]"
       />
     </Link>
   )
