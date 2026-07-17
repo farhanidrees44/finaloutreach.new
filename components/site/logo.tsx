@@ -21,7 +21,7 @@ export function Logo({ className }: { className?: string }) {
         alt="FinalOutreach.com — Reach further. Convert smarter."
         width={1470}
         height={458}
-        className="h-[30px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[32px] lg:h-[40px]"
+        className="h-[40px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[44px] lg:h-[52px]"
         decoding="async"
       />
     </Link>
