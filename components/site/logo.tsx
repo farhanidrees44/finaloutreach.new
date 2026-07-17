@@ -1,6 +1,10 @@
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
+/**
+ * Header logo — explicit pixel heights so flex layout cannot shrink it.
+ * Aspect ratio preserved via w-auto + object-contain.
+ */
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
@@ -15,9 +19,9 @@ export function Logo({ className }: { className?: string }) {
       <img
         src="/logo.svg"
         alt="FinalOutreach.com — Reach further. Convert smarter."
-        width={472}
-        height={160}
-        className="h-10 w-auto sm:h-11 md:h-12"
+        width={1470}
+        height={458}
+        className="h-[30px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[32px] lg:h-[40px]"
         decoding="async"
       />
     </Link>

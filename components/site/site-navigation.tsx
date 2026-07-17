@@ -258,11 +258,11 @@ export function SiteNavigation() {
           )}
           onMouseLeave={closeMegaDelayed}
         >
-          <div className="ml-1.5">
+          <div className="ml-1.5 shrink-0">
             <Logo />
           </div>
 
-          <ul className="hidden items-center gap-0.5 lg:flex">
+          <ul className="hidden items-center gap-1.5 lg:flex">
             {MEGA_TABS.map((tab) => (
               <li
                 key={tab}
@@ -277,7 +277,7 @@ export function SiteNavigation() {
                   aria-controls={activeTab === tab ? panelId : undefined}
                   aria-haspopup="true"
                   className={cn(
-                    "inline-flex items-center gap-1 rounded-full px-3 py-2 text-[13.5px] font-medium transition-colors duration-200",
+                    "inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[15px] font-medium tracking-[0.01em] transition-colors duration-200 lg:text-[16px]",
                     activeTab === tab
                       ? "text-ink"
                       : "text-ink-60 hover:text-ink",
@@ -293,7 +293,7 @@ export function SiteNavigation() {
                   {tab}
                   <ChevronDown
                     className={cn(
-                      "size-3 transition-transform",
+                      "size-3.5 transition-transform",
                       activeTab === tab && "rotate-180",
                     )}
                   />
@@ -405,7 +405,7 @@ export function SiteNavigation() {
             <li>
               <Link
                 href="/case-studies"
-                className="rounded-full px-3 py-2 text-[13.5px] font-medium text-ink-60 transition-colors duration-200 hover:text-ink"
+                className="rounded-full px-3.5 py-2 text-[15px] font-medium tracking-[0.01em] text-ink-60 transition-colors duration-200 hover:text-ink lg:text-[16px]"
               >
                 Case studies
               </Link>
@@ -413,7 +413,7 @@ export function SiteNavigation() {
             <li>
               <Link
                 href="/blog"
-                className="rounded-full px-3 py-2 text-[13.5px] font-medium text-ink-60 transition-colors duration-200 hover:text-ink"
+                className="rounded-full px-3.5 py-2 text-[15px] font-medium tracking-[0.01em] text-ink-60 transition-colors duration-200 hover:text-ink lg:text-[16px]"
               >
                 Blog
               </Link>
@@ -421,14 +421,14 @@ export function SiteNavigation() {
             <li>
               <Link
                 href="/pricing"
-                className="rounded-full px-3 py-2 text-[13.5px] font-medium text-ink-60 transition-colors duration-200 hover:text-ink"
+                className="rounded-full px-3.5 py-2 text-[15px] font-medium tracking-[0.01em] text-ink-60 transition-colors duration-200 hover:text-ink lg:text-[16px]"
               >
                 Pricing
               </Link>
             </li>
           </ul>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex shrink-0 items-center gap-1.5">
             <a
               href={SITE.calendly}
               target="_blank"
@@ -448,9 +448,9 @@ export function SiteNavigation() {
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(true)}
-              className="grid size-10 place-items-center rounded-full border border-ink-08 text-ink transition-colors duration-200 hover:border-vibrant-purple/40 hover:bg-vibrant-purple/[0.04] lg:hidden"
+              className="grid size-11 place-items-center rounded-full border border-ink-08 text-ink transition-colors duration-200 hover:border-vibrant-purple/40 hover:bg-vibrant-purple/[0.04] lg:hidden"
             >
-              <Menu className="size-4" />
+              <Menu className="size-5" />
             </button>
           </div>
         </motion.nav>
@@ -472,9 +472,9 @@ export function SiteNavigation() {
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setMobileOpen(false)}
-                className="grid size-10 place-items-center rounded-full border border-ink-08 text-ink transition-colors duration-200 hover:bg-cream"
+                className="grid size-11 place-items-center rounded-full border border-ink-08 text-ink transition-colors duration-200 hover:bg-cream"
               >
-                <X className="size-4" />
+                <X className="size-5" />
               </button>
             </div>
             <nav className="flex flex-col px-6 pb-24 pt-8">
