@@ -251,7 +251,7 @@ export function SiteNavigation() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
           className={cn(
-            "pointer-events-auto relative mt-3 flex w-full max-w-6xl items-center justify-between rounded-full px-3 py-2.5 sm:py-3 transition-[border-color,background-color,box-shadow] duration-300",
+            "pointer-events-auto relative mt-3 flex w-full max-w-6xl items-center justify-between rounded-full px-3 py-2 transition-[border-color,background-color,box-shadow] duration-300",
             scrolled
               ? "border border-vibrant-purple/15 bg-background/85 shadow-[0_4px_20px_-8px_oklch(0.55_0.24_295_/_0.18)] backdrop-blur-xl"
               : "border border-transparent bg-background/50 backdrop-blur-md",
@@ -299,7 +299,7 @@ export function SiteNavigation() {
                   />
                 </button>
 
-                {/* Isolated panel — only the active trigger’s content */}
+                {/* Isolated panel â€” only the active triggerâ€™s content */}
                 <AnimatePresence>
                   {activeTab === tab && (
                     <motion.div
