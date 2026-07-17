@@ -17,11 +17,11 @@ export function Logo({ className }: { className?: string }) {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.svg"
-        alt="FinalOutreach.com — Reach further. Convert smarter."
-        width={1470}
-        height={458}
-        className="h-[40px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[44px] lg:h-[52px]"
+        src="/logo.png"
+        alt="FinalOutreach — Reach further. Convert smarter."
+        width={631}
+        height={200}
+        className="h-[48px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[52px] lg:h-[60px]"
         decoding="async"
       />
     </Link>
