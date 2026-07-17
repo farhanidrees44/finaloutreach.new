@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion"
 import { FileText, Play } from "lucide-react"
 import { MagneticButton } from "./magnetic-button"
 import { HeroBackground } from "./hero-background"
+import { HeroWaves } from "./hero-waves"
 import { SITE } from "@/lib/site-data"
 
 /**
@@ -23,12 +24,12 @@ export function Hero() {
       />
 
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        {/* Play cue + decorative wave — scrolls to walkthrough */}
+        {/* Play cue + full-bleed waves */}
         <motion.div
           initial={reduced ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.5 }}
-          className="relative mb-5 flex w-full max-w-xl flex-col items-center"
+          className="relative mb-8 flex w-full flex-col items-center sm:mb-10"
         >
           <a
             href="#watch"
@@ -41,72 +42,9 @@ export function Hero() {
             />
             <Play className="relative size-6 fill-ink pl-0.5 sm:size-7" aria-hidden />
           </a>
-          <svg
-            aria-hidden
-            viewBox="0 0 420 40"
-            className="pointer-events-none -mt-2 h-10 w-full max-w-[440px] overflow-visible"
-            fill="none"
-          >
-            <path
-              className="hero-wave hero-wave--a"
-              d="M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20"
-              stroke="oklch(0.62 0.18 250)"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              opacity="0.6"
-            >
-              <animate
-                attributeName="d"
-                dur="2.8s"
-                repeatCount="indefinite"
-                values="
-                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20;
-                  M8 18 C 70 28, 120 10, 180 26 S 300 22, 412 14;
-                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20
-                "
-              />
-            </path>
-            <path
-              className="hero-wave hero-wave--b"
-              d="M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24"
-              stroke="oklch(0.55 0.24 295)"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              opacity="0.75"
-            >
-              <animate
-                attributeName="d"
-                dur="3.4s"
-                begin="-0.8s"
-                repeatCount="indefinite"
-                values="
-                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24;
-                  M12 20 C 90 32, 140 14, 210 30 S 320 26, 408 16;
-                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24
-                "
-              />
-            </path>
-            <path
-              className="hero-wave hero-wave--c"
-              d="M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26"
-              stroke="oklch(0.68 0.20 35)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              opacity="0.5"
-            >
-              <animate
-                attributeName="d"
-                dur="4s"
-                begin="-1.5s"
-                repeatCount="indefinite"
-                values="
-                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26;
-                  M20 22 C 100 30, 160 16, 230 28 S 340 24, 400 18;
-                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26
-                "
-              />
-            </path>
-          </svg>
+          <HeroWaves />
+          {/* Spacer so copy clears the full-bleed wave band */}
+          <div className="h-10 w-full sm:h-12 md:h-14" aria-hidden />
         </motion.div>
 
         <motion.p
