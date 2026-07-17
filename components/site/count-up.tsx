@@ -25,7 +25,7 @@ export function CountUp({
   className,
 }: Props) {
   const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-100px" })
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" })
   const prefersReducedMotion = useReducedMotion()
   const [n, setN] = useState(0)
 

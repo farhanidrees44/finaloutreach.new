@@ -96,24 +96,6 @@
   --sidebar-accent-foreground: oklch(0.156 0 0);
   --sidebar-border: oklch(0.156 0 0 / 0.08);
   --sidebar-ring: oklch(0.55 0.24 295);
-
-  /* ── Typography scale (MASTER) ── */
-  --text-display: clamp(2rem, 4vw + 0.5rem, 4rem);       /* 32–64px */
-  --text-h2: clamp(1.625rem, 2.2vw + 0.75rem, 2.75rem);  /* 26–44px */
-  --text-h3: clamp(1.25rem, 0.6vw + 1rem, 1.5rem);       /* 20–24px */
-  --text-body: clamp(1rem, 0.35vw + 0.9rem, 1.125rem);   /* 16–18px */
-  --text-label: 0.8125rem;                              /* 13px */
-  --text-stat: clamp(2.5rem, 2.5vw + 1.25rem, 3rem);     /* 40–48px */
-  --leading-display: 1.08;
-  --leading-body: 1.6;
-  --tracking-display: -0.02em;
-  --tracking-label: 0.05em;
-  --weight-display: 700;
-  --weight-h2: 700;
-  --weight-h3: 600;
-  --weight-body: 400;
-  --weight-proof: 700;
-  --weight-stat: 800;
 }
 
 
@@ -250,63 +232,6 @@
   .tracking-display { letter-spacing: -0.03em; }
   .tracking-mega { letter-spacing: -0.04em; }
   .tabular { font-variant-numeric: tabular-nums; }
-
-  /* MASTER type roles */
-  .type-display {
-    font-size: var(--text-display);
-    font-weight: var(--weight-display);
-    line-height: var(--leading-display);
-    letter-spacing: var(--tracking-display);
-  }
-  .type-h2 {
-    font-size: var(--text-h2);
-    font-weight: var(--weight-h2);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-  .type-h3 {
-    font-size: var(--text-h3);
-    font-weight: var(--weight-h3);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-  }
-  .type-body {
-    font-size: var(--text-body);
-    font-weight: var(--weight-body);
-    line-height: var(--leading-body);
-  }
-  .type-label {
-    font-size: var(--text-label);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-  }
-  .type-stat {
-    font-size: var(--text-stat);
-    font-weight: var(--weight-stat);
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
-  }
-  .proof {
-    font-weight: var(--weight-proof);
-    color: var(--ink);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cta-pulse-subtle,
-    .cta-pulse {
-      animation: none !important;
-    }
-  }
-
-  .cta-pulse-subtle {
-    animation: cta-pulse-subtle 2.8s ease-in-out infinite;
-  }
-  @keyframes cta-pulse-subtle {
-    0%, 100% { box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.45); transform: scale(1); }
-    50% { box-shadow: 0 14px 44px -10px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.08); transform: scale(1.015); }
-  }
 
   /* ───── PREMIUM SHADOWS ───── */
   .shadow-premium-xs { box-shadow: var(--shadow-xs); }

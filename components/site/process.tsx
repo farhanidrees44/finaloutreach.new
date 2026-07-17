@@ -1,6 +1,6 @@
 "use client"
 
-import { useReducedMotion, motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { useReducedMotion, motion, AnimatePresence } from "framer-motion"
 import {
   ArrowRight,
   Check,
@@ -89,13 +89,6 @@ export function Process() {
   const [active, setActive] = useState(0)
   const stepRefs = useRef<(HTMLLIElement | null)[]>([])
   const lockRef = useRef(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.55", "end 0.45"],
-  })
-  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   const selectStep = useCallback((i: number, lockMs = 0) => {
     setActive(i)
@@ -126,6 +119,7 @@ export function Process() {
       },
       {
         root: null,
+        // Bias toward the upper mid-viewport where the sticky panel sits
         rootMargin: "-25% 0px -45% 0px",
         threshold: [0.15, 0.35, 0.55, 0.75],
       },
@@ -138,6 +132,7 @@ export function Process() {
   useEffect(() => {
     const syncFromHash = () => {
       if (window.location.hash !== "#process") return
+      // Land on first step when jumping via anchor; content already visible
       setActive(0)
     }
     syncFromHash()
@@ -146,30 +141,23 @@ export function Process() {
   }, [])
 
   return (
-    <section
-      id="process"
-      ref={sectionRef}
-      className="relative border-t border-ink-08 bg-cream"
-    >
+    <section id="process" className="relative border-t border-ink-08 bg-cream">
       <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="06" label="Process" />
-            <h2 className="type-h2 mt-5 text-balance text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.05] tracking-display text-ink">
               How we book meetings,{" "}
-              <span className="font-serif-italic font-normal text-ink-60">
-                step by step.
-              </span>
+              <span className="font-serif-italic text-ink-60">step by step.</span>
             </h2>
           </div>
-          <p className="type-body max-w-sm text-ink-60">
-            From kickoff to calendar — domains warm{" "}
-            <span className="proof">~21 days</span> before volume so inbox
-            placement holds. No agency theatre, no endless decks.
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
+            From kickoff to calendar — domains warm ~21 days before volume so
+            inbox placement holds. No agency theatre, no endless decks.
           </p>
         </div>
 
-        {/* Desktop: sticky preview + step list with scroll progress rail */}
+        {/* Desktop: sticky preview + step list (all bodies always visible) */}
         <div className="mt-12 hidden gap-10 lg:grid lg:grid-cols-[1.15fr_0.9fr] xl:gap-12">
           <div className="relative">
             <div className="sticky top-24">
@@ -177,9 +165,9 @@ export function Process() {
                 <AnimatePresence mode="popLayout">
                   <motion.div
                     key={STEPS[active].n}
-                    initial={reduced ? false : { opacity: 0.4, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={reduced ? undefined : { opacity: 0.4, scale: 0.98 }}
+                    initial={reduced ? false : { opacity: 0.35, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduced ? undefined : { opacity: 0.35, y: -6 }}
                     transition={{ duration: 0.28 }}
                     className="w-full max-w-md"
                   >
@@ -193,91 +181,67 @@ export function Process() {
             </div>
           </div>
 
-          <div className="relative pl-8">
-            {/* Progress rail — fills as user scrolls the process section */}
-            <div
-              aria-hidden
-              className="absolute left-0 top-2 bottom-2 w-px overflow-hidden rounded-full bg-ink-08"
-            >
-              <motion.div
-                className="origin-top w-full bg-electric-blue"
-                style={{
-                  height: "100%",
-                  scaleY: reduced ? 1 : progressScale,
-                }}
-              />
-            </div>
-
-            <ol className="flex flex-col gap-3">
-              {STEPS.map((step, i) => {
-                const open = active === i
-                return (
-                  <li
-                    key={step.n}
-                    ref={(el) => {
-                      stepRefs.current[i] = el
-                    }}
-                    data-step={step.n}
-                    className="relative"
+          <ol className="flex flex-col gap-3">
+            {STEPS.map((step, i) => {
+              const open = active === i
+              return (
+                <li
+                  key={step.n}
+                  ref={(el) => {
+                    stepRefs.current[i] = el
+                  }}
+                  data-step={step.n}
+                >
+                  <button
+                    type="button"
+                    onClick={() => selectStep(i, 600)}
+                    onMouseEnter={() => selectStep(i, 400)}
+                    onFocus={() => selectStep(i, 400)}
+                    className={cn(
+                      "w-full rounded-2xl border px-5 py-5 text-left transition-all duration-300",
+                      open
+                        ? "border-ink/30 bg-background shadow-sm"
+                        : "border-ink-08 bg-transparent hover:border-ink/20 hover:bg-background/60",
+                    )}
                   >
-                    <span
-                      aria-hidden
+                    <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-ink-40">
+                      <span className="font-mono text-ink">{step.n}</span>
+                      <span>{step.when}</span>
+                    </div>
+                    <h3 className="mt-2 flex items-center gap-2 text-[20px] font-medium tracking-display text-ink">
+                      <step.Icon className="size-4 shrink-0 text-ink-40" />
+                      {step.title}
+                    </h3>
+                    {/* Always mounted — never gated behind opacity:0 / unmount */}
+                    <div
                       className={cn(
-                        "absolute -left-8 top-6 size-2.5 -translate-x-[4px] rounded-full border-2 transition-colors duration-300",
-                        open
-                          ? "border-electric-blue bg-electric-blue"
-                          : "border-ink-20 bg-cream",
-                      )}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => selectStep(i, 600)}
-                      onMouseEnter={() => selectStep(i, 400)}
-                      onFocus={() => selectStep(i, 400)}
-                      className={cn(
-                        "w-full rounded-2xl border px-5 py-5 text-left transition-all duration-300",
-                        open
-                          ? "border-ink/30 bg-background shadow-sm"
-                          : "border-ink-08 bg-transparent hover:border-ink/20 hover:bg-background/60",
+                        "overflow-hidden transition-[max-height,opacity] duration-300",
+                        open ? "max-h-[480px] opacity-100" : "max-h-[480px] opacity-90",
                       )}
                     >
-                      <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-ink-40">
-                        <span className="font-mono text-ink">{step.n}</span>
-                        <span>{step.when}</span>
-                      </div>
-                      <h3 className="type-h3 mt-2 flex items-center gap-2 text-ink">
-                        <step.Icon className="size-4 shrink-0 text-ink-40" />
-                        {step.title}
-                      </h3>
-                      <div className="mt-3">
-                        <p className="type-body text-[14.5px] text-ink-60">
-                          {step.desc}
-                        </p>
-                        <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
-                          {step.outcomes.map((item) => (
-                            <li
-                              key={item}
-                              className="flex items-start gap-2 text-[13px] leading-snug text-ink"
-                            >
-                              <Check
-                                className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
-                                strokeWidth={2.5}
-                              />
-                              <span>
-                                <span className="proof">{item.split(" ")[0]}</span>
-                                {" "}
-                                {item.split(" ").slice(1).join(" ")}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </button>
-                  </li>
-                )
-              })}
-            </ol>
-          </div>
+                      <p className="mt-3 text-[14.5px] leading-[1.65] text-ink-60">
+                        {step.desc}
+                      </p>
+                      <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
+                        {step.outcomes.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-start gap-2 text-[13px] leading-snug text-ink"
+                          >
+                            <Check
+                              className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
+                              strokeWidth={2.5}
+                            />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
         </div>
 
         {/* Mobile: stacked steps with panels always visible (no opacity:0 gate) */}

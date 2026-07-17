@@ -1,53 +1,41 @@
 "use client"
 
 import Image from "next/image"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 import { CERTIFICATIONS } from "@/data/certifications"
 import { SectionEyebrow } from "./section-eyebrow"
-import { scaleIn, staggerFast, viewportOnce, motionSafe, springSnappy } from "@/lib/motion"
 
 const isDev = process.env.NODE_ENV !== "production"
 
 export function Certifications() {
-  const reduced = useReducedMotion()
-  const container = motionSafe(reduced, staggerFast)
-  const item = motionSafe(reduced, scaleIn)
-
   return (
-    <section id="credentials" className="border-t border-ink-08 bg-background">
+    <section
+      id="credentials"
+      className="border-t border-ink-08 bg-background"
+    >
       <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="max-w-2xl">
           <SectionEyebrow number="02" label="Credentials" />
-          <h2 className="type-h2 mt-5 text-balance text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
             Platform credentials we{" "}
-            <span className="font-serif-italic font-normal text-ink-60">
-              hold &amp; operate under.
-            </span>
+            <span className="font-serif-italic text-ink-60">hold &amp; operate under.</span>
           </h2>
-          <p className="type-body mt-4 max-w-xl text-ink-60">
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
             Badges from tools in our delivery stack — not client endorsements or
             invented awards.
           </p>
         </div>
 
-        <motion.ul
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {CERTIFICATIONS.map((cert) => (
+        <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {CERTIFICATIONS.map((cert, i) => (
             <motion.li
               key={cert.id}
-              variants={item}
-              whileHover={
-                reduced
-                  ? undefined
-                  : { y: -4, transition: springSnappy }
-              }
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink-08 bg-cream/40 shadow-premium-sm transition-shadow hover:border-ink-40/40 hover:bg-cream/70 hover:shadow-premium-md"
+              initial={false}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-8%" }}
+              transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink-08 bg-cream/40 transition-colors hover:border-ink-40/40 hover:bg-cream/70"
             >
               {isDev && cert.isPlaceholder && (
                 <span className="absolute left-0 top-0 z-10 bg-amber-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
@@ -61,7 +49,7 @@ export function Certifications() {
                     src={cert.certificateImage}
                     alt={`${cert.title} credential badge issued by ${cert.issuer}`}
                     fill
-                    className="object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
                     sizes="200px"
                     loading="lazy"
                   />
@@ -69,11 +57,13 @@ export function Certifications() {
               </div>
 
               <div className="flex flex-1 flex-col gap-2 p-5">
-                <p className="type-label text-ink-40">{cert.issuer}</p>
-                <h3 className="type-h3 text-ink">{cert.title}</h3>
-                <p className="text-[13px] text-ink-40">
-                  Earned <span className="proof">{cert.dateEarned}</span>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-ink-40">
+                  {cert.issuer}
                 </p>
+                <h3 className="text-[17px] font-medium leading-snug text-ink">
+                  {cert.title}
+                </h3>
+                <p className="text-[13px] text-ink-40">Earned {cert.dateEarned}</p>
                 {cert.verifyUrl ? (
                   <a
                     href={cert.verifyUrl}
@@ -88,7 +78,7 @@ export function Certifications() {
               </div>
             </motion.li>
           ))}
-        </motion.ul>
+        </ul>
       </div>
     </section>
   )
