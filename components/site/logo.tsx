@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -12,13 +11,14 @@ export function Logo({ className }: { className?: string }) {
       )}
       aria-label="FinalOutreach home"
     >
-      <Image
-        src="/logo.png"
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logo.svg"
         alt="FinalOutreach — Reach further. Convert smarter."
-        width={421}
-        height={160}
-        priority
-        className="h-12 w-auto sm:h-14 md:h-[3.75rem]"
+        width={294}
+        height={92}
+        className="h-14 w-auto sm:h-16 md:h-[4.25rem]"
+        decoding="async"
       />
     </Link>
   )
