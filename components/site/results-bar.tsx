@@ -42,8 +42,8 @@ const STATS = [
 export function ResultsBar() {
   return (
     <section className="relative overflow-hidden border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
-        <div className="mb-12 flex flex-col gap-3">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="mb-10 flex flex-col gap-3">
           <SectionEyebrow number="04" label="By the numbers" />
           <h2 className="max-w-2xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium leading-[1.05] tracking-display text-ink">
             One live campaign,{" "}
@@ -59,10 +59,10 @@ export function ResultsBar() {
           {STATS.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.45, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex flex-col gap-2 border-t border-ink-08 pt-6"
             >
               <CountUp

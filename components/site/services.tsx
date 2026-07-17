@@ -121,10 +121,10 @@ function ServiceCard({
       href={SITE.calendly}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
       className={cn(
         "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-ink-08 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-electric-blue/40 hover:shadow-lg hover:shadow-electric-blue/20 card-flip sm:p-8",
         featured && "lg:p-10 bg-gradient-to-br from-white to-soft-peach dark:from-card dark:to-card border-electric-blue/30 shadow-lg shadow-electric-blue/10",
@@ -180,7 +180,7 @@ export function Services() {
   const [featured, ...rest] = SERVICES
   return (
     <section id="services" className="border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-20 md:py-24">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="05" label="Services" />
@@ -198,7 +198,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
           <ServiceCard {...featured} className="lg:col-span-2 lg:row-span-2" />
           {rest.map((s) => (
             <ServiceCard key={s.title} {...s} />

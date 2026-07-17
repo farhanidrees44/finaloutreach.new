@@ -12,7 +12,7 @@ import {
 } from "lucide-react"
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 const STEPS = [
   {
@@ -87,10 +87,62 @@ type Step = (typeof STEPS)[number]
 export function Process() {
   const reduced = useReducedMotion()
   const [active, setActive] = useState(0)
+  const stepRefs = useRef<(HTMLLIElement | null)[]>([])
+  const lockRef = useRef(false)
+
+  const selectStep = useCallback((i: number, lockMs = 0) => {
+    setActive(i)
+    if (lockMs > 0) {
+      lockRef.current = true
+      window.setTimeout(() => {
+        lockRef.current = false
+      }, lockMs)
+    }
+  }, [])
+
+  // Scroll-spy: keep sticky preview + highlight in sync while scrolling,
+  // including fast scroll and #process hash jumps.
+  useEffect(() => {
+    const nodes = stepRefs.current.filter(Boolean) as HTMLLIElement[]
+    if (nodes.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (lockRef.current) return
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        const top = visible[0]
+        if (!top?.target) return
+        const idx = nodes.indexOf(top.target as HTMLLIElement)
+        if (idx >= 0) setActive(idx)
+      },
+      {
+        root: null,
+        // Bias toward the upper mid-viewport where the sticky panel sits
+        rootMargin: "-25% 0px -45% 0px",
+        threshold: [0.15, 0.35, 0.55, 0.75],
+      },
+    )
+
+    nodes.forEach((n) => observer.observe(n))
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      if (window.location.hash !== "#process") return
+      // Land on first step when jumping via anchor; content already visible
+      setActive(0)
+    }
+    syncFromHash()
+    window.addEventListener("hashchange", syncFromHash)
+    return () => window.removeEventListener("hashchange", syncFromHash)
+  }, [])
 
   return (
     <section id="process" className="relative border-t border-ink-08 bg-cream">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+      <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="06" label="Process" />
@@ -105,18 +157,18 @@ export function Process() {
           </p>
         </div>
 
-        {/* Desktop: sticky preview + step accordion */}
-        <div className="mt-14 hidden gap-10 lg:grid lg:grid-cols-[1.15fr_0.9fr] xl:gap-12">
+        {/* Desktop: sticky preview + step list (all bodies always visible) */}
+        <div className="mt-12 hidden gap-10 lg:grid lg:grid-cols-[1.15fr_0.9fr] xl:gap-12">
           <div className="relative">
             <div className="sticky top-24">
               <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[1.75rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-6 shadow-[0_28px_70px_-40px_rgba(15,15,15,0.35)] md:p-8">
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="popLayout">
                   <motion.div
                     key={STEPS[active].n}
-                    initial={reduced ? false : { opacity: 0, y: 10 }}
+                    initial={reduced ? false : { opacity: 0.35, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={reduced ? undefined : { opacity: 0, y: -10 }}
-                    transition={{ duration: 0.32 }}
+                    exit={reduced ? undefined : { opacity: 0.35, y: -6 }}
+                    transition={{ duration: 0.28 }}
                     className="w-full max-w-md"
                   >
                     <StepPanel kind={STEPS[active].visual} />
@@ -133,11 +185,18 @@ export function Process() {
             {STEPS.map((step, i) => {
               const open = active === i
               return (
-                <li key={step.n}>
+                <li
+                  key={step.n}
+                  ref={(el) => {
+                    stepRefs.current[i] = el
+                  }}
+                  data-step={step.n}
+                >
                   <button
                     type="button"
-                    onClick={() => setActive(i)}
-                    onMouseEnter={() => setActive(i)}
+                    onClick={() => selectStep(i, 600)}
+                    onMouseEnter={() => selectStep(i, 400)}
+                    onFocus={() => selectStep(i, 400)}
                     className={cn(
                       "w-full rounded-2xl border px-5 py-5 text-left transition-all duration-300",
                       open
@@ -153,36 +212,31 @@ export function Process() {
                       <step.Icon className="size-4 shrink-0 text-ink-40" />
                       {step.title}
                     </h3>
-                    <AnimatePresence initial={false}>
-                      {open && (
-                        <motion.div
-                          key="body"
-                          initial={reduced ? false : { height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={reduced ? undefined : { height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <p className="mt-3 text-[14.5px] leading-[1.65] text-ink-60">
-                            {step.desc}
-                          </p>
-                          <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
-                            {step.outcomes.map((item) => (
-                              <li
-                                key={item}
-                                className="flex items-start gap-2 text-[13px] leading-snug text-ink"
-                              >
-                                <Check
-                                  className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
-                                  strokeWidth={2.5}
-                                />
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </motion.div>
+                    {/* Always mounted — never gated behind opacity:0 / unmount */}
+                    <div
+                      className={cn(
+                        "overflow-hidden transition-[max-height,opacity] duration-300",
+                        open ? "max-h-[480px] opacity-100" : "max-h-[480px] opacity-90",
                       )}
-                    </AnimatePresence>
+                    >
+                      <p className="mt-3 text-[14.5px] leading-[1.65] text-ink-60">
+                        {step.desc}
+                      </p>
+                      <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
+                        {step.outcomes.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-start gap-2 text-[13px] leading-snug text-ink"
+                          >
+                            <Check
+                              className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
+                              strokeWidth={2.5}
+                            />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </button>
                 </li>
               )
@@ -190,17 +244,10 @@ export function Process() {
           </ol>
         </div>
 
-        {/* Mobile: stacked steps with panel */}
-        <ol className="mt-12 flex flex-col gap-10 lg:hidden">
-          {STEPS.map((step, i) => (
-            <motion.li
-              key={step.n}
-              initial={reduced ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.45, delay: i * 0.04 }}
-              className="flex flex-col gap-4"
-            >
+        {/* Mobile: stacked steps with panels always visible (no opacity:0 gate) */}
+        <ol className="mt-10 flex flex-col gap-8 lg:hidden">
+          {STEPS.map((step) => (
+            <li key={step.n} className="flex flex-col gap-4">
               <div className="flex items-center justify-center rounded-[1.5rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-5">
                 <StepPanel kind={step.visual} />
               </div>
@@ -215,8 +262,22 @@ export function Process() {
                 <p className="mt-2 text-[14.5px] leading-[1.65] text-ink-60">
                   {step.desc}
                 </p>
+                <ul className="mt-4 flex flex-col gap-2">
+                  {step.outcomes.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-[13px] leading-snug text-ink"
+                    >
+                      <Check
+                        className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
+                        strokeWidth={2.5}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </motion.li>
+            </li>
           ))}
         </ol>
 

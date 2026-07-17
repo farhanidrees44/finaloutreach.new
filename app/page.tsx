@@ -2,17 +2,18 @@ import type { Metadata } from "next"
 import { SiteNavigation } from "@/components/site/site-navigation"
 import { Hero } from "@/components/site/hero"
 import { OurStackMarquee } from "@/components/site/our-stack-marquee"
+import { Certifications } from "@/components/site/certifications"
 import { VideoSection } from "@/components/site/video-section"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
 import { BookingsProof } from "@/components/site/bookings-proof"
 import { ResultsBar } from "@/components/site/results-bar"
 import { Services } from "@/components/site/services"
+import { OperatorDifference } from "@/components/site/operator-difference"
 import { Process } from "@/components/site/process"
 import { RoiCalculator } from "@/components/site/roi-calculator"
 import { FounderStory } from "@/components/site/founder-story"
 import { LiveCampaignInvite } from "@/components/site/live-campaign-invite"
 import { Testimonials } from "@/components/site/testimonials"
-import { Certifications } from "@/components/site/certifications"
 import { Faq } from "@/components/site/faq"
 import { Pricing } from "@/components/site/pricing"
 import { FinalCta } from "@/components/site/final-cta"
@@ -76,17 +77,19 @@ export default function HomePage() {
           <main id="main">
             <Hero />
             <OurStackMarquee />
+            {/* Credentials early — strongest verifiable differentiator */}
+            <Certifications />
             <VideoSection />
             <CampaignProofGallery />
             <BookingsProof />
             <ResultsBar />
             <Services />
+            <OperatorDifference />
             <Process />
             <RoiCalculator />
             <FounderStory />
             <LiveCampaignInvite />
             <Testimonials />
-            <Certifications />
             <Faq />
             <Pricing />
             <FinalCta />

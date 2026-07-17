@@ -14,9 +14,9 @@ export function Certifications() {
       id="credentials"
       className="border-t border-ink-08 bg-background"
     >
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+      <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="max-w-2xl">
-          <SectionEyebrow number="10" label="Credentials" />
+          <SectionEyebrow number="02" label="Credentials" />
           <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
             Platform credentials we{" "}
             <span className="font-serif-italic text-ink-60">hold &amp; operate under.</span>
@@ -27,14 +27,14 @@ export function Certifications() {
           </p>
         </div>
 
-        <ul className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CERTIFICATIONS.map((cert, i) => (
             <motion.li
               key={cert.id}
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-8%" }}
-              transition={{ duration: 0.5, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink-08 bg-cream/40 transition-colors hover:border-ink-40/40 hover:bg-cream/70"
             >
               {isDev && cert.isPlaceholder && (

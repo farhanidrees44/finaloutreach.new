@@ -14,7 +14,7 @@ export function Hero() {
   const reduced = useReducedMotion()
 
   return (
-    <section className="noise-bg relative isolate overflow-hidden pb-20 pt-24 sm:pt-28 md:pb-28 md:pt-36">
+    <section className="noise-bg relative isolate overflow-hidden pb-16 pt-24 sm:pt-28 md:pb-20 md:pt-32">
       <HeroBackground />
 
       <div
@@ -164,6 +164,37 @@ export function Hero() {
           built to be your last one — hands-on operators, real infrastructure,
           meetings booked directly into your calendar.
         </motion.p>
+
+        {/* Real Smartlead campaign numbers (same source as ResultsBar / Proof) */}
+        <motion.dl
+          initial={reduced ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.52 }}
+          className="mt-9 grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6"
+        >
+          {[
+            { value: "11.58%", label: "Reply rate" },
+            { value: "145", label: "Unique replies" },
+            { value: "1,258", label: "Leads in campaign" },
+            { value: "3", label: "Active sequences" },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col items-center gap-1 border-t border-ink-08 pt-4"
+            >
+              <dt className="sr-only">{stat.label}</dt>
+              <dd className="text-[clamp(1.5rem,3.5vw,2rem)] font-semibold leading-none tracking-display tabular text-ink">
+                {stat.value}
+              </dd>
+              <p className="text-[11px] uppercase tracking-[0.12em] text-ink-40">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </motion.dl>
+        <p className="mt-3 text-[11px] text-ink-40">
+          From a live property-management campaign — same figures as Proof below.
+        </p>
 
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 10 }}

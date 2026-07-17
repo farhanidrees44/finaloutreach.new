@@ -13,7 +13,14 @@ const PACKAGES = [
     price: "$3,500",
     cadence: "/ month",
     blurb: "For founders ready to test cold outreach.",
-    items: ["1 campaign", "2,000 prospects", "Weekly reports"],
+    items: [
+      "1 campaign",
+      "2,000 prospects",
+      "Weekly reports",
+      "~21-day domain warmup",
+      "SPF / DKIM / DMARC setup",
+      "Custom sequence + reply playbook",
+    ],
     fit: "Pre-seed to Series A",
     cta: "Book intro call",
     featured: false,
@@ -23,7 +30,16 @@ const PACKAGES = [
     price: "$7,500",
     cadence: "/ month",
     blurb: "For teams scaling outbound seriously.",
-    items: ["3 campaigns", "8,000 prospects", "Dedicated strategist"],
+    items: [
+      "3 campaigns",
+      "8,000 prospects",
+      "Dedicated strategist",
+      "Friday performance & pipeline review",
+      "Weekly A/B on copy & cadence",
+      "Live dashboard walkthrough on call",
+      "CRM-ready lead handoff",
+      "Infrastructure setup included",
+    ],
     fit: "Series A to Series B",
     cta: "Book intro call",
     featured: true,
@@ -33,7 +49,15 @@ const PACKAGES = [
     price: "Custom",
     cadence: "",
     blurb: "For revenue teams treating outbound as a channel.",
-    items: ["Unlimited campaigns", "Full SDR team", "Custom integrations"],
+    items: [
+      "Unlimited campaigns",
+      "Full SDR team",
+      "Custom integrations",
+      "Dedicated operator pod",
+      "Quarterly scaling plan",
+      "Priority infrastructure & deliverability",
+      "Multi-channel (email + LinkedIn)",
+    ],
     fit: "Series B+ and established",
     cta: "Book strategy call",
     featured: false,
@@ -46,7 +70,7 @@ export function Pricing() {
       id="pricing"
       className="border-t border-ink-08 bg-cream"
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-20 md:py-24">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="12" label="Pricing" />
@@ -66,10 +90,10 @@ export function Pricing() {
           {PACKAGES.map((p, i) => (
             <motion.li
               key={p.name}
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.06 }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
               className={cn(
                 "group relative grid grid-cols-1 gap-8 rounded-2xl border bg-background p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-32px_rgba(20,20,16,0.45)] sm:p-9 lg:grid-cols-[260px_1fr_280px] lg:items-center lg:gap-10",
                 p.featured
@@ -101,12 +125,12 @@ export function Pricing() {
                     </span>
                   )}
                 </div>
-                <ul className="flex flex-wrap items-center gap-x-1.5 gap-y-2 text-[14px] text-ink-60">
+                <ul className="flex flex-col gap-2 text-[14px] text-ink-60 sm:flex-wrap sm:flex-row sm:items-center sm:gap-x-1.5 sm:gap-y-2">
                   {p.items.map((it, idx) => (
                     <li key={it} className="flex items-center gap-1.5">
                       <span className="text-ink">{it}</span>
                       {idx < p.items.length - 1 && (
-                        <span aria-hidden="true" className="text-ink-40">
+                        <span aria-hidden="true" className="hidden text-ink-40 sm:inline">
                           ·
                         </span>
                       )}

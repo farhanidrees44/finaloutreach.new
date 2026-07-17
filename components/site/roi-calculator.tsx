@@ -1,10 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import { useState } from "react"
+import { motion } from "framer-motion"
 import { Calculator, TrendingUp, ArrowRight } from "lucide-react"
-import Link from "next/link"
 import { SITE } from "@/lib/site-data"
 
 function fmt(n: number) {
@@ -17,28 +15,17 @@ export function RoiCalculator() {
   const [acv, setAcv] = useState(25000)
   const [meetings, setMeetings] = useState(40)
   const [close, setClose] = useState(15)
-  const [annual, setAnnual] = useState(0)
-  const [investment, setInvestment] = useState(0)
-  const [roi, setRoi] = useState(0)
 
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-100px" })
-
-  useEffect(() => {
-    const closed = (meetings * 12 * (close / 100))
-    const annualRev = closed * acv
-    const investmentTotal = 7500 * 12 // Growth tier as anchor
-    const roiX = annualRev / investmentTotal
-    setAnnual(annualRev)
-    setInvestment(investmentTotal)
-    setRoi(roiX)
-  }, [acv, meetings, close])
+  // Compute synchronously so outputs never flash $0 on first paint
+  const closed = meetings * 12 * (close / 100)
+  const annual = closed * acv
+  const investment = 7500 * 12 // Growth tier as anchor
+  const roi = annual / investment
 
   return (
     <section
       id="roi-calculator"
-      ref={ref}
-      className="relative overflow-hidden border-y border-ink-08 py-24 md:py-32"
+      className="relative overflow-hidden border-y border-ink-08 py-20 md:py-24"
     >
       <div
         aria-hidden="true"
@@ -47,10 +34,10 @@ export function RoiCalculator() {
 
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-12 flex flex-col items-start gap-3 md:mb-16"
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="mb-10 flex flex-col items-start gap-3 md:mb-12"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-vibrant-purple/20 bg-vibrant-purple/[0.04] px-3 py-1 text-[12px] font-medium uppercase tracking-[0.14em] text-vibrant-purple">
             <Calculator className="size-3.5" strokeWidth={2.2} />
@@ -73,9 +60,9 @@ export function RoiCalculator() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
           {/* INPUTS */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
             className="glass-card flex flex-col gap-7 rounded-3xl p-8 md:p-10"
             style={{ boxShadow: "var(--shadow-lg)" }}
           >
@@ -113,9 +100,9 @@ export function RoiCalculator() {
 
           {/* OUTPUT */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.25 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
             className="relative flex flex-col gap-6 overflow-hidden rounded-3xl p-8 md:p-10"
             style={{
               background:
