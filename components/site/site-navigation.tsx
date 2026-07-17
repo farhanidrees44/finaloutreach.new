@@ -113,11 +113,18 @@ function NavDropdownItem({
   )
 }
 
+type NavItem = {
+  href: string
+  title: string
+  subtitle?: string
+  icon?: LucideIcon
+}
+
 function NavDropdownGrid({
   items,
   onNavigate,
 }: {
-  items: { href: string; title: string; subtitle?: string; icon?: LucideIcon }[]
+  items: NavItem[]
   onNavigate?: () => void
 }) {
   const twoCol = items.length >= 4
@@ -142,7 +149,7 @@ function NavDropdownGrid({
   )
 }
 
-function megaLinksToItems(links: MegaLink[]) {
+function megaLinksToItems(links: MegaLink[]): NavItem[] {
   return links.map((l) => ({
     href: l.href,
     title: l.title,
@@ -151,7 +158,7 @@ function megaLinksToItems(links: MegaLink[]) {
   }))
 }
 
-function toolsToItems(tools: MegaTool[]) {
+function toolsToItems(tools: MegaTool[]): NavItem[] {
   return tools.map((t) => ({
     href: t.href,
     title: t.title,
