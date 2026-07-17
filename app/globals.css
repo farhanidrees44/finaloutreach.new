@@ -100,11 +100,12 @@
 
 
 @theme inline {
-  /* Outfit = site default sans — Cleverly/Geomanist-like geometric clarity */
-  --font-sans: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  /* Plus Jakarta Sans = site default sans (Cleverly-style geometric-humanist) */
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono Fallback", ui-monospace, monospace;
   --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
-  --font-display: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  /* Display shares the same face — weight hierarchy is applied via utilities */
+  --font-display: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -192,6 +193,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;

@@ -148,7 +148,7 @@ export function Hero() {
                 ? { duration: 0 }
                 : { delay: 0.28, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
             }
-            className="mt-1 block text-ink"
+            className="mt-1 block gradient-text-animated"
           >
             Start Booking Meetings.
           </motion.span>

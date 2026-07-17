@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next"
-import { Outfit, Geist_Mono, Instrument_Serif } from "next/font/google"
+import {
+  Plus_Jakarta_Sans,
+  Geist_Mono,
+  Instrument_Serif,
+} from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SITE } from "@/lib/site-data"
 import { AnalyticsScripts } from "@/components/site/analytics-scripts"
@@ -7,14 +11,10 @@ import { JsonLd } from "@/components/seo/json-ld"
 import { organizationSchema } from "@/lib/seo/schemas"
 import "./globals.css"
 
-/**
- * Outfit — geometric sans close to Cleverly's Geomanist:
- * bold, clear letterforms at display sizes (Google Fonts / next/font).
- */
-const outfit = Outfit({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-outfit",
+  variable: "--font-jakarta",
   display: "swap",
 })
 const geistMono = Geist_Mono({
@@ -121,7 +121,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${outfit.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-background`}
+      className={`${plusJakarta.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-background`}
     >
       <body className="font-sans antialiased">
         <JsonLd data={organizationSchema()} />
