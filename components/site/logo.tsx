@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.svg"
+        src="/logo.png"
         alt="FinalOutreach — Reach further. Convert smarter."
         width={339}
         height={120}
