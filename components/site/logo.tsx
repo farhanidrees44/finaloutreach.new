@@ -6,18 +6,18 @@ export function Logo({ className }: { className?: string }) {
     <Link
       href="/"
       className={cn(
-        "group inline-flex h-8 shrink-0 items-center transition-opacity duration-300 hover:opacity-90 sm:h-9",
+        "group inline-flex shrink-0 items-center transition-opacity duration-300 hover:opacity-90",
         className,
       )}
       aria-label="FinalOutreach home"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.png"
-        alt="FinalOutreach — Reach further. Convert smarter."
-        width={339}
-        height={120}
-        className="h-full w-auto max-h-9 object-contain object-left"
+        src="/logo.svg"
+        alt="FinalOutreach.com — Reach further. Convert smarter."
+        width={472}
+        height={160}
+        className="h-10 w-auto sm:h-11 md:h-12"
         decoding="async"
       />
     </Link>
