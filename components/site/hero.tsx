@@ -1,219 +1,156 @@
 "use client"
 
 import { motion, useReducedMotion } from "framer-motion"
-import { FileText, Play } from "lucide-react"
-import { MagneticButton } from "./magnetic-button"
-import { HeroBackground } from "./hero-background"
+import { ArrowRight } from "lucide-react"
 import { SITE } from "@/lib/site-data"
 
 /**
- * Centered hero — clean composition: play cue, brand, outcome headline,
- * one supporting line, one CTA, honest trust line. No fabricated client counts.
+ * Premium rounded hero card — dark gradient, centered hierarchy, verified stats.
+ * Omits trust-rating / client-count / photo overlays until real assets exist.
+ *
+ * Stats source: same Smartlead property-management campaign as ResultsBar / Proof.
  */
+const HERO_STATS = [
+  { value: "1,258", label: "Leads in campaign" },
+  { value: "11.58%", label: "Reply rate" },
+  { value: "145", label: "Unique replies" },
+] as const
+
 export function Hero() {
   const reduced = useReducedMotion()
 
   return (
-    <section className="noise-bg relative isolate overflow-hidden pb-16 pt-24 sm:pt-28 md:pb-20 md:pt-32">
-      <HeroBackground />
-
+    <section className="relative px-4 pb-10 pt-20 sm:px-6 sm:pt-24 md:pb-12 md:pt-28">
       <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-[640px] grid-lines opacity-25 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
-      />
+        className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-[24px] sm:rounded-[28px] md:rounded-[32px]"
+        style={{
+          // Near-black → brand navy / electric-blue (no purple)
+          background:
+            "linear-gradient(165deg, oklch(0.14 0.01 250) 0%, oklch(0.18 0.04 250) 42%, oklch(0.32 0.12 250) 78%, oklch(0.42 0.16 250) 100%)",
+        }}
+      >
+        {/* Soft blue glow texture — no photo asset available */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 100%, oklch(0.58 0.22 250 / 0.35), transparent 70%), radial-gradient(ellipse 50% 40% at 80% 20%, oklch(0.58 0.22 250 / 0.12), transparent 55%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "radial-gradient(oklch(1 0 0) 0.6px, transparent 0.6px)",
+            backgroundSize: "18px 18px",
+          }}
+        />
 
-      <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        {/* Play cue + decorative wave — scrolls to walkthrough */}
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.5 }}
-          className="relative mb-8 flex w-full max-w-xl flex-col items-center"
-        >
-          <a
-            href="#watch"
-            aria-label="Watch how FinalOutreach runs outbound"
-            className="group relative z-10 grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.4)] transition-transform duration-300 hover:scale-105 sm:size-[5rem]"
-          >
-            <span
-              aria-hidden
-              className="absolute inset-0 animate-ping rounded-full bg-vibrant-purple/15 opacity-40 [animation-duration:2.4s]"
-            />
-            <Play className="relative size-6 fill-ink pl-0.5 sm:size-7" aria-hidden />
-          </a>
-          <svg
-            aria-hidden
-            viewBox="0 0 420 40"
-            className="pointer-events-none -mt-2 h-10 w-full max-w-[440px] overflow-visible"
-            fill="none"
-          >
-            <path
-              className="hero-wave hero-wave--a"
-              d="M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20"
-              stroke="oklch(0.62 0.18 250)"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              opacity="0.6"
-            >
-              <animate
-                attributeName="d"
-                dur="2.8s"
-                repeatCount="indefinite"
-                values="
-                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20;
-                  M8 18 C 70 28, 120 10, 180 26 S 300 22, 412 14;
-                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20
-                "
-              />
-            </path>
-            <path
-              className="hero-wave hero-wave--b"
-              d="M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24"
-              stroke="oklch(0.55 0.24 295)"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              opacity="0.75"
-            >
-              <animate
-                attributeName="d"
-                dur="3.4s"
-                begin="-0.8s"
-                repeatCount="indefinite"
-                values="
-                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24;
-                  M12 20 C 90 32, 140 14, 210 30 S 320 26, 408 16;
-                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24
-                "
-              />
-            </path>
-            <path
-              className="hero-wave hero-wave--c"
-              d="M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26"
-              stroke="oklch(0.68 0.20 35)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              opacity="0.5"
-            >
-              <animate
-                attributeName="d"
-                dur="4s"
-                begin="-1.5s"
-                repeatCount="indefinite"
-                values="
-                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26;
-                  M20 22 C 100 30, 160 16, 230 28 S 340 24, 400 18;
-                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26
-                "
-              />
-            </path>
-          </svg>
-        </motion.div>
-
-        <motion.p
-          initial={reduced ? false : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08 }}
-          className="text-[13px] font-semibold uppercase tracking-[0.22em] text-vibrant-purple"
-        >
-          B2B Cold Outreach Agency
-        </motion.p>
-
-        <motion.p
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.12 }}
-          className="mt-3 text-[15px] font-medium tracking-tight text-ink"
-        >
-          {SITE.name}
-        </motion.p>
-
-        <h1 className="mt-5 max-w-[16ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-display text-ink">
-          <motion.span
-            initial={reduced ? false : { opacity: 0, y: 18 }}
+        <div className="relative mx-auto flex max-w-[800px] flex-col items-center px-6 py-10 text-center sm:px-10 sm:py-14 md:px-12 md:py-16 lg:py-20">
+          {/* Positioning eyebrow (existing copy) */}
+          <motion.p
+            initial={reduced ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduced
-                ? { duration: 0 }
-                : { delay: 0.18, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
-            }
-            className="block"
+            transition={{ duration: reduced ? 0 : 0.4 }}
+            className="text-[12px] font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-[13px]"
           >
-            Stop Hiring Agencies.
-          </motion.span>
-          <motion.span
-            initial={reduced ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduced
-                ? { duration: 0 }
-                : { delay: 0.28, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
-            }
-            className="mt-1 block font-serif-italic gradient-text-animated"
-          >
-            Start Booking Meetings.
-          </motion.span>
-        </h1>
+            B2B Cold Outreach Agency
+          </motion.p>
 
-        <motion.p
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.45 }}
-          className="mt-7 max-w-2xl text-pretty text-[17px] leading-[1.65] text-ink-60 sm:text-[19px]"
-        >
-          Most teams burn 3–4 agencies before finding one that works. We&apos;re
-          built to be your last one — hands-on operators, real infrastructure,
-          meetings booked directly into your calendar.
-        </motion.p>
-
-        {/* Real Smartlead campaign numbers (same source as ResultsBar / Proof) */}
-        <motion.dl
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.52 }}
-          className="mt-9 grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6"
-        >
-          {[
-            { value: "11.58%", label: "Reply rate" },
-            { value: "145", label: "Unique replies" },
-            { value: "1,258", label: "Leads in campaign" },
-            { value: "3", label: "Active sequences" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center gap-1 border-t border-ink-08 pt-4"
+          <h1 className="mt-5 max-w-[14ch] text-balance text-[28px] font-semibold leading-[1.12] tracking-display text-white sm:mt-6 sm:text-[40px] md:text-[48px] lg:text-[56px]">
+            <motion.span
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                reduced
+                  ? { duration: 0 }
+                  : { delay: 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+              }
+              className="block"
             >
-              <dt className="sr-only">{stat.label}</dt>
-              <dd className="text-[clamp(1.5rem,3.5vw,2rem)] font-semibold leading-none tracking-display tabular text-ink">
-                {stat.value}
-              </dd>
-              <p className="text-[11px] uppercase tracking-[0.12em] text-ink-40">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </motion.dl>
-        <p className="mt-3 text-[11px] text-ink-40">
-          From a live property-management campaign — same figures as Proof below.
-        </p>
+              Stop Hiring Agencies.
+            </motion.span>
+            <motion.span
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                reduced
+                  ? { duration: 0 }
+                  : { delay: 0.16, duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+              }
+              className="mt-1 block font-serif-italic text-white/90"
+            >
+              Start Booking Meetings.
+            </motion.span>
+          </h1>
 
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.6 }}
-          className="mt-10 flex flex-col items-center gap-4"
-        >
-          <MagneticButton href={SITE.calendly} size="lg" variant="primary">
-            <span className="inline-flex items-center gap-2">
-              <FileText className="size-4 opacity-90" aria-hidden />
+          <motion.p
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.28 }}
+            className="mt-5 max-w-[600px] text-pretty text-[17px] leading-[1.55] text-white/65 sm:mt-6 sm:text-[19px] md:text-[20px]"
+          >
+            Most teams burn 3–4 agencies before finding one that works. We&apos;re
+            built to be your last one — hands-on operators, real infrastructure,
+            meetings booked directly into your calendar.
+          </motion.p>
+
+          {/* Eyebrow above CTA — existing positioning line */}
+          <motion.p
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.36 }}
+            className="mt-6 text-[13px] font-medium tracking-tight text-white/50 sm:mt-7"
+          >
+            {SITE.name} · Done-for-you outbound
+          </motion.p>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.42 }}
+            className="mt-5 flex flex-col items-center gap-3 sm:mt-6"
+          >
+            <a
+              href={SITE.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-[14px] text-[15px] font-semibold tracking-tight text-[oklch(0.14_0.01_250)] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)] transition-all duration-200 hover:scale-[1.03] hover:bg-white/95 active:scale-[0.98] sm:px-8 sm:text-[15.5px]"
+            >
               Get Your Custom Growth Blueprint
-            </span>
-          </MagneticButton>
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </a>
+            {/* Micro-trust: real call format only — no invented client count */}
+            <p className="max-w-sm text-[12.5px] leading-relaxed text-white/45">
+              30-minute strategy call — live campaign dashboards, honest fit check.
+            </p>
+          </motion.div>
 
-          <p className="max-w-md text-[13px] leading-relaxed text-ink-40">
-            30-minute strategy call — we&apos;ll show live campaign dashboards
-            and tell you honestly if outbound fits your ACV.
+          {/* Verified campaign stats only */}
+          <motion.dl
+            initial={reduced ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.52 }}
+            className="mt-10 grid w-full max-w-2xl grid-cols-3 gap-3 border-t border-white/15 pt-8 sm:mt-12 sm:gap-6 sm:pt-10"
+          >
+            {HERO_STATS.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center gap-1.5 sm:gap-2">
+                <dt className="sr-only">{stat.label}</dt>
+                <dd className="text-[clamp(1.35rem,4vw,2.35rem)] font-bold leading-none tracking-display tabular text-white">
+                  {stat.value}
+                </dd>
+                <p className="max-w-[11ch] text-[10px] uppercase leading-snug tracking-[0.12em] text-white/45 sm:text-[11px]">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </motion.dl>
+          <p className="mt-4 text-[10px] text-white/30 sm:text-[11px]">
+            Live property-management campaign — same figures as Proof below.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
