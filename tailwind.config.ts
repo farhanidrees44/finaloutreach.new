@@ -1,10 +1,9 @@
+/**
+ * Tailwind v4 resolves design tokens from `app/globals.css` `@theme inline`.
+ * Sans stack mirrors Cleverly-style geometric clarity (Outfit ≈ Geomanist).
+ */
 import type { Config } from "tailwindcss"
 
-/**
- * Tailwind v4 resolves the design tokens from `app/globals.css` `@theme inline`.
- * This file documents the site sans stack for tooling that still expects a config:
- *   sans → var(--font-jakarta) / Plus Jakarta Sans
- */
 const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
@@ -14,7 +13,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-jakarta)", "sans-serif"],
+        sans: ["var(--font-outfit)", "sans-serif"],
       },
     },
   },
