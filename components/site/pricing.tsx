@@ -74,7 +74,7 @@ export function Pricing() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="12" label="Pricing" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.05] tracking-display text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
               Simple, transparent{" "}
               <span className="font-serif-italic text-ink-60">
                 engagements.
@@ -108,7 +108,7 @@ export function Pricing() {
               )}
 
               <div className="flex flex-col gap-2">
-                <h3 className="text-[22px] font-medium tracking-display text-ink sm:text-[26px]">
+                <h3 className="text-[22px] font-bold tracking-tight text-ink sm:text-[26px]">
                   {p.name}
                 </h3>
                 <p className="text-[14px] text-ink-60">{p.blurb}</p>
@@ -148,7 +148,7 @@ export function Pricing() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    "inline-flex h-12 items-center gap-2 rounded-full px-5 text-[14.5px] font-medium transition-all active:scale-[0.97]",
+                    "inline-flex h-12 items-center gap-2 rounded-full px-5 text-[14.5px] font-semibold transition-all active:scale-[0.97]",
                     p.featured
                       ? "bg-primary text-primary-foreground hover:bg-primary/90"
                       : "bg-ink text-background hover:bg-ink/90",

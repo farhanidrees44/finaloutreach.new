@@ -32,7 +32,7 @@ export default function NotFound() {
             <span className="h-px w-8 bg-ink-08" />
           </div>
 
-          <h1 className="mt-6 max-w-3xl text-balance text-[44px] font-medium leading-[1.02] tracking-display sm:text-[64px] md:text-[80px]">
+          <h1 className="mt-6 max-w-3xl text-balance text-[44px] font-extrabold leading-[1.1] tracking-tight sm:text-[64px] md:text-[80px]">
             This page took{" "}
             <span className="font-serif-italic text-[oklch(0.55_0.13_78)]">
               a wrong turn

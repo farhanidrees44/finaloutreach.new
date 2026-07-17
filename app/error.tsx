@@ -27,7 +27,7 @@ export default function GlobalError({
           <span className="h-px w-8 bg-ink-08" />
         </div>
 
-        <h1 className="mt-6 text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[48px]">
+        <h1 className="mt-6 text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[48px]">
           We hit a{" "}
           <span className="font-serif-italic text-[oklch(0.55_0.13_78)]">
             snag

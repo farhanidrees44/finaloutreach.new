@@ -72,7 +72,7 @@ export function ToolPageShell({
                   <span>Free, no signup</span>
                 </div>
               </div>
-              <h1 className="mt-6 max-w-3xl text-balance text-[40px] font-medium leading-[1.04] tracking-display sm:text-[52px] md:text-[60px]">
+              <h1 className="mt-6 max-w-3xl text-balance text-[40px] font-extrabold leading-[1.1] tracking-tight sm:text-[52px] md:text-[60px]">
                 {tool.name}
               </h1>
               <p className="mt-5 max-w-2xl text-pretty text-[17px] leading-[1.6] text-ink-60 sm:text-[18px]">
@@ -118,7 +118,7 @@ export function ToolPageShell({
               <span className="h-px w-8 bg-ink-08" />
               <span>How it works</span>
             </div>
-            <h2 className="mt-6 max-w-2xl text-balance text-[28px] font-medium leading-[1.1] tracking-display sm:text-[36px]">
+            <h2 className="mt-6 max-w-2xl text-balance text-[28px] font-bold leading-[1.1] tracking-tight sm:text-[36px]">
               Three steps. No signup. No waiting on results.
             </h2>
             <ol className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -151,7 +151,7 @@ export function ToolPageShell({
                   <span className="h-px w-8 bg-ink-08" />
                   <span>Frequently asked</span>
                 </div>
-                <h2 className="mt-6 max-w-md text-balance text-[28px] font-medium leading-[1.1] tracking-display sm:text-[36px]">
+                <h2 className="mt-6 max-w-md text-balance text-[28px] font-bold leading-[1.1] tracking-tight sm:text-[36px]">
                   Quick answers about the {tool.shortName.toLowerCase()}.
                 </h2>
               </div>
@@ -178,7 +178,7 @@ export function ToolPageShell({
                   <span className="h-px w-8 bg-ink-08" />
                   <span>Keep going</span>
                 </div>
-                <h2 className="mt-4 text-[24px] font-medium leading-[1.15] tracking-display sm:text-[30px]">
+                <h2 className="mt-4 text-[24px] font-bold leading-[1.15] tracking-tight sm:text-[30px]">
                   Other free tools
                 </h2>
               </div>
@@ -210,7 +210,7 @@ export function ToolPageShell({
                       </span>
                     </div>
                     <div>
-                      <h3 className="text-[18px] font-medium leading-[1.2] tracking-display text-ink">
+                      <h3 className="text-[18px] font-bold leading-[1.2] tracking-tight text-ink">
                         {r.shortName}
                       </h3>
                       <p className="mt-1.5 text-[13.5px] leading-[1.55] text-ink-60">
@@ -275,7 +275,7 @@ export function PanelHeading({
             {step}
           </span>
         )}
-        <h2 className={cn("text-[18px] font-medium leading-[1.2] tracking-display text-ink", step && "mt-1.5")}>
+        <h2 className={cn("text-[18px] font-bold leading-[1.2] tracking-tight text-ink", step && "mt-1.5")}>
           {title}
         </h2>
         {hint && <p className="mt-1.5 text-[13px] leading-[1.5] text-ink-60">{hint}</p>}

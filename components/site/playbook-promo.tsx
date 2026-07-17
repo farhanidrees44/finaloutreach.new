@@ -51,7 +51,7 @@ export function PlaybookPromo() {
                 <span className="text-[11.5px] uppercase tracking-[0.18em] text-ink-40">
                   Free download
                 </span>
-                <h3 className="text-[22px] font-medium leading-tight tracking-display text-ink sm:text-[26px]">
+                <h3 className="text-[22px] font-bold leading-tight tracking-tight text-ink sm:text-[26px]">
                   The Cold Email Playbook,{" "}
                   <span className="font-serif-italic text-ink-60">
                     in 28 pages.
@@ -83,7 +83,7 @@ export function PlaybookPromo() {
                   <button
                     type="submit"
                     disabled={sent}
-                    className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[14px] font-medium text-background transition-all hover:bg-ink/90 active:scale-[0.98] disabled:opacity-70"
+                    className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-5 text-[14px] font-semibold text-background transition-all hover:bg-ink/90 active:scale-[0.98] disabled:opacity-70"
                   >
                     {sent ? (
                       <>

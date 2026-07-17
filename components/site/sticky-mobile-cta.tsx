@@ -50,7 +50,7 @@ export function StickyMobileCta() {
             href={SITE.calendly}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex w-full max-w-md items-center justify-between rounded-full bg-ink px-5 py-3.5 text-[14.5px] font-medium text-background shadow-[0_18px_40px_-16px_rgba(15,15,15,0.5)]"
+            className="flex w-full max-w-md items-center justify-between rounded-full bg-ink px-5 py-3.5 text-[14.5px] font-semibold text-background shadow-[0_18px_40px_-16px_rgba(15,15,15,0.5)]"
           >
             <span className="flex items-center gap-2.5">
               <span className="size-1.5 rounded-full bg-[oklch(0.7_0.18_145)] pulse-dot" />

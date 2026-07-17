@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono, Instrument_Serif, Bricolage_Grotesque } from "next/font/google"
+import {
+  Plus_Jakarta_Sans,
+  Geist_Mono,
+  Instrument_Serif,
+} from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SITE } from "@/lib/site-data"
 import { AnalyticsScripts } from "@/components/site/analytics-scripts"
@@ -7,9 +11,10 @@ import { JsonLd } from "@/components/seo/json-ld"
 import { organizationSchema } from "@/lib/seo/schemas"
 import "./globals.css"
 
-const geistSans = Geist({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-jakarta",
   display: "swap",
 })
 const geistMono = Geist_Mono({
@@ -22,14 +27,6 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
   variable: "--font-instrument-serif",
-  display: "swap",
-})
-// Bricolage Grotesque — display font for headlines.
-// Less ubiquitous than Inter/Geist → instant brand differentiation.
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-bricolage",
   display: "swap",
 })
 
@@ -124,7 +121,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${bricolage.variable} bg-background`}
+      className={`${plusJakarta.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-background`}
     >
       <body className="font-sans antialiased">
         <JsonLd data={organizationSchema()} />

@@ -151,7 +151,7 @@ function ServiceCard({
       <div className={cn("mt-8", featured && "mt-10")}>
         <h3
           className={cn(
-            "text-[22px] font-medium leading-[1.15] tracking-display text-ink",
+            "text-[22px] font-bold leading-[1.15] tracking-tight text-ink",
             featured && "text-[28px] sm:text-[32px]",
           )}
         >
@@ -184,7 +184,7 @@ export function Services() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="05" label="Services" />
-            <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]">
+            <h2 className="mt-5 text-balance text-[40px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[56px]">
               Services that{" "}
               <span className="font-serif-italic gradient-text-animated">
                 fill

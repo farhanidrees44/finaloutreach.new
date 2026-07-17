@@ -50,7 +50,7 @@ export default function ServicesPage() {
                 </span>
               </div>
               <div>
-                <h2 className="text-[26px] font-medium leading-[1.1] tracking-display text-ink sm:text-[30px]">
+                <h2 className="text-[26px] font-bold leading-[1.1] tracking-tight text-ink sm:text-[30px]">
                   {s.title}
                 </h2>
                 <p className="mt-3 max-w-md text-[14.5px] leading-[1.6] text-ink-60">
@@ -76,7 +76,7 @@ export default function ServicesPage() {
                 <span className="h-px w-8 bg-ink-08" />
                 <span>Our belief</span>
               </div>
-              <h2 className="mt-6 text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[44px]">
+              <h2 className="mt-6 text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[44px]">
                 Outbound is not a funnel. It is an operating system.
               </h2>
             </div>

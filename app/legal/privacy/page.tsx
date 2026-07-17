@@ -15,7 +15,7 @@ export default function PrivacyPage() {
     <>
       <header className="mb-10">
         <p className="text-[12px] uppercase tracking-[0.18em] text-ink-60">Legal</p>
-        <h1 className="mt-2 font-display text-4xl font-medium text-ink md:text-5xl">
+        <h1 className="mt-2 font-display text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
           Privacy Policy
         </h1>
         <p className="mt-3 text-[13.5px] text-ink-60">Last updated: {LAST_UPDATED}</p>

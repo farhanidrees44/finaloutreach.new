@@ -73,7 +73,7 @@ export function ContactForm() {
         <div className="grid size-10 place-items-center rounded-full bg-ink text-background">
           <Check className="size-4" />
         </div>
-        <h2 className="text-[28px] font-medium tracking-display text-ink">
+        <h2 className="text-[28px] font-bold tracking-tight text-ink">
           Got it. Talk soon.
         </h2>
         <p className="max-w-md text-[15px] leading-[1.6] text-ink-60">

@@ -17,7 +17,7 @@ export function ConversionBreak() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-balance text-[36px] font-medium leading-[1.05] tracking-display text-ink sm:text-[52px] md:text-[64px]"
+          className="text-balance text-[36px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[52px] md:text-[64px]"
         >
           Curious what we&apos;d do{" "}
           <span className="font-serif-italic text-ink-60">
@@ -35,7 +35,7 @@ export function ConversionBreak() {
             href={SITE.calendly}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex h-14 items-center gap-2 rounded-full bg-ink px-7 text-[15.5px] font-medium text-background transition-all hover:bg-ink/90 active:scale-[0.98]"
+            className="group inline-flex h-14 items-center gap-2 rounded-full bg-ink px-7 text-[15.5px] font-semibold text-background transition-all hover:bg-ink/90 active:scale-[0.98]"
           >
             Get a free 15-min audit
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

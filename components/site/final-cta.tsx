@@ -82,7 +82,7 @@ export function FinalCta() {
                 href={SITE.calendly}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex h-14 items-center gap-2 rounded-full bg-background px-7 text-[15.5px] font-medium text-ink transition-all hover:bg-background/90 active:scale-[0.98]"
+                className="group inline-flex h-14 items-center gap-2 rounded-full bg-background px-7 text-[15.5px] font-semibold text-ink transition-all hover:bg-background/90 active:scale-[0.98]"
               >
                 Book your strategy call
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

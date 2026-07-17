@@ -123,7 +123,7 @@ export default function PricingPage() {
                   )}
                 </div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-[48px] font-medium leading-none tracking-display">
+                  <span className="text-[48px] font-bold leading-none tracking-tight">
                     {tier.price}
                   </span>
                   <span className={"text-[14px] " + (tier.featured ? "text-background/60" : "text-ink-40")}>
@@ -167,7 +167,7 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
             {PRICING_FAQ.map((f) => (
               <div key={f.question}>
-                <h3 className="text-[22px] font-medium tracking-display text-ink">{f.question}</h3>
+                <h3 className="text-[22px] font-bold tracking-tight text-ink">{f.question}</h3>
                 <p className="mt-3 text-[15px] leading-[1.65] text-ink-60">{f.answer}</p>
               </div>
             ))}

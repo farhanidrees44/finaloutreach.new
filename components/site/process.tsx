@@ -146,7 +146,7 @@ export function Process() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="06" label="Process" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.05] tracking-display text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
               How we book meetings,{" "}
               <span className="font-serif-italic text-ink-60">step by step.</span>
             </h2>
@@ -208,7 +208,7 @@ export function Process() {
                       <span className="font-mono text-ink">{step.n}</span>
                       <span>{step.when}</span>
                     </div>
-                    <h3 className="mt-2 flex items-center gap-2 text-[20px] font-medium tracking-display text-ink">
+                    <h3 className="mt-2 flex items-center gap-2 text-[20px] font-bold tracking-tight text-ink">
                       <step.Icon className="size-4 shrink-0 text-ink-40" />
                       {step.title}
                     </h3>
@@ -256,7 +256,7 @@ export function Process() {
                   <span className="font-mono">{step.n}</span>
                   <span>{step.when}</span>
                 </div>
-                <h3 className="mt-2 text-[22px] font-medium tracking-display text-ink">
+                <h3 className="mt-2 text-[22px] font-bold tracking-tight text-ink">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-[14.5px] leading-[1.65] text-ink-60">
@@ -288,7 +288,7 @@ export function Process() {
           </p>
           <a
             href="#contact"
-            className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-5 text-[14.5px] font-medium text-primary-foreground transition-all hover:bg-primary/90"
+            className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-5 text-[14.5px] font-semibold text-primary-foreground transition-all hover:bg-primary/90"
           >
             Book a call
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

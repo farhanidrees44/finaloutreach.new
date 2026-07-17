@@ -44,7 +44,7 @@ export function ByNumbers() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="04" label="By the numbers" />
-            <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]">
+            <h2 className="mt-5 text-balance text-[40px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[56px]">
               Five years.{" "}
               <span className="font-serif-italic text-ink-60">Receipts, not promises.</span>
             </h2>
@@ -78,7 +78,7 @@ export function ByNumbers() {
                   Verified
                 </span>
               </div>
-              <div className="text-[44px] font-medium leading-none tracking-display text-ink sm:text-[56px] lg:text-[64px]">
+              <div className="text-[44px] font-bold leading-none tracking-tight text-ink sm:text-[56px] lg:text-[64px]">
                 <CountUp value={s.value} decimals={s.decimals ?? 0} suffix={s.suffix} />
               </div>
               <div className="mt-1 text-[14.5px] font-medium tracking-tight text-ink">{s.label}</div>

@@ -46,7 +46,7 @@ export default function IndustriesPage() {
                 <ArrowUpRight className="size-4 text-ink-40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
               </div>
               <div>
-                <h2 className="text-[24px] font-medium leading-[1.15] tracking-display text-ink">
+                <h2 className="text-[24px] font-bold leading-[1.15] tracking-tight text-ink">
                   {i.name}
                 </h2>
                 <p className="mt-3 text-[14px] leading-[1.55] text-ink-60">
@@ -54,7 +54,7 @@ export default function IndustriesPage() {
                 </p>
                 <div className="mt-6 h-px w-12 bg-ink-08" />
                 <div className="mt-6">
-                  <p className="text-[28px] font-medium leading-none tabular tracking-display">
+                  <p className="text-[28px] font-bold leading-none tabular tracking-tight">
                     {i.metric.value}
                   </p>
                   <p className="mt-2 text-[11.5px] uppercase tracking-[0.14em] text-ink-40">

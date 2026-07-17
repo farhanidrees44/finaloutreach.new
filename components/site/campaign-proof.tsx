@@ -77,7 +77,7 @@ export function CampaignProofGallery() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="02" label="Proof" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
               Real campaign{" "}
               <span className="font-serif-italic text-ink-60">screenshots.</span>
             </h2>

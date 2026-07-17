@@ -54,7 +54,7 @@ export default function PlaybookPage() {
                   <span className="font-mono text-[14px] uppercase tracking-[0.18em] text-ink-40">
                     {c.n}
                   </span>
-                  <span className="text-[18px] font-medium leading-[1.2] tracking-display text-ink">
+                  <span className="text-[18px] font-bold leading-[1.2] tracking-tight text-ink">
                     {c.title}
                   </span>
                 </li>
@@ -64,7 +64,7 @@ export default function PlaybookPage() {
 
           <aside className="flex h-fit flex-col gap-6 rounded-2xl border border-ink-08 bg-ink p-9 text-background sm:sticky sm:top-28">
             <Download className="size-5 text-amber" />
-            <h3 className="text-[28px] font-medium leading-[1.05] tracking-display">
+            <h3 className="text-[28px] font-bold leading-[1.05] tracking-tight">
               Download the playbook
             </h3>
             <p className="text-[14.5px] leading-[1.55] text-background/70">

@@ -17,7 +17,7 @@ export function Certifications() {
       <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="max-w-2xl">
           <SectionEyebrow number="02" label="Credentials" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
             Platform credentials we{" "}
             <span className="font-serif-italic text-ink-60">hold &amp; operate under.</span>
           </h2>

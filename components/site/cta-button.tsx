@@ -36,7 +36,7 @@ export function CtaButton({
 
   const isExternal = /^https?:\/\//.test(href)
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-200",
+    "inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-200",
     sizes[size],
     variants[variant],
     className,

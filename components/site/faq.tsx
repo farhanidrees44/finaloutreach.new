@@ -16,7 +16,7 @@ export function Faq() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
           <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
             <SectionEyebrow number="11" label="Questions" />
-            <h2 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+            <h2 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
               Common questions,{" "}
               <span className="font-serif-italic text-ink-60">honest</span>{" "}
               answers.

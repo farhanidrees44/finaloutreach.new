@@ -17,7 +17,7 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="max-w-2xl">
           <SectionEyebrow number="12" label="Voice" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
             What clients say —{" "}
             <span className="font-serif-italic text-ink-60">with permission.</span>
           </h2>

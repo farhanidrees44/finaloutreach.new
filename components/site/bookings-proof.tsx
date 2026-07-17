@@ -37,7 +37,7 @@ export function BookingsProof() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_420px] lg:gap-16">
           <div>
             <SectionEyebrow number="03" label="Appointments" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
               Calendars that fill —{" "}
               <span className="font-serif-italic text-ink-60">not slide decks.</span>
             </h2>

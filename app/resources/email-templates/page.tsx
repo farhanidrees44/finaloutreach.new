@@ -50,7 +50,7 @@ export default function TemplatesPage() {
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h2 className="text-[18px] font-medium tracking-display text-ink">
+                  <h2 className="text-[18px] font-bold tracking-tight text-ink">
                     {t.name}
                   </h2>
                   <p className="mt-1 text-[13.5px] leading-[1.55] text-ink-60">
@@ -61,7 +61,7 @@ export default function TemplatesPage() {
                   <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-40">
                     Typical range
                   </p>
-                  <span className="text-[26px] font-medium leading-none tabular tracking-display">
+                  <span className="text-[26px] font-bold leading-none tabular tracking-tight">
                     {t.reply}
                   </span>
                 </div>

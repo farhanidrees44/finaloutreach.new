@@ -127,7 +127,7 @@ export function Hero() {
           {SITE.name}
         </motion.p>
 
-        <h1 className="mt-5 max-w-[16ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-display text-ink">
+        <h1 className="mt-5 max-w-[16ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ export function Hero() {
                 ? { duration: 0 }
                 : { delay: 0.28, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
             }
-            className="mt-1 block font-serif-italic gradient-text-animated"
+            className="mt-1 block gradient-text-animated"
           >
             Start Booking Meetings.
           </motion.span>

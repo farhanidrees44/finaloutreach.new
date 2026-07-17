@@ -32,7 +32,7 @@ export function WhyUs() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
         <div className="max-w-3xl">
           <SectionEyebrow number="04" label="Why us" />
-          <h2 className="mt-5 text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[56px]">
+          <h2 className="mt-5 text-balance text-[40px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[56px]">
             Why teams hire us instead of an SDR or{" "}
             <span className="font-serif-italic text-ink-60">
               another agency.
@@ -53,7 +53,7 @@ export function WhyUs() {
               <span className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
                 vs {p.vs}
               </span>
-              <h3 className="text-balance text-[22px] font-medium leading-[1.2] tracking-display text-ink sm:text-[26px]">
+              <h3 className="text-balance text-[22px] font-bold leading-[1.2] tracking-tight text-ink sm:text-[26px]">
                 {p.headline}
               </h3>
               <p className="text-[14.5px] leading-[1.65] text-ink-60">

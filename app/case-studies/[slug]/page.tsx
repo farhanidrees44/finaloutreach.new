@@ -103,7 +103,7 @@ export default async function CaseStudyPage({
             {cs.client}
           </span>
         </div>
-        <h1 className="mt-7 max-w-4xl text-balance text-[40px] font-medium leading-[1.05] tracking-display sm:text-[56px] md:text-[68px]">
+        <h1 className="mt-7 max-w-4xl text-balance text-[40px] font-bold leading-[1.05] tracking-tight sm:text-[56px] md:text-[68px]">
           {cs.headline}
         </h1>
 
@@ -118,7 +118,7 @@ export default async function CaseStudyPage({
               <dt className="text-[11.5px] uppercase tracking-[0.16em] text-ink-40">
                 {m.l}
               </dt>
-              <dd className="text-[44px] font-medium leading-none tabular tracking-display sm:text-[52px]">
+              <dd className="text-[44px] font-bold leading-none tabular tracking-tight sm:text-[52px]">
                 {m.v}
               </dd>
             </div>
@@ -185,7 +185,7 @@ export default async function CaseStudyPage({
             <div className="flex flex-col gap-6">
               {cs.metrics.map((m, i) => (
                 <div key={m.l} className="flex flex-col gap-1.5">
-                  <span className="text-[44px] font-medium leading-none tabular tracking-display">
+                  <span className="text-[44px] font-bold leading-none tabular tracking-tight">
                     {m.v}
                   </span>
                   <span className="text-[12px] uppercase tracking-[0.14em] text-ink-40">
@@ -221,7 +221,7 @@ export default async function CaseStudyPage({
                   <ArrowLeft className="size-3.5" />
                   Previous case study
                 </span>
-                <span className="mt-1 text-[20px] font-medium leading-[1.2] tracking-display text-ink sm:text-[22px]">
+                <span className="mt-1 text-[20px] font-bold leading-[1.2] tracking-tight text-ink sm:text-[22px]">
                   {prev.client}
                 </span>
                 <span className="text-[14px] leading-relaxed text-ink-60">
@@ -240,7 +240,7 @@ export default async function CaseStudyPage({
                   Next case study
                   <ArrowRight className="size-3.5" />
                 </span>
-                <span className="mt-1 text-[20px] font-medium leading-[1.2] tracking-display text-ink sm:text-[22px]">
+                <span className="mt-1 text-[20px] font-bold leading-[1.2] tracking-tight text-ink sm:text-[22px]">
                   {next.client}
                 </span>
                 <span className="text-[14px] leading-relaxed text-ink-60">
@@ -280,7 +280,7 @@ export default async function CaseStudyPage({
                   <span className="text-[11px] uppercase tracking-[0.14em] text-ink-40">
                     {o.industry}
                   </span>
-                  <h3 className="text-[18px] font-medium leading-[1.2] tracking-display text-ink">
+                  <h3 className="text-[18px] font-bold leading-[1.2] tracking-tight text-ink">
                     {o.headline}
                   </h3>
                   <span className="mt-2 inline-flex items-center gap-1.5 text-[13px] font-medium text-ink">

@@ -140,7 +140,7 @@ export function FounderStory() {
             className="flex flex-col justify-center"
           >
             {/* Name & title */}
-            <h2 className="text-balance text-[40px] font-medium leading-[1.05] tracking-display text-ink sm:text-[52px]">
+            <h2 className="text-balance text-[40px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[52px]">
               Farhan{" "}
               <span className="font-serif-italic text-ink-60">Idrees.</span>
             </h2>

@@ -24,7 +24,7 @@ export function LiveCampaignInvite() {
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <SectionEyebrow number="09" label="Case studies" />
-              <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+              <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
                 Outcomes we can{" "}
                 <span className="font-serif-italic text-ink-60">name.</span>
               </h2>
@@ -83,7 +83,7 @@ export function LiveCampaignInvite() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="max-w-2xl">
           <SectionEyebrow number="09" label="Live data" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.05] tracking-display text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
             Prefer named case studies?{" "}
             <span className="font-serif-italic text-ink-60">
               We&apos;ll show you live ones.
@@ -139,7 +139,7 @@ export function LiveCampaignInvite() {
             <p className="text-[13px] uppercase tracking-[0.16em] text-ink-40">
               Already on the page
             </p>
-            <p className="mt-3 text-[22px] font-medium leading-snug tracking-display text-ink">
+            <p className="mt-3 text-[22px] font-bold leading-snug tracking-tight text-ink">
               11.58% reply rate · 145 unique replies on 1,258 leads
             </p>
             <p className="mt-2 text-[14px] leading-relaxed text-ink-60">

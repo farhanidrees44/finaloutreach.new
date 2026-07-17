@@ -72,7 +72,7 @@ export default function ResourcesPage() {
                 <ArrowUpRight className="size-4 text-ink-40 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
               </div>
               <div>
-                <h2 className="text-[24px] font-medium leading-[1.15] tracking-display text-ink">
+                <h2 className="text-[24px] font-bold leading-[1.15] tracking-tight text-ink">
                   {r.label}
                 </h2>
                 <p className="mt-3 max-w-md text-[14.5px] leading-[1.6] text-ink-60">
@@ -96,7 +96,7 @@ export default function ResourcesPage() {
               <Mail className="size-3.5" />
               <span>Newsletter</span>
             </div>
-            <h2 className="mt-6 text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[44px]">
+            <h2 className="mt-6 text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[44px]">
               One tactical outbound idea per week.
             </h2>
             <p className="mt-5 max-w-md text-[15px] leading-[1.65] text-ink-60">

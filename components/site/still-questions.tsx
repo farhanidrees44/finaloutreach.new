@@ -33,7 +33,7 @@ export function StillQuestions() {
             <span className="grid size-12 place-items-center rounded-2xl border border-ink-08 bg-background text-ink">
               <MessageSquare className="size-5" strokeWidth={1.7} />
             </span>
-            <h3 className="text-[28px] font-medium leading-tight tracking-display text-ink sm:text-[32px]">
+            <h3 className="text-[28px] font-bold leading-tight tracking-tight text-ink sm:text-[32px]">
               Still have questions?
             </h3>
             <p className="text-[14.5px] leading-[1.65] text-ink-60">
@@ -92,7 +92,7 @@ export function StillQuestions() {
               <button
                 type="submit"
                 disabled={sent}
-                className="group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-5 text-[14.5px] font-medium text-background transition-all hover:bg-ink/90 active:scale-[0.98] disabled:cursor-default disabled:opacity-70"
+                className="group inline-flex h-12 items-center gap-2 rounded-full bg-ink px-5 text-[14.5px] font-semibold text-background transition-all hover:bg-ink/90 active:scale-[0.98] disabled:cursor-default disabled:opacity-70"
               >
                 {sent ? (
                   <>

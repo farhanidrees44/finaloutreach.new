@@ -127,7 +127,7 @@ export function Hero() {
         </motion.div>
 
         {/* Headline with word reveal */}
-        <h1 className="mt-7 max-w-[16ch] text-balance text-[44px] font-medium leading-[1.02] tracking-tight text-zinc-900 sm:text-[64px] md:text-[80px] lg:text-[88px]">
+        <h1 className="mt-7 max-w-[16ch] text-balance text-[44px] font-extrabold leading-[1.1] tracking-tight text-zinc-900 sm:text-[64px] md:text-[80px] lg:text-[88px]">
           <span className="block overflow-hidden pb-[0.04em]">
             <span className="inline-flex flex-wrap justify-center gap-x-[0.22em] gap-y-1">
               {HEADLINE_WORDS.map((word, i) => (

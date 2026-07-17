@@ -100,10 +100,12 @@
 
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  /* Plus Jakarta Sans = site default sans (Cleverly-style geometric-humanist) */
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono Fallback", ui-monospace, monospace;
   --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
-  --font-display: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Display shares the same face — weight hierarchy is applied via utilities */
+  --font-display: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -222,7 +224,7 @@
   .text-fluid-hero  { font-size: clamp(2.25rem, 3.2vw + 0.75rem, 4rem); line-height: 1.05; letter-spacing: -0.03em; }
   .text-fluid-mega  { font-size: clamp(3.5rem, 9vw + 1rem, 8rem); line-height: 0.95; letter-spacing: -0.04em; }
 
-  .font-display { font-family: var(--font-display); font-weight: 500; }
+  .font-display { font-family: var(--font-display); }
   .font-serif-italic {
     font-family: var(--font-serif);
     font-style: italic;

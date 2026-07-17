@@ -65,7 +65,7 @@ export default function CaseStudiesPage() {
               <dt className="text-[11px] uppercase tracking-[0.16em] text-ink-40">
                 {s.l}
               </dt>
-              <dd className="text-[28px] font-medium leading-none tracking-display sm:text-[36px]">
+              <dd className="text-[28px] font-bold leading-none tracking-tight sm:text-[36px]">
                 {s.v}
               </dd>
             </div>
@@ -94,13 +94,13 @@ export default function CaseStudiesPage() {
                 </span>
               </div>
               <div>
-                <h2 className="text-balance text-[28px] font-medium leading-[1.1] tracking-display text-ink sm:text-[32px]">
+                <h2 className="text-balance text-[28px] font-bold leading-[1.1] tracking-tight text-ink sm:text-[32px]">
                   {c.headline}
                 </h2>
                 <div className="mt-8 grid grid-cols-3 gap-4">
                   {c.metrics.map((m) => (
                     <div key={m.l} className="flex flex-col gap-1">
-                      <span className="text-[26px] font-medium leading-none tabular-nums tracking-display sm:text-[30px]">
+                      <span className="text-[26px] font-bold leading-none tabular-nums tracking-tight sm:text-[30px]">
                         {m.v}
                       </span>
                       <span className="text-[10.5px] uppercase tracking-[0.14em] text-ink-40">

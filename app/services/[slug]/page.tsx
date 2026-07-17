@@ -87,7 +87,7 @@ export default async function ServicePage({
             </p>
 
             <div className="flex flex-col gap-4">
-              <h2 className="text-[22px] font-medium tracking-display text-ink">
+              <h2 className="text-[22px] font-bold tracking-tight text-ink">
                 What is included
               </h2>
               <ul className="flex flex-col gap-3">
@@ -111,7 +111,7 @@ export default async function ServicePage({
               <span className="text-[11px] uppercase tracking-[0.18em] text-ink-40">
                 {service.metricLabel}
               </span>
-              <p className="mt-2 text-[56px] font-medium leading-none tabular tracking-display">
+              <p className="mt-2 text-[56px] font-bold leading-none tabular tracking-tight">
                 {service.metricValue}
               </p>
             </div>

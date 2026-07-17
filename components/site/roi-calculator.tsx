@@ -43,7 +43,7 @@ export function RoiCalculator() {
             <Calculator className="size-3.5" strokeWidth={2.2} />
             07 · ROI model
           </span>
-          <h2 className="max-w-3xl text-balance text-fluid-2xl font-medium tracking-display text-ink">
+          <h2 className="max-w-3xl text-balance text-fluid-2xl font-bold tracking-tight text-ink">
             Estimate what qualified meetings could be{" "}
             <span className="font-serif-italic gradient-text-animated">
               worth
@@ -160,7 +160,7 @@ export function RoiCalculator() {
               href={SITE.calendly}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-4 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-[14px] font-medium text-ink transition-all hover:bg-white/90"
+              className="group mt-4 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-[14px] font-semibold text-ink transition-all hover:bg-white/90"
             >
               Book a strategy call
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

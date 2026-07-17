@@ -45,7 +45,7 @@ export function ResultsBar() {
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <div className="mb-10 flex flex-col gap-3">
           <SectionEyebrow number="04" label="By the numbers" />
-          <h2 className="max-w-2xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium leading-[1.05] tracking-display text-ink">
+          <h2 className="max-w-2xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-[1.05] tracking-tight text-ink">
             One live campaign,{" "}
             <span className="font-serif-italic text-ink-60">real dashboard numbers.</span>
           </h2>
@@ -70,7 +70,7 @@ export function ResultsBar() {
                 prefix={s.prefix}
                 suffix={s.suffix}
                 decimals={s.decimals}
-                className="text-[clamp(2.25rem,4vw,3.25rem)] font-medium leading-none tracking-display tabular text-ink"
+                className="text-[clamp(2.25rem,4vw,3.25rem)] font-bold leading-none tracking-tight tabular text-ink"
               />
               <p className="max-w-[18ch] text-[13.5px] leading-snug text-ink-60">
                 {s.label}

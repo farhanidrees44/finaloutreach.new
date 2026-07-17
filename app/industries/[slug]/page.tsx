@@ -107,7 +107,7 @@ export default async function IndustryPage({
             <span className="text-[11px] uppercase tracking-[0.18em] text-ink-40">
               Industry headline
             </span>
-            <p className="text-[56px] font-medium leading-none tabular tracking-display">
+            <p className="text-[56px] font-bold leading-none tabular tracking-tight">
               {ind.metric.value}
             </p>
             <p className="text-[13px] leading-[1.5] text-ink">
@@ -117,7 +117,7 @@ export default async function IndustryPage({
             <p className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
               Featured client
             </p>
-            <p className="text-[18px] font-medium tracking-display text-ink">
+            <p className="text-[18px] font-bold tracking-tight text-ink">
               {ind.exampleClient}
             </p>
             <a
@@ -143,13 +143,13 @@ export default async function IndustryPage({
               href={`/case-studies/${matchingCase.slug}`}
               className="group mt-6 flex flex-col gap-6 rounded-2xl border border-ink-08 bg-background p-8 transition-all hover:-translate-y-0.5 hover:border-ink/25 sm:p-10"
             >
-              <h3 className="text-balance text-[28px] font-medium leading-[1.1] tracking-display text-ink sm:text-[36px]">
+              <h3 className="text-balance text-[28px] font-bold leading-[1.1] tracking-tight text-ink sm:text-[36px]">
                 {matchingCase.headline}
               </h3>
               <div className="grid grid-cols-3 gap-4">
                 {matchingCase.metrics.map((m) => (
                   <div key={m.l} className="flex flex-col gap-1">
-                    <span className="text-[28px] font-medium leading-none tabular tracking-display">
+                    <span className="text-[28px] font-bold leading-none tabular tracking-tight">
                       {m.v}
                     </span>
                     <span className="text-[10.5px] uppercase tracking-[0.14em] text-ink-40">

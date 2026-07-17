@@ -79,7 +79,7 @@ export default function ToolsIndexPage() {
               </div>
 
               <div>
-                <h2 className="text-[26px] font-medium leading-[1.1] tracking-display text-ink sm:text-[30px]">
+                <h2 className="text-[26px] font-bold leading-[1.1] tracking-tight text-ink sm:text-[30px]">
                   {tool.shortName}
                 </h2>
                 <p className="mt-3 max-w-md text-[14.5px] leading-[1.6] text-ink-60">
@@ -115,7 +115,7 @@ export default function ToolsIndexPage() {
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-40">
               Want the full system, not just the tools?
             </p>
-            <h2 className="mt-3 max-w-xl text-balance text-[26px] font-medium leading-[1.15] tracking-display sm:text-[32px]">
+            <h2 className="mt-3 max-w-xl text-balance text-[26px] font-bold leading-[1.15] tracking-tight sm:text-[32px]">
               We run done-for-you outbound for B2B teams that want pipeline, not playbooks.
             </h2>
           </div>

@@ -60,7 +60,7 @@ export default function AboutPage() {
               <span className="h-px w-8 bg-ink-08" />
               <span>Our story</span>
             </div>
-            <h2 className="mt-6 text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[44px]">
+            <h2 className="mt-6 text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[44px]">
               We built the outbound team we wished we could hire.
             </h2>
           </div>
@@ -91,7 +91,7 @@ export default function AboutPage() {
             <span className="h-px w-8 bg-ink-08" />
             <span>Values</span>
           </div>
-          <h2 className="mt-6 max-w-3xl text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[44px]">
+          <h2 className="mt-6 max-w-3xl text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[44px]">
             Four things we will never compromise on.
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -102,7 +102,7 @@ export default function AboutPage() {
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <h3 className="mt-8 text-[22px] font-medium leading-[1.15] tracking-display text-ink">
+                <h3 className="mt-8 text-[22px] font-bold leading-[1.15] tracking-tight text-ink">
                   {v.title}
                 </h3>
                 <p className="mt-3 text-[14.5px] leading-[1.6] text-ink-60">
@@ -120,7 +120,7 @@ export default function AboutPage() {
             <span className="h-px w-8 bg-ink-08" />
             <span>Team</span>
           </div>
-          <h2 className="mt-6 max-w-3xl text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[44px]">
+          <h2 className="mt-6 max-w-3xl text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[44px]">
             The people actually running your campaigns.
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -144,7 +144,7 @@ export default function AboutPage() {
             <span className="h-px w-8 bg-background/20" />
             <span>Careers</span>
           </div>
-          <h2 className="mt-6 max-w-3xl text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[44px]">
+          <h2 className="mt-6 max-w-3xl text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[44px]">
             We hire operators, not agency lifers.
           </h2>
           <p className="mt-5 max-w-2xl text-[16px] leading-[1.65] text-background/70">

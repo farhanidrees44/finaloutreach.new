@@ -191,7 +191,7 @@ export function Awards() {
                 : { opacity: 0, y: 14 }
           }
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mx-auto max-w-2xl text-balance text-center text-[26px] font-medium leading-[1.15] tracking-display text-ink sm:text-[32px]"
+          className="mx-auto max-w-2xl text-balance text-center text-[26px] font-bold leading-[1.15] tracking-tight text-ink sm:text-[32px]"
         >
           <span className="font-serif-italic text-emerald">Trusted</span>{" "}
           partner of leading platforms

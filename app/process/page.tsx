@@ -84,7 +84,7 @@ export default function ProcessPage() {
                   {s.week}
                 </span>
                 <div>
-                  <h2 className="text-[22px] font-medium leading-[1.2] tracking-display text-ink sm:text-[26px]">
+                  <h2 className="text-[22px] font-bold leading-[1.2] tracking-tight text-ink sm:text-[26px]">
                     {s.title}
                   </h2>
                   <p className="mt-2 max-w-2xl text-[14.5px] leading-[1.6] text-ink-60">

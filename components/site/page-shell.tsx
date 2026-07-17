@@ -118,7 +118,7 @@ export function PageHeader({
           <span>{eyebrow}</span>
         </div>
       )}
-      <h1 className="mt-6 max-w-4xl text-balance text-[40px] font-medium leading-[1.02] tracking-display sm:text-[56px] md:text-[72px]">
+      <h1 className="mt-6 max-w-4xl text-balance text-[40px] font-extrabold leading-[1.1] tracking-tight sm:text-[56px] md:text-[72px]">
         {displayTitle}
       </h1>
       {description && (
@@ -140,7 +140,7 @@ export function PageCta({
   return (
     <section className="border-t border-ink-08 bg-cream">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-20 text-center md:py-28">
-        <h2 className="max-w-3xl text-balance text-[36px] font-medium leading-[1.05] tracking-display sm:text-[48px]">
+        <h2 className="max-w-3xl text-balance text-[36px] font-bold leading-[1.05] tracking-tight sm:text-[48px]">
           {title}
         </h2>
         <p className="max-w-xl text-pretty text-[16px] leading-[1.6] text-ink-60">
@@ -151,14 +151,14 @@ export function PageCta({
             href={SITE.calendly}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-[15px] font-medium text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.97]"
+            className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-[15px] font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.97]"
           >
             Book a strategy call
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
           <Link
             href="/case-studies"
-            className="inline-flex h-12 items-center gap-2 rounded-full border border-ink-08 px-6 text-[15px] font-medium text-ink transition-all hover:border-ink/30"
+            className="inline-flex h-12 items-center gap-2 rounded-full border border-ink-08 px-6 text-[15px] font-semibold text-ink transition-all hover:border-ink/30"
           >
             See case studies
           </Link>
