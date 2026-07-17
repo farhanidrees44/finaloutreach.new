@@ -33,7 +33,7 @@ const CLOSE_DELAY_MS = 150
 const spring = { type: "spring" as const, stiffness: 320, damping: 32 }
 
 const navLinkClass =
-  "inline-flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-semibold tracking-[0.01em] transition-colors duration-200 lg:text-[16px]"
+  "inline-flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-bold tracking-tight transition-colors duration-200 lg:text-[16px]"
 
 /** Shared trigger styles — Cleverly-style bold labels + solid accent pill when open */
 function navTriggerClass(active: boolean) {
@@ -41,7 +41,7 @@ function navTriggerClass(active: boolean) {
     navLinkClass,
     active
       ? "bg-primary text-primary-foreground shadow-sm"
-      : "text-ink-60 hover:text-ink",
+      : "text-ink hover:text-ink",
   )
 }
 
@@ -100,7 +100,7 @@ function NavDropdownItem({
         />
       ) : null}
       <span className="min-w-0">
-        <span className="block text-base font-semibold leading-snug text-ink transition-colors group-hover:text-primary">
+        <span className="block text-base font-bold leading-snug text-ink transition-colors group-hover:text-primary">
           {title}
         </span>
         {subtitle ? (
@@ -425,7 +425,7 @@ export function SiteNavigation() {
             <li>
               <Link
                 href="/case-studies"
-                className={cn(navLinkClass, "text-ink-60 hover:text-ink")}
+                className={cn(navLinkClass, "text-ink hover:text-ink")}
               >
                 Case studies
               </Link>
@@ -433,7 +433,7 @@ export function SiteNavigation() {
             <li>
               <Link
                 href="/blog"
-                className={cn(navLinkClass, "text-ink-60 hover:text-ink")}
+                className={cn(navLinkClass, "text-ink hover:text-ink")}
               >
                 Blog
               </Link>
@@ -441,7 +441,7 @@ export function SiteNavigation() {
             <li>
               <Link
                 href="/pricing"
-                className={cn(navLinkClass, "text-ink-60 hover:text-ink")}
+                className={cn(navLinkClass, "text-ink hover:text-ink")}
               >
                 Pricing
               </Link>

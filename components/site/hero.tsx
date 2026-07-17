@@ -14,7 +14,7 @@ export function Hero() {
   const reduced = useReducedMotion()
 
   return (
-    <section className="noise-bg relative isolate overflow-hidden pb-16 pt-24 sm:pt-28 md:pb-20 md:pt-32">
+    <section className="noise-bg relative isolate overflow-hidden pb-12 pt-20 sm:pb-14 sm:pt-20 md:pb-16 md:pt-24">
       <HeroBackground />
 
       <div
@@ -28,7 +28,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.5 }}
-          className="relative mb-8 flex w-full max-w-xl flex-col items-center"
+          className="relative mb-5 flex w-full max-w-xl flex-col items-center"
         >
           <a
             href="#watch"
@@ -113,7 +113,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08 }}
-          className="text-[13px] font-semibold uppercase tracking-[0.22em] text-vibrant-purple"
+          className="text-[13px] font-bold uppercase tracking-[0.22em] text-vibrant-purple"
         >
           B2B Cold Outreach Agency
         </motion.p>
@@ -122,12 +122,12 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.12 }}
-          className="mt-3 text-[15px] font-medium tracking-tight text-ink"
+          className="mt-2 text-[15px] font-bold tracking-tight text-ink"
         >
           {SITE.name}
         </motion.p>
 
-        <h1 className="mt-5 max-w-[16ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
+        <h1 className="mt-4 max-w-[16ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,7 +158,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.45 }}
-          className="mt-7 max-w-2xl text-pretty text-[17px] leading-[1.65] text-ink-60 sm:text-[19px]"
+          className="mt-5 max-w-2xl text-pretty text-[17px] leading-[1.65] text-ink-60 sm:text-[19px]"
         >
           Most teams burn 3–4 agencies before finding one that works. We&apos;re
           built to be your last one — hands-on operators, real infrastructure,
@@ -170,7 +170,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.52 }}
-          className="mt-9 grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6"
+          className="mt-7 grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6"
         >
           {[
             { value: "11.58%", label: "Reply rate" },
@@ -200,7 +200,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.6 }}
-          className="mt-10 flex flex-col items-center gap-4"
+          className="mt-8 flex flex-col items-center gap-4"
         >
           <MagneticButton href={SITE.calendly} size="lg" variant="primary">
             <span className="inline-flex items-center gap-2">
