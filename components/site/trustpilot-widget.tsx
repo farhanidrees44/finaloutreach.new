@@ -15,8 +15,8 @@ type TrustpilotWidgetProps = {
 }
 
 /**
- * Trustpilot Review Collector TrustBox.
- * Bootstrap script lives in root layout; this remounts the widget after SPA hydration.
+ * Trustpilot Mini TrustBox — live score, stars, and review count.
+ * Bootstrap script lives in root layout; this remounts after SPA hydration.
  */
 export function TrustpilotWidget({ className }: TrustpilotWidgetProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -49,11 +49,11 @@ export function TrustpilotWidget({ className }: TrustpilotWidgetProps) {
       ref={ref}
       className={`trustpilot-widget ${className ?? ""}`.trim()}
       data-locale="en-US"
-      data-template-id="56278e9abfbbba0bdcd568bc"
+      data-template-id="53aa8807dec7e10d38f59f32"
       data-businessunit-id="6a5a83923e37cfe6ecc09631"
-      data-style-height="52px"
-      data-style-width="220px"
-      data-token="8ee94261-38b2-483f-ae05-bb598ce53598"
+      data-style-height="120px"
+      data-style-width="100%"
+      data-theme="light"
     >
       <a
         href="https://www.trustpilot.com/review/finaloutreach.com"

@@ -128,10 +128,10 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14 }}
-          className="mt-4 flex justify-center sm:mt-5"
-          aria-label="Review FinalOutreach on Trustpilot"
+          className="mt-4 flex w-full justify-center sm:mt-5"
+          aria-label="FinalOutreach Trustpilot rating"
         >
-          <div className="w-[220px] shrink-0 transition-transform duration-300 hover:scale-[1.04]">
+          <div className="w-full max-w-[280px] sm:max-w-[320px]">
             <TrustpilotWidget />
           </div>
         </motion.div>
