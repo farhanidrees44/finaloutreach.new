@@ -140,9 +140,9 @@ export function FounderStory() {
             className="flex flex-col justify-center"
           >
             {/* Name & title */}
-            <h2 className="text-balance text-[40px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[52px]">
+            <h2 className="text-balance text-[40px] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-[52px]">
               Farhan{" "}
-              <span className="font-serif-italic text-ink-60">Idrees.</span>
+              <span className="font-serif-italic text-electric-blue">Idrees.</span>
             </h2>
             <p className="mt-3 text-[15px] font-medium uppercase tracking-[0.14em] text-emerald-deep">
               Founder & CEO, FinalOutreach
@@ -173,7 +173,7 @@ export function FounderStory() {
             </div>
 
             {/* Bio */}
-            <div className="mt-8 flex max-w-xl flex-col gap-4 text-[15px] leading-[1.7] text-ink-60">
+            <div className="mt-8 flex max-w-xl flex-col gap-4 text-[15px] font-semibold leading-[1.7] text-ink-60">
               <p>
                 I started FinalOutreach because I was tired of watching
                 founders burn cash on agencies that deliver slide decks instead

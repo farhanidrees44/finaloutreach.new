@@ -65,14 +65,14 @@ export function FinalCta() {
               <span className="size-1.5 rounded-full bg-[oklch(0.7_0.18_145)] pulse-dot" />
               Limited slots this quarter
             </span>
-            <h2 className="mt-7 max-w-[16ch] text-balance text-[clamp(2rem,4vw,3.25rem)] font-medium text-background">
+            <h2 className="mt-7 max-w-[16ch] text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold text-background">
               Your next 50 meetings are{" "}
-              <span className="font-serif-italic gradient-text-animated">
+              <span className="font-serif-italic text-electric-blue">
                 one call
               </span>{" "}
               away.
             </h2>
-            <p className="mt-7 max-w-xl text-[17px] text-white/65">
+            <p className="mt-7 max-w-xl text-[17px] font-bold text-white/75">
               30-minute call. We&apos;ll tell you exactly what&apos;s possible
               for your business — even if you don&apos;t hire us.
             </p>

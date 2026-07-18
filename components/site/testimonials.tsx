@@ -17,11 +17,11 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="max-w-2xl">
           <SectionEyebrow number="12" label="Voice" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             What clients say —{" "}
-            <span className="font-serif-italic text-ink-60">with permission.</span>
+            <span className="font-serif-italic text-electric-blue">with permission.</span>
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-ink-60">
+          <p className="mt-4 text-[15px] font-bold leading-relaxed text-ink-60">
             Quotes appear only with verified attribution and written approval.
           </p>
         </div>

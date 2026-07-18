@@ -16,11 +16,11 @@ export function Faq() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
           <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
             <SectionEyebrow number="11" label="Questions" />
-            <h2 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+            <h2 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Common questions,{" "}
-              <span className="font-serif-italic text-ink-60">honest answers.</span>
+              <span className="font-serif-italic text-electric-blue">honest answers.</span>
             </h2>
-            <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
+            <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
               If yours isn&apos;t here, ask it on the call. We&apos;d rather
               over-explain than oversell.
             </p>
@@ -40,7 +40,7 @@ export function Faq() {
                     aria-expanded={open}
                     className="group flex w-full items-start justify-between gap-6 py-5 text-left"
                   >
-                    <h3 className="text-[17px] font-medium leading-tight tracking-tight text-ink sm:text-[18px]">
+                    <h3 className="text-[17px] font-bold leading-tight tracking-tight text-ink sm:text-[18px]">
                       {item.question}
                     </h3>
                     <span

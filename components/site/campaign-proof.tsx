@@ -77,11 +77,11 @@ export function CampaignProofGallery() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="02" label="Proof" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Real campaign{" "}
-              <span className="font-serif-italic text-ink-60">screenshots.</span>
+              <span className="font-serif-italic text-electric-blue">screenshots.</span>
             </h2>
-            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
+            <p className="mt-4 max-w-xl text-[15px] font-bold leading-relaxed text-ink-60">
               Live dashboards and calendar density — industry and stage only.
               Named logos and faces appear only with written permission.
             </p>

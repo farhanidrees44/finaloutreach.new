@@ -45,11 +45,11 @@ export function ResultsBar() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="mb-10 flex flex-col gap-3">
           <SectionEyebrow number="04" label="By the numbers" />
-          <h2 className="max-w-2xl text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="max-w-2xl text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             One live campaign,{" "}
-            <span className="font-serif-italic text-ink-60">real dashboard numbers.</span>
+            <span className="font-serif-italic text-electric-blue">real dashboard numbers.</span>
           </h2>
-          <p className="max-w-xl text-[14px] text-ink-40">
+          <p className="max-w-xl text-[14px] font-bold text-ink-60">
             Figures below match the Smartlead screenshot in Proof — not rolled-up
             marketing aggregates.
           </p>

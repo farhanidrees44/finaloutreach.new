@@ -184,13 +184,13 @@ export function Services() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="05" label="Services" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Services that{" "}
-              <span className="font-serif-italic text-ink-60">fill</span>{" "}
+              <span className="font-serif-italic text-electric-blue">fill</span>{" "}
               your pipeline.
             </h2>
           </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
+          <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
             Pick what fits your stage. We handle the rest — infrastructure,
             copy, sending, follow-up, reporting.
           </p>

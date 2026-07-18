@@ -61,11 +61,11 @@ export function OperatorDifference() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
         <div className="max-w-2xl">
           <SectionEyebrow number="05b" label="Difference" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             What you get — and what you&apos;re{" "}
-            <span className="font-serif-italic text-ink-60">done with.</span>
+            <span className="font-serif-italic text-electric-blue">done with.</span>
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
+          <p className="mt-4 max-w-xl text-[15px] font-bold leading-relaxed text-ink-60">
             Pulled from how we actually run engagements — Process, Services,
             and the FAQ — not a marketing wishlist.
           </p>
@@ -97,7 +97,7 @@ export function OperatorDifference() {
                     strokeWidth={2.5}
                     aria-hidden
                   />
-                  <span className="text-[14.5px] leading-snug text-ink">
+                  <span className="text-[14.5px] font-semibold leading-snug text-ink">
                     {row.us}
                   </span>
                 </div>
@@ -107,7 +107,7 @@ export function OperatorDifference() {
                     strokeWidth={2.25}
                     aria-hidden
                   />
-                  <span className="text-[14.5px] leading-snug text-ink-60">
+                  <span className="text-[14.5px] font-semibold leading-snug text-ink-60">
                     {row.them}
                   </span>
                 </div>

@@ -24,11 +24,11 @@ export function LiveCampaignInvite() {
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <SectionEyebrow number="02b" label="Case studies" />
-              <h2 className="mt-5 text-balance text-[clamp(2.25rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
+              <h2 className="mt-5 text-balance text-[clamp(2.25rem,4.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
                 Outcomes we can{" "}
-                <span className="font-serif-italic text-ink-60">name.</span>
+                <span className="font-serif-italic text-electric-blue">name.</span>
               </h2>
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
+              <p className="mt-4 max-w-xl text-[15px] font-bold leading-relaxed text-ink-60">
                 Named companies and faces appear only with written permission.
               </p>
             </div>
@@ -83,13 +83,13 @@ export function LiveCampaignInvite() {
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
         <div className="max-w-3xl">
           <SectionEyebrow number="02b" label="Live data" />
-          <h2 className="mt-5 text-balance text-[clamp(2.25rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2.25rem,4.5vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             Prefer named case studies?{" "}
-            <span className="font-serif-italic text-ink-60">
+            <span className="font-serif-italic text-electric-blue">
               We&apos;ll show you live ones.
             </span>
           </h2>
-          <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink-60">
+          <p className="mt-5 max-w-xl text-[16px] font-bold leading-relaxed text-ink-60">
             We only publish client names and quotes with written permission.
             Until then, the strongest proof is a walkthrough of real campaign
             dashboards and calendars on a strategy call.
@@ -108,7 +108,7 @@ export function LiveCampaignInvite() {
               <LayoutDashboard className="size-3.5" aria-hidden />
               On the call
             </span>
-            <ul className="mt-6 flex flex-col gap-3 text-[15px] leading-relaxed text-ink-60">
+            <ul className="mt-6 flex flex-col gap-3 text-[15px] font-semibold leading-relaxed text-ink-60">
               <li className="flex gap-2">
                 <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
                 Live Smartlead / Instantly reply and meeting metrics for accounts like yours

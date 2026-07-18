@@ -74,21 +74,21 @@ export function Pricing() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="12" label="Pricing" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Simple, transparent{" "}
-              <span className="font-serif-italic text-ink-60">
+              <span className="font-serif-italic text-electric-blue">
                 engagements.
               </span>
             </h2>
           </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
+          <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
             Pick a starting point. We&apos;ll customize the rest on the call.
           </p>
         </div>
 
-        <p className="mt-8 max-w-2xl text-[15px] leading-relaxed text-ink-60">
+        <p className="mt-8 max-w-2xl text-[15px] font-bold leading-relaxed text-ink-60">
           Priced for operator-led work, not a junior pod{" "}
-          <span className="font-serif-italic text-ink-60">spraying templates.</span>
+          <span className="font-serif-italic text-electric-blue">spraying templates.</span>
         </p>
 
         <ul className="mt-8 flex flex-col gap-4">

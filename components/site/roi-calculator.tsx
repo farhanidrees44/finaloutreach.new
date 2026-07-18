@@ -43,14 +43,14 @@ export function RoiCalculator() {
             <Calculator className="size-3.5" strokeWidth={2.2} />
             07 · ROI model
           </span>
-          <h2 className="max-w-3xl text-balance text-fluid-2xl font-bold tracking-tight text-ink">
+          <h2 className="max-w-3xl text-balance text-fluid-2xl font-extrabold tracking-tight text-ink">
             Estimate what qualified meetings could be{" "}
-            <span className="font-serif-italic gradient-text-animated">
+            <span className="font-serif-italic text-electric-blue">
               worth
             </span>{" "}
             at your ACV.
           </h2>
-          <p className="max-w-xl text-[15px] leading-relaxed text-ink-60">
+          <p className="max-w-xl text-[15px] font-bold leading-relaxed text-ink-60">
             A simple model — not a guarantee. Adjust ACV, meeting volume, and
             close rate to see a directional annual return vs. a Growth-tier
             engagement.
