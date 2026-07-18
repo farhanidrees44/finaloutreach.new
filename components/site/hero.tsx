@@ -127,7 +127,7 @@ export function Hero() {
           {SITE.name}
         </motion.p>
 
-        <h1 className="mt-4 max-w-[16ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
+        <h1 className="mt-4 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -138,7 +138,7 @@ export function Hero() {
             }
             className="block"
           >
-            Stop Hiring Agencies.
+            Operators in the tools.
           </motion.span>
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
@@ -148,9 +148,9 @@ export function Hero() {
                 ? { duration: 0 }
                 : { delay: 0.28, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
             }
-            className="mt-1 block gradient-text-animated"
+            className="mt-1 block font-serif-italic text-electric-blue"
           >
-            Start Booking Meetings.
+            Meetings on your calendar.
           </motion.span>
         </h1>
 
