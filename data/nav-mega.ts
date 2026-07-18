@@ -22,6 +22,9 @@ import {
   Sparkles,
   Calculator,
   Flame,
+  Images,
+  Scale,
+  LayoutDashboard,
 } from "lucide-react"
 
 export type MegaLink = {
@@ -167,5 +170,33 @@ export const MEGA_FREE_TOOLS: MegaTool[] = [
     category: "Deliverability",
     speed: "<1s",
     icon: Flame,
+  },
+]
+
+/**
+ * Results mega — only destinations with real, non-fabricated proof on the site.
+ * Reviews / permissioned testimonials omitted until content exists.
+ */
+export const MEGA_RESULTS: MegaLink[] = [
+  {
+    href: "/#campaign-proof",
+    title: "Live proof",
+    subtitle:
+      "Real campaign dashboards and calendar density — public screenshots on the homepage.",
+    icon: Images,
+  },
+  {
+    href: "/compare",
+    title: "Compare agencies",
+    subtitle:
+      "Side-by-side breakdowns vs Belkins, Cleverly, Leadium, and other outbound shops.",
+    icon: Scale,
+  },
+  {
+    href: "/#live-data",
+    title: "See it live on a call",
+    subtitle:
+      "Named case studies only with permission — until then we walk real dashboards live.",
+    icon: LayoutDashboard,
   },
 ]

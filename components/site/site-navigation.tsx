@@ -18,14 +18,15 @@ import { SITE } from "@/lib/site-data"
 import {
   MEGA_FREE_TOOLS,
   MEGA_INDUSTRIES,
+  MEGA_RESULTS,
   MEGA_SERVICES,
   type MegaLink,
   type MegaTool,
 } from "@/data/nav-mega"
 
-type MegaTab = "Services" | "Industries" | "Tools"
+type MegaTab = "Services" | "Industries" | "Tools" | "Results"
 
-const MEGA_TABS: MegaTab[] = ["Services", "Industries", "Tools"]
+const MEGA_TABS: MegaTab[] = ["Services", "Industries", "Tools", "Results"]
 
 const OPEN_DELAY_MS = 150
 const CLOSE_DELAY_MS = 150
@@ -340,6 +341,24 @@ export function SiteNavigation() {
         </>
       )
     }
+    if (tab === "Results") {
+      return (
+        <>
+          <NavDropdownGrid
+            items={megaLinksToItems(MEGA_RESULTS)}
+            onNavigate={closeMegaNow}
+          />
+          <Link
+            href="/#campaign-proof"
+            onClick={closeMegaNow}
+            className={footerLinkClass}
+          >
+            Jump to live screenshots
+            <ArrowRight className="size-3.5" />
+          </Link>
+        </>
+      )
+    }
     return (
       <>
         <NavDropdownGrid
@@ -422,7 +441,9 @@ export function SiteNavigation() {
                         "absolute top-full z-50 hidden pt-3 lg:block",
                         tab === "Tools"
                           ? "left-1/2 w-[min(40rem,calc(100vw-2rem))] -translate-x-1/2"
-                          : "left-0 w-[min(36rem,calc(100vw-2rem))]",
+                          : tab === "Results"
+                            ? "left-0 w-[min(28rem,calc(100vw-2rem))]"
+                            : "left-0 w-[min(36rem,calc(100vw-2rem))]",
                       )}
                       onMouseEnter={clearTimers}
                       onMouseLeave={closeMegaDelayed}
@@ -522,6 +543,13 @@ export function SiteNavigation() {
                     items: toolsToItems(MEGA_FREE_TOOLS).concat({
                       href: "/tools",
                       title: "See all free tools",
+                    }),
+                  },
+                  {
+                    label: "Results" as const,
+                    items: megaLinksToItems(MEGA_RESULTS).concat({
+                      href: "/#campaign-proof",
+                      title: "Jump to live screenshots",
                     }),
                   },
                 ] as const
