@@ -1,245 +1,42 @@
 "use client"
 
-/**
- * Subject Line Tester — 14-factor analyzer.
- *
- * Pure client-side: every metric is computed on each keystroke from a single
- * `analyze(subject)` function. We also expose the analyzer's intermediate
- * weights so the UI can render a per-factor breakdown with status pills and
- * actionable suggestions, not just a number.
- */
-
-import { useId, useMemo, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import {
-  CheckCircle2,
-  Sparkles,
   AlertTriangle,
-  XCircle,
-  Type,
+  CaseSensitive,
+  CheckCircle2,
+  CircleHelp,
   Hash,
-  AtSign,
+  Lightbulb,
+  MessageCircleQuestion,
+  Ruler,
   Smile,
-  HelpCircle,
-  Megaphone,
-  Clock,
-  Eye,
-  Zap,
-  Shield,
+  Sparkles,
+  Target,
+  Timer,
+  Type,
   Users,
   Wand2,
-  Star,
+  Zap,
+  Braces,
 } from "lucide-react"
-import { ToolWorkbench, PanelHeading, FieldLabel } from "@/components/tools/tool-shell"
+import { motion, useSpring, useTransform } from "framer-motion"
+import {
+  FieldLabel,
+  PanelHeading,
+  ToolWorkbench,
+} from "@/components/tools/tool-shell"
+import {
+  analyzeSubjectLine,
+  type FactorStatus,
+  type SubjectLineAnalysis,
+  type SubjectLineFactor,
+  type SubjectLineGrade,
+} from "@/lib/scoring/subject-line"
 import { cn } from "@/lib/utils"
 
-type FactorStatus = "pass" | "warn" | "fail"
-
-type Factor = {
-  id: string
-  label: string
-  icon: typeof CheckCircle2
-  status: FactorStatus
-  /** Score contribution out of `weight`. */
-  score: number
-  weight: number
-  message: string
-}
-
-// Deliberately curated — these are the words a human reviewer flags first.
-// Lowercased; we match on word boundaries.
-const SPAM_WORDS = [
-  "free", "guarantee", "guaranteed", "winner", "won", "cash", "prize",
-  "cheap", "discount", "sale", "buy now", "urgent", "act now", "click here",
-  "limited time", "100%", "no obligation", "risk-free", "earn money",
-  "income", "investment", "apply now", "call now", "credit", "loan",
-  "no cost", "no fees", "double your", "amazing",
-]
-
-const URGENCY_WORDS = [
-  "urgent", "asap", "now", "today", "limited", "expires", "deadline",
-  "last chance", "ending soon", "final hours", "tonight",
-]
-
-const CURIOSITY_WORDS = [
-  "why", "how", "secret", "discovered", "surprising", "what",
-  "you won't believe", "the truth", "hidden", "nobody",
-]
-
-const GENERIC_OPENERS = [
-  "hi", "hello", "hey", "greetings", "to whom", "dear sir", "dear madam",
-  "checking in", "following up", "touching base", "circling back",
-]
-
-// Non-global RegExps — using `g` here would bleed `lastIndex` across .test()
-// calls and produce alternating results across renders.
-const PERSONALIZATION_TOKENS = [
-  /\{\{?[^}]+\}\}?/,    // {name}, {{first_name}}, {company}
-  /\[[^\]]+\]/,         // [name], [Company]
-  /%[a-z_]+%/i,         // %first_name%
-]
-
-type Analysis = {
-  score: number
-  grade: "Excellent" | "Strong" | "Average" | "Weak" | "Risky"
-  factors: Factor[]
-  /** Quick hits the user should fix first. */
-  topFixes: string[]
-}
-
-function analyze(subject: string): Analysis {
-  const trimmed = subject.trim()
-  const length = trimmed.length
-  const words = trimmed ? trimmed.split(/\s+/) : []
-  const wordCount = words.length
-  const lowered = trimmed.toLowerCase()
-
-  // Helper: word-boundary regex test for a phrase list
-  const matchesAny = (phrases: string[]) =>
-    phrases.filter((p) =>
-      new RegExp(`(^|\\W)${p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\W|$)`, "i").test(lowered),
-    )
-
-  const factors: Factor[] = []
-
-  // 1. Length (sweet spot 30–55 chars)
-  factors.push((() => {
-    if (length === 0) {
-      return { id: "length", label: "Length", icon: Type, status: "fail" as FactorStatus, score: 0, weight: 12, message: "Type a subject line to begin." }
-    }
-    if (length < 20) return { id: "length", label: "Length", icon: Type, status: "warn", score: 6, weight: 12, message: `Only ${length} chars — too short, often reads as low-effort.` }
-    if (length > 70) return { id: "length", label: "Length", icon: Type, status: "fail", score: 2, weight: 12, message: `${length} chars — most mobile clients will truncate after ~50.` }
-    if (length > 55) return { id: "length", label: "Length", icon: Type, status: "warn", score: 8, weight: 12, message: `${length} chars — fine on desktop but mobile may cut off.` }
-    return { id: "length", label: "Length", icon: Type, status: "pass", score: 12, weight: 12, message: `${length} chars — within the mobile-safe 30–55 range.` }
-  })())
-
-  // 2. Word count (3–8 ideal)
-  factors.push((() => {
-    if (wordCount === 0) return { id: "words", label: "Word count", icon: Hash, status: "fail", score: 0, weight: 6, message: "No words yet." }
-    if (wordCount < 3) return { id: "words", label: "Word count", icon: Hash, status: "warn", score: 3, weight: 6, message: "Under 3 words usually lacks context." }
-    if (wordCount > 10) return { id: "words", label: "Word count", icon: Hash, status: "warn", score: 3, weight: 6, message: `${wordCount} words — try to cut to 6–8.` }
-    return { id: "words", label: "Word count", icon: Hash, status: "pass", score: 6, weight: 6, message: `${wordCount} words — comfortable read.` }
-  })())
-
-  // 3. Spam triggers
-  factors.push((() => {
-    const hits = matchesAny(SPAM_WORDS)
-    if (hits.length >= 2) return { id: "spam", label: "Spam triggers", icon: Shield, status: "fail", score: 0, weight: 12, message: `Multiple risky words: ${hits.slice(0, 3).join(", ")}.` }
-    if (hits.length === 1) return { id: "spam", label: "Spam triggers", icon: Shield, status: "warn", score: 6, weight: 12, message: `Risky word: "${hits[0]}". Consider rephrasing.` }
-    return { id: "spam", label: "Spam triggers", icon: Shield, status: "pass", score: 12, weight: 12, message: "No common spam triggers detected." }
-  })())
-
-  // 4. ALL CAPS — count uppercase-only words (allowing 1 letter hint)
-  factors.push((() => {
-    const capsWords = words.filter((w) => w.length > 1 && w === w.toUpperCase() && /[A-Z]/.test(w))
-    if (capsWords.length >= 2) return { id: "caps", label: "ALL-CAPS use", icon: Megaphone, status: "fail", score: 0, weight: 8, message: `${capsWords.length} ALL-CAPS words — strong spam signal.` }
-    if (capsWords.length === 1) return { id: "caps", label: "ALL-CAPS use", icon: Megaphone, status: "warn", score: 4, weight: 8, message: `1 ALL-CAPS word ("${capsWords[0]}") — use sparingly.` }
-    return { id: "caps", label: "ALL-CAPS use", icon: Megaphone, status: "pass", score: 8, weight: 8, message: "No ALL-CAPS words." }
-  })())
-
-  // 5. Excessive punctuation (multiple ! or ?)
-  factors.push((() => {
-    const exclaim = (trimmed.match(/!/g) || []).length
-    const question = (trimmed.match(/\?/g) || []).length
-    if (exclaim > 1 || /!!/.test(trimmed)) return { id: "punct", label: "Punctuation", icon: AlertTriangle, status: "fail", score: 0, weight: 6, message: `${exclaim} exclamation marks — heavily flagged.` }
-    if (exclaim === 1 && question === 0) return { id: "punct", label: "Punctuation", icon: AlertTriangle, status: "warn", score: 3, weight: 6, message: "1 exclamation mark — try removing it; statements convert better." }
-    return { id: "punct", label: "Punctuation", icon: AlertTriangle, status: "pass", score: 6, weight: 6, message: "Punctuation looks restrained." }
-  })())
-
-  // 6. Personalization tokens
-  factors.push((() => {
-    const hasToken = PERSONALIZATION_TOKENS.some((re) => re.test(trimmed))
-    if (hasToken) return { id: "personal", label: "Personalization", icon: AtSign, status: "pass", score: 10, weight: 10, message: "Personalization token found — good." }
-    // Check for first-name-shaped capitalized word at the start
-    const startsWithName = /^[A-Z][a-z]{1,15}[\s,]/.test(trimmed)
-    if (startsWithName) return { id: "personal", label: "Personalization", icon: AtSign, status: "pass", score: 8, weight: 10, message: "Starts with what looks like a first name — solid." }
-    return { id: "personal", label: "Personalization", icon: AtSign, status: "warn", score: 3, weight: 10, message: "No {name} or {company} token. Add one." }
-  })())
-
-  // 7. Question vs statement
-  factors.push((() => {
-    if (/\?$/.test(trimmed)) return { id: "question", label: "Asks a question", icon: HelpCircle, status: "pass", score: 5, weight: 5, message: "Question subjects often beat statements on cold opens." }
-    return { id: "question", label: "Asks a question", icon: HelpCircle, status: "warn", score: 3, weight: 5, message: "Statement format — questions tend to outperform on cold." }
-  })())
-
-  // 8. Specificity — has a number
-  factors.push((() => {
-    const numbers = trimmed.match(/\b\d{1,4}%?\b/g)
-    if (numbers && numbers.length > 0) return { id: "specificity", label: "Specific number", icon: Star, status: "pass", score: 8, weight: 8, message: `Includes specific number: ${numbers[0]}.` }
-    return { id: "specificity", label: "Specific number", icon: Star, status: "warn", score: 3, weight: 8, message: "No number — specific numbers boost credibility." }
-  })())
-
-  // 9. Curiosity gap
-  factors.push((() => {
-    const hits = matchesAny(CURIOSITY_WORDS)
-    if (hits.length > 0) return { id: "curiosity", label: "Curiosity gap", icon: Eye, status: "pass", score: 6, weight: 6, message: `Curiosity word: "${hits[0]}".` }
-    return { id: "curiosity", label: "Curiosity gap", icon: Eye, status: "warn", score: 3, weight: 6, message: "No curiosity hook — consider 'why', 'how', or a teaser." }
-  })())
-
-  // 10. Urgency
-  factors.push((() => {
-    const hits = matchesAny(URGENCY_WORDS)
-    if (hits.length >= 2) return { id: "urgency", label: "Urgency", icon: Clock, status: "warn", score: 2, weight: 5, message: "Heavy urgency reads as pressure on cold opens." }
-    if (hits.length === 1) return { id: "urgency", label: "Urgency", icon: Clock, status: "pass", score: 5, weight: 5, message: `Light urgency ("${hits[0]}") — appropriate.` }
-    return { id: "urgency", label: "Urgency", icon: Clock, status: "pass", score: 4, weight: 5, message: "No urgency — that's fine for cold." }
-  })())
-
-  // 11. Emoji count
-  factors.push((() => {
-    // eslint-disable-next-line no-misleading-character-class
-    const emoji = trimmed.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu)
-    const count = emoji?.length ?? 0
-    if (count === 0) return { id: "emoji", label: "Emoji use", icon: Smile, status: "pass", score: 5, weight: 5, message: "No emoji — safe default for B2B cold." }
-    if (count === 1) return { id: "emoji", label: "Emoji use", icon: Smile, status: "warn", score: 3, weight: 5, message: "1 emoji — A/B test against an emoji-free version." }
-    return { id: "emoji", label: "Emoji use", icon: Smile, status: "fail", score: 1, weight: 5, message: `${count} emoji — usually too much for B2B.` }
-  })())
-
-  // 12. Sentence case vs Title Case
-  factors.push((() => {
-    if (length < 5) return { id: "case", label: "Casing", icon: Wand2, status: "warn", score: 2, weight: 5, message: "Too short to evaluate." }
-    const titleCaseScore = words.filter((w) => /^[A-Z][a-z]+/.test(w) && w.length > 2).length
-    const lowerScore = words.filter((w) => /^[a-z]+/.test(w) && w.length > 2).length
-    if (titleCaseScore > 3 && titleCaseScore > lowerScore) {
-      return { id: "case", label: "Casing", icon: Wand2, status: "warn", score: 2, weight: 5, message: "Title Case looks like a marketing email — sentence case wins on cold." }
-    }
-    return { id: "case", label: "Casing", icon: Wand2, status: "pass", score: 5, weight: 5, message: "Sentence case — reads like a personal email." }
-  })())
-
-  // 13. Generic opener detection (full-string match)
-  factors.push((() => {
-    const startsGeneric = GENERIC_OPENERS.some((g) =>
-      lowered === g || lowered.startsWith(g + " ") || lowered.startsWith(g + ","),
-    )
-    if (startsGeneric) return { id: "generic", label: "Generic opener", icon: Users, status: "fail", score: 0, weight: 6, message: "'Checking in' / 'Following up' style openers get archived." }
-    return { id: "generic", label: "Generic opener", icon: Users, status: "pass", score: 6, weight: 6, message: "No tired follow-up phrasing." }
-  })())
-
-  // 14. Reads like a real human note (no $ or ALL CAPS-y MARKETING tone)
-  factors.push((() => {
-    const dollar = /\$/.test(trimmed)
-    if (dollar) return { id: "human", label: "Sounds human", icon: Zap, status: "warn", score: 2, weight: 6, message: "$ symbols feel transactional. Try writing the number out." }
-    const startsLower = /^[a-z]/.test(trimmed)
-    if (startsLower) return { id: "human", label: "Sounds human", icon: Zap, status: "pass", score: 6, weight: 6, message: "Starts lowercase — often reads as a forwarded reply (great)." }
-    return { id: "human", label: "Sounds human", icon: Zap, status: "pass", score: 5, weight: 6, message: "Tone reads natural." }
-  })())
-
-  const totalWeight = factors.reduce((a, f) => a + f.weight, 0)
-  const earned = factors.reduce((a, f) => a + f.score, 0)
-  const score = Math.round((earned / totalWeight) * 100)
-
-  let grade: Analysis["grade"] = "Risky"
-  if (score >= 85) grade = "Excellent"
-  else if (score >= 70) grade = "Strong"
-  else if (score >= 55) grade = "Average"
-  else if (score >= 35) grade = "Weak"
-
-  const topFixes = factors
-    .filter((f) => f.status !== "pass")
-    .sort((a, b) => b.weight - b.score - (a.weight - a.score))
-    .slice(0, 3)
-    .map((f) => f.message)
-
-  return { score, grade, factors, topFixes }
-}
+const SPRING = { type: "spring" as const, stiffness: 200, damping: 25 }
+const DEBOUNCE_MS = 150
 
 const SAMPLE_SUBJECTS = [
   "Quick question on your Q4 outbound",
@@ -248,56 +45,213 @@ const SAMPLE_SUBJECTS = [
   "How Acme cut their CAC by 32%",
 ]
 
-function StatusPill({ status }: { status: FactorStatus }) {
-  if (status === "pass")
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[0.12em] text-emerald-700">
-        <CheckCircle2 className="size-3" /> Pass
-      </span>
-    )
-  if (status === "warn")
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[0.12em] text-amber-700">
-        <AlertTriangle className="size-3" /> Warn
-      </span>
-    )
+const FACTOR_ICONS: Record<string, typeof Ruler> = {
+  length: Ruler,
+  words: Type,
+  spam: AlertTriangle,
+  caps: CaseSensitive,
+  punct: Hash,
+  emoji: Smile,
+  merge: Braces,
+  case: Wand2,
+  personal: Target,
+  question: MessageCircleQuestion,
+  specificity: Sparkles,
+  curiosity: Lightbulb,
+  urgency: Timer,
+  generic: Users,
+  human: Zap,
+}
+
+function signalColor(score: number): string {
+  // Interpolate fail → warn → pass across 40 / 70
+  if (score <= 40) {
+    const t = score / 40
+    return lerpHex("#B8402E", "#B8752E", t)
+  }
+  if (score <= 70) {
+    const t = (score - 40) / 30
+    return lerpHex("#B8752E", "#2E7D4F", t)
+  }
+  return "#2E7D4F"
+}
+
+function lerpHex(a: string, b: string, t: number): string {
+  const clamp = Math.max(0, Math.min(1, t))
+  const pa = hexToRgb(a)
+  const pb = hexToRgb(b)
+  const r = Math.round(pa.r + (pb.r - pa.r) * clamp)
+  const g = Math.round(pa.g + (pb.g - pa.g) * clamp)
+  const bl = Math.round(pa.b + (pb.b - pa.b) * clamp)
+  return `rgb(${r}, ${g}, ${bl})`
+}
+
+function hexToRgb(hex: string) {
+  const h = hex.replace("#", "")
+  return {
+    r: parseInt(h.slice(0, 2), 16),
+    g: parseInt(h.slice(2, 4), 16),
+    b: parseInt(h.slice(4, 6), 16),
+  }
+}
+
+function charPillTone(len: number): string {
+  if (len === 0) return "text-[var(--ink-400)] border-[var(--border-hairline)]"
+  if (len <= 30) return "text-[var(--signal-pass)] border-[var(--signal-pass)]/25 bg-[var(--signal-pass-soft)]"
+  if (len <= 50) return "text-[var(--signal-warn)] border-[var(--signal-warn)]/25 bg-[var(--signal-warn-soft)]"
+  if (len <= 70) return "text-[var(--signal-warn)] border-[var(--signal-warn)]/30 bg-[var(--signal-warn-soft)]"
+  return "text-[var(--signal-fail)] border-[var(--signal-fail)]/25 bg-[var(--signal-fail-soft)]"
+}
+
+function statusColor(status: FactorStatus): string {
+  if (status === "pass") return "var(--signal-pass)"
+  if (status === "warn") return "var(--signal-warn)"
+  return "var(--signal-fail)"
+}
+
+function ScoreGauge({
+  score,
+  grade,
+}: {
+  score: number
+  grade: SubjectLineGrade
+}) {
+  const springScore = useSpring(score, SPRING)
+  const [display, setDisplay] = useState(score)
+  const [color, setColor] = useState(signalColor(score))
+
+  // 270° arc (¾ circle)
+  const r = 54
+  const circumference = 2 * Math.PI * r
+  const arcLen = circumference * 0.75
+  const dashOffset = useTransform(springScore, (v) => {
+    const pct = Math.max(0, Math.min(100, v)) / 100
+    return arcLen * (1 - pct)
+  })
+
+  useEffect(() => {
+    springScore.set(score)
+  }, [score, springScore])
+
+  useEffect(() => {
+    const unsub = springScore.on("change", (v) => {
+      setDisplay(Math.round(v))
+      setColor(signalColor(v))
+    })
+    return unsub
+  }, [springScore])
+
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-rose-200 bg-rose-50 px-1.5 py-0.5 text-[10.5px] font-medium uppercase tracking-[0.12em] text-rose-700">
-      <XCircle className="size-3" /> Fail
-    </span>
+    <div className="relative mx-auto flex size-[168px] shrink-0 items-center justify-center sm:size-[180px]">
+      <svg viewBox="0 0 140 140" className="size-full" aria-hidden="true">
+        {/* Track — rotated so gap sits at bottom */}
+        <g transform="rotate(135 70 70)">
+          <circle
+            cx="70"
+            cy="70"
+            r={r}
+            fill="none"
+            stroke="var(--border-hairline)"
+            strokeWidth="10"
+            strokeDasharray={`${arcLen} ${circumference}`}
+            strokeLinecap="round"
+          />
+          <motion.circle
+            cx="70"
+            cy="70"
+            r={r}
+            fill="none"
+            stroke={color}
+            strokeWidth="10"
+            strokeDasharray={`${arcLen} ${circumference}`}
+            style={{ strokeDashoffset: dashOffset }}
+            strokeLinecap="round"
+          />
+        </g>
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center pt-2">
+        <span className="font-mono text-[48px] font-medium tabular-nums leading-none tracking-tight text-[var(--ink-900)] sm:text-[52px]">
+          {display}
+        </span>
+        <span className="mt-2 text-[10.5px] font-medium uppercase tracking-[0.2em] text-[var(--ink-400)]">
+          {grade}
+        </span>
+      </div>
+    </div>
   )
 }
 
-function ScoreRing({ score, grade }: { score: number; grade: Analysis["grade"] }) {
-  const pct = Math.max(0, Math.min(100, score))
-  const r = 52
-  const circ = 2 * Math.PI * r
-  const offset = circ - (pct / 100) * circ
-  const stroke =
-    grade === "Excellent"
-      ? "stroke-emerald-500"
-      : grade === "Strong"
-        ? "stroke-[oklch(0.55_0.13_78)]"
-        : grade === "Average"
-          ? "stroke-amber-500"
-          : "stroke-rose-500"
+function FactorRow({ factor }: { factor: SubjectLineFactor }) {
+  const Icon = FACTOR_ICONS[factor.id] ?? CircleHelp
+  const pct = factor.weight === 0 ? 0 : (factor.score / factor.weight) * 100
+  const color = statusColor(factor.status)
+
   return (
-    <div className="relative inline-flex size-[136px] shrink-0 items-center justify-center">
-      <svg viewBox="0 0 120 120" className="size-full -rotate-90">
-        <circle cx="60" cy="60" r={r} className="fill-none stroke-ink-08" strokeWidth="10" />
-        <circle
-          cx="60" cy="60" r={r}
-          className={cn("fill-none transition-[stroke-dashoffset] duration-500", stroke)}
-          strokeWidth="10"
-          strokeLinecap="round"
-          strokeDasharray={circ}
-          strokeDashoffset={offset}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-mono text-[34px] font-medium tabular-nums leading-none text-ink">{pct}</span>
-        <span className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-ink-40">{grade}</span>
+    <li className="py-3.5">
+      <div className="flex items-start gap-3">
+        <span
+          className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg border border-[var(--border-hairline)] bg-[var(--surface-card)]"
+          style={{ color }}
+        >
+          <Icon className="size-3.5 stroke-[1.5]" aria-hidden="true" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <span className="text-[13.5px] font-medium text-[var(--ink-900)]">
+              {factor.label}
+            </span>
+            <span className="font-mono text-[11px] tabular-nums text-[var(--ink-400)]">
+              {factor.score}/{factor.weight}
+            </span>
+          </div>
+          <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-[var(--border-hairline)]">
+            <motion.div
+              className="h-full rounded-full"
+              style={{ backgroundColor: color }}
+              initial={{ width: 0 }}
+              animate={{ width: `${pct}%` }}
+              transition={SPRING}
+            />
+          </div>
+          <p className="mt-2 text-[12.5px] leading-[1.55] text-[var(--ink-600)]">
+            {factor.message}
+          </p>
+        </div>
       </div>
+    </li>
+  )
+}
+
+function TruncationPreview({ analysis }: { analysis: SubjectLineAnalysis }) {
+  if (!analysis.charCount) {
+    return (
+      <p className="text-[13px] leading-[1.55] text-[var(--ink-400)]">
+        Mobile preview appears as you type.
+      </p>
+    )
+  }
+  return (
+    <div className="space-y-3">
+      {[
+        { label: "30-char inbox", preview: analysis.preview30, cut: analysis.truncatedAt30 },
+        { label: "55-char inbox", preview: analysis.preview55, cut: analysis.truncatedAt55 },
+      ].map((row) => (
+        <div key={row.label}>
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <span className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+              {row.label}
+            </span>
+            {row.cut && (
+              <span className="text-[10.5px] uppercase tracking-[0.12em] text-[var(--signal-warn)]">
+                Truncated
+              </span>
+            )}
+          </div>
+          <p className="rounded-lg border border-[var(--border-hairline)] bg-[var(--surface-card)] px-3 py-2 font-mono text-[13px] tabular-nums text-[var(--ink-900)]">
+            {row.preview || "—"}
+          </p>
+        </div>
+      ))}
     </div>
   )
 }
@@ -305,144 +259,194 @@ function ScoreRing({ score, grade }: { score: number; grade: Analysis["grade"] }
 export function SubjectLineTesterClient() {
   const id = useId()
   const [subject, setSubject] = useState("Quick question on your Q4 outbound")
-  const analysis = useMemo(() => analyze(subject), [subject])
+  const [debounced, setDebounced] = useState(subject)
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setDebounced(subject), DEBOUNCE_MS)
+    return () => window.clearTimeout(t)
+  }, [subject])
+
+  const analysis = analyzeSubjectLine(debounced)
+  const liveCounts = {
+    chars: subject.trim().length,
+    words: subject.trim() ? subject.trim().split(/\s+/).length : 0,
+  }
   const isEmpty = subject.trim().length === 0
 
   return (
-    <ToolWorkbench
-      inputs={
-        <>
-          <PanelHeading
-            step="Step 01"
-            title="Subject line"
-            hint="Type or paste — analysis runs in your browser as you type."
-            rightSlot={
-              <span className="rounded-full border border-ink-08 px-2 py-0.5 font-mono text-[10.5px] tabular-nums text-ink-60">
-                {subject.length} / 70
-              </span>
-            }
-          />
-          <FieldLabel htmlFor={`${id}-subject`} label="Your subject line">
-            <input
-              id={`${id}-subject`}
-              type="text"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              maxLength={120}
-              spellCheck="true"
-              suppressHydrationWarning
-              placeholder="Quick question on your Q4 outbound"
-              className="w-full rounded-xl border border-ink-08 bg-background px-4 py-3.5 text-[16px] text-ink shadow-[inset_0_1px_0_rgba(0,0,0,0.02)] outline-none transition-all placeholder:text-ink-40 focus:border-ink/30 focus:ring-2 focus:ring-[oklch(0.55_0.13_78)]/20"
+    <div className="space-y-5">
+      <motion.p
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ ...SPRING, delay: 0 }}
+        className="rounded-xl border border-[var(--border-hairline)] bg-[var(--accent-gold-soft)] px-4 py-3 text-[13.5px] leading-[1.55] text-[var(--ink-600)]"
+      >
+        Built from hundreds of live cold campaigns run through FinalOutreach +
+        published industry benchmarks — calibrated for outbound, not newsletters.
+      </motion.p>
+
+      <ToolWorkbench
+        inputs={
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...SPRING, delay: 0.12 }}
+          >
+            <PanelHeading
+              step="Step 01"
+              title="Subject line"
+              hint="Type or paste — analysis runs in your browser. Nothing is sent."
             />
-          </FieldLabel>
-
-          <div className="mt-6">
-            <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-ink-60">
-              Try a sample
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {SAMPLE_SUBJECTS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setSubject(s)}
-                  className="rounded-full border border-ink-08 bg-background px-3 py-1.5 text-[12.5px] text-ink-60 transition-colors hover:border-ink/25 hover:text-ink"
+            <FieldLabel htmlFor={`${id}-subject`} label="Your subject line">
+              <div className="relative">
+                <textarea
+                  id={`${id}-subject`}
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  maxLength={120}
+                  rows={3}
+                  spellCheck
+                  suppressHydrationWarning
+                  placeholder="Quick question on your Q4 outbound"
+                  className="w-full resize-none rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] px-4 py-3.5 pr-28 pb-10 text-[16px] leading-[1.5] text-[var(--ink-900)] shadow-[inset_0_1px_2px_rgba(22,21,15,0.06)] outline-none transition-shadow placeholder:text-[var(--ink-400)] focus:border-[var(--accent-gold)]/40 focus:ring-2 focus:ring-[var(--accent-gold-soft)]"
+                />
+                <span
+                  className={cn(
+                    "pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] tabular-nums",
+                    charPillTone(liveCounts.chars),
+                  )}
                 >
-                  {s.length > 36 ? s.slice(0, 34) + "…" : s}
-                </button>
-              ))}
-            </div>
-          </div>
+                  {liveCounts.chars} chars · {liveCounts.words} words
+                </span>
+              </div>
+            </FieldLabel>
 
-          <div className="mt-7 rounded-xl border border-ink-08 bg-background p-5">
-            <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-ink-60">
-              Top fixes
-            </p>
-            {isEmpty ? (
-              <p className="mt-3 text-[13.5px] leading-[1.55] text-ink-40">
-                Type a subject line — we'll surface the highest-impact rewrites here.
+            <div className="mt-6">
+              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                Try a sample
               </p>
-            ) : analysis.topFixes.length === 0 ? (
-              <p className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-emerald-700">
-                <CheckCircle2 className="size-4" />
-                Looks great — nothing critical to change.
+              <div className="mt-3 flex flex-wrap gap-2">
+                {SAMPLE_SUBJECTS.map((s) => {
+                  const active = subject === s
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setSubject(s)}
+                      className={cn(
+                        "rounded-full border bg-transparent px-3 py-1.5 text-[12.5px] transition-colors",
+                        active
+                          ? "border-[var(--accent-gold)] text-[var(--ink-900)]"
+                          : "border-[var(--border-hairline)] text-[var(--ink-600)] hover:border-[var(--ink-600)]/40 hover:text-[var(--ink-900)] hover:bg-[var(--surface-card-sunk)]",
+                      )}
+                    >
+                      {s.length > 36 ? s.slice(0, 34) + "…" : s}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="mt-7 rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] p-5">
+              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                Mobile truncation
               </p>
-            ) : (
-              <ol className="mt-3 space-y-2">
-                {analysis.topFixes.map((f, i) => (
-                  <li key={i} className="flex gap-2 text-[13.5px] leading-[1.55] text-ink">
-                    <span className="font-mono text-ink-40 tabular-nums">0{i + 1}</span>
-                    <span>{f}</span>
-                  </li>
+              <div className="mt-3">
+                <TruncationPreview analysis={analyzeSubjectLine(subject)} />
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-5">
+              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                Top fixes
+              </p>
+              {isEmpty ? (
+                <p className="mt-3 text-[13.5px] leading-[1.55] text-[var(--ink-400)]">
+                  Type a subject line — highest-impact rewrites land here.
+                </p>
+              ) : analysis.topFixes.length === 0 ? (
+                <p className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--signal-pass)]">
+                  <CheckCircle2 className="size-4" />
+                  Looks strong — nothing critical to change.
+                </p>
+              ) : (
+                <ol className="mt-3 space-y-2">
+                  {analysis.topFixes.map((f, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-2 text-[13.5px] leading-[1.55] text-[var(--ink-900)]"
+                    >
+                      <span className="font-mono tabular-nums text-[var(--ink-400)]">
+                        0{i + 1}
+                      </span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+          </motion.div>
+        }
+        results={
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...SPRING, delay: 0.24 }}
+          >
+            <PanelHeading
+              step="Step 02"
+              title="Cold open-rate score"
+              hint="Weighted across 15 deliverability and engagement factors."
+            />
+
+            <div className="rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] px-4 py-6 sm:px-6">
+              <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center">
+                <ScoreGauge score={analysis.score} grade={analysis.grade} />
+                <div className="flex-1 text-center sm:text-left">
+                  <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                    Verdict
+                  </p>
+                  <p className="mt-2 text-[16px] leading-[1.45] text-[var(--ink-900)]">
+                    {isEmpty
+                      ? "Type a subject line to see your score."
+                      : analysis.grade === "Excellent"
+                        ? "Ready to send — strong across deliverability and engagement."
+                        : analysis.grade === "Strong"
+                          ? "Solid for cold — a few tweaks could push it higher."
+                          : analysis.grade === "Average"
+                            ? "Middle of the pack. Apply the top fixes below."
+                            : analysis.grade === "Weak"
+                              ? "Likely to underperform on cold opens and replies."
+                              : "High risk of low opens or spam folder. Rewrite recommended."}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-7">
+              <p className="mb-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                Deliverability factors
+              </p>
+              <ul className="divide-y divide-[var(--border-hairline)] border-b border-[var(--border-hairline)]">
+                {analysis.deliverability.map((f) => (
+                  <FactorRow key={f.id} factor={f} />
                 ))}
-              </ol>
-            )}
-          </div>
-        </>
-      }
-      results={
-        <>
-          <PanelHeading
-            step="Step 02"
-            title="Open-rate score"
-            hint="Weighted across 14 deliverability and engagement factors."
-          />
-          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-            <ScoreRing score={analysis.score} grade={analysis.grade} />
-            <div className="flex-1">
-              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-ink-40">
-                Verdict
-              </p>
-              <p className="mt-2 text-[18px] leading-[1.4] text-ink">
-                {isEmpty
-                  ? "Type a subject line to see your score."
-                  : analysis.grade === "Excellent"
-                    ? "This one's ready to send. Strong on every key factor."
-                    : analysis.grade === "Strong"
-                      ? "Solid subject line — small tweaks could push it higher."
-                      : analysis.grade === "Average"
-                        ? "Lands somewhere in the middle. Apply the top fixes."
-                        : analysis.grade === "Weak"
-                          ? "Likely to underperform. Address the warnings below."
-                          : "High risk of low opens or spam folder. Rewrite recommended."}
-              </p>
-              <p className="mt-2 text-[13px] leading-[1.55] text-ink-60">
-                Cold benchmarks: 35–55% open rate on a warmed-up domain to a clean list.
-              </p>
+              </ul>
             </div>
-          </div>
 
-          <div className="mt-7">
-            <p className="mb-3 text-[11.5px] font-medium uppercase tracking-[0.14em] text-ink-60">
-              14-factor breakdown
-            </p>
-            <ul className="divide-y divide-ink-08 border-y border-ink-08">
-              {analysis.factors.map((f) => {
-                const FIcon = f.icon
-                return (
-                  <li key={f.id} className="flex items-start gap-3 py-3">
-                    <span className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg border border-ink-08 bg-background text-ink-60">
-                      <FIcon className="size-3.5" aria-hidden="true" />
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[13.5px] font-medium text-ink">{f.label}</span>
-                        <StatusPill status={f.status} />
-                        <span className="ml-auto font-mono text-[11.5px] tabular-nums text-ink-40">
-                          {f.score}/{f.weight}
-                        </span>
-                      </div>
-                      <p className="mt-1 text-[12.5px] leading-[1.55] text-ink-60">
-                        {f.message}
-                      </p>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        </>
-      }
-    />
+            <div className="mt-8">
+              <p className="mb-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                Engagement factors
+              </p>
+              <ul className="divide-y divide-[var(--border-hairline)] border-b border-[var(--border-hairline)]">
+                {analysis.engagement.map((f) => (
+                  <FactorRow key={f.id} factor={f} />
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        }
+      />
+    </div>
   )
 }

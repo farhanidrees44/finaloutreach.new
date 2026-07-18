@@ -96,6 +96,25 @@
   --sidebar-accent-foreground: oklch(0.156 0 0);
   --sidebar-border: oklch(0.156 0 0 / 0.08);
   --sidebar-ring: oklch(0.55 0.24 295);
+
+  /* Instrument-panel tool pages (cream/ink editorial register) */
+  --surface-base: #fafaf7;
+  --surface-card: #ffffff;
+  --surface-card-sunk: #f3f1ea;
+  --ink-900: #16150f;
+  --ink-600: #52504a;
+  --ink-400: #8a877e;
+  --border-hairline: rgba(22, 21, 15, 0.08);
+  --accent-gold: #b08a2e;
+  --accent-gold-soft: rgba(176, 138, 46, 0.12);
+  --signal-pass: #2e7d4f;
+  --signal-pass-soft: rgba(46, 125, 79, 0.1);
+  --signal-warn: #b8752e;
+  --signal-warn-soft: rgba(184, 117, 46, 0.1);
+  --signal-fail: #b8402e;
+  --signal-fail-soft: rgba(184, 64, 46, 0.1);
+  --shadow-card: 0 1px 2px rgba(22, 21, 15, 0.04), 0 8px 24px -8px rgba(22, 21, 15, 0.1);
+  --shadow-card-hover: 0 2px 4px rgba(22, 21, 15, 0.06), 0 16px 40px -12px rgba(22, 21, 15, 0.14);
 }
 
 

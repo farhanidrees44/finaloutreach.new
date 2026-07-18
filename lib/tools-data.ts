@@ -45,49 +45,69 @@ export const TOOLS: Tool[] = [
     name: "Cold Email Subject Line Tester",
     shortName: "Subject Line Tester",
     tagline:
-      "Score any subject line against 14 deliverability and open-rate factors.",
+      "Score cold outbound subject lines against deliverability and engagement factors — not newsletter heuristics.",
     description:
-      "Test cold email subject lines against length, spam triggers, urgency, personalization, casing, and curiosity gap. Get an instant open-rate score.",
+      "Test cold email subject lines against 15 deliverability and engagement factors built for outbound — not newsletters. Instant score, real fixes, no signup.",
     longDescription:
-      "Paste a subject line, get an open-rate score in milliseconds. We grade against the same 14 factors top SDR teams use — length, casing, spam triggers, personalization tokens, urgency, curiosity, specificity, and more — then tell you exactly what to change.",
+      "Paste a cold email subject line and get an instant, rules-based score in your browser. Built for outbound — spam-filter risk, merge-tag failures, personalization quality, and reply-oriented framing — not newsletter open-rate psychology.",
     category: "Copy",
     icon: Sparkles,
     order: 1,
     outputs: [
-      "Open-rate score 0–100",
-      "Per-factor breakdown",
-      "Specific rewrite suggestions",
+      "Cold-specific score 0–100",
+      "Deliverability + engagement breakdown",
+      "Mobile truncation preview + top fixes",
     ],
     timeToValue: "<2s",
     howItWorks: [
       {
         title: "Paste a subject line",
         body:
-          "Type or paste any subject line. We analyze it client-side — nothing is sent to a server.",
+          "Type or paste any subject line. Analysis runs entirely in your browser — nothing is sent to a server.",
       },
       {
-        title: "Get a 0–100 score",
+        title: "Get a 0–100 cold score",
         body:
-          "We weight 14 deliverability and engagement factors, then surface the ones hurting your open rate.",
+          "We weight 15 deliverability and engagement factors tuned for cold outbound, then surface what is hurting opens and replies.",
       },
       {
         title: "Apply the fixes",
         body:
-          "Each failing check tells you what to change and why, with example rewrites.",
+          "Each failing check explains why it matters on cold email specifically, with a concrete rewrite direction.",
       },
     ],
     faqs: [
       {
+        q: "What's a good subject line length for cold email specifically?",
+        a: "Cold email should skew shorter than newsletters: aim for 2–7 words and under ~55 characters so mobile clients don't truncate the meaning. Low-trust first-touch favors brevity; long subjects read like marketing mail.",
+      },
+      {
+        q: "Do emojis hurt cold email deliverability?",
+        a: "More than on permissioned newsletters. Cold sends aren't on an opted-in list, so filters weight unusual characters harder. One emoji can be A/B tested; multiple usually raise spam risk without helping B2B reply rates.",
+      },
+      {
+        q: "Should I use the recipient's first name in a cold subject line?",
+        a: "First name alone is a weak signal. Pair a name with a company-specific detail, role, or trigger event. Studies and campaign practice both show real personalization lifts opens and replies more than {{first_name}} by itself.",
+      },
+      {
+        q: "What's the difference between this and Omnisend or MailerLite-style testers?",
+        a: "Those tools are calibrated for opted-in marketing lists. Cold outbound has different spam-risk and trust dynamics — merge-tag failures, permission context, and reply rate matter more than newsletter open psychology alone.",
+      },
+      {
+        q: "How is the score calculated — is this AI or rules-based?",
+        a: "Rules-based and deterministic. Every factor has a transparent weight and pass/warn/fail logic you can see in the breakdown. No black-box AI rewrite — fast, honest, and reproducible.",
+      },
+      {
+        q: "Does testing here affect my sender reputation or send anything?",
+        a: "No. The tester runs entirely in your browser. We never send mail, hit your domain, or transmit the subject lines you type.",
+      },
+      {
         q: "What makes a subject line score high?",
-        a: "Subject lines under 50 characters, in sentence case, with a single specific number or personalization token, no spam triggers, and a clear curiosity gap consistently outperform on cold open rates.",
+        a: "Sentence case, 2–7 words, no spam triggers or broken merge tags, specific personalization (company/role/trigger), restrained punctuation, and ideally a reply-oriented question — not ALL CAPS marketing urgency.",
       },
       {
-        q: "Is my data sent anywhere?",
-        a: "No. The tester runs entirely in your browser. We never log, store, or transmit the subject lines you test.",
-      },
-      {
-        q: "What open rate should I expect?",
-        a: "Healthy cold outbound subject lines should see 35–55% open rates on a warmed-up domain to a clean list. Below 30% indicates a subject-line, list, or deliverability issue.",
+        q: "What's a good cold email open rate in 2026?",
+        a: "Industry studies put average cold opens in the low-to-mid 20s%; strong subject lines can push 45%+. Treat open rate cautiously — Apple Mail Privacy Protection inflates many reported opens. Reply rate and click-to-open are more reliable.",
       },
     ],
   },

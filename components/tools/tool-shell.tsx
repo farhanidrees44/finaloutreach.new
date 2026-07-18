@@ -23,9 +23,15 @@ import { getRelatedTools, type Tool } from "@/lib/tools-data"
 export function ToolPageShell({
   tool,
   children,
+  belowTool,
+  afterFaq,
 }: {
   tool: Tool
   children: ReactNode
+  /** SEO / methodology sections rendered after the interactive tool, before How it works. */
+  belowTool?: ReactNode
+  /** Optional contextual CTA after FAQ, before related tools. */
+  afterFaq?: ReactNode
 }) {
   const Icon = tool.icon
   const crumbs = [
@@ -63,77 +69,79 @@ export function ToolPageShell({
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
             <div>
               <div className="flex items-center gap-3">
-                <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-ink-08 bg-card text-ink shadow-[0_1px_0_rgba(0,0,0,0.02)]">
+                <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] text-ink shadow-[var(--shadow-card)]">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
-                <div className="flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] text-ink-40">
+                <div className="flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
                   <span>{tool.category}</span>
-                  <span className="size-1 rounded-full bg-ink-30" aria-hidden="true" />
-                  <span>Free, no signup</span>
+                  <span className="size-1 rounded-full bg-[var(--ink-400)]" aria-hidden="true" />
+                  <span>Free · no signup</span>
                 </div>
               </div>
-              <h1 className="mt-6 max-w-3xl text-balance text-[40px] font-extrabold leading-[1.1] tracking-tight sm:text-[52px] md:text-[60px]">
+              <h1 className="mt-6 max-w-3xl text-balance font-serif text-[40px] font-medium leading-[1.1] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[52px] md:text-[60px]">
                 {tool.name}
               </h1>
-              <p className="mt-5 max-w-2xl text-pretty text-[17px] leading-[1.6] text-ink-60 sm:text-[18px]">
+              <p className="mt-5 max-w-2xl text-pretty text-[16px] leading-[1.6] text-[var(--ink-600)] sm:text-[17px]">
                 {tool.longDescription}
               </p>
             </div>
 
-            <aside className="rounded-2xl border border-ink-08 bg-card p-6">
-              <p className="text-[11.5px] font-medium uppercase tracking-[0.2em] text-ink-40">
+            <aside className="rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-6 shadow-[var(--shadow-card)]">
+              <p className="text-[11.5px] font-medium uppercase tracking-[0.2em] text-[var(--ink-400)]">
                 What you get
               </p>
               <ul className="mt-4 space-y-3">
                 {tool.outputs.map((o) => (
-                  <li key={o} className="flex items-start gap-2.5 text-[14.5px] leading-[1.5] text-ink">
+                  <li key={o} className="flex items-start gap-2.5 text-[14.5px] leading-[1.5] text-[var(--ink-900)]">
                     <span
                       aria-hidden="true"
-                      className="mt-2 inline-block size-1.5 shrink-0 rounded-full bg-[oklch(0.55_0.13_78)]"
+                      className="mt-2 inline-block size-1.5 shrink-0 rounded-full bg-[var(--accent-gold)]"
                     />
                     <span>{o}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 flex items-center justify-between border-t border-ink-08 pt-5 text-[12.5px] text-ink-60">
+              <div className="mt-6 flex items-center justify-between border-t border-[var(--border-hairline)] pt-5 text-[12.5px] text-[var(--ink-600)]">
                 <span className="inline-flex items-center gap-1.5">
-                  <Sparkles className="size-3.5 text-[oklch(0.55_0.13_78)]" aria-hidden="true" />
+                  <Sparkles className="size-3.5 text-[var(--accent-gold)]" aria-hidden="true" />
                   Time to result
                 </span>
-                <span className="font-mono tabular-nums text-ink">{tool.timeToValue}</span>
+                <span className="font-mono tabular-nums text-[var(--ink-900)]">{tool.timeToValue}</span>
               </div>
             </aside>
           </div>
         </section>
 
         {/* The actual tool */}
-        <section className="border-t border-ink-08 bg-cream/40">
+        <section className="border-t border-[var(--border-hairline)] bg-[var(--surface-base)]">
           <div className="mx-auto max-w-7xl px-6 py-14 md:py-20">{children}</div>
         </section>
 
+        {belowTool}
+
         {/* How it works */}
-        <section className="border-t border-ink-08">
+        <section className="border-t border-[var(--border-hairline)]">
           <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-            <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-ink-40">
-              <span className="h-px w-8 bg-ink-08" />
+            <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
+              <span className="h-px w-8 bg-[var(--border-hairline)]" />
               <span>How it works</span>
             </div>
-            <h2 className="mt-6 max-w-2xl text-balance text-[28px] font-bold leading-[1.1] tracking-tight sm:text-[36px]">
+            <h2 className="mt-6 max-w-2xl text-balance font-serif text-[28px] font-medium leading-[1.1] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[36px]">
               Three steps. No signup. No waiting on results.
             </h2>
             <ol className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
               {tool.howItWorks.map((step, i) => (
                 <li
                   key={step.title}
-                  className="rounded-2xl border border-ink-08 bg-card p-7"
+                  className="rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-7 shadow-[var(--shadow-card)]"
                 >
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-40">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
                     Step {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 text-[18px] font-medium leading-[1.25] text-ink">
+                  <h3 className="mt-4 text-[18px] font-medium leading-[1.25] text-[var(--ink-900)]">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-[14.5px] leading-[1.6] text-ink-60">
+                  <p className="mt-2 text-[14.5px] leading-[1.6] text-[var(--ink-600)]">
                     {step.body}
                   </p>
                 </li>
@@ -143,23 +151,23 @@ export function ToolPageShell({
         </section>
 
         {/* FAQ */}
-        <section className="border-t border-ink-08 bg-cream">
+        <section className="border-t border-[var(--border-hairline)] bg-[var(--surface-base)]">
           <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr]">
               <div>
-                <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-ink-40">
-                  <span className="h-px w-8 bg-ink-08" />
+                <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
+                  <span className="h-px w-8 bg-[var(--border-hairline)]" />
                   <span>Frequently asked</span>
                 </div>
-                <h2 className="mt-6 max-w-md text-balance text-[28px] font-bold leading-[1.1] tracking-tight sm:text-[36px]">
+                <h2 className="mt-6 max-w-md text-balance font-serif text-[28px] font-medium leading-[1.1] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[36px]">
                   Quick answers about the {tool.shortName.toLowerCase()}.
                 </h2>
               </div>
-              <dl className="divide-y divide-ink-08 border-y border-ink-08">
+              <dl className="divide-y divide-[var(--border-hairline)] border-y border-[var(--border-hairline)]">
                 {tool.faqs.map((f) => (
                   <div key={f.q} className="py-6">
-                    <dt className="text-[16px] font-medium text-ink">{f.q}</dt>
-                    <dd className="mt-2 text-[14.5px] leading-[1.65] text-ink-60">
+                    <dt className="text-[16px] font-medium text-[var(--ink-900)]">{f.q}</dt>
+                    <dd className="mt-2 text-[14.5px] leading-[1.65] text-[var(--ink-600)]">
                       {f.a}
                     </dd>
                   </div>
@@ -169,22 +177,24 @@ export function ToolPageShell({
           </div>
         </section>
 
+        {afterFaq}
+
         {/* Related tools */}
-        <section className="border-t border-ink-08">
+        <section className="border-t border-[var(--border-hairline)]">
           <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-ink-40">
-                  <span className="h-px w-8 bg-ink-08" />
+                <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
+                  <span className="h-px w-8 bg-[var(--border-hairline)]" />
                   <span>Keep going</span>
                 </div>
-                <h2 className="mt-4 text-[24px] font-bold leading-[1.15] tracking-tight sm:text-[30px]">
+                <h2 className="mt-4 font-serif text-[24px] font-medium leading-[1.15] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[30px]">
                   Other free tools
                 </h2>
               </div>
               <Link
                 href="/tools"
-                className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink"
+                className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-[var(--ink-900)]"
               >
                 <span className="border-b border-ink/30 pb-0.5 transition-colors group-hover:border-ink">
                   All tools
@@ -199,21 +209,21 @@ export function ToolPageShell({
                   <Link
                     key={r.slug}
                     href={`/tools/${r.slug}`}
-                    className="group flex flex-col gap-5 rounded-2xl border border-ink-08 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25"
+                    className="group flex flex-col gap-5 rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-6 shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-card-hover)]"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="inline-flex size-9 items-center justify-center rounded-xl border border-ink-08 bg-background text-ink">
+                      <span className="inline-flex size-9 items-center justify-center rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-base)] text-ink">
                         <RIcon className="size-4" aria-hidden="true" />
                       </span>
-                      <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-ink-40">
+                      <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
                         {r.category}
                       </span>
                     </div>
                     <div>
-                      <h3 className="text-[18px] font-bold leading-[1.2] tracking-tight text-ink">
+                      <h3 className="text-[18px] font-medium leading-[1.2] tracking-tight text-[var(--ink-900)]">
                         {r.shortName}
                       </h3>
-                      <p className="mt-1.5 text-[13.5px] leading-[1.55] text-ink-60">
+                      <p className="mt-1.5 text-[13.5px] leading-[1.55] text-[var(--ink-600)]">
                         {r.tagline}
                       </p>
                     </div>
@@ -243,10 +253,10 @@ export function ToolWorkbench({
 }) {
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-      <div className="rounded-2xl border border-ink-08 bg-card p-6 sm:p-7">
+      <div className="rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-6 shadow-[var(--shadow-card)] sm:p-7">
         {inputs}
       </div>
-      <div className="rounded-2xl border border-ink-08 bg-card p-6 sm:p-7">
+      <div className="rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-6 shadow-[var(--shadow-card)] sm:p-7">
         {results}
       </div>
     </div>
