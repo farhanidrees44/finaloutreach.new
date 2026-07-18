@@ -93,7 +93,7 @@ const FACTOR_EXPLAINERS = [
         you are not on a permission list. For a full body scan, use the{" "}
         <Link
           href="/tools/spam-word-checker"
-          className="font-medium text-[var(--ink-900)] underline decoration-[var(--accent-gold)]/40 underline-offset-2 hover:decoration-[var(--accent-gold)]"
+          className="font-bold text-ink underline decoration-electric-blue/40 underline-offset-2 hover:decoration-electric-blue"
         >
           Spam Word Checker
         </Link>
@@ -136,7 +136,7 @@ const FACTOR_EXPLAINERS = [
         matters — check{" "}
         <Link
           href="/tools/domain-health-checker"
-          className="font-medium text-[var(--ink-900)] underline decoration-[var(--accent-gold)]/40 underline-offset-2 hover:decoration-[var(--accent-gold)]"
+          className="font-bold text-ink underline decoration-electric-blue/40 underline-offset-2 hover:decoration-electric-blue"
         >
           Domain Health
         </Link>{" "}
@@ -148,20 +148,26 @@ const FACTOR_EXPLAINERS = [
   },
 ]
 
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <div className="flex items-center gap-4 text-[12px] uppercase tracking-[0.2em]">
+      <span className="h-px w-10 bg-gradient-to-r from-ink-20 to-ink-08" />
+      <span className="font-medium text-ink-40">{children}</span>
+    </div>
+  )
+}
+
 export function SubjectLineTesterSeo() {
   return (
     <>
-      {/* Open-rate benchmarks */}
-      <section className="border-t border-[var(--border-hairline)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-          <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
-            <span className="h-px w-8 bg-[var(--border-hairline)]" />
-            <span>Benchmarks</span>
-          </div>
-          <h2 className="mt-6 max-w-3xl text-balance font-serif text-[28px] font-medium leading-[1.15] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[36px]">
-            What counts as a good cold email open rate in 2026
+      <section className="border-t border-ink-08 bg-background">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+          <SectionLabel>Benchmarks</SectionLabel>
+          <h2 className="mt-6 max-w-3xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-tight text-ink">
+            What counts as a good cold email open rate in{" "}
+            <span className="font-serif-italic text-electric-blue">2026</span>
           </h2>
-          <div className="mt-8 max-w-3xl space-y-4 text-[16px] leading-[1.65] text-[var(--ink-600)]">
+          <div className="mt-8 max-w-3xl space-y-4 text-[16px] font-medium leading-[1.7] text-ink-60">
             <p>
               Aggregated public industry studies put average cold email open
               rates in the low-to-mid 20s% as of 2026. A genuinely strong subject
@@ -186,7 +192,7 @@ export function SubjectLineTesterSeo() {
               sequencing — see the{" "}
               <Link
                 href="/resources/cold-email-playbook"
-                className="font-medium text-[var(--ink-900)] underline decoration-[var(--accent-gold)]/40 underline-offset-2 hover:decoration-[var(--accent-gold)]"
+                className="font-bold text-ink underline decoration-electric-blue/40 underline-offset-2 hover:decoration-electric-blue"
               >
                 Cold Email Playbook
               </Link>
@@ -194,27 +200,27 @@ export function SubjectLineTesterSeo() {
             </p>
           </div>
 
-          <div className="mt-10 overflow-hidden rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] shadow-[var(--shadow-card)]">
+          <div className="mt-12 overflow-hidden rounded-3xl border border-ink-08 bg-card shadow-[0_16px_48px_-28px_rgba(15,15,15,0.22)]">
             <table className="w-full text-left text-[14px]">
-              <caption className="border-b border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] px-5 py-3 text-left text-[12px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+              <caption className="border-b border-ink-08 bg-cream/50 px-5 py-3.5 text-left text-[12px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                 Typical cold open-rate ranges by industry (public studies)
               </caption>
               <thead>
-                <tr className="border-b border-[var(--border-hairline)] text-[12px] uppercase tracking-[0.12em] text-[var(--ink-400)]">
-                  <th className="px-5 py-3 font-medium">Industry</th>
-                  <th className="px-5 py-3 font-medium">Relative range</th>
+                <tr className="border-b border-ink-08 text-[12px] font-semibold uppercase tracking-[0.12em] text-ink-40">
+                  <th className="px-5 py-3">Industry</th>
+                  <th className="px-5 py-3">Relative range</th>
                 </tr>
               </thead>
               <tbody>
                 {BENCHMARK_ROWS.map((row) => (
                   <tr
                     key={row.industry}
-                    className="border-b border-[var(--border-hairline)] last:border-0"
+                    className="border-b border-ink-08 last:border-0"
                   >
-                    <td className="px-5 py-3.5 font-medium text-[var(--ink-900)]">
+                    <td className="px-5 py-3.5 font-bold text-ink">
                       {row.industry}
                     </td>
-                    <td className="px-5 py-3.5 text-[var(--ink-600)]">
+                    <td className="px-5 py-3.5 font-medium text-ink-60">
                       {row.range}
                     </td>
                   </tr>
@@ -225,47 +231,44 @@ export function SubjectLineTesterSeo() {
         </div>
       </section>
 
-      {/* Factor explainers */}
-      <section className="border-t border-[var(--border-hairline)] bg-[var(--surface-base)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-          <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
-            <span className="h-px w-8 bg-[var(--border-hairline)]" />
-            <span>How the grader works</span>
-          </div>
-          <h2 className="mt-6 max-w-3xl text-balance font-serif text-[28px] font-medium leading-[1.15] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[36px]">
-            15-factor breakdown — why each check matters on cold email
+      <section className="border-t border-ink-08 bg-cream/40">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+          <SectionLabel>How the grader works</SectionLabel>
+          <h2 className="mt-6 max-w-3xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-tight text-ink">
+            15-factor breakdown — why each check matters on{" "}
+            <span className="font-serif-italic text-electric-blue">cold email</span>
           </h2>
-          <p className="mt-4 max-w-2xl text-[16px] leading-[1.6] text-[var(--ink-600)]">
+          <p className="mt-4 max-w-2xl text-[16px] font-semibold leading-[1.65] text-ink-60">
             Newsletter testers score for opted-in lists. These factors are
             weighted for first-touch outbound — spam sensitivity, trust, and
             reply orientation.
           </p>
-          <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
             {FACTOR_EXPLAINERS.map((f) => (
               <article
                 key={f.title}
-                className="rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-6 shadow-[var(--shadow-card)]"
+                className="rounded-3xl border border-ink-08 bg-card p-7 shadow-[0_12px_40px_-24px_rgba(15,15,15,0.18)]"
               >
-                <h3 className="text-[17px] font-medium text-[var(--ink-900)]">
+                <h3 className="text-[17px] font-bold tracking-tight text-ink">
                   {f.title}
                 </h3>
-                <p className="mt-2 text-[14.5px] leading-[1.6] text-[var(--ink-600)]">
+                <p className="mt-2 text-[14.5px] font-medium leading-[1.65] text-ink-60">
                   {f.body}
                 </p>
-                <dl className="mt-4 space-y-2 border-t border-[var(--border-hairline)] pt-4 text-[13px]">
+                <dl className="mt-5 space-y-3 border-t border-ink-08 pt-5 text-[13px]">
                   <div>
-                    <dt className="font-medium uppercase tracking-[0.12em] text-[var(--signal-pass)]">
+                    <dt className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-emerald-dark">
                       Works
                     </dt>
-                    <dd className="mt-0.5 font-mono text-[var(--ink-900)]">
+                    <dd className="mt-1 font-mono text-[13.5px] text-ink">
                       {f.good}
                     </dd>
                   </div>
                   <div>
-                    <dt className="font-medium uppercase tracking-[0.12em] text-[var(--signal-fail)]">
+                    <dt className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-destructive">
                       Avoid
                     </dt>
-                    <dd className="mt-0.5 font-mono text-[var(--ink-600)]">
+                    <dd className="mt-1 font-mono text-[13.5px] text-ink-60">
                       {f.bad}
                     </dd>
                   </div>
@@ -276,33 +279,30 @@ export function SubjectLineTesterSeo() {
         </div>
       </section>
 
-      {/* Examples */}
-      <section className="border-t border-[var(--border-hairline)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-          <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-[var(--ink-400)]">
-            <span className="h-px w-8 bg-[var(--border-hairline)]" />
-            <span>Examples</span>
-          </div>
-          <h2 className="mt-6 max-w-3xl text-balance font-serif text-[28px] font-medium leading-[1.15] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[36px]">
-            Cold email subject line examples that work in 2026
+      <section className="border-t border-ink-08 bg-background">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+          <SectionLabel>Examples</SectionLabel>
+          <h2 className="mt-6 max-w-3xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-tight text-ink">
+            Cold email subject line examples that work in{" "}
+            <span className="font-serif-italic text-electric-blue">2026</span>
           </h2>
-          <p className="mt-4 max-w-2xl text-[16px] leading-[1.6] text-[var(--ink-600)]">
+          <p className="mt-4 max-w-2xl text-[16px] font-semibold leading-[1.65] text-ink-60">
             Steal the structure, not the words — swap in your prospect’s company,
             trigger, or metric.
           </p>
-          <div className="mt-10 space-y-10">
+          <div className="mt-12 space-y-12">
             {EXAMPLES.map((group) => (
               <div key={group.format}>
-                <h3 className="text-[14px] font-medium uppercase tracking-[0.16em] text-[var(--accent-gold)]">
+                <h3 className="inline-flex items-center gap-2 rounded-full border border-vibrant-purple/20 bg-vibrant-purple/[0.04] px-3 py-1 text-[12px] font-semibold uppercase tracking-[0.14em] text-vibrant-purple">
                   {group.format}
                 </h3>
-                <ul className="mt-4 divide-y divide-[var(--border-hairline)] border-y border-[var(--border-hairline)]">
+                <ul className="mt-4 divide-y divide-ink-08 border-y border-ink-08">
                   {group.lines.map((line) => (
-                    <li key={line.subject} className="py-4">
-                      <p className="font-mono text-[15px] text-[var(--ink-900)]">
+                    <li key={line.subject} className="py-5">
+                      <p className="font-mono text-[15px] font-medium text-ink">
                         {line.subject}
                       </p>
-                      <p className="mt-1.5 text-[14px] leading-[1.55] text-[var(--ink-600)]">
+                      <p className="mt-1.5 text-[14.5px] font-medium leading-[1.55] text-ink-60">
                         {line.why}
                       </p>
                     </li>
@@ -314,14 +314,16 @@ export function SubjectLineTesterSeo() {
         </div>
       </section>
 
-      {/* Differentiation */}
-      <section className="border-t border-[var(--border-hairline)] bg-[var(--surface-base)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <div className="max-w-3xl rounded-2xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-8 shadow-[var(--shadow-card)] md:p-10">
-            <h2 className="font-serif text-[26px] font-medium leading-[1.2] tracking-[-0.01em] text-[var(--ink-900)] sm:text-[30px]">
-              Built for cold outbound, not newsletters
+      <section className="border-t border-ink-08 bg-cream/40">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+          <div className="max-w-3xl rounded-3xl border border-ink-08 bg-card p-8 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.22)] md:p-10">
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-[1.15] tracking-tight text-ink">
+              Built for cold outbound,{" "}
+              <span className="font-serif-italic text-electric-blue">
+                not newsletters
+              </span>
             </h2>
-            <p className="mt-4 text-[16px] leading-[1.65] text-[var(--ink-600)]">
+            <p className="mt-4 text-[16px] font-medium leading-[1.7] text-ink-60">
               Generic email subject line testers (Omnisend, MailerLite,
               Mailmeteor-style tools) optimize for opted-in lists. Cold outbound
               fails differently: spam filters are less forgiving when you are not
@@ -338,13 +340,20 @@ export function SubjectLineTesterSeo() {
 
 export function SubjectLineTesterCta() {
   return (
-    <section className="border-t border-[var(--border-hairline)] bg-[var(--surface-card)]">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-12 md:flex-row md:items-center md:py-14">
+    <section className="relative overflow-hidden border-t border-ink-08">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 mesh-spectrum opacity-70"
+      />
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-6 py-16 md:flex-row md:items-center md:py-20">
         <div className="max-w-xl">
-          <h2 className="font-serif text-[22px] font-medium tracking-[-0.01em] text-[var(--ink-900)] sm:text-[26px]">
-            Want your whole sequence audited, not just the subject line?
+          <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-[1.15] tracking-tight text-ink">
+            Want your whole sequence audited, not just the{" "}
+            <span className="font-serif-italic text-electric-blue">
+              subject line?
+            </span>
           </h2>
-          <p className="mt-2 text-[15px] leading-[1.55] text-[var(--ink-600)]">
+          <p className="mt-3 text-[15px] font-semibold leading-[1.6] text-ink-60">
             Free outreach audit — infrastructure, copy, and targeting reviewed by
             the {SITE.name} team.
           </p>

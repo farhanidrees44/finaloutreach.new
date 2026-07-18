@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react"
 import {
   AlertTriangle,
+  Braces,
   CaseSensitive,
   CheckCircle2,
   CircleHelp,
@@ -18,7 +19,6 @@ import {
   Users,
   Wand2,
   Zap,
-  Braces,
 } from "lucide-react"
 import { motion, useSpring, useTransform } from "framer-motion"
 import {
@@ -64,7 +64,6 @@ const FACTOR_ICONS: Record<string, typeof Ruler> = {
 }
 
 function signalColor(score: number): string {
-  // Interpolate fail → warn → pass across 40 / 70
   if (score <= 40) {
     const t = score / 40
     return lerpHex("#B8402E", "#B8752E", t)
@@ -96,17 +95,24 @@ function hexToRgb(hex: string) {
 }
 
 function charPillTone(len: number): string {
-  if (len === 0) return "text-[var(--ink-400)] border-[var(--border-hairline)]"
-  if (len <= 30) return "text-[var(--signal-pass)] border-[var(--signal-pass)]/25 bg-[var(--signal-pass-soft)]"
-  if (len <= 50) return "text-[var(--signal-warn)] border-[var(--signal-warn)]/25 bg-[var(--signal-warn-soft)]"
-  if (len <= 70) return "text-[var(--signal-warn)] border-[var(--signal-warn)]/30 bg-[var(--signal-warn-soft)]"
-  return "text-[var(--signal-fail)] border-[var(--signal-fail)]/25 bg-[var(--signal-fail-soft)]"
+  if (len === 0) return "border-ink-08 text-ink-40"
+  if (len <= 30)
+    return "border-emerald/25 bg-emerald-bright/10 text-emerald-dark"
+  if (len <= 50) return "border-amber/30 bg-amber/10 text-ink"
+  if (len <= 70) return "border-amber/40 bg-amber/15 text-ink"
+  return "border-destructive/25 bg-destructive/10 text-destructive"
 }
 
 function statusColor(status: FactorStatus): string {
-  if (status === "pass") return "var(--signal-pass)"
-  if (status === "warn") return "var(--signal-warn)"
-  return "var(--signal-fail)"
+  if (status === "pass") return "var(--emerald)"
+  if (status === "warn") return "var(--amber)"
+  return "var(--destructive)"
+}
+
+function barClass(status: FactorStatus): string {
+  if (status === "pass") return "bg-gradient-to-r from-emerald to-emerald-bright"
+  if (status === "warn") return "bg-gradient-to-r from-amber to-gold"
+  return "bg-gradient-to-r from-destructive to-coral-warm"
 }
 
 function ScoreGauge({
@@ -120,7 +126,6 @@ function ScoreGauge({
   const [display, setDisplay] = useState(score)
   const [color, setColor] = useState(signalColor(score))
 
-  // 270° arc (¾ circle)
   const r = 54
   const circumference = 2 * Math.PI * r
   const arcLen = circumference * 0.75
@@ -144,14 +149,13 @@ function ScoreGauge({
   return (
     <div className="relative mx-auto flex size-[168px] shrink-0 items-center justify-center sm:size-[180px]">
       <svg viewBox="0 0 140 140" className="size-full" aria-hidden="true">
-        {/* Track — rotated so gap sits at bottom */}
         <g transform="rotate(135 70 70)">
           <circle
             cx="70"
             cy="70"
             r={r}
             fill="none"
-            stroke="var(--border-hairline)"
+            className="stroke-ink-08"
             strokeWidth="10"
             strokeDasharray={`${arcLen} ${circumference}`}
             strokeLinecap="round"
@@ -170,10 +174,10 @@ function ScoreGauge({
         </g>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center pt-2">
-        <span className="font-mono text-[48px] font-medium tabular-nums leading-none tracking-tight text-[var(--ink-900)] sm:text-[52px]">
+        <span className="font-mono text-[48px] font-medium tabular-nums leading-none tracking-tight text-ink sm:text-[52px]">
           {display}
         </span>
-        <span className="mt-2 text-[10.5px] font-medium uppercase tracking-[0.2em] text-[var(--ink-400)]">
+        <span className="mt-2 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-ink-40">
           {grade}
         </span>
       </div>
@@ -190,30 +194,27 @@ function FactorRow({ factor }: { factor: SubjectLineFactor }) {
     <li className="py-3.5">
       <div className="flex items-start gap-3">
         <span
-          className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg border border-[var(--border-hairline)] bg-[var(--surface-card)]"
+          className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg border border-ink-08 bg-background"
           style={{ color }}
         >
-          <Icon className="size-3.5 stroke-[1.5]" aria-hidden="true" />
+          <Icon className="size-3.5 stroke-[1.75]" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <span className="text-[13.5px] font-medium text-[var(--ink-900)]">
-              {factor.label}
-            </span>
-            <span className="font-mono text-[11px] tabular-nums text-[var(--ink-400)]">
+            <span className="text-[13.5px] font-bold text-ink">{factor.label}</span>
+            <span className="font-mono text-[11px] tabular-nums text-ink-40">
               {factor.score}/{factor.weight}
             </span>
           </div>
-          <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-[var(--border-hairline)]">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-08">
             <motion.div
-              className="h-full rounded-full"
-              style={{ backgroundColor: color }}
+              className={cn("h-full rounded-full", barClass(factor.status))}
               initial={{ width: 0 }}
               animate={{ width: `${pct}%` }}
               transition={SPRING}
             />
           </div>
-          <p className="mt-2 text-[12.5px] leading-[1.55] text-[var(--ink-600)]">
+          <p className="mt-2 text-[13px] font-medium leading-[1.55] text-ink-60">
             {factor.message}
           </p>
         </div>
@@ -225,7 +226,7 @@ function FactorRow({ factor }: { factor: SubjectLineFactor }) {
 function TruncationPreview({ analysis }: { analysis: SubjectLineAnalysis }) {
   if (!analysis.charCount) {
     return (
-      <p className="text-[13px] leading-[1.55] text-[var(--ink-400)]">
+      <p className="text-[13px] font-medium leading-[1.55] text-ink-40">
         Mobile preview appears as you type.
       </p>
     )
@@ -233,21 +234,29 @@ function TruncationPreview({ analysis }: { analysis: SubjectLineAnalysis }) {
   return (
     <div className="space-y-3">
       {[
-        { label: "30-char inbox", preview: analysis.preview30, cut: analysis.truncatedAt30 },
-        { label: "55-char inbox", preview: analysis.preview55, cut: analysis.truncatedAt55 },
+        {
+          label: "30-char inbox",
+          preview: analysis.preview30,
+          cut: analysis.truncatedAt30,
+        },
+        {
+          label: "55-char inbox",
+          preview: analysis.preview55,
+          cut: analysis.truncatedAt55,
+        },
       ].map((row) => (
         <div key={row.label}>
-          <div className="mb-1 flex items-center justify-between gap-2">
-            <span className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
               {row.label}
             </span>
             {row.cut && (
-              <span className="text-[10.5px] uppercase tracking-[0.12em] text-[var(--signal-warn)]">
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink">
                 Truncated
               </span>
             )}
           </div>
-          <p className="rounded-lg border border-[var(--border-hairline)] bg-[var(--surface-card)] px-3 py-2 font-mono text-[13px] tabular-nums text-[var(--ink-900)]">
+          <p className="rounded-xl border border-ink-08 bg-card px-3 py-2.5 font-mono text-[13px] tabular-nums text-ink">
             {row.preview || "—"}
           </p>
         </div>
@@ -279,7 +288,7 @@ export function SubjectLineTesterClient() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...SPRING, delay: 0 }}
-        className="rounded-xl border border-[var(--border-hairline)] bg-[var(--accent-gold-soft)] px-4 py-3 text-[13.5px] leading-[1.55] text-[var(--ink-600)]"
+        className="rounded-2xl border border-vibrant-purple/15 bg-vibrant-purple/[0.04] px-4 py-3.5 text-[13.5px] font-medium leading-[1.55] text-ink-60 sm:px-5"
       >
         Built from hundreds of live cold campaigns run through FinalOutreach +
         published industry benchmarks — calibrated for outbound, not newsletters.
@@ -308,11 +317,11 @@ export function SubjectLineTesterClient() {
                   spellCheck
                   suppressHydrationWarning
                   placeholder="Quick question on your Q4 outbound"
-                  className="w-full resize-none rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] px-4 py-3.5 pr-28 pb-10 text-[16px] leading-[1.5] text-[var(--ink-900)] shadow-[inset_0_1px_2px_rgba(22,21,15,0.06)] outline-none transition-shadow placeholder:text-[var(--ink-400)] focus:border-[var(--accent-gold)]/40 focus:ring-2 focus:ring-[var(--accent-gold-soft)]"
+                  className="w-full resize-none rounded-2xl border border-ink-08 bg-cream/60 px-4 py-3.5 pr-4 pb-11 text-[16px] font-medium leading-[1.5] text-ink shadow-[inset_0_1px_2px_rgba(15,15,15,0.04)] outline-none transition-shadow placeholder:text-ink-40 focus:border-electric-blue/40 focus:ring-2 focus:ring-electric-blue/15"
                 />
                 <span
                   className={cn(
-                    "pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] tabular-nums",
+                    "pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[11px] font-medium tabular-nums",
                     charPillTone(liveCounts.chars),
                   )}
                 >
@@ -322,7 +331,7 @@ export function SubjectLineTesterClient() {
             </FieldLabel>
 
             <div className="mt-6">
-              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+              <p className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                 Try a sample
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -334,10 +343,10 @@ export function SubjectLineTesterClient() {
                       type="button"
                       onClick={() => setSubject(s)}
                       className={cn(
-                        "rounded-full border bg-transparent px-3 py-1.5 text-[12.5px] transition-colors",
+                        "rounded-full border bg-transparent px-3 py-1.5 text-[12.5px] font-medium transition-colors",
                         active
-                          ? "border-[var(--accent-gold)] text-[var(--ink-900)]"
-                          : "border-[var(--border-hairline)] text-[var(--ink-600)] hover:border-[var(--ink-600)]/40 hover:text-[var(--ink-900)] hover:bg-[var(--surface-card-sunk)]",
+                          ? "border-electric-blue/40 bg-electric-blue/5 text-ink"
+                          : "border-ink-08 text-ink-60 hover:border-ink/25 hover:bg-cream/50 hover:text-ink",
                       )}
                     >
                       {s.length > 36 ? s.slice(0, 34) + "…" : s}
@@ -347,8 +356,8 @@ export function SubjectLineTesterClient() {
               </div>
             </div>
 
-            <div className="mt-7 rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] p-5">
-              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+            <div className="mt-7 rounded-2xl border border-ink-08 bg-cream/50 p-5">
+              <p className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                 Mobile truncation
               </p>
               <div className="mt-3">
@@ -356,27 +365,27 @@ export function SubjectLineTesterClient() {
               </div>
             </div>
 
-            <div className="mt-5 rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card)] p-5">
-              <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+            <div className="mt-5 rounded-2xl border border-ink-08 bg-background p-5">
+              <p className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                 Top fixes
               </p>
               {isEmpty ? (
-                <p className="mt-3 text-[13.5px] leading-[1.55] text-[var(--ink-400)]">
+                <p className="mt-3 text-[13.5px] font-medium leading-[1.55] text-ink-40">
                   Type a subject line — highest-impact rewrites land here.
                 </p>
               ) : analysis.topFixes.length === 0 ? (
-                <p className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--signal-pass)]">
-                  <CheckCircle2 className="size-4" />
+                <p className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-emerald-dark">
+                  <CheckCircle2 className="size-4 text-emerald" />
                   Looks strong — nothing critical to change.
                 </p>
               ) : (
-                <ol className="mt-3 space-y-2">
+                <ol className="mt-3 space-y-2.5">
                   {analysis.topFixes.map((f, i) => (
                     <li
                       key={i}
-                      className="flex gap-2 text-[13.5px] leading-[1.55] text-[var(--ink-900)]"
+                      className="flex gap-2.5 text-[13.5px] font-medium leading-[1.55] text-ink"
                     >
-                      <span className="font-mono tabular-nums text-[var(--ink-400)]">
+                      <span className="font-mono tabular-nums text-ink-40">
                         0{i + 1}
                       </span>
                       <span>{f}</span>
@@ -399,14 +408,14 @@ export function SubjectLineTesterClient() {
               hint="Weighted across 15 deliverability and engagement factors."
             />
 
-            <div className="rounded-xl border border-[var(--border-hairline)] bg-[var(--surface-card-sunk)] px-4 py-6 sm:px-6">
+            <div className="rounded-2xl border border-ink-08 bg-cream/50 px-4 py-6 sm:px-6">
               <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center">
                 <ScoreGauge score={analysis.score} grade={analysis.grade} />
                 <div className="flex-1 text-center sm:text-left">
-                  <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+                  <p className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                     Verdict
                   </p>
-                  <p className="mt-2 text-[16px] leading-[1.45] text-[var(--ink-900)]">
+                  <p className="mt-2 text-[16px] font-semibold leading-[1.45] text-ink">
                     {isEmpty
                       ? "Type a subject line to see your score."
                       : analysis.grade === "Excellent"
@@ -423,11 +432,11 @@ export function SubjectLineTesterClient() {
               </div>
             </div>
 
-            <div className="mt-7">
-              <p className="mb-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+            <div className="mt-8">
+              <p className="mb-1 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                 Deliverability factors
               </p>
-              <ul className="divide-y divide-[var(--border-hairline)] border-b border-[var(--border-hairline)]">
+              <ul className="divide-y divide-ink-08 border-b border-ink-08">
                 {analysis.deliverability.map((f) => (
                   <FactorRow key={f.id} factor={f} />
                 ))}
@@ -435,10 +444,10 @@ export function SubjectLineTesterClient() {
             </div>
 
             <div className="mt-8">
-              <p className="mb-1 text-[11.5px] font-medium uppercase tracking-[0.14em] text-[var(--ink-400)]">
+              <p className="mb-1 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-ink-40">
                 Engagement factors
               </p>
-              <ul className="divide-y divide-[var(--border-hairline)] border-b border-[var(--border-hairline)]">
+              <ul className="divide-y divide-ink-08 border-b border-ink-08">
                 {analysis.engagement.map((f) => (
                   <FactorRow key={f.id} factor={f} />
                 ))}
