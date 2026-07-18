@@ -30,6 +30,26 @@ const ROWS = [
     us: "Meetings booked into your calendar",
     them: "Lead dumps you still have to chase",
   },
+  {
+    us: "Named-account targeting from a locked ICP",
+    them: "Spray-and-pray lists with no disqualification criteria",
+  },
+  {
+    us: "SPF, DKIM, DMARC configured before day one",
+    them: "Emails already landing in spam by week two",
+  },
+  {
+    us: "Friday performance reviews, every week",
+    them: "Quarterly check-in if you're lucky",
+  },
+  {
+    us: "Free outreach audit before you sign anything",
+    them: "Sign first, audit never",
+  },
+  {
+    us: "Case studies published only with written permission",
+    them: "Client logos and quotes nobody can verify",
+  },
 ] as const
 
 export function OperatorDifference() {
