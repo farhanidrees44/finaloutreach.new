@@ -696,49 +696,9 @@
   }
 
   /*
-   * NAV DROPDOWN BORDER BEAM
-   * Padding-shell technique (no mask-composite) for Chrome/Edge/Safari/Firefox + Windows GPUs.
-   * Always animates on Services / Industries / Tools — intentionally not gated by reduced-motion
-   * so the sweep stays visible on Windows laptops with “animation effects” off.
-   * Colors match MagneticButton primary CTA.
+   * NAV DROPDOWN — Cleverly-style static brand border lives on .border-2.border-primary
+   * in NavDropdownPanel (site-navigation). Animated beam removed for a crisp, always-on outline.
    */
-  .nav-dropdown-panel {
-    background: oklch(0.156 0 0 / 0.06);
-  }
-  .nav-dropdown-border-beam {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    border-radius: inherit;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .nav-dropdown-border-beam__spin {
-    position: absolute;
-    inset: -45%;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      transparent 200deg,
-      var(--vibrant-purple) 240deg,
-      var(--electric-blue) 290deg,
-      oklch(0.50 0.22 270) 330deg,
-      transparent 360deg
-    );
-    /* !important so OS reduced-motion / utility resets cannot freeze this decorative sweep */
-    animation: nav-dropdown-border-beam-spin 3s linear infinite !important;
-    will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-  @keyframes nav-dropdown-border-beam-spin {
-    from {
-      transform: translateZ(0) rotate(0deg);
-    }
-    to {
-      transform: translateZ(0) rotate(360deg);
-    }
-  }
 
   /* ───── BLOB DRIFT ───── */
   .blob-drift-a { animation: blob-drift-a 24s ease-in-out infinite alternate; }
@@ -808,10 +768,6 @@
     .inbox-float, .reply-slide-in,
     .hero-wave {
       animation: none !important;
-    }
-    /* Keep nav dropdown border beam moving on every device (Services / Industries / Tools) */
-    .nav-dropdown-border-beam__spin {
-      animation: nav-dropdown-border-beam-spin 3s linear infinite !important;
     }
     /* Stack logos keep scrolling on all devices (slower when OS asks for less motion) */
     .marquee-track--logos .marquee {

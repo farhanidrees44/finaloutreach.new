@@ -43,7 +43,7 @@ function FilterSelect({
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-11 w-full appearance-none rounded-full border border-ink-08 bg-background py-2 pl-4 pr-10 text-[14px] font-semibold text-ink outline-none transition-colors hover:border-ink/25 focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
+          className="h-11 w-full appearance-none rounded-full border-2 border-ink/12 bg-background py-2 pl-4 pr-10 text-[14px] font-semibold text-ink outline-none transition-colors hover:border-ink/25 focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
         >
           <option value="all">All</option>
           {options.map((opt) => (
@@ -65,8 +65,8 @@ function CampaignCard({ campaign }: { campaign: ResultsCampaign }) {
   const [open, setOpen] = useState<"strategy" | "results" | null>("results")
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-ink-08 bg-background shadow-[0_1px_0_rgba(15,15,15,0.03)] transition-shadow hover:shadow-[0_18px_40px_-28px_rgba(15,15,15,0.35)]">
-      <div className="flex flex-col gap-5 border-b border-ink-08 p-6 sm:p-8 md:flex-row md:items-start md:justify-between">
+    <article className="overflow-hidden rounded-2xl border-2 border-ink/12 bg-background shadow-[0_1px_0_rgba(15,15,15,0.03)] transition-shadow hover:shadow-[0_18px_40px_-28px_rgba(15,15,15,0.35)]">
+      <div className="flex flex-col gap-5 border-b border-ink/12 p-6 sm:p-8 md:flex-row md:items-start md:justify-between">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-electric-blue/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-electric-blue">
@@ -208,7 +208,7 @@ export function ResultsPageContent() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-8 md:px-10 lg:px-12">
       {/* Filter bar */}
-      <div className="sticky top-[4.5rem] z-20 -mx-6 border-y border-ink-08 bg-background/90 px-6 py-4 backdrop-blur-xl md:-mx-10 md:px-10 lg:-mx-12 lg:px-12">
+      <div className="sticky top-[4.5rem] z-20 -mx-6 border-y-2 border-ink/10 bg-background/90 px-6 py-4 backdrop-blur-xl md:-mx-10 md:px-10 lg:-mx-12 lg:px-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
           <div className="flex items-center gap-2 text-ink-40">
             <Filter className="size-4" aria-hidden />
@@ -336,7 +336,7 @@ export function ResultsLiveInvite() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 overflow-hidden rounded-3xl border border-ink-08 bg-background p-8 md:grid-cols-[1.2fr_1fr] md:p-10">
+        <div className="mt-10 grid gap-6 overflow-hidden rounded-3xl border-2 border-ink/12 bg-background p-8 md:grid-cols-[1.2fr_1fr] md:p-10">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-ink-08 bg-cream/50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-ink-40">
               <LayoutDashboard className="size-3.5" aria-hidden />

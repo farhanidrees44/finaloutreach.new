@@ -47,10 +47,7 @@ function navTriggerClass(active: boolean) {
 }
 
 /**
- * Cleverly-style mega panel chrome — accent-tinted surface (not plain white).
- * Uses brand primary at ~6% over white via CSS color-mix / oklch token.
- * Border beam (CTA gradient) runs only while this panel is mounted/open.
- * Padding-shell technique (no mask-composite) for reliable cross-browser/device support.
+ * Cleverly-style mega panel — lavender tint + solid brand border (static, always visible).
  */
 function NavDropdownPanel({
   children,
@@ -62,22 +59,12 @@ function NavDropdownPanel({
   return (
     <div
       className={cn(
-        "nav-dropdown-panel relative overflow-hidden rounded-2xl p-[2.5px] shadow-lg",
+        "relative overflow-hidden rounded-2xl border-2 border-primary p-6 shadow-lg sm:p-7",
+        "bg-[color-mix(in_oklch,var(--primary)_7%,white)]",
         className,
       )}
     >
-      {/* Rotating CTA-gradient ring — unmounted when mega closes */}
-      <span className="nav-dropdown-border-beam" aria-hidden="true">
-        <span className="nav-dropdown-border-beam__spin" />
-      </span>
-      <div
-        className={cn(
-          "relative z-[1] rounded-[13px] border border-black/5 p-6 sm:rounded-[14px] sm:p-7",
-          "bg-[color-mix(in_oklch,var(--primary)_7%,white)]",
-        )}
-      >
-        {children}
-      </div>
+      {children}
     </div>
   )
 }
