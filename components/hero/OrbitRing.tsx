@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
   animate,
   motion,
@@ -9,7 +9,6 @@ import {
   useReducedMotion,
   useSpring,
 } from "framer-motion"
-import { CountUp } from "@/components/site/count-up"
 import { cn } from "@/lib/utils"
 
 /**
@@ -44,6 +43,8 @@ const METRIC = {
 
 const TILT_MAX = 16
 const SPRING = { stiffness: 150, damping: 20, mass: 0.4 }
+/** Slow ambient drift — full turn every 48s */
+const ROTATION_DURATION_S = 48
 
 type LabelPos = { x: number; y: number }
 
@@ -55,12 +56,21 @@ function polar(deg: number, radius: number) {
   }
 }
 
+/** easeOutExpo — fast start, settles into the final value */
+function easeOutExpo(t: number) {
+  return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)
+}
+
 export function OrbitRing({ className }: { className?: string }) {
   const reduced = useReducedMotion()
   const [canTilt, setCanTilt] = useState(false)
   const [labelPos, setLabelPos] = useState<LabelPos[]>(() =>
     LABELS.map((l) => polar(l.angle - 90, LABEL_R)),
   )
+  /** Mount-gated count-up display — always 2 decimal places */
+  const [display, setDisplay] = useState("0.00")
+  const countedRef = useRef(false)
+  const ringGroupRef = useRef<SVGGElement>(null)
 
   const rotate = useMotionValue(0)
   const tiltX = useMotionValue(0)
@@ -68,7 +78,7 @@ export function OrbitRing({ className }: { className?: string }) {
   const springX = useSpring(tiltX, SPRING)
   const springY = useSpring(tiltY, SPRING)
 
-  // Desktop / pointer devices only for tilt; skip on touch & narrow viewports
+  // Desktop / pointer devices only for tilt
   useEffect(() => {
     if (typeof window === "undefined") return
     const mqFine = window.matchMedia("(hover: hover) and (pointer: fine)")
@@ -83,23 +93,55 @@ export function OrbitRing({ className }: { className?: string }) {
     }
   }, [reduced])
 
-  // Continuous ring rotation — independent of tilt
+  // Continuous ring rotation via SVG transform attribute (CSS rotate on <g> is unreliable)
   useEffect(() => {
-    if (reduced) return
+    if (reduced) {
+      ringGroupRef.current?.setAttribute(
+        "transform",
+        `rotate(0 ${CX} ${CY})`,
+      )
+      return
+    }
     const controls = animate(rotate, 360, {
-      duration: 48,
+      duration: ROTATION_DURATION_S,
       ease: "linear",
       repeat: Infinity,
     })
     return () => controls.stop()
   }, [reduced, rotate])
 
-  // Keep labels synced to ring angle, upright (no spin with the ring)
   useMotionValueEvent(rotate, "change", (latest) => {
-    setLabelPos(
-      LABELS.map((l) => polar(l.angle - 90 + latest, LABEL_R)),
+    // Native SVG transform — actually rotates the arcs
+    ringGroupRef.current?.setAttribute(
+      "transform",
+      `rotate(${latest} ${CX} ${CY})`,
     )
+    setLabelPos(LABELS.map((l) => polar(l.angle - 90 + latest, LABEL_R)))
   })
+
+  // Count-up once on mount — NOT gated on IntersectionObserver (hero is already in view)
+  useEffect(() => {
+    if (countedRef.current) return
+    countedRef.current = true
+
+    if (reduced) {
+      setDisplay(METRIC.value.toFixed(METRIC.decimals))
+      return
+    }
+
+    const durationMs = 1800
+    const start = performance.now()
+    let raf = 0
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / durationMs)
+      const eased = easeOutExpo(t)
+      setDisplay((METRIC.value * eased).toFixed(METRIC.decimals))
+      if (t < 1) raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-once only
+  }, [])
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!canTilt) return
@@ -117,10 +159,7 @@ export function OrbitRing({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn(
-        "relative mx-auto select-none",
-        className,
-      )}
+      className={cn("relative mx-auto select-none", className)}
       style={{
         width: SIZE,
         height: SIZE,
@@ -135,12 +174,13 @@ export function OrbitRing({ className }: { className?: string }) {
         className="absolute inset-0"
         style={{
           transformStyle: "preserve-3d",
+          transformPerspective: 900,
           willChange: "transform",
-          rotateX: canTilt ? springX : 0,
-          rotateY: canTilt ? springY : 0,
+          // Always bind springs — listener is what gates tilt input
+          rotateX: springX,
+          rotateY: springY,
         }}
       >
-        {/* Soft glow disc behind the ring */}
         <div
           aria-hidden
           className="absolute left-1/2 top-1/2 size-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-2xl"
@@ -181,7 +221,6 @@ export function OrbitRing({ className }: { className?: string }) {
             </linearGradient>
           </defs>
 
-          {/* Static track */}
           <circle
             cx={CX}
             cy={CY}
@@ -191,8 +230,8 @@ export function OrbitRing({ className }: { className?: string }) {
             strokeWidth="1.5"
           />
 
-          {/* Rotating gradient arc */}
-          <motion.g style={{ rotate, transformOrigin: `${CX}px ${CY}px` }}>
+          {/* Rotating arcs — SVG transform attr, not CSS rotate on <g> */}
+          <g ref={ringGroupRef} transform={`rotate(0 ${CX} ${CY})`}>
             <circle
               cx={CX}
               cy={CY}
@@ -216,10 +255,9 @@ export function OrbitRing({ className }: { className?: string }) {
               strokeDashoffset="280"
               opacity="0.55"
             />
-          </motion.g>
+          </g>
         </svg>
 
-        {/* Orbiting labels — positioned via transform only (no layout thrash) */}
         {LABELS.map((label, i) => {
           const pos = labelPos[i] ?? polar(label.angle - 90, LABEL_R)
           return (
@@ -238,15 +276,11 @@ export function OrbitRing({ className }: { className?: string }) {
           )
         })}
 
-        {/* Center metric card */}
         <div className="absolute left-1/2 top-1/2 flex size-[148px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-ink-08 bg-background/95 text-center shadow-[0_20px_50px_-24px_rgba(15,15,15,0.4)] backdrop-blur-md">
-          <CountUp
-            value={METRIC.value}
-            decimals={METRIC.decimals}
-            suffix={METRIC.suffix}
-            duration={1800}
-            className="text-[34px] font-extrabold leading-none tracking-tight tabular text-ink"
-          />
+          <span className="text-[34px] font-extrabold leading-none tracking-tight tabular text-ink">
+            {display}
+            {METRIC.suffix}
+          </span>
           <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-60">
             {METRIC.label}
           </p>
