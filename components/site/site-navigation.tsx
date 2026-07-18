@@ -33,7 +33,7 @@ const CLOSE_DELAY_MS = 150
 const spring = { type: "spring" as const, stiffness: 320, damping: 32 }
 
 const navLinkClass =
-  "inline-flex items-center gap-1 rounded-full px-4 py-2 text-[15px] font-bold tracking-tight transition-colors duration-200 lg:text-[16px]"
+  "inline-flex items-center gap-1 rounded-full px-4 py-2 text-[16px] font-bold tracking-tight transition-colors duration-200 lg:text-[17px]"
 
 /** Shared trigger styles — Cleverly-style bold labels + solid accent pill when open */
 function navTriggerClass(active: boolean) {
