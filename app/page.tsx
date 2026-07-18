@@ -81,14 +81,16 @@ export default function HomePage() {
             <Certifications />
             <VideoSection />
             <CampaignProofGallery />
+            {/* Proof pair — screenshots + honest named-case stance stay together */}
+            <LiveCampaignInvite />
             <BookingsProof />
             <ResultsBar />
             <Services />
             <OperatorDifference />
             <Process />
+            {/* ROI after process context — strongest interactive differentiator */}
             <RoiCalculator />
             <FounderStory />
-            <LiveCampaignInvite />
             <Testimonials />
             <Faq />
             <Pricing />

@@ -23,8 +23,8 @@ export function LiveCampaignInvite() {
         <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <SectionEyebrow number="09" label="Case studies" />
-              <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+              <SectionEyebrow number="02b" label="Case studies" />
+              <h2 className="mt-5 text-balance text-[clamp(2.25rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
                 Outcomes we can{" "}
                 <span className="font-serif-italic text-ink-60">name.</span>
               </h2>
@@ -79,17 +79,17 @@ export function LiveCampaignInvite() {
   }
 
   return (
-    <section id="live-data" className="relative border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
-        <div className="max-w-2xl">
-          <SectionEyebrow number="09" label="Live data" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+    <section id="live-data" className="relative border-t border-ink-08 bg-cream">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+        <div className="max-w-3xl">
+          <SectionEyebrow number="02b" label="Live data" />
+          <h2 className="mt-5 text-balance text-[clamp(2.25rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
             Prefer named case studies?{" "}
             <span className="font-serif-italic text-ink-60">
               We&apos;ll show you live ones.
             </span>
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
+          <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink-60">
             We only publish client names and quotes with written permission.
             Until then, the strongest proof is a walkthrough of real campaign
             dashboards and calendars on a strategy call.
