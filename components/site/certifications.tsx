@@ -17,9 +17,9 @@ export function Certifications() {
         <div className="max-w-2xl">
           <h2 className="text-balance text-[clamp(1.75rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
             Platform credentials we{" "}
-            <span className="font-serif-italic text-ink-60">hold &amp; operate under.</span>
+            <span className="font-serif-italic text-electric-blue">hold &amp; operate under.</span>
           </h2>
-          <p className="mt-3 max-w-xl text-[14.5px] leading-relaxed text-ink-60 sm:mt-4 sm:text-[15px]">
+          <p className="mt-3 max-w-xl text-[14.5px] font-bold leading-relaxed text-ink-60 sm:mt-4 sm:text-[15px]">
             Badges from tools in our delivery stack — not client endorsements or
             invented awards.
           </p>
