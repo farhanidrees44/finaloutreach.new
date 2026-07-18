@@ -695,6 +695,50 @@
     pointer-events: none;
   }
 
+  /*
+   * NAV DROPDOWN BORDER BEAM
+   * Scoped to .nav-dropdown-panel only. Colors match MagneticButton primary CTA:
+   * oklch(0.55 0.24 295) → oklch(0.58 0.22 250) → oklch(0.50 0.22 270)
+   * (= --vibrant-purple, --electric-blue, CTA mid-stop).
+   */
+  .nav-dropdown-border-beam {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit; /* matches rounded-2xl on the panel */
+    padding: 2px;
+    pointer-events: none;
+    overflow: hidden;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+            mask-composite: exclude;
+  }
+  .nav-dropdown-border-beam__spin {
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 250deg,
+      var(--vibrant-purple) 280deg,
+      var(--electric-blue) 310deg,
+      oklch(0.50 0.22 270) 335deg,
+      transparent 360deg
+    );
+    animation: nav-dropdown-border-beam-spin 3.5s linear infinite;
+    will-change: transform;
+  }
+  @keyframes nav-dropdown-border-beam-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   /* ───── BLOB DRIFT ───── */
   .blob-drift-a { animation: blob-drift-a 24s ease-in-out infinite alternate; }
   .blob-drift-b { animation: blob-drift-b 30s ease-in-out infinite alternate; }
@@ -761,8 +805,13 @@
     .blob-drift-a, .blob-drift-b, .hero-mesh,
     .gradient-text-animated, .conic-shimmer,
     .inbox-float, .reply-slide-in,
-    .hero-wave {
+    .hero-wave,
+    .nav-dropdown-border-beam__spin {
       animation: none !important;
+    }
+    /* No static beam arc when motion is reduced — keep the plain panel border */
+    .nav-dropdown-border-beam {
+      display: none !important;
     }
     /* Stack logos keep scrolling on all devices (slower when OS asks for less motion) */
     .marquee-track--logos .marquee {
