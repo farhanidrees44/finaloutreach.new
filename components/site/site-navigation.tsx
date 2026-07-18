@@ -436,14 +436,6 @@ export function SiteNavigation() {
             ))}
             <li>
               <Link
-                href="/case-studies"
-                className={cn(navLinkClass, "text-ink hover:text-ink")}
-              >
-                Case studies
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/blog"
                 className={cn(navLinkClass, "text-ink hover:text-ink")}
               >
@@ -603,7 +595,6 @@ export function SiteNavigation() {
               })}
 
               {[
-                { href: "/case-studies", label: "Case studies" },
                 { href: "/blog", label: "Blog" },
                 { href: "/pricing", label: "Pricing" },
               ].map((item, i) => (

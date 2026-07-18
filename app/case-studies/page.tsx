@@ -16,6 +16,7 @@ const PAGE_DESCRIPTION =
 export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  robots: { index: false, follow: false },
   keywords: [
     "B2B cold email case studies",
     "lead generation case studies",

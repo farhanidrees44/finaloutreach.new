@@ -43,6 +43,7 @@ export async function generateMetadata({
     title: `${cs.industry} outbound case study — ${cs.timeline}`,
     description,
     keywords,
+    robots: { index: false, follow: false },
     alternates: { canonical: `/case-studies/${cs.slug}` },
     openGraph: {
       type: "article",
