@@ -697,45 +697,48 @@
 
   /*
    * NAV DROPDOWN BORDER BEAM
-   * Scoped to .nav-dropdown-panel only. Colors match MagneticButton primary CTA:
+   * Padding-shell technique (no mask-composite) for Chrome/Edge/Safari/Firefox + Windows GPUs.
+   * Colors match MagneticButton primary CTA:
    * oklch(0.55 0.24 295) → oklch(0.58 0.22 250) → oklch(0.50 0.22 270)
    * (= --vibrant-purple, --electric-blue, CTA mid-stop).
    */
+  .nav-dropdown-panel {
+    /* Fallback static ring so a colored border always shows even if animation is blocked */
+    background: linear-gradient(
+      120deg,
+      var(--vibrant-purple),
+      var(--electric-blue) 50%,
+      oklch(0.50 0.22 270)
+    );
+  }
   .nav-dropdown-border-beam {
     position: absolute;
     inset: 0;
     z-index: 0;
-    border-radius: inherit; /* matches rounded-2xl on the panel */
-    padding: 2px;
-    pointer-events: none;
+    border-radius: inherit;
     overflow: hidden;
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-            mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-            mask-composite: exclude;
+    pointer-events: none;
   }
   .nav-dropdown-border-beam__spin {
     position: absolute;
-    inset: -50%;
+    inset: -40%;
     background: conic-gradient(
       from 0deg,
       transparent 0deg,
-      transparent 250deg,
-      var(--vibrant-purple) 280deg,
-      var(--electric-blue) 310deg,
-      oklch(0.50 0.22 270) 335deg,
+      transparent 220deg,
+      var(--vibrant-purple) 260deg,
+      var(--electric-blue) 300deg,
+      oklch(0.50 0.22 270) 330deg,
       transparent 360deg
     );
     animation: nav-dropdown-border-beam-spin 3.5s linear infinite;
     will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   @keyframes nav-dropdown-border-beam-spin {
     to {
-      transform: rotate(360deg);
+      transform: translateZ(0) rotate(360deg);
     }
   }
 
@@ -808,10 +811,8 @@
     .hero-wave,
     .nav-dropdown-border-beam__spin {
       animation: none !important;
-    }
-    /* No static beam arc when motion is reduced — keep the plain panel border */
-    .nav-dropdown-border-beam {
-      display: none !important;
+      /* Keep a calm static arc visible — do not hide the beam on Windows “reduce motion” */
+      opacity: 0.85;
     }
     /* Stack logos keep scrolling on all devices (slower when OS asks for less motion) */
     .marquee-track--logos .marquee {
