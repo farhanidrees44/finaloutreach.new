@@ -140,11 +140,11 @@ export function LiveCampaignInvite() {
               Already on the page
             </p>
             <p className="mt-3 text-[22px] font-bold leading-snug tracking-tight text-ink">
-              11.58% reply rate · 145 unique replies on 1,258 leads
+              Smartlead dashboard — property management vertical
             </p>
             <p className="mt-2 text-[14px] leading-relaxed text-ink-60">
-              Property management vertical — from the Smartlead dashboard in Proof.
-              No invented rollups.
+              Same campaign shown in Proof. Full figures live in By the numbers —
+              we walk the live view on the call.
             </p>
           </div>
         </motion.div>

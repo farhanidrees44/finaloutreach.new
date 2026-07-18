@@ -20,9 +20,9 @@ export const CAMPAIGN_PROOF: CampaignProof[] = [
   {
     id: "proof-smartlead-replies",
     src: "/proof/smartlead-campaign-dashboard.png",
-    alt: "Smartlead campaign analytics showing 1,258 leads and 145 unique replies at 11.58 percent reply rate",
-    caption: "11.58% reply rate · 145 unique replies on 1,258 leads — property management vertical",
-    context: "Cold email campaign · Smartlead dashboard",
+    alt: "Smartlead campaign analytics dashboard for a property management outbound program",
+    caption: "Smartlead dashboard — property management vertical",
+    context: "Cold email campaign · live reply and send metrics",
     isPlaceholder: false,
   },
   {

@@ -28,13 +28,15 @@ export function VideoSection() {
       <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow number="01" label="Watch" className="justify-center" />
+          {/* TODO: replace once video is final — copy should track the finished walkthrough */}
           <h2 className="mt-5 text-balance text-[clamp(1.85rem,3.5vw,2.75rem)] font-bold leading-[1.05] tracking-tight text-ink">
-            How operators run{" "}
-            <span className="font-serif-italic text-ink-60">your outbound.</span>
+            See the work — not the{" "}
+            <span className="font-serif-italic text-ink-60">pitch deck.</span>
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-ink-60">
-            A short walkthrough of targeting, infrastructure, and meeting handoff.
-            Press play when you&apos;re ready — nothing loads or autoplays on visit.
+            Two minutes inside targeting, infrastructure, and how a reply becomes
+            a meeting on your calendar. Press play when you&apos;re ready —
+            nothing loads or autoplays on visit.
           </p>
         </div>
 

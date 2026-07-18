@@ -82,9 +82,8 @@ export function CampaignProofGallery() {
               <span className="font-serif-italic text-ink-60">screenshots.</span>
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink-60">
-              Numbers you can read on the glass — Smartlead reply rates and
-              calendar density. Industry and stage only; named logos and faces
-              appear only with written permission.
+              Live dashboards and calendar density — industry and stage only.
+              Named logos and faces appear only with written permission.
             </p>
           </div>
           <div className="flex gap-2">

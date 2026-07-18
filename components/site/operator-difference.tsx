@@ -60,7 +60,7 @@ export function OperatorDifference() {
             </div>
             <div className="bg-ink/[0.02] px-5 py-3.5">
               <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-ink-40">
-                Typical agency theatre
+                What you&apos;re used to
               </p>
             </div>
           </div>
