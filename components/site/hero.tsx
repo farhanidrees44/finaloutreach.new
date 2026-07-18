@@ -14,7 +14,7 @@ export function Hero() {
   const reduced = useReducedMotion()
 
   return (
-    <section className="noise-bg relative isolate overflow-hidden pb-12 pt-20 sm:pb-14 sm:pt-20 md:pb-16 md:pt-24">
+    <section className="noise-bg relative isolate overflow-hidden pb-12 pt-5 sm:pb-14 sm:pt-6 md:pb-16 md:pt-7">
       <HeroBackground />
 
       <div
@@ -28,7 +28,7 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.5 }}
-          className="relative mb-5 flex w-full max-w-xl flex-col items-center"
+          className="relative mb-4 flex w-full max-w-xl flex-col items-center"
         >
           <a
             href="#watch"
