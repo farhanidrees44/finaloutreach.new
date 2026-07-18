@@ -167,10 +167,12 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.45 }}
-          className="mt-5 max-w-2xl text-pretty text-[17px] leading-[1.65] text-ink-60 sm:text-[19px]"
+          className="mt-5 max-w-2xl text-pretty text-[17px] font-semibold leading-[1.65] text-ink-80 sm:text-[19px]"
         >
           Most teams burn 3–4 agencies before finding one that works. We&apos;re
-          built to be your last one — hands-on operators, real infrastructure,
+          built to be your last one —{" "}
+          <span className="font-bold text-ink">hands-on operators</span>,{" "}
+          <span className="font-bold text-ink">real infrastructure</span>,
           meetings booked directly into your calendar.
         </motion.p>
 
@@ -187,7 +189,7 @@ export function Hero() {
             </span>
           </MagneticButton>
 
-          <p className="max-w-md text-[13px] leading-relaxed text-ink-40">
+          <p className="max-w-md text-[13px] font-medium leading-relaxed text-ink-60">
             Book a strategy call — see the live dashboard yourself. We&apos;ll
             tell you honestly if outbound fits your ACV.
           </p>

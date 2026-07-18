@@ -55,7 +55,7 @@ function renderInline(text: string): React.ReactNode[] {
     const token = m[0]
     if (token.startsWith("**")) {
       parts.push(
-        <strong key={`b-${key++}`} className="font-semibold text-foreground">
+        <strong key={`b-${key++}`} className="font-bold text-foreground">
           {token.slice(2, -2)}
         </strong>,
       )
@@ -209,7 +209,7 @@ export function Prose({ body, className }: { body: string; className?: string })
         }
         if (b.type === "ul") {
           return (
-            <ul key={i} className="mb-6 list-disc space-y-2 pl-6 text-lg leading-relaxed text-foreground/90">
+            <ul key={i} className="mb-6 list-disc space-y-2 pl-6 text-lg font-medium leading-relaxed text-foreground/90">
               {b.items.map((it, j) => (
                 <li key={j}>{renderInline(it)}</li>
               ))}
@@ -218,7 +218,7 @@ export function Prose({ body, className }: { body: string; className?: string })
         }
         if (b.type === "ol") {
           return (
-            <ol key={i} className="mb-6 list-decimal space-y-2 pl-6 text-lg leading-relaxed text-foreground/90">
+            <ol key={i} className="mb-6 list-decimal space-y-2 pl-6 text-lg font-medium leading-relaxed text-foreground/90">
               {b.items.map((it, j) => (
                 <li key={j}>{renderInline(it)}</li>
               ))}
@@ -236,7 +236,7 @@ export function Prose({ body, className }: { body: string; className?: string })
           )
         }
         return (
-          <p key={i} className="mb-6 text-lg leading-relaxed text-foreground/90">
+          <p key={i} className="mb-6 text-lg font-medium leading-relaxed text-foreground/90">
             {renderInline(b.text)}
           </p>
         )

@@ -18,9 +18,9 @@
   --foreground: oklch(0.156 0 0);
   --cream: oklch(0.965 0.008 87);
   --ink: oklch(0.156 0 0);
-  --ink-80: oklch(0.156 0 0 / 0.80);
-  --ink-60: oklch(0.156 0 0 / 0.60);
-  --ink-40: oklch(0.156 0 0 / 0.40);
+  --ink-80: oklch(0.156 0 0 / 0.86);
+  --ink-60: oklch(0.156 0 0 / 0.74);
+  --ink-40: oklch(0.156 0 0 / 0.55);
   --ink-20: oklch(0.156 0 0 / 0.20);
   --ink-10: oklch(0.156 0 0 / 0.10);
   --ink-08: oklch(0.156 0 0 / 0.08);
@@ -54,7 +54,7 @@
   --secondary: oklch(0.96 0.01 87);
   --secondary-foreground: oklch(0.156 0 0);
   --muted: oklch(0.96 0.01 87);
-  --muted-foreground: oklch(0.156 0 0 / 0.6);
+  --muted-foreground: oklch(0.156 0 0 / 0.74);
 
   --accent: oklch(0.55 0.24 295);
   --accent-foreground: oklch(0.985 0.003 95);
@@ -192,13 +192,35 @@
     overflow-x: clip;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-medium;
     font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     /* Same rationale — see html rule above. */
     overflow-x: clip;
+  }
+
+  /* Cleverly-style weight hierarchy — body reads medium; emphasis is truly bold */
+  p,
+  li,
+  td,
+  th,
+  label,
+  figcaption {
+    font-weight: 500;
+  }
+  strong,
+  b {
+    font-weight: 700;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
   }
   ::selection {
     background: var(--primary);

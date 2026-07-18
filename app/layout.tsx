@@ -124,7 +124,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${plusJakarta.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-background`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans font-medium antialiased">
         <JsonLd data={organizationSchema()} />
         <a
           href="#main"
