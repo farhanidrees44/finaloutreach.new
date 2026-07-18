@@ -146,12 +146,12 @@ export function Process() {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="06" label="Process" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-bold leading-[1.05] tracking-tight text-ink">
+            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               How we book meetings,{" "}
-              <span className="font-serif-italic text-ink-60">step by step.</span>
+              <span className="font-serif-italic text-electric-blue">step by step.</span>
             </h2>
           </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-60">
+          <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
             From kickoff to calendar — domains warm ~21 days before volume so
             inbox placement holds. No agency theatre, no endless decks.
           </p>
@@ -204,11 +204,11 @@ export function Process() {
                         : "border-ink-08 bg-transparent hover:border-ink/20 hover:bg-background/60",
                     )}
                   >
-                    <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-ink-40">
+                    <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.16em] text-ink-40">
                       <span className="font-mono text-ink">{step.n}</span>
                       <span>{step.when}</span>
                     </div>
-                    <h3 className="mt-2 flex items-center gap-2 text-[20px] font-bold tracking-tight text-ink">
+                    <h3 className="mt-2 flex items-center gap-2 text-[20px] font-extrabold tracking-tight text-ink">
                       <step.Icon className="size-4 shrink-0 text-ink-40" />
                       {step.title}
                     </h3>
@@ -219,14 +219,14 @@ export function Process() {
                         open ? "max-h-[480px] opacity-100" : "max-h-[480px] opacity-90",
                       )}
                     >
-                      <p className="mt-3 text-[14.5px] leading-[1.65] text-ink-60">
+                      <p className="mt-3 text-[14.5px] font-semibold leading-[1.65] text-ink-80">
                         {step.desc}
                       </p>
                       <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
                         {step.outcomes.map((item) => (
                           <li
                             key={item}
-                            className="flex items-start gap-2 text-[13px] leading-snug text-ink"
+                            className="flex items-start gap-2 text-[13px] font-semibold leading-snug text-ink"
                           >
                             <Check
                               className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
@@ -252,21 +252,21 @@ export function Process() {
                 <StepPanel kind={step.visual} />
               </div>
               <div>
-                <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.16em] text-ink-40">
+                <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.16em] text-ink-40">
                   <span className="font-mono">{step.n}</span>
                   <span>{step.when}</span>
                 </div>
-                <h3 className="mt-2 text-[22px] font-bold tracking-tight text-ink">
+                <h3 className="mt-2 text-[22px] font-extrabold tracking-tight text-ink">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-[14.5px] leading-[1.65] text-ink-60">
+                <p className="mt-2 text-[14.5px] font-semibold leading-[1.65] text-ink-80">
                   {step.desc}
                 </p>
                 <ul className="mt-4 flex flex-col gap-2">
                   {step.outcomes.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2 text-[13px] leading-snug text-ink"
+                      className="flex items-start gap-2 text-[13px] font-semibold leading-snug text-ink"
                     >
                       <Check
                         className="mt-0.5 size-3.5 shrink-0 text-electric-blue"
@@ -282,9 +282,9 @@ export function Process() {
         </ol>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-5 border-t border-ink-08 pt-10 sm:flex-row sm:items-center">
-          <p className="text-[20px] font-medium tracking-tight text-ink">
+          <p className="text-[20px] font-bold tracking-tight text-ink">
             Ready to start{" "}
-            <span className="font-serif-italic text-ink-60">week one?</span>
+            <span className="font-serif-italic text-electric-blue">week one?</span>
           </p>
           <a
             href="#contact"

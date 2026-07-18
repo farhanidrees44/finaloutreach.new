@@ -29,11 +29,11 @@ export function VideoSection() {
         <div className="mx-auto max-w-2xl text-center">
           <SectionEyebrow number="01" label="Watch" className="justify-center" />
           {/* TODO: replace once video is final — copy should track the finished walkthrough */}
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             See the work — not the{" "}
-            <span className="font-serif-italic text-ink-60">pitch deck.</span>
+            <span className="font-serif-italic text-electric-blue">pitch deck.</span>
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-ink-60">
+          <p className="mt-4 text-[15px] font-bold leading-relaxed text-ink-60 sm:text-[16px]">
             Two minutes inside targeting, infrastructure, and how a reply becomes
             a meeting on your calendar. Press play when you&apos;re ready —
             nothing loads or autoplays on visit.
