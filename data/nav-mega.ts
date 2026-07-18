@@ -179,10 +179,10 @@ export const MEGA_FREE_TOOLS: MegaTool[] = [
  */
 export const MEGA_RESULTS: MegaLink[] = [
   {
-    href: "/#campaign-proof",
+    href: "/results",
     title: "Live proof",
     subtitle:
-      "Real campaign dashboards and calendar density — public screenshots on the homepage.",
+      "Real campaign metrics by industry — filterable proof, no invented case studies.",
     icon: Images,
   },
   {

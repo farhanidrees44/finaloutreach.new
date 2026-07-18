@@ -101,7 +101,7 @@ export function PageHeader({
               part,
               <span
                 key={i}
-                className="font-serif-italic text-[oklch(0.55_0.13_78)]"
+                className="font-serif-italic text-electric-blue"
               >
                 {italicize}
               </span>,
@@ -157,10 +157,10 @@ export function PageCta({
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
           <Link
-            href="/case-studies"
+            href="/results"
             className="inline-flex h-12 items-center gap-2 rounded-full border border-ink-08 px-6 text-[15px] font-semibold text-ink transition-all hover:border-ink/30"
           >
-            See case studies
+            See live proof
           </Link>
         </div>
       </div>

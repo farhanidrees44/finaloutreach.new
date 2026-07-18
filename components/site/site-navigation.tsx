@@ -349,11 +349,11 @@ export function SiteNavigation() {
             onNavigate={closeMegaNow}
           />
           <Link
-            href="/#campaign-proof"
+            href="/results"
             onClick={closeMegaNow}
             className={footerLinkClass}
           >
-            Jump to live screenshots
+            Jump to live proof
             <ArrowRight className="size-3.5" />
           </Link>
         </>
@@ -548,8 +548,8 @@ export function SiteNavigation() {
                   {
                     label: "Results" as const,
                     items: megaLinksToItems(MEGA_RESULTS).concat({
-                      href: "/#campaign-proof",
-                      title: "Jump to live screenshots",
+                      href: "/results",
+                      title: "Jump to live proof",
                     }),
                   },
                 ] as const
