@@ -86,7 +86,12 @@ export function Pricing() {
           </p>
         </div>
 
-        <ul className="mt-14 flex flex-col gap-4">
+        <p className="mt-8 max-w-2xl text-[15px] leading-relaxed text-ink-60">
+          Priced for operator-led work, not a junior pod{" "}
+          <span className="font-serif-italic text-ink-60">spraying templates.</span>
+        </p>
+
+        <ul className="mt-8 flex flex-col gap-4">
           {PACKAGES.map((p, i) => (
             <motion.li
               key={p.name}
