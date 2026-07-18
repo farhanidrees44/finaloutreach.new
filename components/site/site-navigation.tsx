@@ -61,7 +61,7 @@ function NavDropdownPanel({
   return (
     <div
       className={cn(
-        "nav-dropdown-panel relative overflow-hidden rounded-2xl p-[2px] shadow-lg",
+        "nav-dropdown-panel relative overflow-hidden rounded-2xl p-[2.5px] shadow-lg",
         className,
       )}
     >
@@ -71,7 +71,7 @@ function NavDropdownPanel({
       </span>
       <div
         className={cn(
-          "relative z-[1] rounded-[14px] border border-black/5 p-6 sm:rounded-[15px] sm:p-7",
+          "relative z-[1] rounded-[13px] border border-black/5 p-6 sm:rounded-[14px] sm:p-7",
           "bg-[color-mix(in_oklch,var(--primary)_7%,white)]",
         )}
       >

@@ -698,18 +698,12 @@
   /*
    * NAV DROPDOWN BORDER BEAM
    * Padding-shell technique (no mask-composite) for Chrome/Edge/Safari/Firefox + Windows GPUs.
-   * Colors match MagneticButton primary CTA:
-   * oklch(0.55 0.24 295) → oklch(0.58 0.22 250) → oklch(0.50 0.22 270)
-   * (= --vibrant-purple, --electric-blue, CTA mid-stop).
+   * Always animates on Services / Industries / Tools — intentionally not gated by reduced-motion
+   * so the sweep stays visible on Windows laptops with “animation effects” off.
+   * Colors match MagneticButton primary CTA.
    */
   .nav-dropdown-panel {
-    /* Fallback static ring so a colored border always shows even if animation is blocked */
-    background: linear-gradient(
-      120deg,
-      var(--vibrant-purple),
-      var(--electric-blue) 50%,
-      oklch(0.50 0.22 270)
-    );
+    background: oklch(0.156 0 0 / 0.06);
   }
   .nav-dropdown-border-beam {
     position: absolute;
@@ -721,22 +715,26 @@
   }
   .nav-dropdown-border-beam__spin {
     position: absolute;
-    inset: -40%;
+    inset: -45%;
     background: conic-gradient(
       from 0deg,
       transparent 0deg,
-      transparent 220deg,
-      var(--vibrant-purple) 260deg,
-      var(--electric-blue) 300deg,
+      transparent 200deg,
+      var(--vibrant-purple) 240deg,
+      var(--electric-blue) 290deg,
       oklch(0.50 0.22 270) 330deg,
       transparent 360deg
     );
-    animation: nav-dropdown-border-beam-spin 3.5s linear infinite;
+    /* !important so OS reduced-motion / utility resets cannot freeze this decorative sweep */
+    animation: nav-dropdown-border-beam-spin 3s linear infinite !important;
     will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
   }
   @keyframes nav-dropdown-border-beam-spin {
+    from {
+      transform: translateZ(0) rotate(0deg);
+    }
     to {
       transform: translateZ(0) rotate(360deg);
     }
@@ -808,11 +806,12 @@
     .blob-drift-a, .blob-drift-b, .hero-mesh,
     .gradient-text-animated, .conic-shimmer,
     .inbox-float, .reply-slide-in,
-    .hero-wave,
-    .nav-dropdown-border-beam__spin {
+    .hero-wave {
       animation: none !important;
-      /* Keep a calm static arc visible — do not hide the beam on Windows “reduce motion” */
-      opacity: 0.85;
+    }
+    /* Keep nav dropdown border beam moving on every device (Services / Industries / Tools) */
+    .nav-dropdown-border-beam__spin {
+      animation: nav-dropdown-border-beam-spin 3s linear infinite !important;
     }
     /* Stack logos keep scrolling on all devices (slower when OS asks for less motion) */
     .marquee-track--logos .marquee {
