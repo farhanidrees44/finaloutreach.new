@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion"
 import { FileText, Play } from "lucide-react"
 import { MagneticButton } from "./magnetic-button"
 import { HeroBackground } from "./hero-background"
+import { TrustpilotWidget } from "./trustpilot-widget"
 import { SITE } from "@/lib/site-data"
 
 /**
@@ -109,25 +110,27 @@ export function Hero() {
           </svg>
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={reduced ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08 }}
-          className="text-[13px] font-bold uppercase tracking-[0.22em] text-vibrant-purple"
+          className="flex w-full max-w-2xl flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-6"
         >
-          B2B Cold Outreach Agency
-        </motion.p>
+          <div className="text-center sm:text-left">
+            <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-vibrant-purple">
+              B2B Cold Outreach Agency
+            </p>
+            <p className="mt-2 text-[15px] font-bold tracking-tight text-ink">
+              {SITE.name}
+            </p>
+          </div>
 
-        <motion.p
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.12 }}
-          className="mt-2 text-[15px] font-bold tracking-tight text-ink"
-        >
-          {SITE.name}
-        </motion.p>
+          <div className="w-full max-w-[280px] shrink-0 sm:max-w-[260px]">
+            <TrustpilotWidget />
+          </div>
+        </motion.div>
 
-        <h1 className="mt-4 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
+        <h1 className="mt-5 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}

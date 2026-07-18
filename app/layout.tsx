@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next"
+import Script from "next/script"
 import {
   Plus_Jakarta_Sans,
   Geist_Mono,
@@ -132,6 +133,10 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <Script
+          src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
+          strategy="afterInteractive"
+        />
         <AnalyticsScripts />
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
