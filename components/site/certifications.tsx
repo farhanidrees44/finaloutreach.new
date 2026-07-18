@@ -14,7 +14,7 @@ export function Certifications() {
       id="credentials"
       className="border-t border-ink-08 bg-background"
     >
-      <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="max-w-2xl">
           <SectionEyebrow number="02" label="Credentials" />
           <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
@@ -35,7 +35,7 @@ export function Certifications() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-8%" }}
               transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink-08 bg-cream/40 transition-colors hover:border-ink-40/40 hover:bg-cream/70"
+              className="group relative flex min-h-[360px] flex-col overflow-hidden rounded-2xl border border-ink-08 bg-cream/40 shadow-[0_1px_0_rgba(15,15,15,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-ink-40/35 hover:bg-cream/70 hover:shadow-[0_18px_40px_-24px_rgba(15,15,15,0.35)]"
             >
               {isDev && cert.isPlaceholder && (
                 <span className="absolute left-0 top-0 z-10 bg-amber-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
@@ -43,24 +43,24 @@ export function Certifications() {
                 </span>
               )}
 
-              <div className="relative flex aspect-[4/3] items-center justify-center bg-ink/[0.03] p-6">
-                <div className="relative mx-auto aspect-square w-full max-w-[200px]">
+              <div className="relative flex h-[200px] shrink-0 items-center justify-center bg-ink/[0.03] p-6">
+                <div className="relative mx-auto aspect-square w-full max-w-[168px]">
                   <Image
                     src={cert.certificateImage}
                     alt={`${cert.title} credential badge issued by ${cert.issuer}`}
                     fill
-                    className="object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes="200px"
+                    className="object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-[1.04]"
+                    sizes="168px"
                     loading="lazy"
                   />
                 </div>
               </div>
 
-              <div className="flex flex-1 flex-col gap-2 p-5">
+              <div className="flex flex-1 flex-col gap-2 p-6">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-ink-40">
                   {cert.issuer}
                 </p>
-                <h3 className="text-[17px] font-medium leading-snug text-ink">
+                <h3 className="text-[17px] font-semibold leading-snug text-ink">
                   {cert.title}
                 </h3>
                 <p className="text-[13px] text-ink-40">Earned {cert.dateEarned}</p>
@@ -69,7 +69,7 @@ export function Certifications() {
                     href={cert.verifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[13px] font-medium text-ink link-underline"
+                    className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[13px] font-semibold text-ink link-underline"
                   >
                     View credential
                     <ExternalLink className="size-3.5" />

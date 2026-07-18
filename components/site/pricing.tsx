@@ -70,7 +70,7 @@ export function Pricing() {
       id="pricing"
       className="border-t border-ink-08 bg-cream"
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-20 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="12" label="Pricing" />

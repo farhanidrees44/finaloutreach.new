@@ -142,7 +142,7 @@ export function Process() {
 
   return (
     <section id="process" className="relative border-t border-ink-08 bg-cream">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="06" label="Process" />

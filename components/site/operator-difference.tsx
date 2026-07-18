@@ -38,10 +38,10 @@ export function OperatorDifference() {
       id="difference"
       className="border-t border-ink-08 bg-cream"
     >
-      <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-24 lg:px-12">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
         <div className="max-w-2xl">
           <SectionEyebrow number="05b" label="Difference" />
-          <h2 className="mt-5 text-balance text-[clamp(1.85rem,3.5vw,3rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
             What you get — and what you&apos;re{" "}
             <span className="font-serif-italic text-ink-60">done with.</span>
           </h2>

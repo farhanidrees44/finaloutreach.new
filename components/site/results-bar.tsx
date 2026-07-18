@@ -42,10 +42,10 @@ const STATS = [
 export function ResultsBar() {
   return (
     <section className="relative overflow-hidden border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="mb-10 flex flex-col gap-3">
           <SectionEyebrow number="04" label="By the numbers" />
-          <h2 className="max-w-2xl text-balance text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-[1.05] tracking-tight text-ink">
+          <h2 className="max-w-2xl text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
             One live campaign,{" "}
             <span className="font-serif-italic text-ink-60">real dashboard numbers.</span>
           </h2>
