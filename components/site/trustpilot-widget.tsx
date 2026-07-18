@@ -52,7 +52,7 @@ export function TrustpilotWidget({ className }: TrustpilotWidgetProps) {
       data-template-id="56278e9abfbbba0bdcd568bc"
       data-businessunit-id="6a5a83923e37cfe6ecc09631"
       data-style-height="52px"
-      data-style-width="100%"
+      data-style-width="220px"
       data-token="8ee94261-38b2-483f-ae05-bb598ce53598"
     >
       <a

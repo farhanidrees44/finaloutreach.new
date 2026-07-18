@@ -114,23 +114,29 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08 }}
-          className="flex w-full max-w-2xl flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-6"
+          className="flex flex-col items-center"
         >
-          <div className="text-center sm:text-left">
-            <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-vibrant-purple">
-              B2B Cold Outreach Agency
-            </p>
-            <p className="mt-2 text-[15px] font-bold tracking-tight text-ink">
-              {SITE.name}
-            </p>
-          </div>
+          <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-vibrant-purple">
+            B2B Cold Outreach Agency
+          </p>
+          <p className="mt-2 text-[15px] font-bold tracking-tight text-ink">
+            {SITE.name}
+          </p>
+        </motion.div>
 
-          <div className="w-full max-w-[280px] shrink-0 sm:max-w-[260px]">
+        <motion.div
+          initial={reduced ? false : { opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14 }}
+          className="mt-4 flex justify-center sm:mt-5"
+          aria-label="Review FinalOutreach on Trustpilot"
+        >
+          <div className="w-[220px] shrink-0 transition-transform duration-300 hover:scale-[1.04]">
             <TrustpilotWidget />
           </div>
         </motion.div>
 
-        <h1 className="mt-5 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink">
+        <h1 className="mt-5 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink sm:mt-6">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
