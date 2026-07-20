@@ -30,9 +30,7 @@ export const STACK_TOOLS: StackTool[] = [
   { id: "hubspot", name: "HubSpot", slug: "hubspot", src: "/logos/hubspot.svg" },
   { id: "clay", name: "Clay", slug: "clay", src: "/logos/clay.png" },
   { id: "heyreach", name: "HeyReach", slug: "heyreach", src: "/logos/heyreach.png" },
-  { id: "apify", name: "Apify", slug: "apify", src: "/logos/apify.png" },
   { id: "n8n", name: "n8n", slug: "n8n", src: "/logos/n8n.png" },
-  { id: "appsumo", name: "AppSumo", slug: "appsumo", src: "/logos/appsumo.png" },
   { id: "dripify", name: "Dripify", slug: "dripify", src: "/logos/dripify.png" },
   { id: "lemlist", name: "lemlist", slug: "lemlist", src: "/logos/lemlist.png" },
 ]

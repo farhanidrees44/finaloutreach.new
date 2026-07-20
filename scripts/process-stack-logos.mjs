@@ -9,7 +9,6 @@ const outDir = "C:\\Users\\HP\\finaloutreach.new\\public\\logos"
 /** Single-logo assets only — skip multi-logo strips (apollo-ec3). */
 const map = [
   { match: "dripify-76f", out: "dripify.png", removeBlack: false },
-  { match: "appsumo-619", out: "appsumo.png", removeBlack: true },
   { match: "gohighlevel_svg-0fc", out: "gohighlevel.png", removeBlack: true },
   { match: "instantly-2d2", out: "instantly.png", removeBlack: false },
   { match: "lemlist_svg", out: "lemlist.png", removeBlack: false },
