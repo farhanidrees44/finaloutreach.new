@@ -15,6 +15,7 @@ import { ArrowRight, ChevronDown, Menu, X, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "./logo"
 import { SITE } from "@/lib/site-data"
+import { openCalendlyPopup } from "@/lib/calendly"
 import {
   MEGA_FREE_TOOLS,
   MEGA_INDUSTRIES,
@@ -463,8 +464,10 @@ export function SiteNavigation() {
           <div className="flex shrink-0 items-center gap-1.5">
             <a
               href={SITE.calendly}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault()
+                void openCalendlyPopup("nav")
+              }}
               className={cn(
                 "group hidden h-10 items-center justify-center rounded-full px-4 text-[14px] font-semibold text-white transition-all duration-200 active:scale-[0.98] lg:inline-flex",
                 "bg-primary hover:brightness-110",
@@ -630,16 +633,17 @@ export function SiteNavigation() {
 
               <a
                 href={SITE.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMobileOpen(false)
+                  void openCalendlyPopup("nav-mobile")
+                }}
                 className={cn(
-                  "group mt-10 inline-flex h-14 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold text-white transition-all duration-200",
+                  "group mt-10 inline-flex h-14 items-center justify-center rounded-full px-6 text-[15px] font-semibold text-white transition-all duration-200",
                   "bg-primary shadow-[0_8px_24px_-8px_oklch(0.55_0.24_295_/_0.5)] hover:brightness-110",
                 )}
               >
-                Book a strategy call
-                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                Free Consultation
               </a>
             </nav>
           </motion.div>
