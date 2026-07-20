@@ -1,11 +1,21 @@
 "use client"
 
+import { useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { FileText, Play } from "lucide-react"
 import { MagneticButton } from "./magnetic-button"
 import { HeroBackground } from "./hero-background"
 import { TrustpilotWidget } from "./trustpilot-widget"
 import { SITE } from "@/lib/site-data"
+import { WALKTHROUGH_YOUTUBE_ID } from "@/lib/seo/video"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog"
+
+const YT_AUTOPLAY = `https://www.youtube-nocookie.com/embed/${WALKTHROUGH_YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&color=white`
 
 /**
  * Centered hero — clean composition: play cue, brand, outcome headline,
@@ -13,6 +23,7 @@ import { SITE } from "@/lib/site-data"
  */
 export function Hero() {
   const reduced = useReducedMotion()
+  const [videoOpen, setVideoOpen] = useState(false)
 
   return (
     <section className="noise-bg relative isolate overflow-hidden pb-12 pt-5 sm:pb-14 sm:pt-6 md:pb-16 md:pt-7">
@@ -24,24 +35,27 @@ export function Hero() {
       />
 
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        {/* Play cue — temporary target until hero video modal ships */}
         <motion.div
           initial={reduced ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.5 }}
           className="relative mb-4 flex w-full max-w-xl flex-col items-center"
         >
-          <a
-            href="#process"
-            aria-label="See the FinalOutreach outreach process"
+          <button
+            type="button"
+            onClick={() => setVideoOpen(true)}
+            aria-label="Play FinalOutreach walkthrough video"
             className="group relative z-10 grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.4)] transition-transform duration-300 hover:scale-105 sm:size-[5rem]"
           >
             <span
               aria-hidden
               className="absolute inset-0 animate-ping rounded-full bg-vibrant-purple/15 opacity-40 [animation-duration:2.4s]"
             />
-            <Play className="relative size-6 fill-ink pl-0.5 sm:size-7" aria-hidden />
-          </a>
+            <Play
+              className="relative size-6 fill-ink pl-0.5 sm:size-7"
+              aria-hidden
+            />
+          </button>
           <svg
             aria-hidden
             viewBox="0 0 420 40"
@@ -82,7 +96,7 @@ export function Hero() {
                 repeatCount="indefinite"
                 values="
                   M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24;
-                  M12 20 C 90 32, 140 14, 210 30 S 320 26, 408 16;
+                  M12 20 C 90 32, 140 14, 210 28 S 320 26, 408 18;
                   M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24
                 "
               />
@@ -90,10 +104,10 @@ export function Hero() {
             <path
               className="hero-wave hero-wave--c"
               d="M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26"
-              stroke="oklch(0.68 0.20 35)"
+              stroke="oklch(0.72 0.14 25)"
               strokeWidth="1.8"
               strokeLinecap="round"
-              opacity="0.5"
+              opacity="0.55"
             >
               <animate
                 attributeName="d"
@@ -109,6 +123,33 @@ export function Hero() {
             </path>
           </svg>
         </motion.div>
+
+        <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+          <DialogContent
+            showCloseButton
+            className="w-[min(100%-1.5rem,56rem)] max-w-4xl gap-0 overflow-hidden border-ink-08 bg-ink p-0 shadow-[0_32px_80px_-24px_rgba(0,0,0,0.65)] sm:max-w-4xl [&_[data-slot=dialog-close]]:text-white [&_[data-slot=dialog-close]]:opacity-80 [&_[data-slot=dialog-close]]:hover:bg-white/10 [&_[data-slot=dialog-close]]:hover:opacity-100"
+          >
+            <DialogTitle className="sr-only">
+              FinalOutreach outbound walkthrough
+            </DialogTitle>
+            <DialogDescription className="sr-only">
+              Watch how FinalOutreach runs targeting, infrastructure, and
+              meeting booking for B2B teams.
+            </DialogDescription>
+            <div className="relative aspect-video w-full bg-black">
+              {videoOpen ? (
+                <iframe
+                  src={YT_AUTOPLAY}
+                  title="FinalOutreach — how we run outbound for B2B teams"
+                  className="absolute inset-0 h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              ) : null}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 8 }}
@@ -147,7 +188,7 @@ export function Hero() {
             }
             className="block"
           >
-            Operators in the tools.
+            Operators
           </motion.span>
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
@@ -155,9 +196,21 @@ export function Hero() {
             transition={
               reduced
                 ? { duration: 0 }
-                : { delay: 0.28, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+                : { delay: 0.26, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
             }
-            className="mt-1 block font-serif-italic text-electric-blue"
+            className="block"
+          >
+            in the tools.
+          </motion.span>
+          <motion.span
+            initial={reduced ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={
+              reduced
+                ? { duration: 0 }
+                : { delay: 0.34, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+            }
+            className="block font-serif-italic text-electric-blue"
           >
             Meetings on your calendar.
           </motion.span>
