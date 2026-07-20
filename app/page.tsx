@@ -77,8 +77,6 @@ export default function HomePage() {
           <main id="main">
             <Hero />
             <OurStackMarquee />
-            {/* Credentials early — strongest verifiable differentiator */}
-            <Certifications />
             <ProcessSection />
             <CampaignProofGallery />
             {/* Proof pair — screenshots + honest named-case stance stay together */}
@@ -94,6 +92,7 @@ export default function HomePage() {
             <Testimonials />
             <Faq />
             <Pricing />
+            <Certifications />
             <FinalCta />
           </main>
           <Footer />
