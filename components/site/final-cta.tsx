@@ -77,7 +77,7 @@ export function FinalCta() {
               for your business — even if you don&apos;t hire us.
             </p>
 
-            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <div className="mt-10 flex w-full max-w-xl flex-col items-start gap-3">
               <a
                 href={SITE.calendly}
                 target="_blank"
@@ -90,6 +90,18 @@ export function FinalCta() {
               <p className="text-[13px] text-white/50">
                 No sales pitch. No pressure. Just clarity.
               </p>
+              <div className="mt-3 w-full sm:mt-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/review-badges-strip.png"
+                  alt="G2 High Performer, G2 4.9, Capterra 4.7, GetApp 4.7, and Clutch 5.0 ratings"
+                  width={992}
+                  height={179}
+                  className="h-auto w-full max-w-full object-contain object-left"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
           </motion.div>
 
