@@ -471,7 +471,7 @@ export function SiteNavigation() {
                 "shadow-[0_4px_16px_-4px_oklch(0.55_0.24_295_/_0.4)]",
               )}
             >
-              Free Consultation
+              Book a call
               <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </a>
             <button
