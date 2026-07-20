@@ -3,7 +3,7 @@ import { SiteNavigation } from "@/components/site/site-navigation"
 import { Hero } from "@/components/site/hero"
 import { OurStackMarquee } from "@/components/site/our-stack-marquee"
 import { Certifications } from "@/components/site/certifications"
-import { VideoSection } from "@/components/site/video-section"
+import { ProcessSection } from "@/components/site/process-section"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
 import { BookingsProof } from "@/components/site/bookings-proof"
 import { ResultsBar } from "@/components/site/results-bar"
@@ -79,7 +79,7 @@ export default function HomePage() {
             <OurStackMarquee />
             {/* Credentials early — strongest verifiable differentiator */}
             <Certifications />
-            <VideoSection />
+            <ProcessSection />
             <CampaignProofGallery />
             {/* Proof pair — screenshots + honest named-case stance stay together */}
             <LiveCampaignInvite />

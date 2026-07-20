@@ -24,7 +24,7 @@ export function Hero() {
       />
 
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        {/* Play cue + decorative wave — scrolls to walkthrough */}
+        {/* Play cue — temporary target until hero video modal ships */}
         <motion.div
           initial={reduced ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -32,8 +32,8 @@ export function Hero() {
           className="relative mb-4 flex w-full max-w-xl flex-col items-center"
         >
           <a
-            href="#watch"
-            aria-label="Watch how FinalOutreach runs outbound"
+            href="#process"
+            aria-label="See the FinalOutreach outreach process"
             className="group relative z-10 grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.4)] transition-transform duration-300 hover:scale-105 sm:size-[5rem]"
           >
             <span
