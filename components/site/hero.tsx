@@ -1,40 +1,51 @@
 "use client"
 
 import { motion, useReducedMotion } from "framer-motion"
-import { FileText, Play } from "lucide-react"
+import { Check, FileText, Play } from "lucide-react"
 import { MagneticButton } from "./magnetic-button"
 import { HeroBackground } from "./hero-background"
+import { HeroWave } from "./hero-wave"
 import { TrustpilotWidget } from "./trustpilot-widget"
 import { SITE } from "@/lib/site-data"
 
 /**
- * Centered hero — clean composition: play cue, brand, outcome headline,
- * one supporting line, one CTA, honest trust line. No fabricated client counts.
+ * Phrases pulled from existing hero / services copy — no new claims.
+ */
+const TRUST_LINES = [
+  "Done-for-you cold email",
+  "Real infrastructure",
+  "Meetings on your calendar",
+] as const
+
+/**
+ * Centered hero — visual refinement only: pill eyebrow, Trustpilot,
+ * headline + ambient waves, existing copy/CTA, micro-trust checks.
+ * No fabricated stats, logos, or review scores.
  */
 export function Hero() {
   const reduced = useReducedMotion()
 
   return (
-    <section className="noise-bg relative isolate overflow-hidden pb-12 pt-5 sm:pb-14 sm:pt-6 md:pb-16 md:pt-7">
+    <section className="noise-bg relative isolate overflow-hidden pb-14 pt-5 sm:pb-16 sm:pt-6 md:pb-20 md:pt-7">
       <HeroBackground />
 
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-[640px] grid-lines opacity-25 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
+        className="absolute inset-x-0 top-0 -z-10 h-[640px] grid-lines opacity-20 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]"
       />
 
       <div className="mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        {/* Play cue + decorative wave — scrolls to walkthrough */}
+        {/* Play cue — real walkthrough link; waves moved under headline */}
         <motion.div
           initial={reduced ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.5 }}
-          className="relative mb-4 flex w-full max-w-xl flex-col items-center"
+          className="relative mb-5 flex w-full max-w-xl flex-col items-center"
         >
           <a
             href="#watch"
             aria-label="Watch how FinalOutreach runs outbound"
-            className="group relative z-10 grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.4)] transition-transform duration-300 hover:scale-105 sm:size-[5rem]"
+            className="group relative z-10 grid size-[4.25rem] place-items-center rounded-full border border-ink-08 bg-background/90 text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.35)] backdrop-blur-sm transition-transform duration-300 hover:scale-105 sm:size-[4.75rem]"
           >
             <span
               aria-hidden
@@ -42,72 +53,6 @@ export function Hero() {
             />
             <Play className="relative size-6 fill-ink pl-0.5 sm:size-7" aria-hidden />
           </a>
-          <svg
-            aria-hidden
-            viewBox="0 0 420 40"
-            className="pointer-events-none -mt-2 h-10 w-full max-w-[440px] overflow-visible"
-            fill="none"
-          >
-            <path
-              className="hero-wave hero-wave--a"
-              d="M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20"
-              stroke="oklch(0.62 0.18 250)"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              opacity="0.6"
-            >
-              <animate
-                attributeName="d"
-                dur="2.8s"
-                repeatCount="indefinite"
-                values="
-                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20;
-                  M8 18 C 70 28, 120 10, 180 26 S 300 22, 412 14;
-                  M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20
-                "
-              />
-            </path>
-            <path
-              className="hero-wave hero-wave--b"
-              d="M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24"
-              stroke="oklch(0.55 0.24 295)"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              opacity="0.75"
-            >
-              <animate
-                attributeName="d"
-                dur="3.4s"
-                begin="-0.8s"
-                repeatCount="indefinite"
-                values="
-                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24;
-                  M12 20 C 90 32, 140 14, 210 30 S 320 26, 408 16;
-                  M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24
-                "
-              />
-            </path>
-            <path
-              className="hero-wave hero-wave--c"
-              d="M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26"
-              stroke="oklch(0.68 0.20 35)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              opacity="0.5"
-            >
-              <animate
-                attributeName="d"
-                dur="4s"
-                begin="-1.5s"
-                repeatCount="indefinite"
-                values="
-                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26;
-                  M20 22 C 100 30, 160 16, 230 28 S 340 24, 400 18;
-                  M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26
-                "
-              />
-            </path>
-          </svg>
         </motion.div>
 
         <motion.div
@@ -116,11 +61,8 @@ export function Hero() {
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08 }}
           className="flex flex-col items-center"
         >
-          <p className="text-[13px] font-bold uppercase tracking-[0.22em] text-vibrant-purple">
+          <p className="inline-flex items-center rounded-full border border-vibrant-purple/20 bg-vibrant-purple/[0.06] px-4 py-1.5 text-[11.5px] font-bold uppercase tracking-[0.2em] text-vibrant-purple sm:text-[12px] sm:tracking-[0.22em]">
             B2B Cold Outreach Agency
-          </p>
-          <p className="mt-2 text-[15px] font-bold tracking-tight text-ink">
-            {SITE.name}
           </p>
         </motion.div>
 
@@ -163,6 +105,15 @@ export function Hero() {
           </motion.span>
         </h1>
 
+        <motion.div
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.36 }}
+          className="w-full"
+        >
+          <HeroWave />
+        </motion.div>
+
         <motion.p
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -180,14 +131,33 @@ export function Hero() {
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.52 }}
-          className="mt-8 flex flex-col items-center gap-4"
+          className="mt-8 flex flex-col items-center gap-5"
         >
-          <MagneticButton href={SITE.calendly} size="lg" variant="primary">
+          <MagneticButton
+            href={SITE.calendly}
+            size="lg"
+            variant="primary"
+            className="h-14 px-9 shadow-[var(--shadow-glow-purple)] transition-[box-shadow,transform] duration-300 hover:shadow-[0_20px_56px_-14px_oklch(0.48_0.24_295_/_0.55)] [background-image:linear-gradient(120deg,oklch(0.48_0.24_295),oklch(0.52_0.22_250)_48%,oklch(0.44_0.20_270))] hover:[background-image:linear-gradient(120deg,oklch(0.44_0.24_295),oklch(0.48_0.22_250)_48%,oklch(0.40_0.20_270))]"
+          >
             <span className="inline-flex items-center gap-2">
               <FileText className="size-4 opacity-90" aria-hidden />
               Get Your Custom Growth Blueprint
             </span>
           </MagneticButton>
+
+          <ul className="flex max-w-xl flex-col items-stretch gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-5 sm:gap-y-2">
+            {TRUST_LINES.map((line) => (
+              <li
+                key={line}
+                className="inline-flex items-center justify-center gap-2 text-[13px] font-semibold text-ink-60"
+              >
+                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-emerald/[0.12] text-emerald">
+                  <Check className="size-3 stroke-[2.5]" aria-hidden />
+                </span>
+                {line}
+              </li>
+            ))}
+          </ul>
 
           <p className="max-w-md text-[13px] font-medium leading-relaxed text-ink-60">
             Book a strategy call — see the live dashboard yourself. We&apos;ll
