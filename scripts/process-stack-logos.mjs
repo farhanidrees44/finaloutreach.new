@@ -6,12 +6,14 @@ const assetDir =
   "C:\\Users\\HP\\.cursor\\projects\\c-Users-HP-finaloutreach-new\\assets"
 const outDir = "C:\\Users\\HP\\finaloutreach.new\\public\\logos"
 
+/** Single-logo assets only — skip multi-logo strips (apollo-ec3). */
 const map = [
-  { match: "apify-ad0", out: "apify.png", removeBlack: true },
-  { match: "highlevel-429", out: "gohighlevel.png", removeBlack: true },
-  { match: "appsumo-87d", out: "appsumo.png", removeBlack: true },
-  { match: "instantly-a4e", out: "instantly.png", removeBlack: false },
-  { match: "n8n-1ece", out: "n8n.png", removeBlack: true },
+  { match: "dripify-76f", out: "dripify.png", removeBlack: false },
+  { match: "appsumo-619", out: "appsumo.png", removeBlack: true },
+  { match: "gohighlevel_svg-0fc", out: "gohighlevel.png", removeBlack: true },
+  { match: "instantly-2d2", out: "instantly.png", removeBlack: false },
+  { match: "lemlist_svg", out: "lemlist.png", removeBlack: false },
+  { match: "n8n-4af", out: "n8n.png", removeBlack: true },
 ]
 
 function findAsset(match) {
@@ -31,7 +33,6 @@ async function knockOutDarkBg(inputPath) {
     const max = Math.max(r, g, b)
     const min = Math.min(r, g, b)
     const sat = max - min
-    // Dark / near-black flat background → transparent
     if (max <= 40 && sat < 18) {
       data[i + 3] = 0
     } else if (max <= 55 && sat < 14) {
@@ -79,13 +80,6 @@ async function processLogo({ match, out, removeBlack }) {
     .toFile(path.join(outDir, out))
 
   console.log("wrote", out)
-}
-
-// Remove mistaken multi-logo strip saved as apollo.png
-const badApollo = path.join(outDir, "apollo.png")
-if (fs.existsSync(badApollo)) {
-  fs.unlinkSync(badApollo)
-  console.log("removed bad apollo.png (multi-logo strip)")
 }
 
 for (const item of map) {
