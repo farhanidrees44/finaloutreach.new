@@ -1,15 +1,21 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { Breadcrumbs, PageCta, PageHeader, PageShell } from "@/components/site/page-shell"
+import { PageShell } from "@/components/site/page-shell"
 import { RelatedLinks } from "@/components/site/related-links"
-import { INDUSTRIES, CASE_STUDIES, SERVICES, SITE } from "@/lib/site-data"
+import { JsonLd } from "@/components/seo/json-ld"
+import { breadcrumbsSchema, faqSchema, serviceSchema } from "@/lib/seo/schemas"
+import { SITE } from "@/lib/site-data"
+import {
+  INDUSTRY_PAGE_PROFILES,
+  getIndustryPage,
+} from "@/lib/pseo/industry-pages"
+import { CtaButton } from "@/components/site/cta-button"
 
 type Params = { slug: string }
 
 export function generateStaticParams() {
-  return INDUSTRIES.map((i) => ({ slug: i.slug }))
+  return INDUSTRY_PAGE_PROFILES.map((i) => ({ slug: i.slug }))
 }
 
 export async function generateMetadata({
@@ -18,16 +24,17 @@ export async function generateMetadata({
   params: Promise<Params>
 }): Promise<Metadata> {
   const { slug } = await params
-  const ind = INDUSTRIES.find((i) => i.slug === slug)
-  if (!ind) return {}
+  const ind = getIndustryPage(slug)
+  if (!ind) return { title: "Industry not found" }
   return {
-    title: `Cold email and lead generation for ${ind.nameLower}`,
-    description: ind.headline,
+    title: ind.metaTitle,
+    description: ind.metaDescription,
     alternates: { canonical: `/industries/${ind.slug}` },
     openGraph: {
-      title: `Outbound for ${ind.name} — ${SITE.name}`,
+      title: ind.metaTitle,
+      description: ind.metaDescription,
       url: `${SITE.domain}/industries/${ind.slug}`,
-      description: ind.headline,
+      type: "website",
     },
   }
 }
@@ -38,144 +45,200 @@ export default async function IndustryPage({
   params: Promise<Params>
 }) {
   const { slug } = await params
-  const ind = INDUSTRIES.find((i) => i.slug === slug)
+  const ind = getIndustryPage(slug)
   if (!ind) notFound()
 
-  const crumbs = [
-    { name: "Home", href: "/" },
-    { name: "Industries", href: "/industries" },
-    { name: ind.name, href: `/industries/${ind.slug}` },
-  ]
-  const matchingCase = CASE_STUDIES.find(
-    (c) => c.industry.toLowerCase().includes(ind.name.toLowerCase().split(" ")[0]),
-  )
+  const others = INDUSTRY_PAGE_PROFILES.filter((i) => i.slug !== ind.slug)
 
   return (
-    <PageShell breadcrumbs={crumbs}>
-      <Breadcrumbs items={crumbs} />
-      <PageHeader
-        eyebrow={`Industry · ${ind.name}`}
-        title={ind.headline}
-        italicize="grow"
-        description={`Outbound for ${ind.nameLower} that respects how your buyers actually buy.`}
+    <PageShell
+      eyebrow={`Industry · ${ind.name}`}
+      title={ind.headline}
+      description={ind.verdict}
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Industries", href: "/industries" },
+        { label: ind.name },
+      ]}
+    >
+      <JsonLd
+        data={[
+          breadcrumbsSchema([
+            { name: "Home", url: SITE.domain },
+            { name: "Industries", url: `${SITE.domain}/industries` },
+            {
+              name: ind.name,
+              url: `${SITE.domain}/industries/${ind.slug}`,
+            },
+          ]),
+          serviceSchema({
+            name: `Lead generation for ${ind.nameLower}`,
+            description: ind.metaDescription,
+            slug: `/industries/${ind.slug}`,
+          }),
+          faqSchema(ind.faqs.map((f) => ({ question: f.q, answer: f.a }))),
+        ]}
       />
 
-      <section className="border-t border-ink-08">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-16 md:py-24 lg:grid-cols-[1.2fr_1fr]">
-          <div className="flex flex-col gap-12">
-            <div>
-              <h2 className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
-                Pain points
-              </h2>
-              <ul className="mt-5 flex flex-col gap-3">
-                {ind.painPoints.map((p) => (
-                  <li
-                    key={p}
-                    className="flex items-start gap-3 rounded-xl border border-ink-08 bg-card p-4 text-[15px] leading-[1.55] text-ink"
-                  >
-                    <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-[oklch(0.55_0.13_78)]" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <p className="mb-4 text-[13px] font-medium text-ink-40">
+        Last reviewed {ind.lastReviewed}
+      </p>
+      <p className="mb-12 max-w-3xl text-[16px] font-medium leading-[1.7] text-ink-60">
+        {ind.intro}
+      </p>
 
-            <div>
-              <h2 className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
-                Our approach
-              </h2>
-              <p className="mt-5 text-[17px] leading-[1.7] text-ink">
-                {ind.approach}
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
-                What that looks like in practice
-              </h2>
-              <p className="mt-5 text-[16px] leading-[1.7] text-ink-60">
-                For {ind.nameLower} we typically run a 2- or 3-channel
-                sequence anchored to industry-specific triggers — funding,
-                hiring, product launches — and pair it with a senior-voice
-                copy approach. Our reply-handling SDR is briefed on your
-                category before any first send goes out.
-              </p>
-            </div>
+      <section className="mb-16 grid gap-5 lg:grid-cols-[1.35fr_0.9fr]">
+        <div className="space-y-10">
+          <div>
+            <h2 className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+              Where {ind.nameLower} get stuck
+            </h2>
+            <ul className="mt-5 space-y-3">
+              {ind.painPoints.map((p) => (
+                <li
+                  key={p}
+                  className="flex gap-3 rounded-2xl border border-ink-08 bg-card p-4 text-[15px] font-medium leading-[1.55] text-ink"
+                >
+                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-electric-blue" />
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <aside className="flex h-fit flex-col gap-6 rounded-2xl border border-ink-08 bg-cream p-7 sm:sticky sm:top-28">
-            <span className="text-[11px] uppercase tracking-[0.18em] text-ink-40">
-              Industry headline
-            </span>
-            <p className="text-[56px] font-bold leading-none tabular tracking-tight">
-              {ind.metric.value}
+          <div>
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+              How we approach {ind.nameLower}
+            </h2>
+            <p className="mt-4 max-w-2xl text-[16px] font-medium leading-[1.7] text-ink-60">
+              {ind.approach}
             </p>
-            <p className="text-[13px] leading-[1.5] text-ink">
-              {ind.metric.label}
+          </div>
+        </div>
+
+        <aside className="h-fit rounded-3xl border border-ink-08 bg-cream/60 p-7 lg:sticky lg:top-28">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+            Focus
+          </p>
+          <p className="mt-3 text-[40px] font-extrabold leading-none tracking-tight text-ink">
+            {ind.focus.value}
+          </p>
+          <p className="mt-3 text-[14px] font-medium leading-[1.55] text-ink-60">
+            {ind.focus.label}
+          </p>
+          <div className="my-6 h-px bg-ink-08" />
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+            Buying signals we watch
+          </p>
+          <ul className="mt-3 space-y-2">
+            {ind.buyingSignals.map((s) => (
+              <li
+                key={s}
+                className="text-[13.5px] font-medium leading-[1.5] text-ink-60"
+              >
+                {s}
+              </li>
+            ))}
+          </ul>
+          <CtaButton href={SITE.calendly} className="mt-7 w-full">
+            Book a call about {ind.name}
+          </CtaButton>
+        </aside>
+      </section>
+
+      <section className="mb-16 space-y-5">
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+          The {ind.name} outbound playbook
+        </h2>
+        {ind.playbook.map((block) => (
+          <article
+            key={block.heading}
+            className="rounded-3xl border border-ink-08 bg-card p-7 shadow-[0_12px_40px_-24px_rgba(15,15,15,0.18)]"
+          >
+            <h3 className="text-[17px] font-bold tracking-tight text-ink">
+              {block.heading}
+            </h3>
+            <p className="mt-3 text-[15px] font-medium leading-[1.7] text-ink-60">
+              {block.body}
             </p>
-            <div className="h-px bg-ink-08" />
-            <p className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
-              Featured client
-            </p>
-            <p className="text-[18px] font-bold tracking-tight text-ink">
-              {ind.exampleClient}
-            </p>
-            <a
-              href={SITE.calendly}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 text-[14px] font-medium text-primary-foreground transition-all hover:bg-primary/90"
+          </article>
+        ))}
+      </section>
+
+      <section className="mb-16 rounded-3xl border border-ink-08 bg-card p-7">
+        <h2 className="text-[18px] font-extrabold tracking-tight text-ink">
+          What we will not do in {ind.name.toLowerCase()}
+        </h2>
+        <ul className="mt-4 space-y-3">
+          {ind.whatWeWontDo.map((item) => (
+            <li
+              key={item}
+              className="flex gap-2.5 text-[14.5px] font-medium leading-[1.55] text-ink-60"
             >
-              Book a call about {ind.name}
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
-          </aside>
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-ink-20" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mb-16">
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+          FAQ — outbound for {ind.nameLower}
+        </h2>
+        <ul className="mt-8 divide-y divide-ink-08 border-y border-ink-08">
+          {ind.faqs.map((f) => (
+            <li key={f.q} className="py-6">
+              <h3 className="text-[17px] font-bold text-ink">{f.q}</h3>
+              <p className="mt-2 max-w-3xl text-[15px] leading-[1.7] text-ink-60">
+                {f.a}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mb-16 rounded-3xl border border-ink-08 bg-cream/50 p-8 text-center md:p-12">
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+          Want a 90-day outbound plan for {ind.nameLower}?
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[15px] font-semibold leading-[1.65] text-ink-60">
+          Book a strategy call. We will map ICP, infrastructure, and meeting
+          targets honestly — including where DIY tools are enough. See{" "}
+          <Link
+            href="/results"
+            className="font-bold text-ink underline decoration-electric-blue/40 underline-offset-2"
+          >
+            live proof
+          </Link>{" "}
+          for metrics we can publish.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <CtaButton href={SITE.calendly}>Book a strategy call</CtaButton>
+          {ind.relatedColdEmailFor ? (
+            <Link
+              href={`/cold-email-for/${ind.relatedColdEmailFor}`}
+              className="inline-flex h-12 items-center rounded-full border border-ink-08 px-6 text-[14.5px] font-semibold text-ink transition-colors hover:border-ink/30"
+            >
+              Cold email playbook
+            </Link>
+          ) : (
+            <Link
+              href="/services/cold-email"
+              className="inline-flex h-12 items-center rounded-full border border-ink-08 px-6 text-[14.5px] font-semibold text-ink transition-colors hover:border-ink/30"
+            >
+              Cold email service
+            </Link>
+          )}
         </div>
       </section>
 
-      {matchingCase && (
-        <section className="border-t border-ink-08 bg-cream">
-          <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
-            <span className="text-[12px] uppercase tracking-[0.18em] text-ink-40">
-              Case study from this industry
-            </span>
-            <Link
-              href="/results"
-              className="group mt-6 flex flex-col gap-6 rounded-2xl border border-ink-08 bg-background p-8 transition-all hover:-translate-y-0.5 hover:border-ink/25 sm:p-10"
-            >
-              <h3 className="text-balance text-[28px] font-bold leading-[1.1] tracking-tight text-ink sm:text-[36px]">
-                {matchingCase.headline}
-              </h3>
-              <div className="grid grid-cols-3 gap-4">
-                {matchingCase.metrics.map((m) => (
-                  <div key={m.l} className="flex flex-col gap-1">
-                    <span className="text-[28px] font-bold leading-none tabular tracking-tight">
-                      {m.v}
-                    </span>
-                    <span className="text-[10.5px] uppercase tracking-[0.14em] text-ink-40">
-                      {m.l}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <span className="mt-2 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-ink">
-                <span className="border-b border-ink/30 pb-0.5 transition-colors group-hover:border-ink">
-                  Read full case study
-                </span>
-                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-          </div>
-        </section>
-      )}
-
-      <PageCta />
       <RelatedLinks
         title="Other industries"
-        items={INDUSTRIES.filter((i) => i.slug !== ind.slug).map((i) => ({
+        links={others.map((i) => ({
           href: `/industries/${i.slug}`,
           label: i.name,
-          meta: i.metric.value + " · " + i.metric.label,
+          description: i.verdict,
         }))}
       />
     </PageShell>

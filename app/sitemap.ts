@@ -2,7 +2,6 @@ import type { MetadataRoute } from "next"
 import {
   SITE,
   SERVICES,
-  INDUSTRIES,
   BLOG_POSTS,
 } from "@/lib/site-data"
 import { RICH_INDUSTRIES } from "@/lib/industries-data"
@@ -11,6 +10,7 @@ import { TOOLS } from "@/lib/tools-data"
 import { COMPETITOR_PROFILES } from "@/lib/pseo/competitors"
 import { TOOL_ALTERNATIVE_PROFILES } from "@/lib/pseo/tools"
 import { CITY_PROFILES } from "@/lib/pseo/cities"
+import { INDUSTRY_PAGE_PROFILES } from "@/lib/pseo/industry-pages"
 import { getIndexedBlogCategories } from "@/lib/blog-categories"
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -53,11 +53,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }))
-  const industryRoutes = INDUSTRIES.map((i) => ({
+  const industryRoutes = INDUSTRY_PAGE_PROFILES.map((i) => ({
     url: `${base}/industries/${i.slug}`,
-    lastModified: now,
+    lastModified: new Date(i.lastReviewed),
     changeFrequency: "monthly" as const,
-    priority: 0.7,
+    priority: 0.75,
   }))
   const blogRoutes = BLOG_POSTS.map((p) => ({
     url: `${base}/blog/${p.slug}`,

@@ -10,6 +10,7 @@ import { Logo } from "./logo"
 import { NewsletterForm } from "./newsletter-form"
 import { SITE } from "@/lib/site-data"
 import { CERTIFICATIONS } from "@/data/certifications"
+import { INDUSTRY_PAGE_PROFILES } from "@/lib/pseo/industry-pages"
 
 type FooterLink = { label: string; href: string }
 
@@ -28,11 +29,10 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: "Industries",
     links: [
-      { label: "B2B SaaS", href: "/industries/saas" },
-      { label: "Marketing agencies", href: "/industries/agencies" },
-      { label: "Consulting firms", href: "/industries/consulting" },
-      { label: "Fintech", href: "/industries/fintech" },
-      { label: "Healthtech", href: "/industries/healthtech" },
+      ...INDUSTRY_PAGE_PROFILES.map((i) => ({
+        label: i.navTitle,
+        href: `/industries/${i.slug}`,
+      })),
       { label: "View all →", href: "/industries" },
     ],
   },

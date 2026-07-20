@@ -25,7 +25,11 @@ import {
   Images,
   Scale,
   LayoutDashboard,
+  Handshake,
+  Factory,
+  Building,
 } from "lucide-react"
+import { INDUSTRY_PAGE_PROFILES } from "@/lib/pseo/industry-pages"
 
 export type MegaLink = {
   href: string
@@ -84,38 +88,38 @@ export const MEGA_SERVICES: MegaLink[] = [
   },
 ]
 
-export const MEGA_INDUSTRIES: MegaLink[] = [
-  {
-    href: "/industries/saas",
-    title: "B2B SaaS",
-    subtitle: "Pipeline for teams racing the next funding milestone.",
-    icon: LineChart,
-  },
-  {
-    href: "/industries/agencies",
-    title: "Marketing agencies",
-    subtitle: "Retainer growth without hiring another biz-dev lead.",
-    icon: Briefcase,
-  },
-  {
-    href: "/industries/consulting",
-    title: "Consulting firms",
-    subtitle: "Senior-voice outreach to decision-makers, not gatekeepers.",
-    icon: Building2,
-  },
-  {
-    href: "/industries/fintech",
-    title: "Fintech",
-    subtitle: "Compliance-friendly outbound for trust-first buyers.",
-    icon: Landmark,
-  },
-  {
-    href: "/industries/healthtech",
-    title: "Healthtech",
-    subtitle: "Pilot-first sequences for provider and payer committees.",
-    icon: HeartPulse,
-  },
-]
+/** Keep in sync with INDUSTRY_PAGE_PROFILES — every published industry must appear here. */
+const INDUSTRY_ICONS: Record<string, LucideIcon> = {
+  saas: LineChart,
+  agencies: Briefcase,
+  consulting: Building2,
+  fintech: Landmark,
+  healthtech: HeartPulse,
+  "b2b-services": Handshake,
+  manufacturing: Factory,
+  "real-estate": Building,
+}
+
+export const MEGA_INDUSTRIES: MegaLink[] = INDUSTRY_PAGE_PROFILES.map((p) => {
+  const icon = INDUSTRY_ICONS[p.slug]
+  if (!icon) {
+    throw new Error(
+      `Missing mega-nav icon for industry "${p.slug}". Add it to INDUSTRY_ICONS in data/nav-mega.ts.`,
+    )
+  }
+  return {
+    href: `/industries/${p.slug}`,
+    title: p.navTitle,
+    subtitle: p.navSubtitle,
+    icon,
+  }
+})
+
+if (MEGA_INDUSTRIES.length !== INDUSTRY_PAGE_PROFILES.length) {
+  throw new Error(
+    "MEGA_INDUSTRIES is out of sync with INDUSTRY_PAGE_PROFILES — every industry page must appear in the mega-nav.",
+  )
+}
 
 /** Live free tools at /tools — Tools nav panel only (not vendor stack). */
 export const MEGA_FREE_TOOLS: MegaTool[] = [

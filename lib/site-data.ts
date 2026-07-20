@@ -10,6 +10,7 @@ import {
   BODY_FOLLOWUP as RICH_FOLLOWUP,
   BODY_METRICS as RICH_METRICS,
 } from "./blog-bodies"
+import { INDUSTRY_PAGE_PROFILES } from "@/lib/pseo/industry-pages"
 
 export const SITE = {
   name: "FinalOutreach",
@@ -173,128 +174,17 @@ export type Industry = {
   exampleClient: string
 }
 
-export const INDUSTRIES: Industry[] = [
-  {
-    slug: "saas",
-    name: "B2B SaaS",
-    nameLower: "B2B SaaS companies",
-    headline: "Pipeline for SaaS teams that need to beat the next funding milestone.",
-    painPoints: [
-      "CAC is climbing faster than ARR",
-      "Paid channels saturated — outbound is the new moat",
-      "SDR ramp is 6 months, you have 3",
-    ],
-    approach:
-      "We build ICP lists by tech stack, funding round, and hiring signals, then run a 3-channel sequence across email, LinkedIn, and targeted ads.",
-    metric: { value: "$2.1M", label: "Pipeline in 90 days for a Series A AI company" },
-    exampleClient: "Series A AI SaaS",
-  },
-  {
-    slug: "agencies",
-    name: "Marketing agencies",
-    nameLower: "marketing agencies",
-    headline: "Retainer growth without hiring another biz-dev lead.",
-    painPoints: [
-      "Referrals are unpredictable",
-      "Cold email tools burn your reputation",
-      "Your agency sells growth — your own funnel should prove it",
-    ],
-    approach:
-      "Positioning-first outreach targeting ops and growth leads at companies that just raised or hired a new CMO.",
-    metric: { value: "47", label: "Qualified calls per month for a 12-person agency" },
-    exampleClient: "12-person marketing agency",
-  },
-  {
-    slug: "consulting",
-    name: "Consulting firms",
-    nameLower: "consulting firms",
-    headline: "Senior-level conversations with decision-makers, not gatekeepers.",
-    painPoints: [
-      "Long sales cycles need steady top-of-funnel",
-      "Partners do not have time to prospect",
-      "Cold email sounds 'spammy' — yours cannot",
-    ],
-    approach:
-      "Senior-voice copy, tight ICP, and LinkedIn-first outreach to decision-makers at companies hitting our trigger criteria.",
-    metric: { value: "$180K", label: "Saved vs hiring two internal SDRs" },
-    exampleClient: "Mid-market consulting firm",
-  },
-  {
-    slug: "fintech",
-    name: "Fintech",
-    nameLower: "fintech companies",
-    headline: "Trust-first outbound for a trust-first industry.",
-    painPoints: [
-      "Compliance blocks half of the tools agencies use",
-      "Buyers only trust peer recommendations",
-      "Security reviews kill your sales cycle",
-    ],
-    approach:
-      "Compliance-friendly infrastructure, proof-led copy, and referrals engineered through peer-company targeting.",
-    metric: { value: "11x", label: "Pipeline ROI for a Series B fintech" },
-    exampleClient: "Series B fintech",
-  },
-  {
-    slug: "healthtech",
-    name: "Healthtech",
-    nameLower: "healthtech startups",
-    headline: "Reach provider and payer buyers without HIPAA headaches.",
-    painPoints: [
-      "Long procurement cycles with clinical buyers",
-      "Generic cold email gets flagged as risk",
-      "You need pilots, not just intros",
-    ],
-    approach:
-      "Clinical-voice copy, buying-committee mapping, and a pilot-first CTA that works for hospital systems.",
-    metric: { value: "14", label: "Health-system pilots in 6 months" },
-    exampleClient: "Series A healthtech",
-  },
-  {
-    slug: "b2b-services",
-    name: "B2B services",
-    nameLower: "B2B service providers",
-    headline: "Predictable pipeline for firms that sell retainers or projects.",
-    painPoints: [
-      "Client work leaves zero time for business development",
-      "Word of mouth plateaus around $2M ARR",
-      "Retainer churn needs a steady replacement pipeline",
-    ],
-    approach:
-      "A 2-channel outbound engine that runs every week, whether you are slammed with client work or not.",
-    metric: { value: "22", label: "Meetings per month, every month, for 18 months" },
-    exampleClient: "B2B services firm",
-  },
-  {
-    slug: "manufacturing",
-    name: "Manufacturing",
-    nameLower: "manufacturing companies",
-    headline: "Digital outbound for an industry that still runs on relationships.",
-    painPoints: [
-      "Trade shows are not enough anymore",
-      "Your best buyers are not on LinkedIn all day",
-      "Long cycles need an always-on pipeline",
-    ],
-    approach:
-      "Account-based outreach to plant managers and procurement leads, with offline follow-up orchestrated through your reps.",
-    metric: { value: "6", label: "Net-new enterprise accounts in year one" },
-    exampleClient: "Industrial manufacturing OEM",
-  },
-  {
-    slug: "real-estate",
-    name: "Commercial real estate",
-    nameLower: "commercial real estate firms",
-    headline: "Sourcing deal flow with outbound, not cold calls.",
-    painPoints: [
-      "Broker lists are stale the day you buy them",
-      "Your team bills hours, not prospecting time",
-      "Regional shifts change your ICP quarterly",
-    ],
-    approach:
-      "Real-time trigger-based targeting (funding, hiring, relocation) paired with a broker-voice sequence.",
-    metric: { value: "$48M", label: "Deal volume attributed to our campaigns" },
-    exampleClient: "Regional CRE firm",
-  },
-]
+/** Derived from INDUSTRY_PAGE_PROFILES — single source of truth with mega-nav. */
+export const INDUSTRIES: Industry[] = INDUSTRY_PAGE_PROFILES.map((p) => ({
+  slug: p.slug,
+  name: p.name,
+  nameLower: p.nameLower,
+  headline: p.headline,
+  painPoints: p.painPoints,
+  approach: p.approach,
+  metric: p.focus,
+  exampleClient: p.navSubtitle,
+}))
 
 export type CaseStudy = {
   slug: string
