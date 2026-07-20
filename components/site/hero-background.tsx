@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react"
 
 /**
- * Soft lavender→white editorial mesh behind the hero.
- * Static wash always on (legibility-safe). Animated blobs only on desktop
- * when motion is allowed.
+ * Subtle animated mesh background for the Hero section.
+ *
+ * Two soft, blurred SVG blobs (emerald + gold) drift very slowly using
+ * pure CSS keyframes — no per-frame JS work. Disabled on mobile (≤768px)
+ * to save battery and on `prefers-reduced-motion`.
  */
 export function HeroBackground() {
   const [enabled, setEnabled] = useState(false)
@@ -28,62 +30,76 @@ export function HeroBackground() {
     }
   }, [])
 
+  if (!enabled) return null
+
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
     >
-      {/* Always-on soft wash — lavender to cream/white, low contrast */}
-      <div className="hero-soft-wash absolute inset-0" />
+      {/* Emerald drifting blob (top-left) */}
+      <svg
+        className="blob-drift-a absolute -left-[15%] -top-[10%] h-[60%] w-[60%] opacity-[0.12]"
+        viewBox="0 0 600 600"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <radialGradient id="hero-emerald" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="oklch(0.36 0.077 162)" />
+            <stop offset="100%" stopColor="oklch(0.36 0.077 162 / 0)" />
+          </radialGradient>
+        </defs>
+        <circle cx="300" cy="300" r="280" fill="url(#hero-emerald)" />
+      </svg>
 
-      {enabled && (
-        <>
-          <svg
-            className="blob-drift-a absolute -left-[18%] -top-[12%] h-[58%] w-[58%] opacity-[0.14]"
-            viewBox="0 0 600 600"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <radialGradient id="hero-lavender" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="oklch(0.72 0.08 295)" />
-                <stop offset="100%" stopColor="oklch(0.72 0.08 295 / 0)" />
-              </radialGradient>
-            </defs>
-            <circle cx="300" cy="300" r="280" fill="url(#hero-lavender)" />
-          </svg>
+      {/* Gold drifting blob (bottom-right) */}
+      <svg
+        className="blob-drift-b absolute -bottom-[20%] -right-[15%] h-[55%] w-[55%] opacity-[0.10]"
+        viewBox="0 0 600 600"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <radialGradient id="hero-gold" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="oklch(0.756 0.131 86)" />
+            <stop offset="100%" stopColor="oklch(0.756 0.131 86 / 0)" />
+          </radialGradient>
+        </defs>
+        <circle cx="300" cy="300" r="280" fill="url(#hero-gold)" />
+      </svg>
 
-          <svg
-            className="blob-drift-b absolute -right-[12%] top-[8%] h-[48%] w-[48%] opacity-[0.10]"
-            viewBox="0 0 600 600"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <radialGradient id="hero-soft-blue" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="oklch(0.78 0.07 250)" />
-                <stop offset="100%" stopColor="oklch(0.78 0.07 250 / 0)" />
-              </radialGradient>
-            </defs>
-            <circle cx="300" cy="300" r="280" fill="url(#hero-soft-blue)" />
-          </svg>
+      {/* Electric Blue accent blob (right) */}
+      <svg
+        className="blob-drift-b absolute -right-[5%] top-[20%] h-[40%] w-[40%] opacity-[0.06]"
+        viewBox="0 0 600 600"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <radialGradient id="hero-electric" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="oklch(0.55 0.20 260)" />
+            <stop offset="100%" stopColor="oklch(0.55 0.20 260 / 0)" />
+          </radialGradient>
+        </defs>
+        <circle cx="300" cy="300" r="280" fill="url(#hero-electric)" />
+      </svg>
 
-          <svg
-            className="blob-drift-a absolute -bottom-[18%] left-[20%] h-[42%] w-[42%] opacity-[0.08]"
-            viewBox="0 0 600 600"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <radialGradient id="hero-soft-cyan" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="oklch(0.82 0.06 200)" />
-                <stop offset="100%" stopColor="oklch(0.82 0.06 200 / 0)" />
-              </radialGradient>
-            </defs>
-            <circle cx="300" cy="300" r="280" fill="url(#hero-soft-cyan)" />
-          </svg>
-        </>
-      )}
+      {/* Purple accent blob (left-center) */}
+      <svg
+        className="blob-drift-a absolute -left-[8%] bottom-[10%] h-[35%] w-[35%] opacity-[0.05]"
+        viewBox="0 0 600 600"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <radialGradient id="hero-purple" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="oklch(0.56 0.19 290)" />
+            <stop offset="100%" stopColor="oklch(0.56 0.19 290 / 0)" />
+          </radialGradient>
+        </defs>
+        <circle cx="300" cy="300" r="280" fill="url(#hero-purple)" />
+      </svg>
     </div>
   )
 }
