@@ -107,7 +107,7 @@ export default function ServicesPage() {
         title="Related"
         items={[
           { href: "/industries", label: "Industries we serve", meta: "Specialized playbooks per vertical" },
-          { href: "/case-studies", label: "Case studies", meta: "Real results, real numbers" },
+          { href: "/results", label: "Live results", meta: "Verified campaign metrics" },
           { href: "/process", label: "Our process", meta: "How an engagement actually runs" },
           { href: "/pricing", label: "Pricing", meta: "Transparent, no lock-in" },
           { href: "/about", label: "About us", meta: "Team and story" },

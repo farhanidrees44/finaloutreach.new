@@ -4,26 +4,32 @@ import { notFound } from "next/navigation"
 import { PageShell } from "@/components/site/page-shell"
 import { JsonLd } from "@/components/seo/json-ld"
 import { breadcrumbsSchema } from "@/lib/seo/schemas"
-import { BLOG_POSTS, SITE, type BlogPost } from "@/lib/site-data"
-
-const CATEGORY_MAP: Record<string, BlogPost["category"]> = {
-  "cold-email": "Cold Email",
-  linkedin: "LinkedIn",
-  strategy: "Strategy",
-  "case-studies": "Case Studies",
-  tools: "Tools",
-}
+import { BLOG_POSTS, SITE } from "@/lib/site-data"
+import {
+  BLOG_CATEGORY_MAP,
+  getIndexedBlogCategories,
+} from "@/lib/blog-categories"
 
 type Params = { slug: string }
 
 export function generateStaticParams() {
-  return Object.keys(CATEGORY_MAP).map((slug) => ({ slug }))
+  return getIndexedBlogCategories().map(({ slug }) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>
+}): Promise<Metadata> {
   const { slug } = await params
-  const cat = CATEGORY_MAP[slug]
-  if (!cat) return { title: "Category not found" }
+  const cat = BLOG_CATEGORY_MAP[slug]
+  const hasPosts = cat && BLOG_POSTS.some((p) => p.category === cat)
+  if (!cat || !hasPosts) {
+    return {
+      title: "Category not found",
+      robots: { index: false, follow: false },
+    }
+  }
   return {
     title: `${cat} articles`,
     description: `Every ${cat.toLowerCase()} article from FinalOutreach — tactics, frameworks, and teardowns on cold email and B2B outbound.`,
@@ -31,12 +37,17 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   }
 }
 
-export default async function BlogCategoryPage({ params }: { params: Promise<Params> }) {
+export default async function BlogCategoryPage({
+  params,
+}: {
+  params: Promise<Params>
+}) {
   const { slug } = await params
-  const cat = CATEGORY_MAP[slug]
+  const cat = BLOG_CATEGORY_MAP[slug]
   if (!cat) notFound()
 
   const posts = BLOG_POSTS.filter((p) => p.category === cat)
+  if (posts.length === 0) notFound()
 
   return (
     <PageShell
@@ -61,21 +72,32 @@ export default async function BlogCategoryPage({ params }: { params: Promise<Par
           <li key={p.slug}>
             <Link
               href={`/blog/${p.slug}`}
-              className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50"
+              className="group flex h-full flex-col rounded-3xl border border-ink-08 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/25"
             >
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="flex items-center gap-3 text-[12px] font-medium text-ink-40">
                 <time dateTime={p.date}>
-                  {new Date(p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                  {new Date(p.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
                 </time>
                 <span>·</span>
                 <span>{p.readingMinutes} min read</span>
               </div>
-              <h3 className="mt-4 font-serif text-xl leading-snug text-balance">{p.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.excerpt}</p>
-              <span className="mt-6 text-sm text-primary">
+              <h3 className="mt-4 text-[18px] font-extrabold leading-snug tracking-tight text-ink text-balance">
+                {p.title}
+              </h3>
+              <p className="mt-3 flex-1 text-[14px] font-medium leading-[1.6] text-ink-60">
+                {p.excerpt}
+              </p>
+              <span className="mt-6 text-[13.5px] font-semibold text-electric-blue">
                 Read article
-                <span aria-hidden="true" className="ml-1 inline-block transition-transform group-hover:translate-x-1">
-                  &rarr;
+                <span
+                  aria-hidden="true"
+                  className="ml-1 inline-block transition-transform group-hover:translate-x-1"
+                >
+                  →
                 </span>
               </span>
             </Link>

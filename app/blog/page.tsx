@@ -4,6 +4,7 @@ import { PageShell } from "@/components/site/page-shell"
 import { JsonLd } from "@/components/seo/json-ld"
 import { breadcrumbsSchema, organizationSchema } from "@/lib/seo/schemas"
 import { BLOG_POSTS, SITE } from "@/lib/site-data"
+import { getIndexedBlogCategories } from "@/lib/blog-categories"
 import { SectionEyebrow } from "@/components/site/section-eyebrow"
 import { CtaButton } from "@/components/site/cta-button"
 
@@ -21,11 +22,16 @@ export const metadata: Metadata = {
   },
 }
 
-const CATEGORIES = ["All", "Cold Email", "LinkedIn", "Strategy", "Case Studies", "Tools"] as const
-
 export default function BlogIndexPage() {
   const featured = BLOG_POSTS.find((p) => p.featured) ?? BLOG_POSTS[0]
   const rest = BLOG_POSTS.filter((p) => p.slug !== featured.slug)
+  const topicLinks = [
+    { href: "/blog", label: "All" },
+    ...getIndexedBlogCategories().map((c) => ({
+      href: `/blog/category/${c.slug}`,
+      label: c.name,
+    })),
+  ]
 
   return (
     <PageShell
@@ -82,13 +88,13 @@ export default function BlogIndexPage() {
       <section className="mb-16">
         <SectionEyebrow>Browse by topic</SectionEyebrow>
         <ul className="mt-4 flex flex-wrap gap-3">
-          {CATEGORIES.map((c) => (
-            <li key={c}>
+          {topicLinks.map((c) => (
+            <li key={c.href}>
               <Link
-                href={c === "All" ? "/blog" : `/blog/category/${c.toLowerCase().replace(/\s+/g, "-")}`}
-                className="rounded-full border border-border bg-card px-4 py-2 text-sm transition-colors hover:border-primary hover:text-primary"
+                href={c.href}
+                className="rounded-full border border-ink-08 bg-card px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-ink/30"
               >
-                {c}
+                {c.label}
               </Link>
             </li>
           ))}

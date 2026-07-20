@@ -159,7 +159,7 @@ export default function AboutPage() {
         title="Learn more"
         items={[
           { href: "/process", label: "Our process", meta: "How engagements actually run" },
-          { href: "/case-studies", label: "Case studies", meta: "Real results" },
+          { href: "/results", label: "Live results", meta: "Verified metrics" },
           { href: "/services", label: "Services", meta: "Six offerings" },
           { href: "/contact", label: "Contact", meta: "Book a strategy call" },
           { href: "/pricing", label: "Pricing", meta: "Transparent packages" },

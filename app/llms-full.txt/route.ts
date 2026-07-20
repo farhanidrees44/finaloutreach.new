@@ -4,13 +4,13 @@ import {
   SITE,
   SERVICES,
   INDUSTRIES,
-  CASE_STUDIES,
   BLOG_POSTS,
-  COMPETITORS,
-  TOOL_ALTERNATIVES,
-  CITIES,
 } from "@/lib/site-data"
 import { AUTHORS } from "@/lib/authors"
+import { TOOLS } from "@/lib/tools-data"
+import { COMPETITOR_PROFILES } from "@/lib/pseo/competitors"
+import { TOOL_ALTERNATIVE_PROFILES } from "@/lib/pseo/tools"
+import { CITY_PROFILES } from "@/lib/pseo/cities"
 
 export const dynamic = "force-static"
 
@@ -34,7 +34,7 @@ export function GET() {
     "- Done-for-you cold email, LinkedIn outreach, and appointment setting for B2B teams",
   )
   lines.push("- Operator-led campaigns (infrastructure, copy, list, reply handling)")
-  lines.push("- Anonymized case-study breakdowns by industry and stage on the site")
+  lines.push("- Public proof lives on /results — anonymized case-study pages are intentionally not indexed")
   lines.push("- Free cold email playbook PDF and free outbound tools")
   lines.push("- Book a strategy call via Calendly on the homepage")
   lines.push("")
@@ -56,11 +56,13 @@ export function GET() {
   }
   lines.push("")
 
-  lines.push("## Case studies")
-  for (const c of CASE_STUDIES) {
-    lines.push(
-      `- [${c.headline}](${domain}/case-studies/${c.slug}) — ${c.industry}, ${c.timeline}`,
-    )
+  lines.push("## Proof")
+  lines.push(`- Live results: ${domain}/results`)
+  lines.push("")
+
+  lines.push("## Free tools")
+  for (const t of TOOLS) {
+    lines.push(`- [${t.name}](${domain}/tools/${t.slug})`)
   }
   lines.push("")
 
@@ -71,17 +73,19 @@ export function GET() {
   lines.push("")
 
   lines.push("## How we compare")
-  for (const c of COMPETITORS) {
+  for (const c of COMPETITOR_PROFILES) {
     lines.push(`- ${SITE.name} vs ${c.name}: ${domain}/compare/${c.slug}`)
+    lines.push(`  ${c.verdict}`)
   }
-  for (const t of TOOL_ALTERNATIVES) {
+  for (const t of TOOL_ALTERNATIVE_PROFILES) {
     lines.push(`- Alternative to ${t.name}: ${domain}/alternatives/${t.slug}`)
+    lines.push(`  ${t.verdict}`)
   }
   lines.push("")
 
   lines.push("## Geographies we work with")
-  for (const c of CITIES) {
-    lines.push(`- ${c.name}: ${domain}/lead-generation/${c.slug}`)
+  for (const c of CITY_PROFILES) {
+    lines.push(`- ${c.name} (${c.region}): ${domain}/lead-generation/${c.slug}`)
   }
   lines.push("")
 

@@ -181,7 +181,7 @@ export default function PricingPage() {
         items={[
           { href: "/services", label: "Services", meta: "What is included" },
           { href: "/process", label: "Process", meta: "How we work" },
-          { href: "/case-studies", label: "Case studies", meta: "What clients get" },
+          { href: "/results", label: "Live results", meta: "What clients get" },
           { href: "/about", label: "About", meta: "Who runs it" },
           { href: "/contact", label: "Contact", meta: "Book a call" },
           { href: "/blog", label: "Blog", meta: "Free playbooks" },

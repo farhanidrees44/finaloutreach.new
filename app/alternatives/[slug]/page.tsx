@@ -4,64 +4,58 @@ import { notFound } from "next/navigation"
 import { PageShell } from "@/components/site/page-shell"
 import { JsonLd } from "@/components/seo/json-ld"
 import { breadcrumbsSchema, faqSchema } from "@/lib/seo/schemas"
-import { TOOL_ALTERNATIVES, SITE } from "@/lib/site-data"
+import { SITE } from "@/lib/site-data"
+import {
+  TOOL_ALTERNATIVE_PROFILES,
+  getToolAlternative,
+} from "@/lib/pseo/tools"
 import { CtaButton } from "@/components/site/cta-button"
-import { SectionEyebrow } from "@/components/site/section-eyebrow"
 import { RelatedLinks } from "@/components/site/related-links"
 
 type Params = { slug: string }
 
 export function generateStaticParams() {
-  return TOOL_ALTERNATIVES.map((t) => ({ slug: t.slug }))
+  return TOOL_ALTERNATIVE_PROFILES.map((t) => ({ slug: t.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>
+}): Promise<Metadata> {
   const { slug } = await params
-  const tool = TOOL_ALTERNATIVES.find((t) => t.slug === slug)
+  const tool = getToolAlternative(slug)
   if (!tool) return { title: "Alternative not found" }
-  const title = `${tool.name} alternatives for B2B outbound`
   return {
-    title,
-    description: `Looking for an alternative to ${tool.name}? See the limits, the use cases where you outgrow it, and how a done-for-you team compares.`,
+    title: tool.metaTitle,
+    description: tool.metaDescription,
     alternates: { canonical: `/alternatives/${slug}` },
-    openGraph: { title, type: "website", url: `/alternatives/${slug}` },
+    openGraph: {
+      title: tool.metaTitle,
+      description: tool.metaDescription,
+      url: `${SITE.domain}/alternatives/${slug}`,
+      type: "website",
+    },
   }
 }
 
-export default async function AlternativesPage({ params }: { params: Promise<Params> }) {
+export default async function AlternativesPage({
+  params,
+}: {
+  params: Promise<Params>
+}) {
   const { slug } = await params
-  const tool = TOOL_ALTERNATIVES.find((t) => t.slug === slug)
+  const tool = getToolAlternative(slug)
   if (!tool) notFound()
 
-  const limits = [
-    `${tool.name} is a tool — it sends emails, but does not write copy, build lists, or handle replies.`,
-    `Deliverability is on you. ${tool.name} cannot fix a misconfigured DMARC or a burnt sending domain.`,
-    `Reply handling and qualification still need a human. ${tool.name} does not book meetings.`,
-    `Time cost is real. The teams using ${tool.name} well typically have a 10-15 hour/week internal owner.`,
-  ]
-
-  const faqs = [
-    {
-      q: `Is FinalOutreach a replacement for ${tool.name}?`,
-      a: `Not exactly — we use tools like ${tool.name} under the hood for some clients. The difference is we run the strategy, copy, list, infrastructure, and reply handling end-to-end, so you do not need an internal owner.`,
-    },
-    {
-      q: `When does ${tool.name} stop being enough?`,
-      a: `When you do not have 10+ hours per week to manage it, your reply rate drops below 6%, your domain gets flagged, or you cannot keep up with reply qualification. At that point a done-for-you team is cheaper than the alternative cost of doing it yourself badly.`,
-    },
-    {
-      q: `Can we keep ${tool.name} and have you run it?`,
-      a: `Yes, in many cases. We can plug into your existing ${tool.name} account, take over operations, and you keep the data and tooling.`,
-    },
-  ]
-
-  const others = TOOL_ALTERNATIVES.filter((t) => t.slug !== slug)
+  const others = TOOL_ALTERNATIVE_PROFILES.filter((t) => t.slug !== slug)
 
   return (
     <PageShell
-      eyebrow="Alternative analysis"
-      title={`${tool.name} alternatives for serious B2B teams.`}
-      description={`${tool.name} is a great tool. But if your reply rate is dropping, your inbox is on fire, or you do not have a 10-hour-a-week internal owner, the right alternative might not be another tool — it might be a team.`}
+      eyebrow={`${tool.category} · Alternatives`}
+      title={`${tool.name} alternatives for serious B2B teams`}
+      italicize="alternatives"
+      description={tool.verdict}
       breadcrumbs={[
         { label: "Home", href: "/" },
         { label: "Alternatives", href: "/alternatives" },
@@ -75,69 +69,127 @@ export default async function AlternativesPage({ params }: { params: Promise<Par
             { name: "Alternatives", url: `${SITE.domain}/alternatives` },
             { name: tool.name, url: `${SITE.domain}/alternatives/${slug}` },
           ]),
-          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
+          faqSchema(tool.faqs.map((f) => ({ question: f.q, answer: f.a }))),
         ]}
       />
 
+      <p className="mb-4 text-[13px] font-medium text-ink-40">
+        Last reviewed {tool.lastReviewed}
+      </p>
+      <p className="mb-12 max-w-3xl text-[16px] font-medium leading-[1.7] text-ink-60">
+        {tool.intro}
+      </p>
+
+      <section className="mb-16 grid gap-5 md:grid-cols-2">
+        <div className="rounded-3xl border border-ink-08 bg-card p-7">
+          <h2 className="text-[18px] font-extrabold tracking-tight text-ink">
+            Where {tool.name} is strong
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {tool.strengths.map((s) => (
+              <li
+                key={s}
+                className="flex gap-2.5 text-[14.5px] font-medium leading-[1.55] text-ink-60"
+              >
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-emerald" />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-3xl border border-ink-08 bg-card p-7">
+          <h2 className="text-[18px] font-extrabold tracking-tight text-ink">
+            Where it stops being enough
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {tool.limits.map((s) => (
+              <li
+                key={s}
+                className="flex gap-2.5 text-[14.5px] font-medium leading-[1.55] text-ink-60"
+              >
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-ink-20" />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mb-16 grid gap-5 md:grid-cols-2">
+        <div className="rounded-3xl border border-ink-08 bg-cream/40 p-7">
+          <h2 className="text-[18px] font-extrabold tracking-tight text-ink">
+            Stick with {tool.name} if
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {tool.stickIf.map((s) => (
+              <li
+                key={s}
+                className="text-[14.5px] font-medium leading-[1.55] text-ink-60"
+              >
+                {s}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-3xl border border-electric-blue/25 bg-electric-blue/[0.03] p-7">
+          <h2 className="text-[18px] font-extrabold tracking-tight text-ink">
+            Choose a done-for-you team if
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {tool.switchIf.map((s) => (
+              <li
+                key={s}
+                className="text-[14.5px] font-medium leading-[1.55] text-ink-60"
+              >
+                {s}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mb-16 space-y-10">
+        {tool.deepDive.map((block) => (
+          <article key={block.heading}>
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-[1.15] tracking-tight text-ink">
+              {block.heading}
+            </h2>
+            <p className="mt-4 max-w-3xl text-[16px] font-medium leading-[1.7] text-ink-60">
+              {block.body}
+            </p>
+          </article>
+        ))}
+      </section>
+
       <section className="mb-16">
-        <SectionEyebrow>The honest read on {tool.name}</SectionEyebrow>
-        <h2 className="mt-4 font-serif text-3xl text-balance md:text-4xl">
-          Where {tool.name} stops being enough.
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+          FAQ — {tool.name} alternatives
         </h2>
-        <ul className="mt-8 grid gap-4 md:grid-cols-2">
-          {limits.map((l) => (
-            <li key={l} className="rounded-2xl border border-border bg-card p-6 leading-relaxed text-foreground/90">
-              {l}
+        <ul className="mt-8 divide-y divide-ink-08 border-y border-ink-08">
+          {tool.faqs.map((f) => (
+            <li key={f.q} className="py-6">
+              <h3 className="text-[17px] font-bold text-ink">{f.q}</h3>
+              <p className="mt-2 max-w-3xl text-[15px] leading-[1.7] text-ink-60">
+                {f.a}
+              </p>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="mb-16 grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <h3 className="font-serif text-2xl">Stick with {tool.name} if</h3>
-          <ul className="mt-4 space-y-2 leading-relaxed text-muted-foreground">
-            <li>You have a dedicated internal SDR or growth lead.</li>
-            <li>You enjoy iterating on copy and infrastructure.</li>
-            <li>Your monthly send volume is under 5,000 emails.</li>
-            <li>You are early-stage and want hands-on control.</li>
-          </ul>
-        </div>
-        <div className="rounded-2xl border border-primary/40 bg-card p-6">
-          <h3 className="font-serif text-2xl">Switch to a done-for-you team if</h3>
-          <ul className="mt-4 space-y-2 leading-relaxed text-muted-foreground">
-            <li>Your team does not have 10+ hours per week to manage outbound.</li>
-            <li>Your reply rate has dropped below 6% and you cannot diagnose why.</li>
-            <li>You want a 90-day pipeline guarantee with money-back terms.</li>
-            <li>You need senior-voice copy and strategy, not just sending software.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="mb-16">
-        <SectionEyebrow>FAQ</SectionEyebrow>
-        <h2 className="mt-4 font-serif text-3xl text-balance">Common questions.</h2>
-        <ul className="mt-8 space-y-4">
-          {faqs.map((f) => (
-            <li key={f.q} className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-serif text-lg">{f.q}</h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground">{f.a}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mb-20 rounded-2xl border border-border bg-card p-8 text-center md:p-12">
-        <h2 className="font-serif text-3xl text-balance md:text-4xl">Want us to audit your {tool.name} setup?</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-pretty leading-relaxed text-muted-foreground">
-          We will review your infrastructure, copy, and lists and send you a 48-hour Loom with a prioritized fix list.
-          Free, no pitch.
+      <section className="mb-16 rounded-3xl border border-ink-08 bg-cream/50 p-8 text-center md:p-12">
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+          Want us to audit your {tool.name} setup?
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[15px] font-semibold leading-[1.65] text-ink-60">
+          Infrastructure, copy, and lists reviewed in 48 hours. Keep the tool if
+          it is healthy — we will say so.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <CtaButton href={SITE.calendly}>Get the free audit</CtaButton>
           <Link
             href="/services/cold-email"
-            className="inline-flex items-center justify-center rounded-md border border-border px-5 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
+            className="inline-flex h-12 items-center rounded-full border border-ink-08 px-6 text-[14.5px] font-semibold text-ink transition-colors hover:border-ink/30"
           >
             See done-for-you service
           </Link>

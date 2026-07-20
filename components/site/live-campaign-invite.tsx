@@ -33,10 +33,10 @@ export function LiveCampaignInvite() {
               </p>
             </div>
             <Link
-              href="/case-studies"
+              href="/results"
               className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink"
             >
-              <span className="link-underline">Browse all case studies</span>
+              <span className="link-underline">See live results</span>
               <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </div>

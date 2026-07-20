@@ -103,7 +103,7 @@ export default function ProcessPage() {
         items={[
           { href: "/services", label: "Services" },
           { href: "/pricing", label: "Pricing" },
-          { href: "/case-studies", label: "Case studies" },
+          { href: "/results", label: "Live results" },
           { href: "/about", label: "About" },
           { href: "/contact", label: "Contact" },
           { href: "/blog", label: "Blog" },

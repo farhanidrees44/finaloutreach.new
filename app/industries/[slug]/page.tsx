@@ -140,7 +140,7 @@ export default async function IndustryPage({
               Case study from this industry
             </span>
             <Link
-              href={`/case-studies/${matchingCase.slug}`}
+              href="/results"
               className="group mt-6 flex flex-col gap-6 rounded-2xl border border-ink-08 bg-background p-8 transition-all hover:-translate-y-0.5 hover:border-ink/25 sm:p-10"
             >
               <h3 className="text-balance text-[28px] font-bold leading-[1.1] tracking-tight text-ink sm:text-[36px]">

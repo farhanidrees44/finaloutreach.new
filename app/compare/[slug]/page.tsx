@@ -4,68 +4,58 @@ import { notFound } from "next/navigation"
 import { PageShell } from "@/components/site/page-shell"
 import { JsonLd } from "@/components/seo/json-ld"
 import { breadcrumbsSchema, faqSchema } from "@/lib/seo/schemas"
-import { COMPETITORS, SITE } from "@/lib/site-data"
+import { SITE } from "@/lib/site-data"
+import {
+  COMPETITOR_PROFILES,
+  getCompetitor,
+} from "@/lib/pseo/competitors"
 import { CtaButton } from "@/components/site/cta-button"
-import { SectionEyebrow } from "@/components/site/section-eyebrow"
 import { RelatedLinks } from "@/components/site/related-links"
 
 type Params = { slug: string }
 
 export function generateStaticParams() {
-  return COMPETITORS.map((c) => ({ slug: c.slug }))
+  return COMPETITOR_PROFILES.map((c) => ({ slug: c.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>
+}): Promise<Metadata> {
   const { slug } = await params
-  const comp = COMPETITORS.find((c) => c.slug === slug)
+  const comp = getCompetitor(slug)
   if (!comp) return { title: "Comparison not found" }
-  const title = `FinalOutreach vs ${comp.name}`
   return {
-    title,
-    description: `Honest comparison of FinalOutreach and ${comp.name} — pricing, deliverables, ICP fit, and where each one wins.`,
+    title: comp.metaTitle,
+    description: comp.metaDescription,
     alternates: { canonical: `/compare/${slug}` },
-    openGraph: { title, type: "website", url: `/compare/${slug}` },
+    openGraph: {
+      title: comp.metaTitle,
+      description: comp.metaDescription,
+      url: `${SITE.domain}/compare/${slug}`,
+      type: "website",
+    },
   }
 }
 
-export default async function ComparePage({ params }: { params: Promise<Params> }) {
+export default async function ComparePage({
+  params,
+}: {
+  params: Promise<Params>
+}) {
   const { slug } = await params
-  const comp = COMPETITORS.find((c) => c.slug === slug)
+  const comp = getCompetitor(slug)
   if (!comp) notFound()
 
-  const rows = [
-    { feature: "Starting price", a: "$3,500/mo", b: "$5,000–$8,000/mo" },
-    { feature: "Setup fee", a: "$1,500 one-time", b: "$2,500–$4,000 one-time" },
-    { feature: "Minimum contract", a: "3 months", b: "6–12 months" },
-    { feature: "Pipeline guarantee", a: "90-day, free month if missed", b: "None / vague" },
-    { feature: "Dedicated SDR", a: "Yes, trained for 2 weeks on your offer", b: "Sometimes shared across 3–5 clients" },
-    { feature: "Reply rate transparency", a: "Weekly dashboard, raw data exportable", b: "Curated monthly slide deck" },
-    { feature: "ICP customization", a: "Workshop included, refined every 30 days", b: "One-time at onboarding" },
-    { feature: "Channel mix", a: "Cold email + LinkedIn + audit", b: "Often single-channel" },
-  ]
-
-  const faqs = [
-    {
-      q: `Is FinalOutreach really cheaper than ${comp.name}?`,
-      a: `Most ${comp.name} engagements price between $5,000 and $8,000 per month with multi-month minimums. FinalOutreach starts at $3,500 with a 3-month minimum, and we deliver more channels for the price.`,
-    },
-    {
-      q: `Why choose FinalOutreach over ${comp.name}?`,
-      a: `Three reasons: a 90-day pipeline guarantee that ${comp.name} does not match, full transparency in raw reply data, and an ICP refresh every 30 days instead of a single onboarding workshop.`,
-    },
-    {
-      q: `When would ${comp.name} be a better fit?`,
-      a: `If you need a 100+ SDR enterprise call center motion or you have a $1M+ annual outbound budget with a fully-resourced internal team, ${comp.name} can be a fit. For most $500K–$10M ARR teams, FinalOutreach is leaner and faster.`,
-    },
-  ]
-
-  const others = COMPETITORS.filter((c) => c.slug !== slug)
+  const others = COMPETITOR_PROFILES.filter((c) => c.slug !== slug)
 
   return (
     <PageShell
       eyebrow="Comparison"
-      title={`FinalOutreach vs ${comp.name}: which is right for you?`}
-      description={`A side-by-side breakdown of pricing, deliverables, guarantees, and ICP fit. Built to help you choose, not to sell you.`}
+      title={`FinalOutreach vs ${comp.name}`}
+      italicize={comp.name}
+      description={comp.verdict}
       breadcrumbs={[
         { label: "Home", href: "/" },
         { label: "Compare", href: "/compare" },
@@ -77,70 +67,142 @@ export default async function ComparePage({ params }: { params: Promise<Params> 
           breadcrumbsSchema([
             { name: "Home", url: SITE.domain },
             { name: "Compare", url: `${SITE.domain}/compare` },
-            { name: `FinalOutreach vs ${comp.name}`, url: `${SITE.domain}/compare/${slug}` },
+            {
+              name: `FinalOutreach vs ${comp.name}`,
+              url: `${SITE.domain}/compare/${slug}`,
+            },
           ]),
-          faqSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
+          faqSchema(comp.faqs.map((f) => ({ question: f.q, answer: f.a }))),
         ]}
       />
 
-      <section className="mb-16 overflow-hidden rounded-2xl border border-border bg-card">
-        <div className="grid grid-cols-3 border-b border-border bg-background/40">
-          <div className="p-5 text-sm font-medium uppercase tracking-wider text-muted-foreground">Feature</div>
-          <div className="p-5 font-serif text-lg">FinalOutreach</div>
-          <div className="p-5 font-serif text-lg text-muted-foreground">{comp.name}</div>
-        </div>
-        <ul>
-          {rows.map((r, i) => (
-            <li
-              key={r.feature}
-              className={`grid grid-cols-3 ${i !== rows.length - 1 ? "border-b border-border" : ""}`}
-            >
-              <div className="p-5 text-sm text-muted-foreground">{r.feature}</div>
-              <div className="p-5 font-medium">{r.a}</div>
-              <div className="p-5 text-muted-foreground">{r.b}</div>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <p className="mb-4 text-[13px] font-medium text-ink-40">
+        Last reviewed {comp.lastReviewed}
+      </p>
+      <p className="mb-12 max-w-3xl text-[16px] font-medium leading-[1.7] text-ink-60">
+        {comp.intro}
+      </p>
 
-      <section className="mb-16">
-        <SectionEyebrow>Honest take</SectionEyebrow>
-        <h2 className="mt-4 font-serif text-3xl text-balance md:text-4xl">When {comp.name} is the right choice.</h2>
-        <p className="mt-6 max-w-3xl text-pretty leading-relaxed text-muted-foreground">
-          We do not believe FinalOutreach is the right fit for every company. {comp.name} can be a stronger choice if
-          you need a high-volume SDR call-center motion, a fully managed enterprise BDR program with 50+ SDRs, or you
-          have a 12-month budget locked in and prefer a deeply tenured incumbent with brand-name proof. For everyone
-          else — most $500K–$10M ARR B2B teams — we book more meetings per dollar with a leaner team.
+      <section className="mb-16 rounded-3xl border border-ink-08 bg-card p-6 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.22)] sm:p-8">
+        <p className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+          How {comp.name} is usually positioned
+        </p>
+        <p className="mt-3 text-[15px] font-medium leading-[1.65] text-ink">
+          {comp.theirModel}
         </p>
       </section>
 
-      <section className="mb-16">
-        <SectionEyebrow>FAQ</SectionEyebrow>
-        <h2 className="mt-4 font-serif text-3xl text-balance">Common questions about this comparison.</h2>
-        <ul className="mt-8 space-y-4">
-          {faqs.map((f) => (
-            <li key={f.q} className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-serif text-lg">{f.q}</h3>
-              <p className="mt-3 leading-relaxed text-muted-foreground">{f.a}</p>
+      <section className="mb-16 overflow-hidden rounded-3xl border border-ink-08 bg-card shadow-[0_16px_48px_-28px_rgba(15,15,15,0.22)]">
+        <div className="grid grid-cols-1 border-b border-ink-08 bg-cream/50 sm:grid-cols-3">
+          <div className="p-5 text-[12px] font-semibold uppercase tracking-[0.14em] text-ink-40">
+            Feature
+          </div>
+          <div className="border-t border-ink-08 p-5 text-[15px] font-extrabold text-ink sm:border-t-0">
+            FinalOutreach
+          </div>
+          <div className="border-t border-ink-08 p-5 text-[15px] font-bold text-ink-60 sm:border-t-0">
+            {comp.name}
+          </div>
+        </div>
+        <ul>
+          {comp.comparisonRows.map((r, i) => (
+            <li
+              key={r.feature}
+              className={`grid grid-cols-1 sm:grid-cols-3 ${
+                i !== comp.comparisonRows.length - 1 ? "border-b border-ink-08" : ""
+              }`}
+            >
+              <div className="p-5 text-[13.5px] font-semibold text-ink-60">
+                {r.feature}
+              </div>
+              <div className="px-5 pb-5 text-[14.5px] font-medium text-ink sm:py-5">
+                {r.us}
+              </div>
+              <div className="px-5 pb-5 text-[14.5px] font-medium text-ink-60 sm:py-5">
+                {r.them}
+              </div>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="mb-20 rounded-2xl border border-border bg-card p-8 text-center md:p-12">
-        <h2 className="font-serif text-3xl text-balance md:text-4xl">
+      <section className="mb-16 grid gap-5 md:grid-cols-2">
+        <div className="rounded-3xl border border-ink-08 bg-card p-7">
+          <h2 className="text-[20px] font-extrabold tracking-tight text-ink">
+            When {comp.name} is the better fit
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {comp.whenTheyWin.map((item) => (
+              <li
+                key={item}
+                className="flex gap-2.5 text-[14.5px] font-medium leading-[1.55] text-ink-60"
+              >
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-ink-20" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-3xl border border-electric-blue/25 bg-electric-blue/[0.03] p-7">
+          <h2 className="text-[20px] font-extrabold tracking-tight text-ink">
+            When FinalOutreach wins
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {comp.whenWeWin.map((item) => (
+              <li
+                key={item}
+                className="flex gap-2.5 text-[14.5px] font-medium leading-[1.55] text-ink-60"
+              >
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-electric-blue" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mb-16 space-y-10">
+        {comp.deepDive.map((block) => (
+          <article key={block.heading}>
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold leading-[1.15] tracking-tight text-ink">
+              {block.heading}
+            </h2>
+            <p className="mt-4 max-w-3xl text-[16px] font-medium leading-[1.7] text-ink-60">
+              {block.body}
+            </p>
+          </article>
+        ))}
+      </section>
+
+      <section className="mb-16">
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
+          FAQ — FinalOutreach vs {comp.name}
+        </h2>
+        <ul className="mt-8 divide-y divide-ink-08 border-y border-ink-08">
+          {comp.faqs.map((f) => (
+            <li key={f.q} className="py-6">
+              <h3 className="text-[17px] font-bold text-ink">{f.q}</h3>
+              <p className="mt-2 max-w-3xl text-[15px] leading-[1.7] text-ink-60">
+                {f.a}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mb-16 rounded-3xl border border-ink-08 bg-cream/50 p-8 text-center md:p-12">
+        <h2 className="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-tight text-ink">
           Want a free 48-hour audit before you decide?
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-pretty leading-relaxed text-muted-foreground">
-          We will tear down your current outbound and hand you a Loom with the top 10 fixes — even if you go with
-          {" "}
-          {comp.name}.
+        <p className="mx-auto mt-4 max-w-2xl text-[15px] font-semibold leading-[1.65] text-ink-60">
+          Bring the {comp.name} proposal if you have one. We will map scope gaps
+          honestly — including where they may still be the better buy.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <CtaButton href={SITE.calendly}>Get the free audit</CtaButton>
           <Link
             href="/pricing"
-            className="inline-flex items-center justify-center rounded-md border border-border px-5 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
+            className="inline-flex h-12 items-center rounded-full border border-ink-08 px-6 text-[14.5px] font-semibold text-ink transition-colors hover:border-ink/30"
           >
             See pricing
           </Link>

@@ -3,17 +3,18 @@ import {
   SITE,
   SERVICES,
   INDUSTRIES,
-  CASE_STUDIES,
   BLOG_POSTS,
-  COMPETITORS,
-  TOOL_ALTERNATIVES,
-  CITIES,
 } from "@/lib/site-data"
 import { RICH_INDUSTRIES } from "@/lib/industries-data"
 import { AUTHORS } from "@/lib/authors"
+import { TOOLS } from "@/lib/tools-data"
+import { COMPETITOR_PROFILES } from "@/lib/pseo/competitors"
+import { TOOL_ALTERNATIVE_PROFILES } from "@/lib/pseo/tools"
+import { CITY_PROFILES } from "@/lib/pseo/cities"
+import { getIndexedBlogCategories } from "@/lib/blog-categories"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date("2026-05-01T00:00:00.000Z")
+  const now = new Date()
   const base = SITE.domain
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -21,7 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${base}/industries`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/results`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${base}/case-studies`, lastModified: now, changeFrequency: "weekly", priority: 0.3 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
@@ -30,8 +30,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/resources`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/resources/cold-email-playbook`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/resources/email-templates`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/tools`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/compare`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/alternatives`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/cold-email-for`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/lead-generation`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/authors`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/legal/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/legal/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
+    { url: `${base}/legal/cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.2 },
   ]
 
+  const toolRoutes = TOOLS.map((tool) => ({
+    url: `${base}/tools/${tool.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))
   const serviceRoutes = SERVICES.map((s) => ({
     url: `${base}/services/${s.slug}`,
     lastModified: now,
@@ -44,17 +59,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }))
-  const caseRoutes = CASE_STUDIES.map((c) => ({
-    url: `${base}/case-studies/${c.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.75,
-  }))
   const blogRoutes = BLOG_POSTS.map((p) => ({
     url: `${base}/blog/${p.slug}`,
     lastModified: new Date(p.date),
     changeFrequency: "monthly" as const,
     priority: 0.7,
+  }))
+  const blogCategoryRoutes = getIndexedBlogCategories().map((c) => ({
+    url: `${base}/blog/category/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.55,
   }))
   const progIndustryRoutes = RICH_INDUSTRIES.map((i) => ({
     url: `${base}/cold-email-for/${i.slug}`,
@@ -62,49 +77,53 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }))
-  const cityRoutes = CITIES.map((c) => ({
+  const cityRoutes = CITY_PROFILES.map((c) => ({
     url: `${base}/lead-generation/${c.slug}`,
-    lastModified: now,
+    lastModified: new Date(c.lastReviewed),
     changeFrequency: "monthly" as const,
-    priority: 0.6,
+    priority: 0.65,
   }))
-  const competitorRoutes = COMPETITORS.map((c) => ({
+  const competitorRoutes = COMPETITOR_PROFILES.map((c) => ({
     url: `${base}/compare/${c.slug}`,
-    lastModified: now,
+    lastModified: new Date(c.lastReviewed),
     changeFrequency: "monthly" as const,
-    priority: 0.65,
+    priority: 0.7,
   }))
-  const altRoutes = TOOL_ALTERNATIVES.map((t) => ({
+  const altRoutes = TOOL_ALTERNATIVE_PROFILES.map((t) => ({
     url: `${base}/alternatives/${t.slug}`,
+    lastModified: new Date(t.lastReviewed),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))
+  const authorRoutes = AUTHORS.map((a) => ({
+    url: `${base}/authors/${a.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: 0.65,
+    priority: 0.55,
   }))
-  const authorRoutes = [
-    {
-      url: `${base}/authors`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    },
-    ...AUTHORS.map((a) => ({
-      url: `${base}/authors/${a.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.55,
-    })),
-  ]
 
-  return [
+  const routes = [
     ...staticRoutes,
+    ...toolRoutes,
     ...serviceRoutes,
     ...industryRoutes,
-    ...caseRoutes,
     ...blogRoutes,
+    ...blogCategoryRoutes,
     ...progIndustryRoutes,
     ...cityRoutes,
     ...competitorRoutes,
     ...altRoutes,
     ...authorRoutes,
   ]
+
+  // Duplicate URLs are a source-data bug, not something the sitemap should hide.
+  const seen = new Set<string>()
+  for (const route of routes) {
+    if (seen.has(route.url)) {
+      throw new Error(`Duplicate sitemap URL: ${route.url}`)
+    }
+    seen.add(route.url)
+  }
+
+  return routes
 }
