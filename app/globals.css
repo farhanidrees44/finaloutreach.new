@@ -636,6 +636,163 @@
     }
   }
 
+  /* ───── OUTREACH ENGINE FLOW ───── */
+  .fo-engine__orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(48px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .fo-engine__orb--a {
+    width: 14rem;
+    height: 14rem;
+    top: -2rem;
+    left: -3rem;
+    background: oklch(0.55 0.24 295 / 0.18);
+    animation: fo-engine-orb 10s ease-in-out infinite;
+  }
+  .fo-engine__orb--b {
+    width: 16rem;
+    height: 16rem;
+    right: -4rem;
+    bottom: 2rem;
+    background: oklch(0.58 0.22 250 / 0.16);
+    animation: fo-engine-orb 12s ease-in-out infinite reverse;
+  }
+  @keyframes fo-engine-orb {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(12px, -10px) scale(1.08);
+    }
+  }
+
+  .fo-engine__title-grad {
+    background: linear-gradient(
+      110deg,
+      oklch(0.55 0.24 295),
+      oklch(0.58 0.22 250),
+      oklch(0.55 0.24 295)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradient-flow 5s linear infinite;
+  }
+
+  .fo-engine__card {
+    position: relative;
+    z-index: 1;
+    min-height: 100%;
+  }
+  .fo-engine__card--active {
+    box-shadow:
+      0 0 0 1px oklch(0.55 0.24 295 / 0.2),
+      0 16px 40px -14px oklch(0.55 0.24 295 / 0.45);
+    transform: translateY(-4px);
+    animation: fo-engine-card-glow 2.4s ease-in-out infinite;
+  }
+  @keyframes fo-engine-card-glow {
+    0%,
+    100% {
+      box-shadow:
+        0 0 0 1px oklch(0.55 0.24 295 / 0.2),
+        0 16px 40px -14px oklch(0.55 0.24 295 / 0.4);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px oklch(0.55 0.24 295 / 0.35),
+        0 20px 48px -12px oklch(0.55 0.24 295 / 0.55);
+    }
+  }
+
+  .fo-engine__icon--live {
+    animation: fo-engine-icon-pop 2.2s ease-in-out infinite;
+  }
+  @keyframes fo-engine-icon-pop {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .fo-engine__arrow {
+    animation: fo-engine-arrow 1.6s ease-in-out infinite;
+    box-shadow: 0 8px 18px -8px oklch(0.55 0.24 295 / 0.55);
+  }
+  .fo-engine__arrow--live {
+    animation: fo-engine-arrow-live 0.9s ease-in-out infinite;
+    box-shadow: 0 0 0 4px oklch(0.55 0.24 295 / 0.18),
+      0 10px 22px -8px oklch(0.55 0.24 295 / 0.65);
+  }
+  @keyframes fo-engine-arrow {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+  @keyframes fo-engine-arrow-live {
+    0%,
+    100% {
+      transform: translateX(0) scale(1);
+    }
+    50% {
+      transform: translateX(7px) scale(1.08);
+    }
+  }
+
+  .fo-engine__dash {
+    opacity: 0.45;
+    animation: fo-engine-dash 1.5s linear infinite;
+  }
+  .fo-engine__dash--active {
+    opacity: 1;
+    animation-duration: 0.85s;
+  }
+  @keyframes fo-engine-dash {
+    to {
+      stroke-dashoffset: -56;
+    }
+  }
+
+  .fo-engine__analytics {
+    z-index: 1;
+    box-shadow: var(--shadow-md);
+  }
+  .fo-engine__analytics--pulse {
+    animation: fo-engine-pulse 2.8s ease-in-out infinite;
+  }
+  .fo-engine__analytics-icon {
+    animation: fo-engine-icon-pop 2.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fo-engine__orb--a,
+    .fo-engine__orb--b,
+    .fo-engine__title-grad,
+    .fo-engine__card--active,
+    .fo-engine__icon--live,
+    .fo-engine__arrow,
+    .fo-engine__arrow--live,
+    .fo-engine__dash,
+    .fo-engine__dash--active,
+    .fo-engine__analytics--pulse,
+    .fo-engine__analytics-icon {
+      animation: none !important;
+    }
+  }
+
   /* ───── MESH ACCENTS ───── */
   .mesh-emerald {
     background-image:
