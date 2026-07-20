@@ -333,18 +333,48 @@ function HighlightedPreview({ text, matches }: { text: string; matches: Match[] 
 function RiskBadge({ level, score }: { level: Report["level"]; score: number }) {
   const styles =
     level === "Low"
-      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+      ? {
+          wrap: "border-emerald/25 bg-emerald-bright/10 text-emerald-dark",
+          bar: "from-emerald to-emerald-bright",
+        }
       : level === "Medium"
-        ? "border-amber-200 bg-amber-50 text-amber-700"
-        : "border-rose-200 bg-rose-50 text-rose-700"
+        ? {
+            wrap: "border-amber-500/25 bg-amber-500/[0.08] text-amber-900",
+            bar: "from-amber-500 to-amber-400",
+          }
+        : {
+            wrap: "border-destructive/25 bg-destructive/10 text-destructive",
+            bar: "from-destructive to-rose-400",
+          }
   return (
-    <div className={cn("flex items-center gap-3 rounded-2xl border px-4 py-3", styles)}>
-      <span className="font-mono text-[28px] font-medium tabular-nums leading-none">{score}</span>
-      <div>
-        <p className="text-[10.5px] font-medium uppercase tracking-[0.18em] opacity-70">
-          Risk score
-        </p>
-        <p className="text-[15px] font-medium leading-tight">{level} risk</p>
+    <div
+      className={cn(
+        "overflow-hidden rounded-3xl border px-5 py-4 shadow-[0_12px_40px_-24px_rgba(15,15,15,0.2)]",
+        styles.wrap,
+      )}
+    >
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.18em] opacity-70">
+            Risk score
+          </p>
+          <p className="mt-1 font-mono text-[40px] font-bold leading-none tabular-nums">
+            {score}
+          </p>
+          <p className="mt-2 text-[15px] font-bold leading-tight">{level} risk</p>
+        </div>
+        <div className="mb-1 h-16 w-2 overflow-hidden rounded-full bg-ink-08/40">
+          <div
+            className={cn("w-full rounded-full bg-gradient-to-t", styles.bar)}
+            style={{ height: `${Math.max(8, score)}%` }}
+          />
+        </div>
+      </div>
+      <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-ink-08/30">
+        <div
+          className={cn("h-full rounded-full bg-gradient-to-r transition-all duration-500", styles.bar)}
+          style={{ width: `${score}%` }}
+        />
       </div>
     </div>
   )
@@ -390,7 +420,7 @@ export function SpamWordCheckerClient() {
               spellCheck="true"
               suppressHydrationWarning
               rows={14}
-              className="w-full resize-y rounded-xl border border-ink-08 bg-background px-4 py-3 font-sans text-[14.5px] leading-[1.6] text-ink shadow-[inset_0_1px_0_rgba(0,0,0,0.02)] outline-none transition-all placeholder:text-ink-40 focus:border-ink/30 focus:ring-2 focus:ring-[oklch(0.55_0.13_78)]/20"
+              className="w-full resize-y rounded-2xl border border-ink-08 bg-cream/60 px-4 py-3 font-sans text-[14.5px] leading-[1.6] text-ink shadow-[inset_0_1px_0_rgba(0,0,0,0.02)] outline-none transition-all placeholder:text-ink-40 focus:border-electric-blue/40 focus:ring-2 focus:ring-electric-blue/15"
               placeholder="Paste your cold email here…"
             />
           </FieldLabel>

@@ -133,7 +133,7 @@ export function WarmupCalculatorClient() {
                   min={10} max={500} step={5}
                   onChange={(e) => update("targetVolume", Math.max(1, Number(e.target.value || 0)))}
                   suppressHydrationWarning
-                  className="w-full rounded-xl border border-ink-08 bg-background py-3 pl-10 pr-3 font-mono text-[15px] tabular-nums outline-none transition-all focus:border-ink/30 focus:ring-2 focus:ring-[oklch(0.55_0.13_78)]/20"
+                  className="w-full rounded-2xl border border-ink-08 bg-cream/60 py-3 pl-10 pr-3 font-mono text-[15px] tabular-nums outline-none transition-all focus:border-electric-blue/40 focus:ring-2 focus:ring-electric-blue/15"
                 />
               </div>
             </FieldLabel>
@@ -146,7 +146,7 @@ export function WarmupCalculatorClient() {
                   value={inputs.startDate}
                   onChange={(e) => update("startDate", e.target.value)}
                   suppressHydrationWarning
-                  className="w-full rounded-xl border border-ink-08 bg-background py-3 pl-10 pr-3 text-[15px] outline-none transition-all focus:border-ink/30 focus:ring-2 focus:ring-[oklch(0.55_0.13_78)]/20"
+                  className="w-full rounded-2xl border border-ink-08 bg-cream/60 py-3 pl-10 pr-3 text-[15px] outline-none transition-all focus:border-electric-blue/40 focus:ring-2 focus:ring-electric-blue/15"
                 />
               </div>
             </FieldLabel>
@@ -159,7 +159,7 @@ export function WarmupCalculatorClient() {
                   min={1} max={50}
                   onChange={(e) => update("startVolume", Math.max(1, Number(e.target.value || 0)))}
                   suppressHydrationWarning
-                  className="w-full rounded-xl border border-ink-08 bg-background px-3.5 py-3 font-mono text-[15px] tabular-nums outline-none transition-all focus:border-ink/30 focus:ring-2 focus:ring-[oklch(0.55_0.13_78)]/20"
+                  className="w-full rounded-2xl border border-ink-08 bg-cream/60 px-3.5 py-3 font-mono text-[15px] tabular-nums outline-none transition-all focus:border-electric-blue/40 focus:ring-2 focus:ring-electric-blue/15"
                 />
               </FieldLabel>
               <FieldLabel htmlFor={`${id}-growth`} label="Daily growth %" hint="30 is industry rule">
@@ -169,17 +169,17 @@ export function WarmupCalculatorClient() {
                   min={5} max={100} step={5}
                   onChange={(e) => update("growthPct", Math.max(5, Number(e.target.value || 0)))}
                   suppressHydrationWarning
-                  className="w-full rounded-xl border border-ink-08 bg-background px-3.5 py-3 font-mono text-[15px] tabular-nums outline-none transition-all focus:border-ink/30 focus:ring-2 focus:ring-[oklch(0.55_0.13_78)]/20"
+                  className="w-full rounded-2xl border border-ink-08 bg-cream/60 px-3.5 py-3 font-mono text-[15px] tabular-nums outline-none transition-all focus:border-electric-blue/40 focus:ring-2 focus:ring-electric-blue/15"
                 />
               </FieldLabel>
             </div>
           </div>
 
-          <div className="mt-7 rounded-xl border border-ink-08 bg-background p-5">
-            <p className="text-[11.5px] font-medium uppercase tracking-[0.14em] text-ink-60">
+          <div className="mt-7 rounded-2xl border border-vibrant-purple/15 bg-vibrant-purple/[0.04] p-5">
+            <p className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-vibrant-purple">
               Why 30% / day?
             </p>
-            <p className="mt-2 text-[13px] leading-[1.55] text-ink-60">
+            <p className="mt-2 text-[13px] font-medium leading-[1.55] text-ink-60">
               The consensus rate that lets ESPs build a healthy reputation without
               tripping rate limits or filters. Faster ramps consistently get blocked.
             </p>
@@ -195,11 +195,11 @@ export function WarmupCalculatorClient() {
           />
 
           <div className="grid grid-cols-3 gap-3">
-            <div className="rounded-2xl border border-[oklch(0.55_0.13_78)]/30 bg-gradient-to-br from-[oklch(0.97_0.02_78)] to-background p-4">
+            <div className="rounded-2xl border border-electric-blue/25 bg-electric-blue/[0.04] p-4">
               <p className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-ink-60">
                 Total days
               </p>
-              <p className="mt-1.5 font-mono text-[28px] font-medium tabular-nums leading-tight text-ink">
+              <p className="mt-1.5 font-mono text-[28px] font-extrabold tabular-nums leading-tight text-ink">
                 {totalDays}
               </p>
               <p className="mt-1 text-[11.5px] text-ink-60">

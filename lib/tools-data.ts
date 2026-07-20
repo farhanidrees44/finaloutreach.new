@@ -150,15 +150,31 @@ export const TOOLS: Tool[] = [
     faqs: [
       {
         q: "Will a Low risk score guarantee inbox placement?",
-        a: "No tool can. But a Low score means you've removed the cheap, obvious signals. Inbox placement also depends on your domain reputation, SPF/DKIM/DMARC, list hygiene, and reply rates.",
+        a: "No tool can. A Low score means you removed cheap content signals. Inbox placement still depends on domain reputation, SPF/DKIM/DMARC, list hygiene, bounce rate, and replies.",
       },
       {
-        q: "Do you check 'spammy' formatting like links and images?",
-        a: "Yes — we flag excessive links, all-caps runs, and money-related phrases. We don't render HTML, so test plain text or copy from your sending tool.",
+        q: "Do you check spammy formatting like links and images?",
+        a: "We flag excessive links, ALL CAPS runs, urgency phrases, and money language. We do not render HTML — paste plain text or copy from your sending tool for the most honest read.",
       },
       {
-        q: "How is this different from a spam-rating service like Mail-Tester?",
-        a: "Mail-Tester checks your actual delivery, headers, and DNS. This is a content-only checker that runs in your browser — use it before you ever send a test.",
+        q: "How is this different from Mail-Tester?",
+        a: "Mail-Tester scores a real send: headers, DNS, and content together. This checker is content-only and runs in your browser before you ever hit send — use both.",
+      },
+      {
+        q: "Are spam word lists the same for cold email and newsletters?",
+        a: "Overlapping, but cold is less forgiving. You are not on a permission list, so promo and urgency language is weighted harder. What passes on a weekly newsletter can still hurt first-touch outbound.",
+      },
+      {
+        q: "Should I remove every flagged word even if it is accurate?",
+        a: "Rewrite for clarity, not for a perfect score. Sometimes “guarantee” is the honest word — just do not stack it with CAPS, !!!, and “act now.” Judgment beats keyword theater.",
+      },
+      {
+        q: "Is my email text stored or sent to a server?",
+        a: "No. Analysis runs in your browser. Nothing is uploaded for scoring.",
+      },
+      {
+        q: "What should I check after I clean the copy?",
+        a: "Authenticate the sending domain (Domain Health Checker), warm new domains (Warmup Calculator), and score the subject line separately — body and subject fail for different reasons.",
       },
     ],
   },
@@ -200,16 +216,32 @@ export const TOOLS: Tool[] = [
     ],
     faqs: [
       {
-        q: "Why does DKIM show 'inconclusive' on a working domain?",
-        a: "DKIM uses a 'selector' chosen by your email provider (Google, Microsoft, SendGrid, etc.). We probe the most common selectors but cannot guess every custom one. If you know your selector, the absence here is not necessarily a problem.",
+        q: "Why does DKIM show inconclusive on a working domain?",
+        a: "DKIM uses a selector chosen by your email provider. We probe common selectors but cannot guess every custom one. If mail already authenticates in your ESP, a miss here is often just selector mismatch — not a broken domain.",
       },
       {
         q: "Will this fix my deliverability?",
-        a: "It will tell you what's missing. Adding the records is a 5-minute DNS edit. If you'd like us to handle the full warmup, infrastructure, and sending setup, book a strategy call.",
+        a: "It tells you what is missing or misconfigured. Adding records is usually a short DNS edit. Reputation, warmup, and list quality are separate — this is the identity gate.",
       },
       {
         q: "Is the lookup logged?",
-        a: "No. We perform the DNS query and discard the result after returning it to your browser.",
+        a: "No. We perform a read-only DNS query and return the result to your browser without keeping a lookup history for marketing.",
+      },
+      {
+        q: "Should I put cold email on my primary company domain?",
+        a: "No. Use dedicated sending domains for cold volume so customer and investor mail on @company.com stay protected if outbound reputation dips.",
+      },
+      {
+        q: "What DMARC policy should I start with?",
+        a: "Most teams start with p=none plus reporting (rua) to see alignment failures, then move to quarantine/reject once SPF and DKIM are solid. Jumping straight to reject without monitoring can break legitimate mail.",
+      },
+      {
+        q: "Does a high score mean I am ready to send cold volume?",
+        a: "It means authentication looks healthy. You still need warmup, clean lists, and restrained content before full volume. Pair this with the Warmup Calculator.",
+      },
+      {
+        q: "Can I check a competitor’s domain?",
+        a: "Yes — DNS is public. Use it to learn how serious senders configure mail, not to copy their cold domains wholesale.",
       },
     ],
   },
@@ -252,15 +284,31 @@ export const TOOLS: Tool[] = [
     faqs: [
       {
         q: "Are these templates AI-generated?",
-        a: "They're built from a structured frame — not a language model. That means they're consistent, not 'creative,' and they always follow proven cold-email anatomy: relevance hook, problem, micro-offer, soft CTA.",
+        a: "They are built from a structured frame — not an open-ended language model. That keeps anatomy consistent: relevance hook, problem, micro-offer, soft CTA — editable, not “creative” noise.",
       },
       {
         q: "Can I customize the cadence?",
-        a: "The default cadence is Day 0, Day 3, Day 7. Many teams use 4–6 touches; this tool gives you the first 3, which carry 80% of the response weight.",
+        a: "Default framing is Day 0 / Day 3 / Day 7. Many teams run 4–6 touches; the first three usually carry most of the reply weight. Add later touches once the opener is proven.",
       },
       {
         q: "Will these get me booked meetings?",
-        a: "Templates are 20% of the equation. List quality, sender infrastructure, deliverability, and personalization carry the other 80%. We do all of it for clients — book a call to see how.",
+        a: "Copy is roughly 20% of the outcome. List quality, infrastructure, deliverability, and reply handling carry the rest. Use this to ship a strong draft, then operate the system.",
+      },
+      {
+        q: "Should I personalize every line?",
+        a: "Personalize the first sentence and any merge fields with real triggers (hire, funding, page change). Do not fake intimacy. Specific beats “hope you’re doing well.”",
+      },
+      {
+        q: "Which tone should I pick?",
+        a: "Direct for consultative B2B, Warm for services and founder-led sales, Playful only when your ICP actually tolerates it — still keep the email short and specific.",
+      },
+      {
+        q: "How do I avoid sounding like every other sequence?",
+        a: "Replace generic claims with one verifiable observation about the prospect. Then run the body through the Spam Word Checker and the subject through the Subject Line Tester.",
+      },
+      {
+        q: "Can I use this for LinkedIn messages too?",
+        a: "The frame works, but LinkedIn should be shorter. Steal the opener logic; cut the email scaffolding.",
       },
     ],
   },
@@ -303,15 +351,31 @@ export const TOOLS: Tool[] = [
     faqs: [
       {
         q: "What benchmarks should I use?",
-        a: "Healthy cold outbound to a tightly-defined ICP runs 1.5–4% reply rate, 25–40% reply→meeting, and 15–25% meeting→close on a B2B SaaS deal. We pre-fill the sliders with conservative midpoints.",
+        a: "For tight ICPs, plan roughly 1.5–4% reply rate, 25–40% reply→meeting, and 15–25% meeting→close on many B2B SaaS motions. We pre-fill conservative midpoints — stress-test in the sensitivity table.",
       },
       {
         q: "Why doesn't ROI account for sales-team time?",
-        a: "It does — program cost should be all-in: agency fees + SDR salary + tooling. The default cost field assumes a fully-loaded outbound program.",
+        a: "It does if you enter all-in program cost: agency or SDR salary, tools, and management overhead. Do not model agency fee alone if an AE still burns hours on bad meetings.",
       },
       {
         q: "Can I share this model?",
-        a: "Yes — the URL captures every input. Hit 'Copy share link' to send a populated calculator to anyone.",
+        a: "Yes — the URL captures every input. Use Copy share link so finance and GTM argue about the same assumptions.",
+      },
+      {
+        q: "What if ROI only works at heroic reply rates?",
+        a: "That is a useful failure. Fix offer clarity, ICP, or ACV before buying more volume. Heroic assumptions are how outbound budgets get canceled in month two.",
+      },
+      {
+        q: "Should I include opportunity cost of not doing outbound?",
+        a: "For planning, model the program on its own first. Then separately compare against paid or hiring an internal pod — different decision, same honesty about conversion rates.",
+      },
+      {
+        q: "Is pipeline the same as revenue?",
+        a: "No. Pipeline is meetings × ACV (or your pipeline definition). Revenue applies close rate. Keep them separate so optimism does not hide in one number.",
+      },
+      {
+        q: "How does this relate to your pricing?",
+        a: "Use the calculator to see whether a done-for-you program can pay back under conservative assumptions, then compare against live pricing on /pricing.",
       },
     ],
   },
@@ -354,15 +418,31 @@ export const TOOLS: Tool[] = [
     faqs: [
       {
         q: "What growth curve do you use?",
-        a: "30% day-over-day, the consensus rate that lets ESPs build a healthy reputation without tripping rate limits or filters. We start at 5 sends/day and ramp from there.",
+        a: "About 30% day-over-day from a low base (we start near 5 sends/day). It is the common ramp that builds reputation without looking like a sudden blast.",
       },
       {
-        q: "Should I warm up multiple inboxes in parallel?",
-        a: "Yes — most teams warm 3–5 inboxes per domain in parallel. The numbers in this calculator are per-inbox; multiply by your inbox count for total daily volume.",
+        q: "Should I warm multiple inboxes in parallel?",
+        a: "Yes — many teams warm 3–5 inboxes per domain. Calculator numbers are per-inbox; multiply for total daily volume across the domain.",
       },
       {
         q: "Do I still need a warmup tool?",
-        a: "Yes, especially in the first 14 days. Warmup tools generate inbound replies that train ESPs your domain is human. Switch them off at the milestone we flag.",
+        a: "Especially in the first two weeks. Warmup tools create engagement patterns ESPs recognize. At the milestone, shift toward real ICP sends and keep warmup light if you need a buffer.",
+      },
+      {
+        q: "Can I skip warmup if SPF/DKIM/DMARC pass?",
+        a: "Authentication is required, not sufficient. A perfect DNS score on a brand-new domain still needs a ramp. Check DNS first, then follow the calendar.",
+      },
+      {
+        q: "Should I warm on weekends?",
+        a: "Most automated warmup tools run daily. This calendar includes weekends for that reason. Real cold sends to business buyers can favor weekdays once you graduate.",
+      },
+      {
+        q: "What kills a warmup faster than anything?",
+        a: "Sudden volume spikes, spammy copy, bad lists, and high complaint rates. Protect the domain like an asset — you are buying future inbox placement.",
+      },
+      {
+        q: "When do I turn warmup off completely?",
+        a: "After you hit target daily volume with stable placement and clean metrics. Some teams keep a low warmup trickle forever; others stop once cold volume is healthy. Watch bounces and spam complaints either way.",
       },
     ],
   },

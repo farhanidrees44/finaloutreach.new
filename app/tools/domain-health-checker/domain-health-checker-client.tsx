@@ -48,10 +48,10 @@ const SAMPLE_DOMAINS = ["google.com", "github.com", "stripe.com", "notion.so"]
 
 function StatusIcon({ status, className }: { status: CheckStatus; className?: string }) {
   const map = {
-    pass: { Icon: CheckCircle2, cls: "text-emerald-600" },
+    pass: { Icon: CheckCircle2, cls: "text-emerald" },
     warn: { Icon: AlertTriangle, cls: "text-amber-600" },
-    fail: { Icon: XCircle, cls: "text-rose-600" },
-    info: { Icon: Info, cls: "text-sky-600" },
+    fail: { Icon: XCircle, cls: "text-destructive" },
+    info: { Icon: Info, cls: "text-electric-blue" },
   } as const
   const { Icon, cls } = map[status]
   return <Icon className={cn("size-4", cls, className)} aria-hidden="true" />
@@ -64,12 +64,12 @@ function ScoreRing({ score, grade }: { score: number; grade: Report["grade"] }) 
   const offset = circ - (pct / 100) * circ
   const stroke =
     grade === "Excellent"
-      ? "stroke-emerald-500"
+      ? "stroke-emerald"
       : grade === "Good"
-        ? "stroke-[oklch(0.55_0.13_78)]"
+        ? "stroke-electric-blue"
         : grade === "Needs work"
           ? "stroke-amber-500"
-          : "stroke-rose-500"
+          : "stroke-destructive"
   return (
     <div className="relative inline-flex size-[136px] shrink-0 items-center justify-center">
       <svg viewBox="0 0 120 120" className="size-full -rotate-90">
