@@ -95,8 +95,8 @@ export function FinalCta() {
                 <img
                   src="/review-badges-strip.png"
                   alt="G2 High Performer, G2 4.9, Capterra 4.7, GetApp 4.7, and Clutch 5.0 ratings"
-                  width={992}
-                  height={179}
+                  width={934}
+                  height={242}
                   className="h-auto w-full max-w-full object-contain object-left"
                   loading="lazy"
                   decoding="async"
