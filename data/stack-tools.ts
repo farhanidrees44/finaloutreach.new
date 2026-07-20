@@ -17,7 +17,7 @@ export const STACK_DISCLAIMER =
   "Tools we operate on behalf of clients — logos shown for identification purposes only; no partnership or endorsement implied."
 
 export const STACK_TOOLS: StackTool[] = [
-  { id: "apollo", name: "Apollo", slug: "apollo", src: "/logos/apollo.svg" },
+  { id: "apollo", name: "Apollo", slug: "apollo", src: "/logos/apollo.png" },
   { id: "zoominfo", name: "ZoomInfo", slug: "zoominfo", src: "/logos/zoominfo.png" },
   { id: "smartlead", name: "Smartlead", slug: "smartlead", src: "/logos/smartlead.png" },
   { id: "instantly", name: "Instantly", slug: "instantly", src: "/logos/instantly.png" },
