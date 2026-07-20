@@ -66,7 +66,7 @@ export function FinalCta() {
               Limited slots this quarter
             </span>
             <h2 className="mt-7 max-w-[16ch] text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold text-background">
-              Your next 50 meetings are{" "}
+              Your next meeting is{" "}
               <span className="font-serif-italic text-electric-blue">
                 one call
               </span>{" "}

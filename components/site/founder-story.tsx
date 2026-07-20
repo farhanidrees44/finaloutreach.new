@@ -191,8 +191,8 @@ export function FounderStory() {
             {/* Quote */}
             <figure className="mt-10 max-w-xl border-l-2 border-emerald-deep/60 pl-5">
               <blockquote className="font-serif-italic text-[20px] leading-[1.35] text-ink sm:text-[24px]">
-                &ldquo;We built FinalOutreach because founders deserve a partner
-                that ships meetings, not excuses.&rdquo;
+                &ldquo;I&apos;d rather lose the deal on a call than win it with
+                a deck full of promises we can&apos;t keep.&rdquo;
               </blockquote>
               <figcaption className="mt-3 text-[12px] uppercase tracking-[0.14em] text-ink-40">
                 Farhan Idrees — Founder

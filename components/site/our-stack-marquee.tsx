@@ -69,8 +69,10 @@ export function OurStackMarquee() {
           id="our-stack-heading"
           className="mb-6 text-center text-[11px] uppercase tracking-[0.22em] text-ink-40 sm:mb-8 sm:text-[11.5px]"
         >
-          Our Stack —{" "}
-          <span className="font-semibold text-ink-60">tools we run in</span>
+          Our stack,{" "}
+          <span className="font-semibold text-ink-60">
+            the tools behind every campaign
+          </span>
         </p>
       </div>
 

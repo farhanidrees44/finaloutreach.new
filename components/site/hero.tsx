@@ -169,11 +169,9 @@ export function Hero() {
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.45 }}
           className="mt-5 max-w-2xl text-pretty text-[17px] font-semibold leading-[1.65] text-ink-80 sm:text-[19px]"
         >
-          Most teams burn 3–4 agencies before finding one that works. We&apos;re
-          built to be your last one —{" "}
-          <span className="font-bold text-ink">hands-on operators</span>,{" "}
-          <span className="font-bold text-ink">real infrastructure</span>,
-          meetings booked directly into your calendar.
+          Most teams burn 3–4 agencies before finding one that works. We run
+          the campaigns ourselves, on infrastructure we own, until meetings
+          show up on your calendar.
         </motion.p>
 
         <motion.div
@@ -185,7 +183,7 @@ export function Hero() {
           <MagneticButton href={SITE.calendly} size="lg" variant="primary">
             <span className="inline-flex items-center gap-2">
               <FileText className="size-4 opacity-90" aria-hidden />
-              Get Your Custom Growth Blueprint
+              Book Your Strategy Call
             </span>
           </MagneticButton>
 
