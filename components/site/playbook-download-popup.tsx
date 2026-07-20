@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useId, useState } from "react"
+import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { ArrowRight, Download, X } from "lucide-react"
@@ -9,9 +9,10 @@ import { trackDownload } from "@/lib/analytics"
 const STORAGE_KEY = "fo-playbook-popup-dismissed"
 const PDF_HREF = "/final-outreach-cold-email-playbook.pdf"
 const PDF_FILENAME = "The-Cold-Email-Playbook-FinalOutreach.pdf"
-const SHOW_DELAY_MS = 1800
+/** Delay before first show — mid-range of the 3–5s window. */
+const SHOW_DELAY_MS = 4000
 
-/** Paths where the popup would be redundant or distracting. */
+/** Paths where the popup would be redundant. */
 function shouldSkipPath(pathname: string | null) {
   if (!pathname) return true
   if (pathname.startsWith("/resources/cold-email-playbook")) return true
@@ -36,8 +37,8 @@ function markDismissed() {
 }
 
 /**
- * Site-wide playbook download box — shows once per visitor until dismissed.
- * Direct PDF download; no email gate.
+ * Non-blocking playbook download card — bottom-left, once per visitor.
+ * Slides up after a short delay; site stays fully interactive underneath.
  */
 export function PlaybookDownloadPopup() {
   const pathname = usePathname()
@@ -45,21 +46,35 @@ export function PlaybookDownloadPopup() {
   const titleId = useId()
   const descId = useId()
   const [open, setOpen] = useState(false)
+  const delayDone = useRef(false)
 
   const dismiss = useCallback(() => {
     markDismissed()
     setOpen(false)
   }, [])
 
+  // One timer per browser visit load; never again after dismiss (localStorage).
   useEffect(() => {
-    if (shouldSkipPath(pathname)) {
+    if (wasDismissed()) return
+
+    const timer = window.setTimeout(() => {
+      delayDone.current = true
+      if (wasDismissed()) return
+      if (shouldSkipPath(window.location.pathname)) return
+      setOpen(true)
+    }, SHOW_DELAY_MS)
+
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  // Stay out of the way on skip paths; come back if still eligible.
+  useEffect(() => {
+    if (!delayDone.current) return
+    if (wasDismissed()) {
       setOpen(false)
       return
     }
-    if (wasDismissed()) return
-
-    const timer = window.setTimeout(() => setOpen(true), SHOW_DELAY_MS)
-    return () => window.clearTimeout(timer)
+    setOpen(!shouldSkipPath(pathname))
   }, [pathname])
 
   useEffect(() => {
@@ -67,13 +82,8 @@ export function PlaybookDownloadPopup() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") dismiss()
     }
-    const prev = document.body.style.overflow
-    document.body.style.overflow = "hidden"
     window.addEventListener("keydown", onKey)
-    return () => {
-      document.body.style.overflow = prev
-      window.removeEventListener("keydown", onKey)
-    }
+    return () => window.removeEventListener("keydown", onKey)
   }, [open, dismiss])
 
   const onDownload = () => {
@@ -85,64 +95,54 @@ export function PlaybookDownloadPopup() {
   return (
     <AnimatePresence>
       {open ? (
-        <div className="pointer-events-none fixed inset-0 z-[60] flex items-end justify-start p-4 sm:items-center sm:p-6 sm:pl-6 md:pl-8">
-          <motion.button
+        <motion.aside
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby={titleId}
+          aria-describedby={descId}
+          initial={reduced ? false : { opacity: 0, y: 56 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduced ? { opacity: 0 } : { opacity: 0, y: 40 }}
+          transition={{
+            duration: reduced ? 0 : 0.5,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="fixed bottom-4 left-4 z-[60] w-[min(100%-2rem,340px)] rounded-[28px] bg-ink p-7 text-background shadow-[0_24px_80px_-16px_rgba(0,0,0,0.5)] sm:bottom-6 sm:left-6 sm:w-[360px] sm:p-8"
+        >
+          <button
             type="button"
-            aria-label="Dismiss playbook download"
-            className="pointer-events-auto absolute inset-0 bg-ink/30"
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduced ? 0 : 0.2 }}
             onClick={dismiss}
-          />
-
-          <motion.aside
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={titleId}
-            aria-describedby={descId}
-            initial={reduced ? false : { opacity: 0, x: -28, scale: 0.98 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={reduced ? { opacity: 0 } : { opacity: 0, x: -20, scale: 0.98 }}
-            transition={{ duration: reduced ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto relative z-10 w-full max-w-[340px] rounded-[28px] bg-ink p-8 text-background shadow-[0_24px_80px_-20px_rgba(0,0,0,0.55)] sm:max-w-[360px] sm:p-9"
+            aria-label="Close"
+            className="absolute right-3 top-3 grid size-9 place-items-center rounded-full text-background/55 transition-colors hover:bg-white/10 hover:text-background"
           >
-            <button
-              type="button"
-              onClick={dismiss}
-              aria-label="Close"
-              className="absolute right-4 top-4 grid size-9 place-items-center rounded-full text-background/55 transition-colors hover:bg-white/10 hover:text-background"
-            >
-              <X className="size-4" strokeWidth={2} />
-            </button>
+            <X className="size-4" strokeWidth={2} />
+          </button>
 
-            <Download className="size-5 text-amber" aria-hidden />
+          <Download className="size-5 text-amber" aria-hidden />
 
-            <h2
-              id={titleId}
-              className="mt-5 pr-8 text-[26px] font-bold leading-[1.1] tracking-tight sm:text-[28px]"
-            >
-              Download the playbook
-            </h2>
-            <p
-              id={descId}
-              className="mt-3 text-[14.5px] leading-[1.55] text-background/70"
-            >
-              Free, no email required. Direct PDF download. Share it freely.
-            </p>
+          <h2
+            id={titleId}
+            className="mt-4 pr-8 text-[24px] font-bold leading-[1.1] tracking-tight sm:text-[26px]"
+          >
+            Download the playbook
+          </h2>
+          <p
+            id={descId}
+            className="mt-2.5 text-[14px] leading-[1.55] text-background/70"
+          >
+            Free, no email required. Direct PDF download. Share it freely.
+          </p>
 
-            <a
-              href={PDF_HREF}
-              download={PDF_FILENAME}
-              onClick={onDownload}
-              className="group mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-amber px-5 text-[14px] font-medium text-ink transition-all hover:bg-amber/90 active:scale-[0.99]"
-            >
-              Download free PDF
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
-          </motion.aside>
-        </div>
+          <a
+            href={PDF_HREF}
+            download={PDF_FILENAME}
+            onClick={onDownload}
+            className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-amber px-5 text-[14px] font-medium text-ink transition-all hover:bg-amber/90 active:scale-[0.99]"
+          >
+            Download free PDF
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </motion.aside>
       ) : null}
     </AnimatePresence>
   )
