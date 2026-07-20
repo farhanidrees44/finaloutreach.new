@@ -85,11 +85,11 @@ export function PlaybookDownloadPopup() {
   return (
     <AnimatePresence>
       {open ? (
-        <div className="fixed inset-0 z-[60] flex items-end justify-center p-4 sm:items-center sm:p-6">
+        <div className="pointer-events-none fixed inset-0 z-[60] flex items-end justify-start p-4 sm:items-center sm:p-6 sm:pl-6 md:pl-8">
           <motion.button
             type="button"
             aria-label="Dismiss playbook download"
-            className="absolute inset-0 bg-ink/45 backdrop-blur-[2px]"
+            className="pointer-events-auto absolute inset-0 bg-ink/30"
             initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -102,11 +102,11 @@ export function PlaybookDownloadPopup() {
             aria-modal="true"
             aria-labelledby={titleId}
             aria-describedby={descId}
-            initial={reduced ? false : { opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduced ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }}
+            initial={reduced ? false : { opacity: 0, x: -28, scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={reduced ? { opacity: 0 } : { opacity: 0, x: -20, scale: 0.98 }}
             transition={{ duration: reduced ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 w-full max-w-[360px] rounded-[28px] bg-ink p-8 text-background shadow-[0_24px_80px_-20px_rgba(0,0,0,0.55)] sm:p-9"
+            className="pointer-events-auto relative z-10 w-full max-w-[340px] rounded-[28px] bg-ink p-8 text-background shadow-[0_24px_80px_-20px_rgba(0,0,0,0.55)] sm:max-w-[360px] sm:p-9"
           >
             <button
               type="button"
