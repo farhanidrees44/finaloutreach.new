@@ -1,133 +1,70 @@
 import sharp from "sharp"
-import fs from "fs"
 import path from "path"
+import fs from "fs"
 
-const ASSETS =
-  "C:/Users/HP/.cursor/projects/c-Users-HP-Desktop-finaloutreach/assets"
-const OUT = path.resolve("C:/Users/HP/Desktop/finaloutreach/public/stack")
-const SIZE = 256
+const assetDir =
+  "C:\\Users\\HP\\.cursor\\projects\\c-Users-HP-finaloutreach-new\\assets"
+const outDir = "C:\\Users\\HP\\finaloutreach.new\\public\\logos"
 
-fs.mkdirSync(OUT, { recursive: true })
+const map = [
+  { match: "apify-ad0", out: "apify.png", removeBlack: true },
+  { match: "highlevel-429", out: "gohighlevel.png", removeBlack: true },
+  { match: "appsumo-87d", out: "appsumo.png", removeBlack: true },
+  { match: "instantly-a4e", out: "instantly.png", removeBlack: false },
+  { match: "n8n-1ece", out: "n8n.png", removeBlack: true },
+]
 
-const FILES = {
-  gohighlevel:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_ghl_svg_logo-ea2b8caa-7182-4854-8c57-7a7270463eee.png",
-  lemlist:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_lemlist_svg_logo-f43e4d07-d802-4ede-8c46-032c41223b11.png",
-  hubspot:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_hubspot_svg_logo-c0adfd7a-5be5-4d35-b979-0ae07bb5512d.png",
-  zapier:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_apollo_logo-ef9a2d8d-33e1-4b20-b5ab-2954137a80cf.png",
-  clay:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_clay_svg_logo-ed4d2035-1f83-4660-9db2-6a375e113a50.png",
-  zoominfo:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_ZoomInfo_logo__2024_.svg-c4c17c4e-3853-41db-9b3e-52a0a9298f68.png",
-  smartlead:
-    "c__Users_HP_AppData_Roaming_Cursor_User_workspaceStorage_empty-window_images_smartlead_logo-0586166b-1780-4821-8188-5e1ea0e3ee8d.png",
+function findAsset(match) {
+  return fs.readdirSync(assetDir).find((f) => f.includes(match))
 }
 
-async function rawRgba(inputPath) {
-  return sharp(inputPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
-}
-
-function mapPixels(data, fn) {
-  for (let i = 0; i < data.length; i += 4) {
-    fn(data, i)
-  }
-}
-
-async function fromRaw(data, width, height) {
-  return sharp(data, { raw: { width, height, channels: 4 } })
-}
-
-/** Kill near-black background. */
-function killDarkBg(data, threshold = 40) {
-  mapPixels(data, (d, i) => {
-    if (d[i] < threshold && d[i + 1] < threshold && d[i + 2] < threshold) {
-      d[i + 3] = 0
-    }
-  })
-}
-
-/** Kill near-white background. */
-function killLightBg(data, threshold = 248) {
-  mapPixels(data, (d, i) => {
-    if (d[i] > threshold && d[i + 1] > threshold && d[i + 2] > threshold) {
-      d[i + 3] = 0
-    }
-  })
-}
-
-/** Recolor remaining opaque dark-grey marks to a brand color (Zapier). */
-function recolorDarkTo(data, rgb) {
-  mapPixels(data, (d, i) => {
-    if (d[i + 3] < 20) return
-    const lum = (d[i] + d[i + 1] + d[i + 2]) / 3
-    if (lum < 120) {
-      d[i] = rgb[0]
-      d[i + 1] = rgb[1]
-      d[i + 2] = rgb[2]
-      d[i + 3] = 255
-    }
-  })
-}
-
-async function contentBBox(data, width, height) {
-  let minX = width,
-    minY = height,
-    maxX = 0,
-    maxY = 0
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const a = data[(y * width + x) * 4 + 3]
-      if (a > 12) {
-        if (x < minX) minX = x
-        if (y < minY) minY = y
-        if (x > maxX) maxX = x
-        if (y > maxY) maxY = y
-      }
-    }
-  }
-  if (maxX < minX) return null
-  return {
-    left: minX,
-    top: minY,
-    width: maxX - minX + 1,
-    height: maxY - minY + 1,
-  }
-}
-
-async function cropLeftIcon(buf, maxAspect = 1.15) {
-  const img = sharp(buf)
-  const m = await img.metadata()
-  const w = m.width
-  const h = m.height
-  if (!w || !h) return buf
-  if (w / h <= maxAspect) return buf
-  // Take leftmost roughly-square region covering the mark
-  const side = h
-  return img
-    .extract({ left: 0, top: 0, width: Math.min(side, w), height: side })
-    .png()
-    .toBuffer()
-}
-
-async function finalize(buf, outName) {
-  const { data, info } = await sharp(buf)
+async function knockOutDarkBg(inputPath) {
+  const { data, info } = await sharp(inputPath)
     .ensureAlpha()
     .raw()
     .toBuffer({ resolveWithObject: true })
-  const box = await contentBBox(data, info.width, info.height)
-  let cropped = buf
-  if (box) {
-    cropped = await sharp(buf)
-      .extract(box)
-      .png()
-      .toBuffer()
+
+  for (let i = 0; i < data.length; i += info.channels) {
+    const r = data[i]
+    const g = data[i + 1]
+    const b = data[i + 2]
+    const max = Math.max(r, g, b)
+    const min = Math.min(r, g, b)
+    const sat = max - min
+    // Dark / near-black flat background → transparent
+    if (max <= 40 && sat < 18) {
+      data[i + 3] = 0
+    } else if (max <= 55 && sat < 14) {
+      data[i + 3] = Math.round(((max - 40) / 15) * 220)
+    }
   }
-  const pad = Math.round(SIZE * 0.1)
-  await sharp(cropped)
-    .resize(SIZE - pad * 2, SIZE - pad * 2, {
+
+  return sharp(Buffer.from(data), {
+    raw: { width: info.width, height: info.height, channels: info.channels },
+  })
+}
+
+async function processLogo({ match, out, removeBlack }) {
+  const file = findAsset(match)
+  if (!file) throw new Error(`Missing asset for ${match}`)
+  const input = path.join(assetDir, file)
+  const meta = await sharp(input).metadata()
+  console.log("processing", out, `${meta.width}x${meta.height}`)
+
+  let img = removeBlack
+    ? await knockOutDarkBg(input)
+    : sharp(input).ensureAlpha()
+
+  const targetW = 520
+  const targetH = 168
+  const pad = 18
+
+  await img
+    .png()
+    .trim({ threshold: 12 })
+    .resize({
+      width: targetW - pad * 2,
+      height: targetH - pad * 2,
       fit: "contain",
       background: { r: 0, g: 0, b: 0, alpha: 0 },
     })
@@ -138,49 +75,20 @@ async function finalize(buf, outName) {
       right: pad,
       background: { r: 0, g: 0, b: 0, alpha: 0 },
     })
-    .png()
-    .toFile(path.join(OUT, outName))
-  console.log("OK", outName)
+    .png({ compressionLevel: 8 })
+    .toFile(path.join(outDir, out))
+
+  console.log("wrote", out)
 }
 
-async function process(slug, file, mode) {
-  const src = path.join(ASSETS, file)
-  let { data, info } = await rawRgba(src)
-
-  if (mode === "dark-bg") killDarkBg(data, 42)
-  if (mode === "dark-bg-soft") killDarkBg(data, 55)
-  if (mode === "light-bg") killLightBg(data, 245)
-  if (mode === "zapier") {
-    killDarkBg(data, 18) // only pure black
-    recolorDarkTo(data, [255, 79, 0]) // Zapier orange
-  }
-
-  let buf = await (await fromRaw(data, info.width, info.height)).png().toBuffer()
-
-  if (mode === "left-icon-dark") {
-    killDarkBg(data, 42)
-    buf = await (await fromRaw(data, info.width, info.height)).png().toBuffer()
-    buf = await cropLeftIcon(buf, 1.2)
-  }
-  if (mode === "left-icon-light") {
-    killLightBg(data, 245)
-    buf = await (await fromRaw(data, info.width, info.height)).png().toBuffer()
-    buf = await cropLeftIcon(buf, 1.2)
-  }
-  if (mode === "ghl") {
-    // keep circular logo as-is (navy is brand), just square-contain
-    buf = await sharp(src).png().toBuffer()
-  }
-
-  await finalize(buf, `${slug}.png`)
+// Remove mistaken multi-logo strip saved as apollo.png
+const badApollo = path.join(outDir, "apollo.png")
+if (fs.existsSync(badApollo)) {
+  fs.unlinkSync(badApollo)
+  console.log("removed bad apollo.png (multi-logo strip)")
 }
 
-await process("gohighlevel", FILES.gohighlevel, "ghl")
-await process("lemlist", FILES.lemlist, "left-icon-light")
-await process("hubspot", FILES.hubspot, "dark-bg")
-await process("zapier", FILES.zapier, "zapier")
-await process("clay", FILES.clay, "left-icon-dark")
-await process("zoominfo", FILES.zoominfo, "left-icon-dark")
-await process("smartlead", FILES.smartlead, "left-icon-dark")
-
-console.log(fs.readdirSync(OUT))
+for (const item of map) {
+  await processLogo(item)
+}
+console.log("done")

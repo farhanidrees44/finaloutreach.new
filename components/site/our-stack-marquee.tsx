@@ -19,7 +19,7 @@ function StackLogoCard({
 
   return (
     <div
-      className="flex h-[72px] w-[132px] shrink-0 items-center justify-center rounded-2xl border border-ink-08 bg-card px-4 shadow-[var(--shadow-sm)] sm:h-[88px] sm:w-[160px] sm:px-5"
+      className="flex h-[72px] w-[140px] shrink-0 items-center justify-center rounded-2xl border border-ink-08 bg-card px-3 shadow-[var(--shadow-sm)] sm:h-[88px] sm:w-[168px] sm:px-4"
       title={tool.name}
       aria-hidden={ariaHidden || undefined}
     >
@@ -33,13 +33,13 @@ function StackLogoCard({
           </span>
         </div>
       ) : (
-        <span className="relative block h-10 w-full sm:h-12">
+        <span className="relative block h-[42px] w-full sm:h-[52px]">
           <Image
             src={tool.src}
             alt={ariaHidden ? "" : `${tool.name} logo`}
             fill
-            className="object-contain"
-            sizes="(max-width: 640px) 132px, 160px"
+            className="object-contain object-center"
+            sizes="(max-width: 640px) 140px, 168px"
             quality={95}
             unoptimized
             onError={() => setFailed(true)}
