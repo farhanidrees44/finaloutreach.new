@@ -33,6 +33,7 @@ export const STACK_TOOLS: StackTool[] = [
   { id: "n8n", name: "n8n", slug: "n8n", src: "/logos/n8n.png" },
   { id: "dripify", name: "Dripify", slug: "dripify", src: "/logos/dripify.png" },
   { id: "lemlist", name: "lemlist", slug: "lemlist", src: "/logos/lemlist.png" },
+  { id: "success-ai", name: "Success.ai", slug: "success-ai", src: "/logos/success-ai.png" },
 ]
 
 /** Guard: marquee must never show the same brand twice in the source list. */

@@ -13,6 +13,7 @@ const map = [
   { match: "instantly-2d2", out: "instantly.png", removeBlack: false },
   { match: "lemlist_svg", out: "lemlist.png", removeBlack: false },
   { match: "n8n-4af", out: "n8n.png", removeBlack: true },
+  { match: "success.ai-logo-6b15", out: "success-ai.png", removeBlack: true },
 ]
 
 function findAsset(match) {
