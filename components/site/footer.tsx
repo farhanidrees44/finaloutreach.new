@@ -215,9 +215,6 @@ export function Footer() {
             <p className="text-[12px] text-ink-40">
               © {new Date().getFullYear()} {SITE.name}. All rights reserved.
             </p>
-            <p className="text-[11px] text-ink-40">
-              Made with rigor — {SITE.location}
-            </p>
           </div>
 
           <div className="flex items-center gap-6 text-[12px] text-ink-60">
