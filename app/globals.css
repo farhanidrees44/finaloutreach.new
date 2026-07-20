@@ -626,6 +626,16 @@
     }
   }
 
+  @keyframes fo-engine-pulse {
+    0%,
+    100% {
+      box-shadow: var(--shadow-md), 0 0 0 0 oklch(0.55 0.24 295 / 0);
+    }
+    50% {
+      box-shadow: var(--shadow-md), 0 0 0 8px oklch(0.55 0.24 295 / 0.1);
+    }
+  }
+
   /* ───── MESH ACCENTS ───── */
   .mesh-emerald {
     background-image:

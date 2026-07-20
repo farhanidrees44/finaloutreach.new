@@ -1,16 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { motion, useReducedMotion } from "framer-motion"
 import { SectionEyebrow } from "./section-eyebrow"
+import { OutreachEngineFlow } from "./outreach-engine-flow"
 
-/**
- * 01 · Process — outreach engine workflow.
- *
- * TODO: Replace the file at /public/process/outreach-engine-workflow.png
- * with the final diagram export (same path, no code change required).
- * Current asset is a working placeholder matching the intended 16:9 layout.
- */
+/** 01 · Process — animated outreach engine workflow (no static diagram image). */
 export function ProcessSection() {
   const reduced = useReducedMotion()
 
@@ -41,18 +35,9 @@ export function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.5 }}
-          className="relative mx-auto mt-10 w-full max-w-6xl overflow-hidden rounded-2xl border border-ink-08 bg-card shadow-[var(--shadow-sm)]"
+          className="relative mx-auto mt-10 w-full max-w-6xl"
         >
-          <div className="relative aspect-[16/9] w-full">
-            <Image
-              src="/process/outreach-engine-workflow.png"
-              alt="FinalOutreach outreach workflow: find leads, enrich and verify, cold email, follow-up calls, multi-channel outreach, and book meetings, with analytics and optimization across every step."
-              fill
-              className="object-contain object-center p-2 sm:p-4 md:p-6"
-              sizes="(max-width: 1280px) 100vw, 1152px"
-              priority={false}
-            />
-          </div>
+          <OutreachEngineFlow />
         </motion.div>
       </div>
     </section>
