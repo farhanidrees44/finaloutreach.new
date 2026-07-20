@@ -466,13 +466,12 @@ export function SiteNavigation() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group hidden h-10 items-center gap-1.5 rounded-full px-4 text-[14px] font-semibold text-white transition-all duration-200 active:scale-[0.98] lg:inline-flex",
+                "group hidden h-10 items-center justify-center rounded-full px-4 text-[14px] font-semibold text-white transition-all duration-200 active:scale-[0.98] lg:inline-flex",
                 "bg-primary hover:brightness-110",
                 "shadow-[0_4px_16px_-4px_oklch(0.55_0.24_295_/_0.4)]",
               )}
             >
-              Book a call
-              <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+              Free Consultation
             </a>
             <button
               type="button"
