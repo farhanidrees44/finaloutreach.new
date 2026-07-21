@@ -139,7 +139,7 @@ export function OutreachEngineFlow() {
                 )}
                 aria-hidden
               >
-                <ArrowRight className="size-3.5" strokeWidth={2.75} />
+                <ArrowRight className="size-4" strokeWidth={3} />
               </span>
             ) : null}
           </li>
