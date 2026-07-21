@@ -5,7 +5,6 @@ import { OurStackMarquee } from "@/components/site/our-stack-marquee"
 import { Certifications } from "@/components/site/certifications"
 import { ProcessSection } from "@/components/site/process-section"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
-import { BookingsProof } from "@/components/site/bookings-proof"
 import { Services } from "@/components/site/services"
 import { OperatorDifference } from "@/components/site/operator-difference"
 import { Process } from "@/components/site/process"
@@ -77,7 +76,6 @@ export default function HomePage() {
             <OurStackMarquee />
             <ProcessSection />
             <CampaignProofGallery />
-            <BookingsProof />
             <Services />
             <OperatorDifference />
             <Process />
