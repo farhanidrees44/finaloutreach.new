@@ -13,20 +13,19 @@ export function Faq() {
   return (
     <section id="faq" className="border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
-          <div className="mx-auto flex max-w-xl flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
-            <SectionEyebrow label="Questions" className="justify-center lg:justify-start" />
-            <h2 className="text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              Common questions,{" "}
-              <span className="font-serif-italic text-electric-blue">honest answers.</span>
-            </h2>
-            <p className="max-w-sm text-[16px] font-bold leading-[1.6] text-ink">
-              If yours isn&apos;t here, ask it on the call. We&apos;d rather
-              over-explain than oversell.
-            </p>
-          </div>
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <SectionEyebrow label="Questions" className="justify-center" />
+          <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+            Common questions,{" "}
+            <span className="font-serif-italic text-electric-blue">honest answers.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-[16px] font-bold leading-[1.6] text-ink">
+            If yours isn&apos;t here, ask it on the call. We&apos;d rather
+            over-explain than oversell.
+          </p>
+        </div>
 
-          <ul className="flex flex-col">
+        <ul className="mx-auto flex max-w-3xl flex-col">
             {HOMEPAGE_FAQ.map((item, i) => {
               const open = openIdx === i
               return (
@@ -77,7 +76,6 @@ export function Faq() {
               )
             })}
           </ul>
-        </div>
       </div>
     </section>
   )

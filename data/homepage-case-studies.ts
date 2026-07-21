@@ -1,9 +1,9 @@
 /**
- * HOMEPAGE CASE STUDIES CAROUSEL
+ * HOMEPAGE CASE STUDIES
  *
  * Add entries only with written permission to name the client / person.
  * Set isPlaceholder: false for every shipped card.
- * Empty array = homepage shows LiveCampaignInvite CTA instead of placeholders.
+ * Not currently rendered on the homepage — kept for when permissioned stories ship.
  */
 
 export type HomepageCaseStudy = {

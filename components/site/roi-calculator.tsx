@@ -37,13 +37,13 @@ export function RoiCalculator() {
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
-          className="mb-10 flex flex-col items-start gap-3 md:mb-12"
+          className="mx-auto mb-10 flex max-w-3xl flex-col items-center gap-3 text-center md:mb-12"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-vibrant-purple/20 bg-vibrant-purple/[0.04] px-3 py-1 text-[12px] font-medium uppercase tracking-[0.14em] text-vibrant-purple">
             <Calculator className="size-3.5" strokeWidth={2.2} />
-            07 · ROI model
+            ROI model
           </span>
-          <h2 className="max-w-3xl text-balance text-fluid-2xl font-extrabold tracking-tight text-ink">
+          <h2 className="text-balance text-fluid-2xl font-extrabold tracking-tight text-ink">
             Estimate what qualified meetings could be{" "}
             <span className="font-serif-italic text-electric-blue">
               worth

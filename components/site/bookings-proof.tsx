@@ -34,43 +34,39 @@ export function BookingsProof() {
       className="border-t border-ink-08 bg-background"
     >
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_420px] lg:gap-16">
-          <div className="text-center lg:text-left">
-            <SectionEyebrow
-              label="Appointments"
-              className="justify-center lg:justify-start"
-            />
-            <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              Calendars that fill —{" "}
-              <span className="font-serif-italic text-electric-blue">not slide decks.</span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-lg text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px] lg:mx-0">
-              {BOOKINGS_PROOF_META.sublabel} We book the meetings; your team takes them.
-            </p>
-            {/* PLACEHOLDER stats — replace with verified numbers before ship */}
-            <dl className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
-              <div>
-                <dt className="text-[12px] uppercase tracking-[0.14em] text-ink-40">
-                  Typical mix
-                </dt>
-                <dd className="mt-1 text-[22px] font-medium text-ink">VP / Head / Founder</dd>
-              </div>
-              <div>
-                <dt className="text-[12px] uppercase tracking-[0.14em] text-ink-40">
-                  Channels
-                </dt>
-                <dd className="mt-1 text-[22px] font-medium text-ink">Email + LinkedIn</dd>
-              </div>
-              <div>
-                <dt className="text-[12px] uppercase tracking-[0.14em] text-ink-40">
-                  Handoff
-                </dt>
-                <dd className="mt-1 text-[22px] font-medium text-ink">Your calendar</dd>
-              </div>
-            </dl>
-          </div>
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionEyebrow label="Appointments" className="justify-center" />
+          <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+            Calendars that fill —{" "}
+            <span className="font-serif-italic text-electric-blue">not slide decks.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
+            {BOOKINGS_PROOF_META.sublabel} We book the meetings; your team takes them.
+          </p>
+          {/* PLACEHOLDER stats — replace with verified numbers before ship */}
+          <dl className="mx-auto mt-10 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-3">
+            <div>
+              <dt className="text-[12px] font-bold uppercase tracking-[0.14em] text-ink-40">
+                Typical mix
+              </dt>
+              <dd className="mt-1 text-[20px] font-extrabold text-ink">VP / Head / Founder</dd>
+            </div>
+            <div>
+              <dt className="text-[12px] font-bold uppercase tracking-[0.14em] text-ink-40">
+                Channels
+              </dt>
+              <dd className="mt-1 text-[20px] font-extrabold text-ink">Email + LinkedIn</dd>
+            </div>
+            <div className="col-span-2 sm:col-span-1">
+              <dt className="text-[12px] font-bold uppercase tracking-[0.14em] text-ink-40">
+                Handoff
+              </dt>
+              <dd className="mt-1 text-[20px] font-extrabold text-ink">Your calendar</dd>
+            </div>
+          </dl>
+        </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-ink-08 bg-cream/50 p-5 shadow-[0_20px_50px_-28px_rgba(20,20,16,0.35)]">
+        <div className="relative mx-auto mt-12 max-w-md overflow-hidden rounded-2xl border border-ink-08 bg-cream/50 p-5 shadow-[0_20px_50px_-28px_rgba(20,20,16,0.35)] lg:mt-14">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Calendar className="size-4 text-ink-60" />
@@ -118,7 +114,6 @@ export function BookingsProof() {
               </AnimatePresence>
             </ul>
           </div>
-        </div>
       </div>
     </section>
   )

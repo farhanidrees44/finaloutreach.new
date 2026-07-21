@@ -257,7 +257,7 @@ export function Process() {
               <div className="flex items-center justify-center rounded-[1.5rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-5">
                 <StepPanel kind={step.visual} />
               </div>
-              <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+              <div className="flex flex-col items-center text-center">
                 <span
                   className={[
                     "inline-flex items-center justify-center rounded-full bg-white px-3.5 py-1",

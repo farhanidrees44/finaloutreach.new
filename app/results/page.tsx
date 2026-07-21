@@ -5,7 +5,6 @@ import {
 } from "@/components/site/page-shell"
 import {
   ResultsClosingCta,
-  ResultsLiveInvite,
   ResultsPageContent,
 } from "@/components/site/results-page-content"
 import { SITE } from "@/lib/site-data"
@@ -60,7 +59,6 @@ export default function ResultsPage() {
       </section>
 
       <ResultsPageContent />
-      <ResultsLiveInvite />
       <ResultsClosingCta />
     </PageShell>
   )

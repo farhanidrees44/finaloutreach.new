@@ -74,37 +74,32 @@ export function CampaignProofGallery() {
   return (
     <section id="campaign-proof" className="border-t border-ink-08 bg-cream">
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="mx-auto max-w-3xl text-center md:mx-0 md:max-w-2xl md:text-left">
-            <SectionEyebrow
-              label="Proof"
-              className="justify-center md:justify-start"
-            />
-            <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              Real campaign{" "}
-              <span className="font-serif-italic text-electric-blue">screenshots.</span>
-            </h2>
-            <p className="mt-5 max-w-xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px] md:mx-0 mx-auto">
-              Live dashboards and calendar density — industry and stage only.
-              Named logos and faces appear only with written permission.
-            </p>
-          </div>
-          <div className="flex justify-center gap-2 md:justify-end">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <SectionEyebrow label="Proof" className="justify-center" />
+          <h2 className="mt-6 w-full text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+            Real campaign{" "}
+            <span className="font-serif-italic text-electric-blue">screenshots.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
+            Live dashboards and calendar density — industry and stage only.
+            Named logos and faces appear only with written permission.
+          </p>
+          <div className="mt-6 flex justify-center gap-2">
             <button
               type="button"
               onClick={scrollPrev}
               aria-label="Previous screenshots"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-ink-08 bg-background text-ink transition-colors hover:border-ink-40"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-ink-08 bg-background text-ink shadow-sm transition-colors hover:border-ink-40"
             >
-              <ArrowLeft className="size-4" />
+              <ArrowLeft className="size-4" strokeWidth={2.5} />
             </button>
             <button
               type="button"
               onClick={scrollNext}
               aria-label="Next screenshots"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-ink-08 bg-background text-ink transition-colors hover:border-ink-40"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-ink-08 bg-background text-ink shadow-sm transition-colors hover:border-ink-40"
             >
-              <ArrowRight className="size-4" />
+              <ArrowRight className="size-4" strokeWidth={2.5} />
             </button>
           </div>
         </div>

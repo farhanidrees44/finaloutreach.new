@@ -24,7 +24,6 @@ import {
   Flame,
   Images,
   Scale,
-  LayoutDashboard,
   Handshake,
   Factory,
   Building,
@@ -195,12 +194,5 @@ export const MEGA_RESULTS: MegaLink[] = [
     subtitle:
       "Side-by-side breakdowns vs Belkins, Cleverly, Leadium, and other outbound shops.",
     icon: Scale,
-  },
-  {
-    href: "/#live-data",
-    title: "See it live on a call",
-    subtitle:
-      "Named case studies only with permission — until then we walk real dashboards live.",
-    icon: LayoutDashboard,
   },
 ]

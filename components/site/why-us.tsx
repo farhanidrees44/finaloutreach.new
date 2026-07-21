@@ -30,11 +30,11 @@ export function WhyUs() {
   return (
     <section className="border-t border-ink-08 bg-cream">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
-        <div className="max-w-3xl">
-          <SectionEyebrow number="04" label="Why us" />
-          <h2 className="mt-5 text-balance text-[40px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[56px]">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionEyebrow label="Why us" className="justify-center" />
+          <h2 className="mt-5 text-balance text-[40px] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-[56px]">
             Why teams hire us instead of an SDR or{" "}
-            <span className="font-serif-italic text-ink-60">
+            <span className="font-serif-italic text-electric-blue">
               another agency.
             </span>
           </h2>

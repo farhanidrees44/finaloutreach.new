@@ -6,14 +6,11 @@ import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ChevronDown,
-  LayoutDashboard,
   ArrowRight,
   ArrowUpRight,
   Filter,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { SITE } from "@/lib/site-data"
-import { MagneticButton } from "./magnetic-button"
 import { BookCallLink } from "./book-call-link"
 import {
   RESULTS_CAMPAIGNS,
@@ -313,73 +310,6 @@ export function ResultsPageContent() {
         </div>
       </div>
     </div>
-  )
-}
-
-export function ResultsLiveInvite() {
-  return (
-    <section className="border-t border-ink-08 bg-cream">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28 lg:px-12">
-        <div className="max-w-3xl">
-          <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-ink-40">
-            More proof, live
-          </p>
-          <h2 className="mt-4 text-balance text-[clamp(1.85rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-            Prefer named case studies?{" "}
-            <span className="font-serif-italic text-electric-blue">
-              We&apos;ll show you live ones.
-            </span>
-          </h2>
-          <p className="mt-5 max-w-xl text-[16px] font-bold leading-relaxed text-ink-60">
-            We only publish client names and quotes with written permission.
-            Until then, additional campaigns are walked through on a strategy
-            call — real dashboards, real calendars, no agency theatre.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-6 overflow-hidden rounded-3xl border-2 border-ink/12 bg-background p-8 md:grid-cols-[1.2fr_1fr] md:p-10">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-ink-08 bg-cream/50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-ink-40">
-              <LayoutDashboard className="size-3.5" aria-hidden />
-              On the call
-            </span>
-            <ul className="mt-6 flex flex-col gap-3 text-[15px] font-semibold leading-relaxed text-ink-60">
-              <li className="flex gap-2">
-                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
-                Live Smartlead / Instantly reply and meeting metrics for
-                accounts like yours
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
-                Calendar density from recent appointment-setting weeks
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
-                An honest read on whether outbound fits your ACV and ICP
-              </li>
-            </ul>
-            <div className="mt-8">
-              <MagneticButton href={SITE.calendly} size="lg" variant="primary">
-                Book a strategy call
-              </MagneticButton>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center rounded-2xl border border-ink-08 bg-cream/40 p-6">
-            <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-ink-40">
-              Why this page stays short
-            </p>
-            <p className="mt-3 text-[20px] font-extrabold leading-snug tracking-tight text-ink">
-              We add campaigns when they&apos;re real — not to fill a grid.
-            </p>
-            <p className="mt-2 text-[14px] font-semibold leading-relaxed text-ink-60">
-              Empty slots and invented logos would look busier. They would also
-              be a lie. More published cards come as engagements complete and
-              permission clears.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
   )
 }
 

@@ -12,7 +12,6 @@ import { OperatorDifference } from "@/components/site/operator-difference"
 import { Process } from "@/components/site/process"
 import { RoiCalculator } from "@/components/site/roi-calculator"
 import { FounderStory } from "@/components/site/founder-story"
-import { LiveCampaignInvite } from "@/components/site/live-campaign-invite"
 import { Testimonials } from "@/components/site/testimonials"
 import { Faq } from "@/components/site/faq"
 import { Pricing } from "@/components/site/pricing"
@@ -79,8 +78,6 @@ export default function HomePage() {
             <OurStackMarquee />
             <ProcessSection />
             <CampaignProofGallery />
-            {/* Proof pair — screenshots + honest named-case stance stay together */}
-            <LiveCampaignInvite />
             <BookingsProof />
             <ResultsBar />
             <Services />
