@@ -29,7 +29,7 @@ const STEPS = [
     Icon: Compass,
     visual: "discovery" as const,
     image: "/process/step-1-discovery.png",
-    imageAlt: "Discovery and ICP definition — research, targeting, and market fit.",
+    imageAlt: "Discovery and ICP definition workflow — market research, competitor analysis, customer data, and opportunity identification.",
   },
   {
     n: "02",
