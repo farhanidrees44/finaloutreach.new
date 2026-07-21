@@ -1,16 +1,33 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
+import {
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion"
+import { ArrowRight, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SectionEyebrow } from "./section-eyebrow"
 import { BookCallLink } from "./book-call-link"
+import { CountUp } from "./count-up"
 
-const PACKAGES = [
+type Package = {
+  name: string
+  /** Numeric price for count-up; null = Custom */
+  priceValue: number | null
+  priceLabel?: string
+  cadence: string
+  blurb: string
+  items: string[]
+  fit: string
+  cta: string
+  featured: boolean
+}
+
+const PACKAGES: Package[] = [
   {
     name: "Starter engagement",
-    price: "$3,500",
+    priceValue: 3500,
     cadence: "/ month",
     blurb: "For founders ready to test cold outreach.",
     items: [
@@ -27,7 +44,7 @@ const PACKAGES = [
   },
   {
     name: "Growth engagement",
-    price: "$7,500",
+    priceValue: 7500,
     cadence: "/ month",
     blurb: "For teams scaling outbound seriously.",
     items: [
@@ -46,7 +63,8 @@ const PACKAGES = [
   },
   {
     name: "Enterprise",
-    price: "Custom",
+    priceValue: null,
+    priceLabel: "Custom",
     cadence: "",
     blurb: "For revenue teams treating outbound as a channel.",
     items: [
@@ -64,13 +82,190 @@ const PACKAGES = [
   },
 ]
 
-export function Pricing() {
+const listVariants = (reduced: boolean): Variants => ({
+  hidden: {},
+  show: {
+    transition: reduced ? { staggerChildren: 0 } : { staggerChildren: 0.12 },
+  },
+})
+
+const cardVariants = (reduced: boolean): Variants => ({
+  hidden: reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: reduced ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+})
+
+const featureListVariants = (reduced: boolean): Variants => ({
+  hidden: {},
+  show: {
+    transition: reduced
+      ? { staggerChildren: 0 }
+      : { staggerChildren: 0.035, delayChildren: 0.12 },
+  },
+})
+
+const featureItemVariants = (reduced: boolean): Variants => ({
+  hidden: reduced ? { opacity: 1, x: 0 } : { opacity: 0, x: -8 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: reduced ? 0 : 0.28, ease: "easeOut" },
+  },
+})
+
+function PricingCard({
+  pkg,
+  reduced,
+}: {
+  pkg: Package
+  reduced: boolean
+}) {
+  const featured = pkg.featured
+
   return (
-    <section
-      id="pricing"
-      className="border-t border-ink-08 bg-cream"
+    <motion.li
+      variants={cardVariants(reduced)}
+      whileHover={
+        reduced
+          ? undefined
+          : {
+              y: -8,
+              transition: { type: "spring", stiffness: 280, damping: 22 },
+            }
+      }
+      className={cn(
+        "group relative flex h-full flex-col rounded-2xl border bg-card p-7 sm:p-8",
+        featured
+          ? cn(
+              "z-10 border-primary/45 bg-gradient-to-b from-card via-card to-primary/[0.04]",
+              "shadow-[0_0_0_1px_oklch(0.55_0.24_295/0.18),0_28px_64px_-28px_oklch(0.55_0.24_295/0.42)]",
+              "xl:scale-[1.04] xl:py-10",
+            )
+          : "border-ink-08 shadow-md hover:border-primary/30 hover:shadow-xl",
+      )}
     >
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+      {featured && (
+        <motion.span
+          aria-label="Most popular plan"
+          animate={
+            reduced
+              ? undefined
+              : {
+                  scale: [1, 1.04, 1],
+                  transition: {
+                    duration: 2.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }
+          }
+          className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 rounded-full bg-primary px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-foreground shadow-md"
+        >
+          Most popular
+        </motion.span>
+      )}
+
+      <div className="flex flex-col gap-2">
+        <h3 className="text-[22px] font-bold tracking-tight text-ink sm:text-[24px]">
+          {pkg.name}
+        </h3>
+        <p className="text-[14px] leading-relaxed text-ink-60">{pkg.blurb}</p>
+      </div>
+
+      <div className="mt-7 flex items-baseline gap-1.5">
+        {pkg.priceValue != null ? (
+          <span className="text-[44px] font-extrabold leading-none tracking-tight tabular-nums text-ink sm:text-[48px]">
+            <CountUp value={pkg.priceValue} prefix="$" duration={800} />
+          </span>
+        ) : (
+          <span className="text-[44px] font-extrabold leading-none tracking-tight text-ink sm:text-[48px]">
+            {pkg.priceLabel}
+          </span>
+        )}
+        {pkg.cadence ? (
+          <span className="text-[14px] text-ink-40">{pkg.cadence}</span>
+        ) : null}
+      </div>
+
+      <p className="mt-4 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-ink-40">
+        Best for: {pkg.fit}
+      </p>
+
+      <div className="my-6 h-px bg-ink-08" />
+
+      <motion.ul
+        variants={featureListVariants(reduced)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-40px" }}
+        className="flex flex-1 flex-col gap-3"
+      >
+        {pkg.items.map((item) => (
+          <motion.li
+            key={item}
+            variants={featureItemVariants(reduced)}
+            className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-ink"
+          >
+            <span
+              className={cn(
+                "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full",
+                featured
+                  ? "bg-primary/12 text-primary"
+                  : "bg-electric-blue/10 text-electric-blue",
+              )}
+            >
+              <Check className="size-3" strokeWidth={2.5} aria-hidden />
+            </span>
+            <span>{item}</span>
+          </motion.li>
+        ))}
+      </motion.ul>
+
+      <motion.div
+        className="mt-8 shrink-0"
+        whileHover={reduced ? undefined : { scale: 1.02 }}
+        whileTap={reduced ? undefined : { scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+      >
+        <BookCallLink
+          source={`homepage-pricing-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
+          className={cn(
+            "group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full text-[14.5px] font-semibold transition-shadow",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            featured
+              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
+              : "bg-ink text-background shadow-md hover:shadow-lg",
+          )}
+        >
+          {pkg.cta}
+          <ArrowRight
+            className="size-4 transition-transform group-hover:translate-x-0.5"
+            aria-hidden
+          />
+        </BookCallLink>
+      </motion.div>
+    </motion.li>
+  )
+}
+
+export function Pricing() {
+  const reduced = !!useReducedMotion()
+
+  return (
+    <section id="pricing" className="relative isolate border-t border-ink-08 bg-cream">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-70"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 40% at 50% 0%, oklch(0.55 0.24 295 / 0.08), transparent 70%)",
+        }}
+      />
+
+      <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionEyebrow number="12" label="Pricing" />
@@ -88,86 +283,26 @@ export function Pricing() {
 
         <p className="mt-8 max-w-2xl text-[15px] font-bold leading-relaxed text-ink-60">
           Priced for operator-led work, not a junior pod{" "}
-          <span className="font-serif-italic text-electric-blue">spraying templates.</span>
+          <span className="font-serif-italic text-electric-blue">
+            spraying templates.
+          </span>
         </p>
 
-        <ul className="mt-8 flex flex-col gap-4">
-          {PACKAGES.map((p, i) => (
-            <motion.li
-              key={p.name}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.05 }}
-              className={cn(
-                "group relative grid grid-cols-1 gap-8 rounded-2xl border bg-background p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-32px_rgba(20,20,16,0.45)] sm:p-9 lg:grid-cols-[260px_1fr_280px] lg:items-center lg:gap-10",
-                p.featured
-                  ? "scale-[1.01] border-primary/50 shadow-[0_0_0_1px_oklch(0.55_0.14_155/0.25),0_20px_50px_-28px_oklch(0.55_0.14_155/0.45)] hover:border-primary"
-                  : "border-ink-08 hover:border-ink/25",
-              )}
-            >
-              {p.featured && (
-                <span className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-primary-foreground">
-                  Most popular
-                </span>
-              )}
-
-              <div className="flex flex-col gap-2">
-                <h3 className="text-[22px] font-bold tracking-tight text-ink sm:text-[26px]">
-                  {p.name}
-                </h3>
-                <p className="text-[14px] text-ink-60">{p.blurb}</p>
-              </div>
-
-              <div className="flex flex-col gap-4 border-t border-ink-08 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-[40px] font-semibold leading-none tabular tracking-display text-ink">
-                    {p.price}
-                  </span>
-                  {p.cadence && (
-                    <span className="text-[14px] text-ink-60">
-                      {p.cadence}
-                    </span>
-                  )}
-                </div>
-                <ul className="flex flex-col gap-2 text-[14px] text-ink-60 sm:flex-wrap sm:flex-row sm:items-center sm:gap-x-1.5 sm:gap-y-2">
-                  {p.items.map((it, idx) => (
-                    <li key={it} className="flex items-center gap-1.5">
-                      <span className="text-ink">{it}</span>
-                      {idx < p.items.length - 1 && (
-                        <span aria-hidden="true" className="hidden text-ink-40 sm:inline">
-                          ·
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-[12.5px] uppercase tracking-[0.14em] text-ink-40">
-                  Best for: {p.fit}
-                </p>
-              </div>
-
-              <div className="flex lg:justify-end">
-                <BookCallLink
-                  source="pricing"
-                  className={cn(
-                    "inline-flex h-12 items-center gap-2 rounded-full px-5 text-[14.5px] font-semibold transition-all active:scale-[0.97]",
-                    p.featured
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-ink text-background hover:bg-ink/90",
-                  )}
-                >
-                  {p.cta}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </BookCallLink>
-              </div>
-            </motion.li>
+        <motion.ul
+          variants={listVariants(reduced)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-14 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-5 xl:pt-4"
+        >
+          {PACKAGES.map((pkg) => (
+            <PricingCard key={pkg.name} pkg={pkg} reduced={reduced} />
           ))}
-        </ul>
+        </motion.ul>
 
-        <p className="mt-8 text-center text-[13px] text-ink-60">
+        <p className="mt-10 text-center text-[13px] text-ink-60">
           All engagements include free infrastructure setup —{" "}
-          <span className="text-ink">$1,500 value</span>.
+          <span className="font-semibold text-ink">$1,500 value</span>.
         </p>
       </div>
     </section>
