@@ -4,7 +4,7 @@
  * Add only real, verified campaigns. Industry/stage labels only —
  * never invent company names, headshots, or quotes.
  * Metrics must match sources already published on the homepage
- * (ResultsBar / Smartlead proof screenshot).
+ * (Smartlead proof screenshot on the homepage).
  */
 
 export type ResultsService =

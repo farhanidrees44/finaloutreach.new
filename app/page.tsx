@@ -6,7 +6,6 @@ import { Certifications } from "@/components/site/certifications"
 import { ProcessSection } from "@/components/site/process-section"
 import { CampaignProofGallery } from "@/components/site/campaign-proof"
 import { BookingsProof } from "@/components/site/bookings-proof"
-import { ResultsBar } from "@/components/site/results-bar"
 import { Services } from "@/components/site/services"
 import { OperatorDifference } from "@/components/site/operator-difference"
 import { Process } from "@/components/site/process"
@@ -79,7 +78,6 @@ export default function HomePage() {
             <ProcessSection />
             <CampaignProofGallery />
             <BookingsProof />
-            <ResultsBar />
             <Services />
             <OperatorDifference />
             <Process />
