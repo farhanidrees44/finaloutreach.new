@@ -11,12 +11,6 @@ export const CAL = {
   },
 } as const
 
-export const CAL_BUTTON_PROPS = {
-  "data-cal-namespace": CAL.namespace,
-  "data-cal-link": CAL.link,
-  "data-cal-config": JSON.stringify(CAL.config),
-} as const
-
 /** True when an href is our Cal.com booking link (or legacy Calendly booking URL). */
 export function isBookingHref(href: string | undefined | null) {
   if (!href) return false
@@ -28,7 +22,8 @@ export function isBookingHref(href: string | undefined | null) {
 }
 
 /**
- * Opens the Cal.com month-view booking popup (same as data-cal-* buttons).
+ * Opens a single Cal.com month-view booking modal.
+ * Prefer this over data-cal-* attributes — those auto-bind and stack a second modal.
  */
 export async function openCalPopup(source = "cta") {
   if (typeof window === "undefined") return

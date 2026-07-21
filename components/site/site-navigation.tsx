@@ -14,7 +14,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ArrowRight, ChevronDown, Menu, X, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "./logo"
-import { CAL, CAL_BUTTON_PROPS, openCalPopup } from "@/lib/cal"
+import { CAL, openCalPopup } from "@/lib/cal"
 import {
   MEGA_FREE_TOOLS,
   MEGA_INDUSTRIES,
@@ -463,7 +463,6 @@ export function SiteNavigation() {
           <div className="flex shrink-0 items-center gap-1.5">
             <a
               href={CAL.url}
-              {...CAL_BUTTON_PROPS}
               onClick={(e) => {
                 e.preventDefault()
                 void openCalPopup("nav")
@@ -633,7 +632,6 @@ export function SiteNavigation() {
 
               <a
                 href={CAL.url}
-                {...CAL_BUTTON_PROPS}
                 onClick={(e) => {
                   e.preventDefault()
                   setMobileOpen(false)

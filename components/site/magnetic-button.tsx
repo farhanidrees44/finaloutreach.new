@@ -9,7 +9,7 @@ import {
 } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { CAL, CAL_BUTTON_PROPS, isBookingHref, openCalPopup } from "@/lib/cal"
+import { CAL, isBookingHref, openCalPopup } from "@/lib/cal"
 
 type Props = {
   href: string
@@ -72,7 +72,6 @@ export function MagneticButton({
     <motion.a
       ref={ref}
       href={booking ? CAL.url : href}
-      {...(booking ? CAL_BUTTON_PROPS : {})}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
       onClick={

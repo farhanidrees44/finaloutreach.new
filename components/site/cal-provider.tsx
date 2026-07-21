@@ -5,8 +5,8 @@ import { getCalApi } from "@calcom/embed-react"
 import { CAL } from "@/lib/cal"
 
 /**
- * Initializes Cal.com embed UI once for the whole site.
- * Buttons/links with data-cal-* attributes open the month-view popup.
+ * Initializes Cal.com embed UI once for the whole site (theme + layout).
+ * Booking CTAs open the modal via openCalPopup() only.
  */
 export function CalProvider() {
   useEffect(() => {

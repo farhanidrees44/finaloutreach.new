@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { ArrowUpRight, Linkedin, Database, CalendarCheck, Server, FileSearch } from "lucide-react"
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
-import { CAL, CAL_BUTTON_PROPS, openCalPopup } from "@/lib/cal"
+import { CAL, openCalPopup } from "@/lib/cal"
 
 const SERVICES = [
   {
@@ -119,7 +119,6 @@ function ServiceCard({
   return (
     <motion.a
       href={CAL.url}
-      {...CAL_BUTTON_PROPS}
       onClick={(e) => {
         e.preventDefault()
         void openCalPopup("services")

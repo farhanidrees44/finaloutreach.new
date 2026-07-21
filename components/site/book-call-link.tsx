@@ -1,10 +1,11 @@
 "use client"
 
-import { CAL, CAL_BUTTON_PROPS, openCalPopup } from "@/lib/cal"
+import { CAL, openCalPopup } from "@/lib/cal"
 import { cn } from "@/lib/utils"
 
 /**
  * Opens the Cal.com month-view booking popup (same UX as Free Consultation).
+ * Uses programmatic open only — do not add data-cal-* here or Cal stacks two modals.
  */
 export function BookCallLink({
   children,
@@ -18,7 +19,6 @@ export function BookCallLink({
   return (
     <a
       href={CAL.url}
-      {...CAL_BUTTON_PROPS}
       onClick={(e) => {
         e.preventDefault()
         void openCalPopup(source)

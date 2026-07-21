@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { CAL, CAL_BUTTON_PROPS, isBookingHref, openCalPopup } from "@/lib/cal"
+import { CAL, isBookingHref, openCalPopup } from "@/lib/cal"
 
 type Variant = "primary" | "ghost" | "ink"
 
@@ -59,7 +59,6 @@ export function CtaButton({
     return (
       <a
         href={CAL.url}
-        {...CAL_BUTTON_PROPS}
         onClick={(e) => {
           e.preventDefault()
           void openCalPopup("cta")
