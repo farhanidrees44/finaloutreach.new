@@ -862,21 +862,21 @@
   .fo-flow__card-title {
     margin: 0.9rem 0 0;
     width: 100%;
-    font-size: 1.125rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
+    font-size: clamp(1.2rem, 1.05rem + 0.35vw, 1.4rem);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
     color: var(--ink);
   }
   .fo-flow__card-desc {
-    margin: 0.6rem auto 0;
+    margin: 0.55rem auto 0;
     width: 100%;
     max-width: 14rem;
     flex: 1;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.875rem;
+    font-weight: 600;
     line-height: 1.45;
-    color: oklch(0.156 0 0 / 0.82);
+    color: oklch(0.156 0 0 / 0.72);
   }
 
   /* Desktop row */

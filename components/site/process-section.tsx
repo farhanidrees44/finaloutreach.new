@@ -12,7 +12,7 @@ export function ProcessSection() {
     <section id="process" className="border-t border-ink-08 bg-cream">
       <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
         <div className="mx-auto max-w-3xl text-center">
-          <SectionEyebrow label="Process" className="justify-center" />
+          <SectionEyebrow label="Workflow" className="justify-center" />
           <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             We launch fast and create{" "}
             <span className="font-serif-italic text-electric-blue">
