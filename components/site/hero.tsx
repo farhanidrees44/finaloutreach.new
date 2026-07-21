@@ -211,7 +211,7 @@ export function Hero() {
           className="mt-5 max-w-2xl text-pretty text-[17px] font-semibold leading-[1.65] text-ink-80 sm:text-[19px]"
         >
           FinalOutreach runs your cold email, LinkedIn outreach, and appointment
-          setting — infrastructure, copy, and sending handled end to end. No
+          setting, infrastructure, copy, and sending handled end to end. No
           agency-hopping, no slide decks. Just meetings on your calendar.
         </motion.p>
 
