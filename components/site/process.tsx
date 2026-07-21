@@ -141,17 +141,15 @@ export function Process() {
   }, [])
 
   return (
-    <section id="process" className="relative border-t border-ink-08 bg-cream">
+    <section id="process" className="relative border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <SectionEyebrow number="06" label="Process" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              How we book meetings,{" "}
-              <span className="font-serif-italic text-electric-blue">step by step.</span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionEyebrow label="Process" className="justify-center" />
+          <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+            How we book meetings,{" "}
+            <span className="font-serif-italic text-electric-blue">step by step.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
             From kickoff to calendar — domains warm ~21 days before volume so
             inbox placement holds. No agency theatre, no endless decks.
           </p>
@@ -204,7 +202,7 @@ export function Process() {
                         : "border-ink-08 bg-transparent hover:border-ink/20 hover:bg-background/60",
                     )}
                   >
-                    <div className="flex justify-start">
+                    <div className="flex justify-center">
                       <span
                         className={[
                           "inline-flex items-center justify-center rounded-full bg-white px-3.5 py-1",
@@ -216,8 +214,8 @@ export function Process() {
                         {step.when}
                       </span>
                     </div>
-                    <h3 className="mt-3 flex items-center gap-2 text-[20px] font-extrabold tracking-tight text-ink">
-                      <step.Icon className="size-4 shrink-0 text-ink-40" />
+                    <h3 className="mt-3 flex items-center justify-center gap-2 text-center text-[20px] font-extrabold tracking-tight text-ink">
+                      <step.Icon className="size-4 shrink-0 text-electric-blue" />
                       {step.title}
                     </h3>
                     {/* Always mounted — never gated behind opacity:0 / unmount */}
@@ -227,14 +225,14 @@ export function Process() {
                         open ? "max-h-[480px] opacity-100" : "max-h-[480px] opacity-90",
                       )}
                     >
-                      <p className="mt-3 text-[14.5px] font-semibold leading-[1.65] text-ink-80">
+                      <p className="mt-3 text-center text-[15px] font-bold leading-[1.65] text-ink">
                         {step.desc}
                       </p>
-                      <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4">
+                      <ul className="mt-4 flex flex-col gap-2 border-t border-ink-08 pt-4 text-left">
                         {step.outcomes.map((item) => (
                           <li
                             key={item}
-                            className="flex items-start gap-2 text-[13px] font-semibold leading-snug text-ink"
+                            className="flex items-start gap-2 text-[14px] font-bold leading-snug text-ink"
                           >
                             <Check
                               className="mt-0.5 size-3.5 shrink-0 text-electric-blue"

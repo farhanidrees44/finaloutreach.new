@@ -183,16 +183,16 @@ export function Services() {
   return (
     <section id="services" className="border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-28">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <SectionEyebrow number="05" label="Services" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+        <div className="flex flex-col gap-5 text-center md:mx-auto md:max-w-3xl">
+          <div>
+            <SectionEyebrow label="Services" className="justify-center" />
+            <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Services that{" "}
               <span className="font-serif-italic text-electric-blue">fill</span>{" "}
               your pipeline.
             </h2>
           </div>
-          <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
+          <p className="mx-auto max-w-xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
             Pick what fits your stage. We handle the rest — infrastructure,
             copy, sending, follow-up, reporting.
           </p>

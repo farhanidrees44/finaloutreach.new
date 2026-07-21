@@ -251,19 +251,17 @@ export function OutreachEngineFlow() {
 
 function StepCard({
   step,
-  index,
   active,
   onSelect,
   delay,
 }: {
   step: Step
-  index: number
+  index?: number
   active: boolean
   onSelect: () => void
   delay: number
 }) {
   const { Icon, title, desc } = step
-  const n = String(index + 1).padStart(2, "0")
 
   return (
     <button
@@ -271,11 +269,11 @@ function StepCard({
       onClick={onSelect}
       className={cn("fo-flow__card", active && "is-active")}
       style={{ ["--fo-delay" as string]: `${delay * 70}ms` }}
+      aria-label={title}
     >
       <span className="fo-flow__icon" aria-hidden>
         <Icon className="size-[1.125rem]" strokeWidth={1.9} />
       </span>
-      <p className="fo-flow__step">Step {n}</p>
       <h4 className="fo-flow__card-title">{title}</h4>
       <p className="fo-flow__card-desc">{desc}</p>
     </button>

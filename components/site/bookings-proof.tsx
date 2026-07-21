@@ -35,13 +35,16 @@ export function BookingsProof() {
     >
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_420px] lg:gap-16">
-          <div>
-            <SectionEyebrow number="03" label="Appointments" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+          <div className="text-center lg:text-left">
+            <SectionEyebrow
+              label="Appointments"
+              className="justify-center lg:justify-start"
+            />
+            <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Calendars that fill —{" "}
               <span className="font-serif-italic text-electric-blue">not slide decks.</span>
             </h2>
-            <p className="mt-4 max-w-lg text-[15px] font-bold leading-relaxed text-ink-60">
+            <p className="mx-auto mt-5 max-w-lg text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px] lg:mx-0">
               {BOOKINGS_PROOF_META.sublabel} We book the meetings; your team takes them.
             </p>
             {/* PLACEHOLDER stats — replace with verified numbers before ship */}

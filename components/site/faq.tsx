@@ -14,13 +14,13 @@ export function Faq() {
     <section id="faq" className="border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
-          <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
-            <SectionEyebrow number="11" label="Questions" />
-            <h2 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+          <div className="mx-auto flex max-w-xl flex-col items-center gap-5 text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
+            <SectionEyebrow label="Questions" className="justify-center lg:justify-start" />
+            <h2 className="text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
               Common questions,{" "}
               <span className="font-serif-italic text-electric-blue">honest answers.</span>
             </h2>
-            <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
+            <p className="max-w-sm text-[16px] font-bold leading-[1.6] text-ink">
               If yours isn&apos;t here, ask it on the call. We&apos;d rather
               over-explain than oversell.
             </p>

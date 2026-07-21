@@ -15,13 +15,13 @@ export function Testimonials() {
   return (
     <section id="testimonials" className="border-t border-ink-08 bg-cream">
       <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
-        <div className="max-w-2xl">
-          <SectionEyebrow number="12" label="Voice" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionEyebrow label="Voice" className="justify-center" />
+          <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             What clients say —{" "}
             <span className="font-serif-italic text-electric-blue">with permission.</span>
           </h2>
-          <p className="mt-4 text-[15px] font-bold leading-relaxed text-ink-60">
+          <p className="mx-auto mt-5 max-w-xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
             Quotes appear only with verified attribution and written approval.
           </p>
         </div>
@@ -36,11 +36,11 @@ export function Testimonials() {
               transition={{ delay: i * 0.06, duration: 0.5 }}
               className="relative flex flex-col rounded-2xl border border-ink-08 bg-background p-6"
             >
-              <p className="text-[15px] leading-relaxed text-ink-60">
+              <p className="text-[15px] font-bold leading-relaxed text-ink">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-auto border-t border-ink-08 pt-4">
-                <p className="text-[14px] font-medium text-ink">{t.name}</p>
+                <p className="text-[14px] font-bold text-ink">{t.name}</p>
                 <p className="text-[12px] text-ink-40">
                   {t.role} · {t.company}
                 </p>

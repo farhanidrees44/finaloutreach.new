@@ -48,7 +48,12 @@ export function FounderStory() {
   return (
     <section id="about" className="border-t border-ink-08 bg-background">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
-        <SectionEyebrow number="08" label="About the founder" />
+        <div className="mx-auto max-w-3xl text-center lg:mx-0 lg:max-w-none lg:text-left">
+          <SectionEyebrow
+            label="About the founder"
+            className="justify-center lg:justify-start"
+          />
+        </div>
 
         <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left — Image composition */}

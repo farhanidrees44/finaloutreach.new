@@ -728,12 +728,12 @@
     animation: gradient-flow 4.5s linear infinite;
   }
   .fo-flow__sub {
-    margin: 0.75rem auto 0;
-    max-width: 28rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+    margin: 0.85rem auto 0;
+    max-width: 34rem;
+    font-size: 1rem;
+    font-weight: 700;
     line-height: 1.55;
-    color: var(--ink-60);
+    color: oklch(0.156 0 0 / 0.78);
   }
   .fo-flow__dots {
     display: flex;
@@ -757,22 +757,22 @@
     );
   }
 
-  /* Cards — equal short height */
+  /* Cards — equal short height, centered premium layout */
   .fo-flow__card {
     position: relative;
     z-index: 1;
     display: flex;
     width: 100%;
     height: 100%;
-    min-height: 11.5rem;
+    min-height: 12.5rem;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    border-radius: 1.15rem;
+    align-items: center;
+    text-align: center;
+    border-radius: 1.25rem;
     border: 1px solid var(--ink-08);
     background: oklch(1 0 0);
-    padding: 1rem 0.95rem 1.05rem;
-    box-shadow: var(--shadow-sm);
+    padding: 1.25rem 1.05rem 1.35rem;
+    box-shadow: var(--shadow-md);
     transition:
       transform 0.35s ease,
       box-shadow 0.35s ease,
@@ -854,31 +854,25 @@
   }
 
   .fo-flow__step {
-    margin: 0.7rem 0 0;
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
-    font-size: 0.625rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-40);
+    display: none;
   }
   .fo-flow__card-title {
-    margin: 0.25rem 0 0;
+    margin: 0.85rem 0 0;
     width: 100%;
-    font-size: 0.9375rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-size: 1.0625rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
     color: var(--ink);
   }
   .fo-flow__card-desc {
-    margin: 0.45rem 0 0;
+    margin: 0.55rem 0 0;
     width: 100%;
     flex: 1;
-    font-size: 0.75rem;
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--ink-60);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: oklch(0.156 0 0 / 0.72);
   }
 
   /* Desktop row */
@@ -1071,10 +1065,10 @@
   }
   @media (min-width: 640px) {
     .fo-flow__analytics {
-      flex-direction: row;
-      text-align: left;
-      margin-top: 0.35rem;
-      padding: 1.15rem 1.4rem;
+      flex-direction: column;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 1.35rem 1.5rem;
     }
   }
   .fo-flow--on .fo-flow__analytics {
@@ -1104,17 +1098,17 @@
   }
   .fo-flow__analytics-title {
     margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 1.0625rem;
+    font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--ink);
   }
   .fo-flow__analytics-desc {
-    margin: 0.3rem 0 0;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    line-height: 1.45;
-    color: var(--ink-60);
+    margin: 0.35rem 0 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: oklch(0.156 0 0 / 0.72);
   }
   .fo-flow__analytics-sync {
     margin: 0.45rem 0 0;

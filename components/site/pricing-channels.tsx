@@ -249,36 +249,33 @@ export function Pricing() {
       />
 
       <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <SectionEyebrow number="12" label="Pricing" />
-            <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
-              Outbound by channel.{" "}
-              <span className="font-serif-italic text-electric-blue">
-                Clear monthly pricing.
-              </span>
-            </h2>
-          </div>
-          <p className="max-w-sm text-[15px] font-bold leading-relaxed text-ink-60">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionEyebrow label="Pricing" className="justify-center" />
+          <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+            Outbound by channel.{" "}
+            <span className="font-serif-italic text-electric-blue">
+              Clear monthly pricing.
+            </span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
             LinkedIn, cold email, or cold calling — pick the channel that fills your calendar.
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] font-bold leading-relaxed text-ink/80">
+            Same packages as our{" "}
+            <Link href="/pricing" className="text-electric-blue underline-offset-4 hover:underline">
+              pricing page
+            </Link>
+            . Operator-led work, not a junior pod spraying templates.
           </p>
         </div>
 
-        <p className="mt-8 max-w-2xl text-[15px] font-bold leading-relaxed text-ink-60">
-          Same packages as our{" "}
-          <Link href="/pricing" className="text-electric-blue underline-offset-4 hover:underline">
-            pricing page
-          </Link>
-          . Operator-led work, not a junior pod spraying templates.
-        </p>
-
         <ChannelGrid sourcePrefix="homepage-pricing" className="mt-14" />
 
-        <p className="mt-10 text-center text-[13px] text-ink-60">
+        <p className="mt-10 text-center text-[14px] font-bold text-ink/75">
           Month-to-month after 90 days.{" "}
           <Link
             href="/pricing"
-            className="font-semibold text-ink underline-offset-4 hover:underline"
+            className="font-extrabold text-ink underline-offset-4 hover:underline"
           >
             Full details & FAQ →
           </Link>

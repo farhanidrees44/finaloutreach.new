@@ -59,13 +59,13 @@ export function OperatorDifference() {
       className="border-t border-ink-08 bg-cream"
     >
       <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
-        <div className="max-w-2xl">
-          <SectionEyebrow number="05b" label="Difference" />
-          <h2 className="mt-5 text-balance text-[clamp(2rem,4vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionEyebrow label="Difference" className="justify-center" />
+          <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
             What you get — and what you&apos;re{" "}
             <span className="font-serif-italic text-electric-blue">done with.</span>
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] font-bold leading-relaxed text-ink-60">
+          <p className="mx-auto mt-5 max-w-xl text-[16px] font-bold leading-[1.6] text-ink sm:text-[17px]">
             Pulled from how we actually run engagements — Process, Services,
             and the FAQ — not a marketing wishlist.
           </p>
