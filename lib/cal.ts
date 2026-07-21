@@ -22,8 +22,8 @@ export function isBookingHref(href: string | undefined | null) {
 }
 
 /**
- * Opens a single Cal.com month-view booking modal.
- * Prefer this over data-cal-* attributes — those auto-bind and stack a second modal.
+ * Opens a single Cal.com month-view booking modal on user click only.
+ * Cal embed scripts are loaded here — never on page load — so the popup cannot auto-open.
  */
 export async function openCalPopup(source = "cta") {
   if (typeof window === "undefined") return
@@ -32,6 +32,11 @@ export async function openCalPopup(source = "cta") {
   try {
     const { getCalApi } = await import("@calcom/embed-react")
     const cal = await getCalApi({ namespace: CAL.namespace })
+    cal("ui", {
+      hideEventTypeDetails: false,
+      layout: CAL.config.layout,
+      theme: CAL.config.theme,
+    })
     cal("modal", {
       calLink: CAL.link,
       config: {

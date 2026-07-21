@@ -1,11 +1,9 @@
 "use client"
 
-import Cal from "@calcom/embed-react"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
-import { ArrowRight, Calendar } from "lucide-react"
+import { ArrowRight, Calendar, Clock, Video } from "lucide-react"
 import { BookCallLink } from "@/components/site/book-call-link"
-import { CAL } from "@/lib/cal"
 
 function VisitorTimezone() {
   const [label, setLabel] = useState<string | null>(null)
@@ -52,7 +50,7 @@ export function FinalCta() {
       />
 
       <div className="noise-bg mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-24 lg:px-12 lg:py-28">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_460px] lg:items-center lg:gap-14">
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_420px] lg:items-center lg:gap-14">
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,32 +105,48 @@ export function FinalCta() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.08 }}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 backdrop-blur sm:p-4"
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur sm:p-8"
           >
-            <div className="flex items-center justify-between gap-3 px-2 pb-3">
+            <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em] text-white/60">
                 <Calendar className="size-3.5" strokeWidth={1.7} />
                 Available this week
               </div>
+            </div>
+
+            <h3 className="mt-6 text-[22px] font-bold tracking-tight text-background">
+              30 min strategy call
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-white/60">
+              Pick a time that works. Calendar opens on-site when you&apos;re ready — never automatically.
+            </p>
+
+            <ul className="mt-6 flex flex-col gap-3 text-[14px] text-white/75">
+              <li className="flex items-center gap-2.5">
+                <Clock className="size-4 shrink-0 text-electric-blue" aria-hidden />
+                30 minutes
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Video className="size-4 shrink-0 text-electric-blue" aria-hidden />
+                Google Meet
+              </li>
+            </ul>
+
+            <div className="mt-4">
               <VisitorTimezone />
             </div>
 
-            <div className="h-[460px] overflow-hidden rounded-xl bg-[#111827] sm:h-[500px] md:h-[540px] lg:h-[560px]">
-              <Cal
-                namespace={CAL.namespace}
-                calLink={CAL.link}
-                style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                config={{
-                  layout: CAL.config.layout,
-                  useSlotsViewOnSmallScreen: CAL.config.useSlotsViewOnSmallScreen,
-                  theme: "dark",
-                }}
-              />
-            </div>
+            <BookCallLink
+              source="final-cta-card"
+              className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-[14.5px] font-semibold text-primary-foreground transition-all hover:brightness-110"
+            >
+              Choose a time
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </BookCallLink>
 
-            <div className="mt-3 border-t border-white/10 px-2 pt-3 text-[12px] text-white/50">
-              30 min · Google Meet · Times shown in your local timezone
-            </div>
+            <p className="mt-4 text-center text-[12px] text-white/45">
+              30 min · Google Meet · Times in your local timezone
+            </p>
           </motion.div>
         </div>
       </div>

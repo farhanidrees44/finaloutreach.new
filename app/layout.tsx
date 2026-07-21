@@ -9,7 +9,6 @@ import { Analytics } from "@vercel/analytics/next"
 import { SITE } from "@/lib/site-data"
 import { AnalyticsScripts } from "@/components/site/analytics-scripts"
 import { PlaybookDownloadPopup } from "@/components/site/playbook-download-popup"
-import { CalProvider } from "@/components/site/cal-provider"
 import { JsonLd } from "@/components/seo/json-ld"
 import { organizationSchema } from "@/lib/seo/schemas"
 import "./globals.css"
@@ -136,7 +135,6 @@ export default function RootLayout({
         </a>
         {children}
         <PlaybookDownloadPopup />
-        <CalProvider />
         <Script
           src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
           strategy="afterInteractive"
