@@ -50,7 +50,7 @@ export function FinalCta() {
       />
 
       <div className="noise-bg mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-24 lg:px-12 lg:py-28">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_420px] lg:items-center lg:gap-14">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_400px] lg:gap-14">
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,12 +69,12 @@ export function FinalCta() {
               </span>{" "}
               away.
             </h2>
-            <p className="mt-7 max-w-xl text-[17px] font-bold text-white/75">
+            <p className="mt-6 max-w-xl text-[17px] font-bold leading-relaxed text-white/75">
               30-minute call. We&apos;ll tell you exactly what&apos;s possible
               for your business — even if you don&apos;t hire us.
             </p>
 
-            <div className="mt-10 flex w-full max-w-xl flex-col items-start gap-3">
+            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
               <BookCallLink
                 source="final-cta"
                 className="group inline-flex h-14 items-center gap-2 rounded-full bg-background px-7 text-[15.5px] font-semibold text-ink transition-all hover:bg-background/90 active:scale-[0.98]"
@@ -85,18 +85,6 @@ export function FinalCta() {
               <p className="text-[13px] text-white/50">
                 No sales pitch. No pressure. Just clarity.
               </p>
-              <div className="mt-3 w-full max-w-xl sm:mt-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/review-badges-strip.png"
-                  alt=""
-                  width={934}
-                  height={242}
-                  className="h-auto w-full max-w-full object-contain object-left"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
             </div>
           </motion.div>
 
@@ -107,14 +95,12 @@ export function FinalCta() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur sm:p-8"
           >
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em] text-white/60">
-                <Calendar className="size-3.5" strokeWidth={1.7} />
-                Available this week
-              </div>
+            <div className="flex items-center gap-2.5 text-[12px] uppercase tracking-[0.14em] text-white/60">
+              <Calendar className="size-3.5" strokeWidth={1.7} />
+              Available this week
             </div>
 
-            <h3 className="mt-6 text-[22px] font-bold tracking-tight text-background">
+            <h3 className="mt-5 text-[22px] font-bold tracking-tight text-background">
               30 min strategy call
             </h3>
             <p className="mt-2 text-[14px] leading-relaxed text-white/60">
