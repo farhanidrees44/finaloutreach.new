@@ -177,7 +177,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <h1 className="mt-5 max-w-[20ch] text-balance text-[clamp(2.75rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight text-ink sm:mt-6">
+        <h1 className="mt-5 max-w-[22ch] text-balance text-[clamp(2.35rem,5.8vw,4.75rem)] font-extrabold leading-[1.08] tracking-tight text-ink sm:mt-6 sm:max-w-[18ch]">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ export function Hero() {
             }
             className="block"
           >
-            Operators
+            The Done-For-You Outbound Agency
           </motion.span>
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
@@ -196,23 +196,11 @@ export function Hero() {
             transition={
               reduced
                 ? { duration: 0 }
-                : { delay: 0.26, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+                : { delay: 0.28, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
             }
-            className="block"
+            className="mt-1 block font-serif-italic text-electric-blue"
           >
-            in the tools.
-          </motion.span>
-          <motion.span
-            initial={reduced ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              reduced
-                ? { duration: 0 }
-                : { delay: 0.34, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
-            }
-            className="block font-serif-italic text-electric-blue"
-          >
-            Meetings on your calendar.
+            That Books Real Meetings — Not Slide Decks.
           </motion.span>
         </h1>
 
@@ -222,9 +210,9 @@ export function Hero() {
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.45 }}
           className="mt-5 max-w-2xl text-pretty text-[17px] font-semibold leading-[1.65] text-ink-80 sm:text-[19px]"
         >
-          Most teams burn 3–4 agencies before finding one that works. We run
-          the campaigns ourselves, on infrastructure we own, until meetings
-          show up on your calendar.
+          FinalOutreach runs your cold email, LinkedIn, and appointment setting
+          — infrastructure, copy, and sending handled end to end. No
+          agency-hopping. Just meetings on your calendar.
         </motion.p>
 
         <motion.div
