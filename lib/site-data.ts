@@ -21,7 +21,10 @@ export const SITE = {
   email: "hello@finaloutreach.com",
   location: "Remote — Americas & EMEA",
   twitter: "@finaloutreach",
-  calendly: "https://calendly.com/finaloutreach/project-discussion-million-leads",
+  /** Cal.com 30-min strategy call — opens in-site popup via @calcom/embed-react */
+  calUrl: "https://cal.com/finaloutreach/30min",
+  /** @deprecated Use calUrl — kept as alias during migration */
+  calendly: "https://cal.com/finaloutreach/30min",
   founded: "2019",
 }
 

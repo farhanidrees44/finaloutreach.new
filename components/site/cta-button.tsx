@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { CAL, CAL_BUTTON_PROPS, isBookingHref, openCalPopup } from "@/lib/cal"
 
 type Variant = "primary" | "ghost" | "ink"
 
@@ -34,9 +35,10 @@ export function CtaButton({
     ink: "bg-ink text-background hover:bg-ink/90 active:scale-[0.98]",
   }
 
-  const isExternal = /^https?:\/\//.test(href)
+  const booking = isBookingHref(href)
+  const isExternal = !booking && /^https?:\/\//.test(href)
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-200",
+    "group inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-200",
     sizes[size],
     variants[variant],
     className,
@@ -52,6 +54,22 @@ export function CtaButton({
       )}
     </>
   )
+
+  if (booking) {
+    return (
+      <a
+        href={CAL.url}
+        {...CAL_BUTTON_PROPS}
+        onClick={(e) => {
+          e.preventDefault()
+          void openCalPopup("cta")
+        }}
+        className={classes}
+      >
+        {inner}
+      </a>
+    )
+  }
 
   if (isExternal) {
     return (

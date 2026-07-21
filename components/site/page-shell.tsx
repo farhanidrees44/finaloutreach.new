@@ -4,9 +4,9 @@ import { ChevronRight, ArrowRight } from "lucide-react"
 import { SiteNavigation } from "./site-navigation"
 import { Footer } from "./footer"
 import { StickyMobileCta } from "./sticky-mobile-cta"
+import { BookCallLink } from "./book-call-link"
 import { JsonLd } from "@/components/seo/json-ld"
 import { breadcrumbSchema } from "@/lib/seo/schemas"
-import { SITE } from "@/lib/site-data"
 
 export type Crumb = { name?: string; label?: string; href?: string }
 
@@ -147,15 +147,13 @@ export function PageCta({
           {subtitle}
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-          <a
-            href={SITE.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
+          <BookCallLink
+            source="page-cta"
             className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-[15px] font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.97]"
           >
             Book a strategy call
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          </BookCallLink>
           <Link
             href="/results"
             className="inline-flex h-12 items-center gap-2 rounded-full border border-ink-08 px-6 text-[15px] font-semibold text-ink transition-all hover:border-ink/30"

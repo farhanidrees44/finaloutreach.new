@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { ArrowRight, Calendar, Mail, MapPin } from "lucide-react"
 import { Breadcrumbs, PageHeader, PageShell } from "@/components/site/page-shell"
 import { ContactForm } from "./contact-form"
 import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 export const metadata: Metadata = {
   title: "Contact — Book a strategy call",
@@ -39,14 +39,14 @@ export default function ContactPage() {
               </div>
               <p className="mt-4 text-[16px] leading-[1.55] text-ink">
                 Skip the form and book a 30-minute slot with our team on
-                Calendly.
+                Cal.com.
               </p>
-              <Link
-                href={SITE.calendly}
+              <BookCallLink
+                source="contact"
                 className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-primary px-5 text-[14px] font-medium text-primary-foreground transition-all hover:bg-primary/90"
               >
-                Open Calendly <ArrowRight className="size-4" />
-              </Link>
+                Book a strategy call <ArrowRight className="size-4" />
+              </BookCallLink>
             </div>
 
             <div className="flex flex-col gap-4 rounded-2xl border border-ink-08 bg-card p-7">

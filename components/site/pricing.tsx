@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { SectionEyebrow } from "./section-eyebrow"
-import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "./book-call-link"
 
 const PACKAGES = [
   {
@@ -148,10 +148,8 @@ export function Pricing() {
               </div>
 
               <div className="flex lg:justify-end">
-                <a
-                  href={SITE.calendly}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <BookCallLink
+                  source="pricing"
                   className={cn(
                     "inline-flex h-12 items-center gap-2 rounded-full px-5 text-[14.5px] font-semibold transition-all active:scale-[0.97]",
                     p.featured
@@ -161,7 +159,7 @@ export function Pricing() {
                 >
                   {p.cta}
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </a>
+                </BookCallLink>
               </div>
             </motion.li>
           ))}

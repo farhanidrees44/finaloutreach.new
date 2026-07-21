@@ -9,6 +9,7 @@ import {
 } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { CAL, CAL_BUTTON_PROPS, isBookingHref, openCalPopup } from "@/lib/cal"
 
 type Props = {
   href: string
@@ -33,6 +34,7 @@ export function MagneticButton({
   const y = useMotionValue(0)
   const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.5 })
   const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.5 })
+  const booking = isBookingHref(href)
 
   const onMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (prefersReducedMotion) return
@@ -64,14 +66,23 @@ export function MagneticButton({
       "bg-transparent text-ink border border-ink-08 hover:border-vibrant-purple/50 hover:bg-vibrant-purple/[0.04]",
   }
 
-  const isExternal = /^https?:\/\//.test(href)
+  const isExternal = !booking && /^https?:\/\//.test(href)
 
   return (
     <motion.a
       ref={ref}
-      href={href}
+      href={booking ? CAL.url : href}
+      {...(booking ? CAL_BUTTON_PROPS : {})}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
+      onClick={
+        booking
+          ? (e) => {
+              e.preventDefault()
+              void openCalPopup("magnetic")
+            }
+          : undefined
+      }
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       style={{ x: sx, y: sy }}

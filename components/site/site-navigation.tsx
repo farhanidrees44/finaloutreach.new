@@ -14,8 +14,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ArrowRight, ChevronDown, Menu, X, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "./logo"
-import { SITE } from "@/lib/site-data"
-import { openCalendlyPopup } from "@/lib/calendly"
+import { CAL, CAL_BUTTON_PROPS, openCalPopup } from "@/lib/cal"
 import {
   MEGA_FREE_TOOLS,
   MEGA_INDUSTRIES,
@@ -463,10 +462,11 @@ export function SiteNavigation() {
 
           <div className="flex shrink-0 items-center gap-1.5">
             <a
-              href={SITE.calendly}
+              href={CAL.url}
+              {...CAL_BUTTON_PROPS}
               onClick={(e) => {
                 e.preventDefault()
-                void openCalendlyPopup("nav")
+                void openCalPopup("nav")
               }}
               className={cn(
                 "group hidden h-10 items-center justify-center rounded-full px-4 text-[14px] font-semibold text-white transition-all duration-200 active:scale-[0.98] lg:inline-flex",
@@ -632,11 +632,12 @@ export function SiteNavigation() {
               ))}
 
               <a
-                href={SITE.calendly}
+                href={CAL.url}
+                {...CAL_BUTTON_PROPS}
                 onClick={(e) => {
                   e.preventDefault()
                   setMobileOpen(false)
-                  void openCalendlyPopup("nav-mobile")
+                  void openCalPopup("nav-mobile")
                 }}
                 className={cn(
                   "group mt-10 inline-flex h-14 items-center justify-center rounded-full px-6 text-[15px] font-semibold text-white transition-all duration-200",

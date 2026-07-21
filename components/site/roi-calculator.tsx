@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Calculator, TrendingUp, ArrowRight } from "lucide-react"
-import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 function fmt(n: number) {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
@@ -156,15 +156,13 @@ export function RoiCalculator() {
               <Calc label="ACV" value={fmt(acv)} isMoney />
             </div>
 
-            <a
-              href={SITE.calendly}
-              target="_blank"
-              rel="noopener noreferrer"
+            <BookCallLink
+              source="roi-calculator"
               className="group mt-4 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-5 text-[14px] font-semibold text-ink transition-all hover:bg-white/90"
             >
               Book a strategy call
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            </BookCallLink>
           </motion.div>
         </div>
       </div>

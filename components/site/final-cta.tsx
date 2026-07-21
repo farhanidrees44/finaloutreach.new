@@ -1,12 +1,11 @@
 "use client"
 
-import Script from "next/script"
+import Cal from "@calcom/embed-react"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowRight, Calendar } from "lucide-react"
-import { SITE } from "@/lib/site-data"
-
-const CALENDLY_EMBED_URL = `${SITE.calendly}?hide_event_type_details=1&hide_gdpr_banner=1`
+import { BookCallLink } from "@/components/site/book-call-link"
+import { CAL } from "@/lib/cal"
 
 function VisitorTimezone() {
   const [label, setLabel] = useState<string | null>(null)
@@ -78,15 +77,13 @@ export function FinalCta() {
             </p>
 
             <div className="mt-10 flex w-full max-w-xl flex-col items-start gap-3">
-              <a
-                href={SITE.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
+              <BookCallLink
+                source="final-cta"
                 className="group inline-flex h-14 items-center gap-2 rounded-full bg-background px-7 text-[15.5px] font-semibold text-ink transition-all hover:bg-background/90 active:scale-[0.98]"
               >
                 Book your strategy call
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </BookCallLink>
               <p className="text-[13px] text-white/50">
                 No sales pitch. No pressure. Just clarity.
               </p>
@@ -120,37 +117,25 @@ export function FinalCta() {
               <VisitorTimezone />
             </div>
 
-            <div className="h-[460px] overflow-hidden rounded-xl bg-white sm:h-[500px] md:h-[540px] lg:h-[560px]">
-              <div
-                className="calendly-inline-widget"
-                data-url={CALENDLY_EMBED_URL}
-                style={{ minWidth: 280, width: "100%", height: "100%" }}
+            <div className="h-[460px] overflow-hidden rounded-xl bg-[#111827] sm:h-[500px] md:h-[540px] lg:h-[560px]">
+              <Cal
+                namespace={CAL.namespace}
+                calLink={CAL.link}
+                style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                config={{
+                  layout: CAL.config.layout,
+                  useSlotsViewOnSmallScreen: CAL.config.useSlotsViewOnSmallScreen,
+                  theme: "dark",
+                }}
               />
-              <noscript>
-                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-ink">
-                  <a
-                    href={SITE.calendly}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    Book your 30-minute strategy call on Calendly →
-                  </a>
-                </div>
-              </noscript>
             </div>
 
             <div className="mt-3 border-t border-white/10 px-2 pt-3 text-[12px] text-white/50">
-              30 min · Google Meet · Calendly shows times in your local timezone
+              30 min · Google Meet · Times shown in your local timezone
             </div>
           </motion.div>
         </div>
       </div>
-
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-      />
     </section>
   )
 }

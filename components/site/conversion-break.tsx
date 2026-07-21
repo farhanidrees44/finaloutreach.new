@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 export function ConversionBreak() {
   return (
@@ -31,15 +31,13 @@ export function ConversionBreak() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex flex-col items-center gap-3"
         >
-          <a
-            href={SITE.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
+          <BookCallLink
+            source="conversion-break"
             className="group inline-flex h-14 items-center gap-2 rounded-full bg-ink px-7 text-[15.5px] font-semibold text-background transition-all hover:bg-ink/90 active:scale-[0.98]"
           >
             Get a free 15-min audit
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          </BookCallLink>
           <p className="text-[13px] text-ink-40">
             Honest feedback. No deck. No pitch.
           </p>

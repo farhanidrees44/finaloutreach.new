@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils"
 import { SITE } from "@/lib/site-data"
 import { MagneticButton } from "./magnetic-button"
+import { BookCallLink } from "./book-call-link"
 import {
   RESULTS_CAMPAIGNS,
   RESULTS_INDUSTRY_OPTIONS,
@@ -395,15 +396,13 @@ export function ResultsClosingCta() {
           30-minute call. We&apos;ll tell you honestly if outbound fits — even
           if you don&apos;t hire us.
         </p>
-        <a
-          href={SITE.calendly}
-          target="_blank"
-          rel="noopener noreferrer"
+        <BookCallLink
+          source="results-page"
           className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-[15px] font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.97]"
         >
           Book a strategy call
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-        </a>
+        </BookCallLink>
       </div>
     </section>
   )

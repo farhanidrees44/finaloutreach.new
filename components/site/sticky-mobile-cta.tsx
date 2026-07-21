@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 export function StickyMobileCta() {
   const [scrolled, setScrolled] = useState(false)
@@ -46,10 +46,8 @@ export function StickyMobileCta() {
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
           className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 md:hidden"
         >
-          <a
-            href={SITE.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
+          <BookCallLink
+            source="sticky-mobile"
             className="flex w-full max-w-md items-center justify-between rounded-full bg-ink px-5 py-3.5 text-[14.5px] font-semibold text-background shadow-[0_18px_40px_-16px_rgba(15,15,15,0.5)]"
           >
             <span className="flex items-center gap-2.5">
@@ -57,7 +55,7 @@ export function StickyMobileCta() {
               Book a call — 3 spots left
             </span>
             <ArrowRight className="size-4" />
-          </a>
+          </BookCallLink>
         </motion.div>
       )}
     </AnimatePresence>

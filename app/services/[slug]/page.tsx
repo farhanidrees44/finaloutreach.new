@@ -11,6 +11,7 @@ import {
 import { RelatedLinks } from "@/components/site/related-links"
 import { JsonLd } from "@/components/seo/json-ld"
 import { SERVICES, SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 type Params = { slug: string }
 
@@ -128,15 +129,13 @@ export default async function ServicePage({
               <span className="text-ink-40">Investment</span>
               <span className="text-ink">{service.price}</span>
             </div>
-            <a
-              href={SITE.calendly}
-              target="_blank"
-              rel="noopener noreferrer"
+            <BookCallLink
+              source="service-page"
               className="group mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-5 text-[14px] font-medium text-primary-foreground transition-all hover:bg-primary/90"
             >
               Book a call about this
               <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
+            </BookCallLink>
           </aside>
         </div>
       </section>

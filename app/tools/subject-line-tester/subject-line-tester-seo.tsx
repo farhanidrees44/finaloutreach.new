@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 const BENCHMARK_ROWS = [
   { industry: "SaaS / software", range: "Often highest among B2B cold" },
@@ -358,15 +359,13 @@ export function SubjectLineTesterCta() {
             the {SITE.name} team.
           </p>
         </div>
-        <a
-          href={SITE.calendly}
-          target="_blank"
-          rel="noopener noreferrer"
+        <BookCallLink
+          source="subject-line-tester"
           className="group inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-[14.5px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           Free outreach audit
           <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
+        </BookCallLink>
       </div>
     </section>
   )

@@ -5,6 +5,7 @@ import { RelatedLinks } from "@/components/site/related-links"
 import { JsonLd } from "@/components/seo/json-ld"
 import { faqSchema } from "@/lib/seo/schemas"
 import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 export const metadata: Metadata = {
   title: "Pricing — Transparent outbound packages",
@@ -143,10 +144,8 @@ export default function PricingPage() {
                   ))}
                 </ul>
               </div>
-              <a
-                href={SITE.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
+              <BookCallLink
+                source="pricing-page"
                 className={[
                   "group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full text-[14px] font-medium transition-all",
                   tier.featured
@@ -156,7 +155,7 @@ export default function PricingPage() {
               >
                 {tier.price === "Custom" ? "Talk to us" : "Get started"}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </BookCallLink>
             </div>
           ))}
         </div>

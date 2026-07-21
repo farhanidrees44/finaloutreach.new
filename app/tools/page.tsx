@@ -5,6 +5,7 @@ import { PageShell } from "@/components/site/page-shell"
 import { JsonLd } from "@/components/seo/json-ld"
 import { SITE } from "@/lib/site-data"
 import { TOOLS } from "@/lib/tools-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 export const metadata: Metadata = {
   title: "Free Cold Email Tools — Subject Tester, Spam Checker, ROI Calculator",
@@ -119,15 +120,13 @@ export default function ToolsIndexPage() {
               We run done-for-you outbound for B2B teams that want pipeline, not playbooks.
             </h2>
           </div>
-          <a
-            href={SITE.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
+          <BookCallLink
+            source="tools-page"
             className="group inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-primary px-6 text-[15px] font-medium text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.97]"
           >
             Book a strategy call
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
+          </BookCallLink>
         </div>
       </section>
     </PageShell>

@@ -87,7 +87,7 @@ export function ByNumbers() {
           ))}
         </ul>
         <p className="mt-6 text-center text-[12px] uppercase tracking-[0.18em] text-ink-40">
-          Sources: internal CRM, Calendly, Smartlead, GlockApps · last reviewed April 2026
+          Sources: internal CRM, Cal.com, Smartlead, GlockApps · last reviewed April 2026
         </p>
       </div>
     </section>

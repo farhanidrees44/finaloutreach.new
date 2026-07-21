@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { SITE } from "@/lib/site-data"
+import { BookCallLink } from "@/components/site/book-call-link"
 
 export function ToolSectionLabel({ children }: { children: ReactNode }) {
   return (
@@ -48,15 +49,13 @@ export function ToolAuditCta({
             {body}
           </p>
         </div>
-        <a
-          href={SITE.calendly}
-          target="_blank"
-          rel="noopener noreferrer"
+        <BookCallLink
+          source="tool-audit"
           className="group inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-primary px-6 text-[14.5px] font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
         >
           {cta}
           <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </a>
+        </BookCallLink>
       </div>
     </section>
   )

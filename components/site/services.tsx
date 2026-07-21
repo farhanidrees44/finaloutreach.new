@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { ArrowUpRight, Linkedin, Database, CalendarCheck, Server, FileSearch } from "lucide-react"
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
-import { SITE } from "@/lib/site-data"
+import { CAL, CAL_BUTTON_PROPS, openCalPopup } from "@/lib/cal"
 
 const SERVICES = [
   {
@@ -118,9 +118,12 @@ function ServiceCard({
 }: (typeof SERVICES)[number] & { className?: string }) {
   return (
     <motion.a
-      href={SITE.calendly}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={CAL.url}
+      {...CAL_BUTTON_PROPS}
+      onClick={(e) => {
+        e.preventDefault()
+        void openCalPopup("services")
+      }}
       initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}

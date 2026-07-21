@@ -36,7 +36,7 @@ export function GET() {
   lines.push("- Operator-led campaigns (infrastructure, copy, list, reply handling)")
   lines.push("- Public proof lives on /results — anonymized case-study pages are intentionally not indexed")
   lines.push("- Free cold email playbook PDF and free outbound tools")
-  lines.push("- Book a strategy call via Calendly on the homepage")
+  lines.push("- Book a strategy call via Cal.com on the homepage")
   lines.push("")
 
   lines.push("## Services")
