@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowRight, Calendar, Clock, Video } from "lucide-react"
 import { BookCallLink } from "@/components/site/book-call-link"
+import { ReviewBadges } from "@/components/site/review-badges"
 
 function VisitorTimezone() {
   const [label, setLabel] = useState<string | null>(null)
@@ -85,18 +86,7 @@ export function FinalCta() {
               <p className="text-[13px] text-white/50">
                 No sales pitch. No pressure. Just clarity.
               </p>
-              <div className="mt-3 w-full sm:mt-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/review-badges-strip.png"
-                  alt="G2 High Performer, G2 4.9, Capterra 4.7, GetApp 4.7, and Clutch 5.0 ratings"
-                  width={934}
-                  height={242}
-                  className="h-auto w-full max-w-full object-contain object-left"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+              <ReviewBadges className="mt-5 w-full max-w-xl" />
             </div>
           </motion.div>
 
