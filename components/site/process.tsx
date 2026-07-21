@@ -170,7 +170,7 @@ export function Process() {
         <div className="mt-12 hidden gap-10 lg:grid lg:grid-cols-[1.15fr_0.9fr] xl:gap-12">
           <div className="relative">
             <div className="sticky top-24">
-              <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[1.75rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-6 shadow-[0_28px_70px_-40px_rgba(15,15,15,0.35)] md:p-8">
+              <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] border border-ink-08 bg-[#0a0a0c] shadow-[0_28px_70px_-40px_rgba(15,15,15,0.35)]">
                 <AnimatePresence mode="popLayout">
                   <motion.div
                     key={STEPS[active].n}
@@ -178,7 +178,7 @@ export function Process() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={reduced ? undefined : { opacity: 0.35, y: -6 }}
                     transition={{ duration: 0.28 }}
-                    className="w-full max-w-md"
+                    className="absolute inset-0"
                   >
                     <StepPanel step={STEPS[active]} />
                   </motion.div>
@@ -265,7 +265,7 @@ export function Process() {
         <ol className="mt-10 flex flex-col gap-8 lg:hidden">
           {STEPS.map((step) => (
             <li key={step.n} className="flex flex-col gap-4">
-              <div className="flex items-center justify-center rounded-[1.5rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-5">
+              <div className="relative aspect-[5/4] overflow-hidden rounded-[1.5rem] border border-ink-08 bg-[#0a0a0c]">
                 <StepPanel step={step} />
               </div>
               <div className="flex flex-col items-center text-center">
@@ -323,21 +323,14 @@ export function Process() {
 }
 
 function StepPanel({ step }: { step: Step }) {
-  const lightFrame = step.visual === "discovery" || step.visual === "copy"
-
   return (
-    <div
-      className={cn(
-        "relative aspect-[5/4] w-full overflow-hidden rounded-2xl border border-ink-08 shadow-[0_16px_48px_-28px_rgba(15,15,15,0.35)]",
-        lightFrame ? "bg-cream" : "bg-[#0a0a0c]",
-      )}
-    >
+    <div className="relative size-full min-h-[inherit]">
       <Image
         src={step.image}
         alt={step.imageAlt}
         fill
         className="object-contain object-center"
-        sizes="(max-width: 1024px) 90vw, 420px"
+        sizes="(max-width: 1024px) 100vw, 560px"
         priority={step.n === "01"}
       />
     </div>
