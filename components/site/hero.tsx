@@ -177,7 +177,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <h1 className="mt-5 max-w-[22ch] text-balance text-[clamp(2.35rem,5.8vw,4.75rem)] font-extrabold leading-[1.08] tracking-tight text-ink sm:mt-6 sm:max-w-[18ch]">
+        <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(2.5rem,6.2vw,5rem)] font-extrabold leading-[1.08] tracking-tight text-ink sm:mt-6">
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ export function Hero() {
             }
             className="block"
           >
-            The Done-For-You Outbound Agency
+            The Cold Email Agency
           </motion.span>
           <motion.span
             initial={reduced ? false : { opacity: 0, y: 18 }}
@@ -200,7 +200,7 @@ export function Hero() {
             }
             className="mt-1 block font-serif-italic text-electric-blue"
           >
-            That Books Real Meetings — Not Slide Decks.
+            Built To Be Your Last One.
           </motion.span>
         </h1>
 
@@ -210,9 +210,9 @@ export function Hero() {
           transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.45 }}
           className="mt-5 max-w-2xl text-pretty text-[17px] font-semibold leading-[1.65] text-ink-80 sm:text-[19px]"
         >
-          FinalOutreach runs your cold email, LinkedIn, and appointment setting
-          — infrastructure, copy, and sending handled end to end. No
-          agency-hopping. Just meetings on your calendar.
+          FinalOutreach runs your cold email, LinkedIn outreach, and appointment
+          setting — infrastructure, copy, and sending handled end to end. No
+          agency-hopping, no slide decks. Just meetings on your calendar.
         </motion.p>
 
         <motion.div
