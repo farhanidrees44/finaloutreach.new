@@ -113,9 +113,17 @@ export function PageHeader({
   return (
     <section className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 pb-16 pt-10 md:pb-24 md:pt-14">
       {eyebrow && (
-        <div className="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] text-ink-40">
-          <span className="h-px w-8 bg-ink-08" />
-          <span>{eyebrow}</span>
+        <div className="flex justify-start">
+          <span
+            className={[
+              "inline-flex items-center justify-center rounded-full bg-white px-4 py-1.5 sm:px-5 sm:py-2",
+              "text-[11px] font-semibold uppercase tracking-[0.18em] text-electric-blue sm:text-[12px]",
+              "shadow-[0_4px_16px_-4px_oklch(0.58_0.22_250_/_0.28),0_1px_2px_oklch(0.156_0_0_/_0.04)]",
+              "ring-1 ring-ink-08/60",
+            ].join(" ")}
+          >
+            {eyebrow}
+          </span>
         </div>
       )}
       <h1 className="mt-6 max-w-4xl text-balance text-[40px] font-extrabold leading-[1.1] tracking-tight sm:text-[56px] md:text-[72px]">

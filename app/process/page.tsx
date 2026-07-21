@@ -11,43 +11,36 @@ export const metadata: Metadata = {
 
 const STEPS = [
   {
-    n: "01",
     week: "Week 0",
     title: "Discovery and fit",
     body: "30-minute call to understand your ICP, goals, and constraints. We confirm mutual fit before anyone signs anything.",
   },
   {
-    n: "02",
     week: "Week 1",
     title: "Kickoff and ICP workshop",
     body: "Deep dive on your buyer. We leave with a documented ICP, target personas, trigger criteria, and offer positioning.",
   },
   {
-    n: "03",
     week: "Week 1–2",
     title: "Infrastructure and list build",
     body: "Domains registered, mailboxes configured, DNS locked in, and the first 2,000-lead list researched and verified.",
   },
   {
-    n: "04",
     week: "Week 2–3",
     title: "Sequence writing",
     body: "Senior copywriter drafts the first 3-touch sequence. You review once, we finalize, we send you a test send from every mailbox.",
   },
   {
-    n: "05",
     week: "Week 3",
     title: "Warm-up complete, first launch",
     body: "Infrastructure is warm, deliverability is verified at 90%+ inbox placement, and the first campaign goes live.",
   },
   {
-    n: "06",
     week: "Week 4+",
     title: "Weekly iteration",
     body: "Every week: reply review, copy tweaks, list refresh, and a 20-minute call walking through what changed and why.",
   },
   {
-    n: "07",
     week: "Month 3",
     title: "Quarterly review",
     body: "We step back. What is working, what is not, what we are removing, what we are adding. Transparent, documented, signed off.",
@@ -69,28 +62,30 @@ export default function ProcessPage() {
         description="No black boxes. Here is every week from kickoff through your first quarterly review."
       />
 
-      <section className="border-t border-ink-08">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-          <ol className="flex flex-col gap-3">
+      <section className="border-t border-ink-08 bg-cream/40">
+        <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
+          <ol className="flex flex-col items-center gap-8 sm:gap-10">
             {STEPS.map((s) => (
               <li
-                key={s.n}
-                className="grid grid-cols-1 gap-6 rounded-2xl border border-ink-08 bg-card p-7 md:grid-cols-[120px_140px_1fr] md:items-center md:gap-10 md:p-10"
+                key={s.title}
+                className="flex w-full max-w-xl flex-col items-center text-center"
               >
-                <span className="font-mono text-[14px] uppercase tracking-[0.18em] text-ink-40">
-                  {s.n}
-                </span>
-                <span className="text-[12.5px] uppercase tracking-[0.18em] text-[oklch(0.55_0.13_78)]">
+                <span
+                  className={[
+                    "inline-flex items-center justify-center rounded-full bg-white px-4 py-1.5 sm:px-5 sm:py-2",
+                    "text-[11px] font-semibold uppercase tracking-[0.18em] text-electric-blue sm:text-[12px]",
+                    "shadow-[0_4px_16px_-4px_oklch(0.58_0.22_250_/_0.28),0_1px_2px_oklch(0.156_0_0_/_0.04)]",
+                    "ring-1 ring-ink-08/60",
+                  ].join(" ")}
+                >
                   {s.week}
                 </span>
-                <div>
-                  <h2 className="text-[22px] font-bold leading-[1.2] tracking-tight text-ink sm:text-[26px]">
-                    {s.title}
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-[14.5px] leading-[1.6] text-ink-60">
-                    {s.body}
-                  </p>
-                </div>
+                <h2 className="mt-5 text-balance text-[22px] font-extrabold leading-[1.2] tracking-tight text-ink sm:text-[26px]">
+                  {s.title}
+                </h2>
+                <p className="mt-3 max-w-md text-pretty text-[14.5px] leading-[1.65] text-ink-60 sm:text-[15px]">
+                  {s.body}
+                </p>
               </li>
             ))}
           </ol>

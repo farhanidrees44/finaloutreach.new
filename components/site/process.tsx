@@ -176,7 +176,7 @@ export function Process() {
                 </AnimatePresence>
               </div>
               <p className="mt-4 text-center text-[12px] uppercase tracking-[0.16em] text-ink-40">
-                Step {STEPS[active].n} · {STEPS[active].when}
+                {STEPS[active].when}
               </p>
             </div>
           </div>
@@ -204,11 +204,19 @@ export function Process() {
                         : "border-ink-08 bg-transparent hover:border-ink/20 hover:bg-background/60",
                     )}
                   >
-                    <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.16em] text-ink-40">
-                      <span className="font-mono text-ink">{step.n}</span>
-                      <span>{step.when}</span>
+                    <div className="flex justify-start">
+                      <span
+                        className={[
+                          "inline-flex items-center justify-center rounded-full bg-white px-3.5 py-1",
+                          "text-[10px] font-semibold uppercase tracking-[0.16em] text-electric-blue",
+                          "shadow-[0_4px_14px_-4px_oklch(0.58_0.22_250_/_0.25)]",
+                          "ring-1 ring-ink-08/60",
+                        ].join(" ")}
+                      >
+                        {step.when}
+                      </span>
                     </div>
-                    <h3 className="mt-2 flex items-center gap-2 text-[20px] font-extrabold tracking-tight text-ink">
+                    <h3 className="mt-3 flex items-center gap-2 text-[20px] font-extrabold tracking-tight text-ink">
                       <step.Icon className="size-4 shrink-0 text-ink-40" />
                       {step.title}
                     </h3>
@@ -251,18 +259,24 @@ export function Process() {
               <div className="flex items-center justify-center rounded-[1.5rem] border border-ink-08 bg-gradient-to-br from-bright-cyan/10 via-background to-electric-blue/8 p-5">
                 <StepPanel kind={step.visual} />
               </div>
-              <div>
-                <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.16em] text-ink-40">
-                  <span className="font-mono">{step.n}</span>
-                  <span>{step.when}</span>
-                </div>
-                <h3 className="mt-2 text-[22px] font-extrabold tracking-tight text-ink">
+              <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+                <span
+                  className={[
+                    "inline-flex items-center justify-center rounded-full bg-white px-3.5 py-1",
+                    "text-[10px] font-semibold uppercase tracking-[0.16em] text-electric-blue",
+                    "shadow-[0_4px_14px_-4px_oklch(0.58_0.22_250_/_0.25)]",
+                    "ring-1 ring-ink-08/60",
+                  ].join(" ")}
+                >
+                  {step.when}
+                </span>
+                <h3 className="mt-3 text-[22px] font-extrabold tracking-tight text-ink">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-[14.5px] font-semibold leading-[1.65] text-ink-80">
                   {step.desc}
                 </p>
-                <ul className="mt-4 flex flex-col gap-2">
+                <ul className="mt-4 flex w-full flex-col gap-2 text-left">
                   {step.outcomes.map((item) => (
                     <li
                       key={item}
