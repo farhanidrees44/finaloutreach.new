@@ -43,10 +43,10 @@ export function Logo({ className }: { className?: string }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/logo.png"
-        alt="FinalOutreach — Reach further. Convert smarter."
-        width={631}
-        height={200}
-        className="h-[48px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[52px] lg:h-[60px]"
+        alt="FinalOutreach"
+        width={1024}
+        height={409}
+        className="h-[44px] w-auto max-w-none shrink-0 object-contain object-left sm:h-[48px] lg:h-[56px]"
         decoding="async"
       />
     </Link>
