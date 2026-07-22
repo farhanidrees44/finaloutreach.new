@@ -11,6 +11,9 @@ export interface PricingPlan {
   ctaHref: string
 }
 
+/** Stable keys for looking up channel packages without duplicating numbers. */
+export type PricingChannelId = "linkedin" | "coldEmail" | "coldCall"
+
 export const PRICING_CHANNELS: PricingPlan[] = [
   {
     name: "LinkedIn Outreach",
@@ -97,3 +100,19 @@ export const PRICING_CHANNELS: PricingPlan[] = [
     ],
   },
 ]
+
+/** Index aligned with PRICING_CHANNELS order — LinkedIn, Cold Email, Cold Call. */
+export const PRICING_CHANNEL_BY_ID: Record<PricingChannelId, PricingPlan> = {
+  linkedin: PRICING_CHANNELS[0],
+  coldEmail: PRICING_CHANNELS[1],
+  coldCall: PRICING_CHANNELS[2],
+}
+
+/** Display helper — always format from the numeric source of truth. */
+export function formatFromMonthly(price: number): string {
+  return `From $${price.toLocaleString("en-US")}/mo`
+}
+
+export function channelFromPrice(id: PricingChannelId): string {
+  return formatFromMonthly(PRICING_CHANNEL_BY_ID[id].price)
+}

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Calculator, TrendingUp, ArrowRight } from "lucide-react"
 import { BookCallLink } from "@/components/site/book-call-link"
+import { PRICING_CHANNEL_BY_ID } from "@/data/pricing-channels"
 
 function fmt(n: number) {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
@@ -11,15 +12,18 @@ function fmt(n: number) {
   return `$${Math.round(n)}`
 }
 
+const COLD_EMAIL_MONTHLY = PRICING_CHANNEL_BY_ID.coldEmail.price
+
 export function RoiCalculator() {
   const [acv, setAcv] = useState(25000)
-  const [meetings, setMeetings] = useState(40)
+  /** Conservative default — calibrated, not promotional. */
+  const [meetings, setMeetings] = useState(12)
   const [close, setClose] = useState(15)
 
   // Compute synchronously so outputs never flash $0 on first paint
   const closed = meetings * 12 * (close / 100)
   const annual = closed * acv
-  const investment = 7500 * 12 // Growth tier as anchor
+  const investment = COLD_EMAIL_MONTHLY * 12
   const roi = annual / investment
 
   return (
@@ -52,8 +56,8 @@ export function RoiCalculator() {
           </h2>
           <p className="max-w-xl text-[15px] font-bold leading-relaxed text-ink-60">
             A simple model — not a guarantee. Adjust ACV, meeting volume, and
-            close rate to see a directional annual return vs. a Growth-tier
-            engagement.
+            close rate to see a directional annual return vs. Cold Email
+            Outreach.
           </p>
         </motion.div>
 
@@ -138,7 +142,7 @@ export function RoiCalculator() {
               <Stat
                 label="Annual investment"
                 value={fmt(investment)}
-                sub="Growth tier"
+                sub="Cold Email Outreach"
               />
               <Stat
                 label="Return multiple"

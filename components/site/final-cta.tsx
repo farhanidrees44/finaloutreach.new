@@ -6,9 +6,24 @@ import { ArrowRight, Calendar, Clock, Video } from "lucide-react"
 import { BookCallLink } from "@/components/site/book-call-link"
 
 function VisitorTimezone() {
-  const [label, setLabel] = useState<string | null>(null)
+  const [label, setLabel] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const now = new Date()
+      const time = new Intl.DateTimeFormat(undefined, {
+        hour: "numeric",
+        minute: "2-digit",
+        timeZone: tz,
+      }).format(now)
+      return `Times shown in your timezone · ${tz.replace(/_/g, " ")} (${time})`
+    } catch {
+      return "Times shown in your local timezone"
+    }
+  })
 
   useEffect(() => {
+    if (label) return
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
       const now = new Date()
@@ -22,7 +37,7 @@ function VisitorTimezone() {
     } catch {
       setLabel("Times shown in your local timezone")
     }
-  }, [])
+  }, [label])
 
   if (!label) {
     return (

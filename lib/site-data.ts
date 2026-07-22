@@ -11,6 +11,7 @@ import {
   BODY_METRICS as RICH_METRICS,
 } from "./blog-bodies"
 import { INDUSTRY_PAGE_PROFILES } from "@/lib/pseo/industry-pages"
+import { channelFromPrice } from "@/data/pricing-channels"
 
 export const SITE = {
   name: "FinalOutreach",
@@ -50,7 +51,8 @@ export const SERVICES: Service[] = [
     tagline: "Fill your calendar with qualified meetings — without touching the send button.",
     description:
       "We handle everything end-to-end: infrastructure, copywriting, list building, sending, and reply handling. You wake up to meetings on your calendar.",
-    price: "From $3,500/mo",
+    // Same package as PRICING_CHANNELS coldEmail
+    price: channelFromPrice("coldEmail"),
     deliverables: [
       "Dedicated domain & inbox infrastructure (5–15 mailboxes)",
       "SPF / DKIM / DMARC configuration and 4-week warm-up",
@@ -71,7 +73,8 @@ export const SERVICES: Service[] = [
     tagline: "Multi-touch sequences that get past the connection request.",
     description:
       "Human-sounding LinkedIn campaigns that blend with your brand voice. Works alongside cold email or as a standalone channel for high-value targets.",
-    price: "From $1,800/mo",
+    // Same package as PRICING_CHANNELS linkedin
+    price: channelFromPrice("linkedin"),
     deliverables: [
       "LinkedIn account warm-up and safety configuration",
       "Custom 5-step sequence (connection, voice note, follow-ups)",
@@ -110,7 +113,7 @@ export const SERVICES: Service[] = [
     shortTitle: "Appointment setting",
     tagline: "Trained SDRs living inside your inbox, booking meetings onto your calendar.",
     description:
-      "A hybrid of our automation and a real person handling every conversation. Replies are qualified, objections are handled, meetings are booked.",
+      "Inbox reply handling and calendar booking only — not a cold-calling dialing program. A trained SDR qualifies email and LinkedIn conversations and books meetings onto your calendar. For high-volume phone outreach, see Cold Call Outreach.",
     price: "From $4,200/mo",
     deliverables: [
       "Dedicated SDR trained on your offer for 2 weeks",

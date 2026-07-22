@@ -5,19 +5,27 @@ import { ArrowUpRight, Linkedin, Database, CalendarCheck, Server, FileSearch } f
 import { SectionEyebrow } from "./section-eyebrow"
 import { cn } from "@/lib/utils"
 import { CAL, openCalPopup } from "@/lib/cal"
+import { channelFromPrice } from "@/data/pricing-channels"
 
+/**
+ * Channel package prices (cold email / LinkedIn) come from data/pricing-channels.ts —
+ * same source as Outbound-by-channel and /pricing. Do not hardcode those numbers here.
+ *
+ * Appointment setting is a separate offer (inbox reply handling → calendar booking),
+ * not the Cold Call Outreach dialing program.
+ */
 const SERVICES = [
   {
-    title: "Done-for-you cold email",
+    title: "Cold email outreach",
     desc: "We handle everything: infrastructure, copy, lists, sending, replies. You just take the meetings.",
-    price: "From $3,500/mo",
+    price: channelFromPrice("coldEmail"),
     featured: true,
     visual: "email-flow" as const,
   },
   {
     title: "LinkedIn outreach",
     desc: "Multi-touch sequences that get past the connection request and into real conversations.",
-    price: "From $1,800/mo",
+    price: channelFromPrice("linkedin"),
     Icon: Linkedin,
   },
   {
@@ -28,7 +36,7 @@ const SERVICES = [
   },
   {
     title: "Appointment setting",
-    desc: "Our SDRs work your inbox and book meetings directly into your calendar.",
+    desc: "Inbox reply handling only — our SDRs qualify conversations and book meetings on your calendar. Not a dialing program (see Cold Call Outreach for that).",
     price: "From $4,200/mo",
     Icon: CalendarCheck,
   },
