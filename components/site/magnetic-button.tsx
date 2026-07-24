@@ -57,13 +57,12 @@ export function MagneticButton({
   }
   const variants = {
     primary: cn(
-      "text-white shine-overlay cta-pulse",
-      "bg-[linear-gradient(120deg,oklch(0.55_0.24_295),oklch(0.58_0.22_250)_50%,oklch(0.50_0.22_270))]",
-      "hover:bg-[linear-gradient(120deg,oklch(0.50_0.24_295),oklch(0.52_0.22_250)_50%,oklch(0.46_0.22_270))]",
+      "bg-primary text-primary-foreground shadow-[var(--shadow-md)]",
+      "hover:bg-[oklch(0.45_0.17_285)] hover:shadow-[var(--shadow-lg)]",
     ),
-    ink: "bg-ink text-background hover:bg-ink/90 shine-overlay shadow-premium-lg",
+    ink: "bg-ink text-background hover:bg-ink/90 shadow-[var(--shadow-md)]",
     ghost:
-      "bg-transparent text-ink border border-ink-08 hover:border-vibrant-purple/50 hover:bg-vibrant-purple/[0.04]",
+      "bg-transparent text-ink border border-ink-08 hover:border-primary/40 hover:bg-primary/[0.04]",
   }
 
   const isExternal = !booking && /^https?:\/\//.test(href)
