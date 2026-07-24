@@ -73,7 +73,7 @@ export function CampaignProofGallery() {
 
   return (
     <section id="campaign-proof" className="border-t border-ink-08 bg-cream">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
+      <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <SectionEyebrow label="Proof" className="justify-center" />
           <h2 className="mt-6 w-full text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
