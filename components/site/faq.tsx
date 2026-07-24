@@ -12,7 +12,7 @@ export function Faq() {
 
   return (
     <section id="faq" className="border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="mx-auto mb-12 max-w-3xl text-center">
           <SectionEyebrow label="Questions" className="justify-center" />
           <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.25rem)] font-extrabold leading-[1.05] tracking-tight text-ink">
@@ -44,11 +44,13 @@ export function Faq() {
                     </h3>
                     <span
                       className={cn(
-                        "mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-ink-08 text-ink transition-transform duration-200 ease-out",
-                        open && "rotate-45",
+                        "mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-ink-08 text-ink transition-all duration-400",
+                        open
+                          ? "rotate-45 border-ink/40 bg-ink text-background"
+                          : "group-hover:border-ink/30",
                       )}
                     >
-                      <Plus className="size-3.5" strokeWidth={2} />
+                      <Plus className="size-3.5" />
                     </span>
                   </button>
                   <AnimatePresence initial={false}>
