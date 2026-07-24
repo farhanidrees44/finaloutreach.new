@@ -6,7 +6,7 @@ import { STACK_DISCLAIMER, STACK_TOOLS, type StackTool } from "@/data/stack-tool
 
 /**
  * Our Stack — RTL infinite marquee of exact brand logo files.
- * Animates on all viewports; pauses only on hover-capable devices.
+ * Edge-faded, grayscale at rest, color on hover — Linear/Vercel treatment.
  */
 function StackLogoCard({
   tool,
@@ -19,13 +19,13 @@ function StackLogoCard({
 
   return (
     <div
-      className="flex h-[72px] w-[140px] shrink-0 items-center justify-center rounded-2xl border border-ink-08 bg-card px-3 shadow-[var(--shadow-sm)] sm:h-[88px] sm:w-[168px] sm:px-4"
+      className="group/logo flex h-16 w-[132px] shrink-0 items-center justify-center rounded-xl border border-ink-08 bg-card px-3 shadow-[var(--shadow-xs)] sm:h-[72px] sm:w-[156px] sm:px-4"
       title={tool.name}
       aria-hidden={ariaHidden || undefined}
     >
       {failed ? (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-coral-warm/50 bg-coral-warm/5 px-2 text-center">
-          <span className="text-[9px] font-bold uppercase tracking-wider text-coral-warm">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-ink-08 bg-cream px-2 text-center">
+          <span className="text-[9px] font-bold uppercase tracking-wider text-ink-40">
             Missing
           </span>
           <span className="break-all text-[10px] leading-tight text-ink-40">
@@ -33,13 +33,13 @@ function StackLogoCard({
           </span>
         </div>
       ) : (
-        <span className="relative block h-[42px] w-full sm:h-[52px]">
+        <span className="relative block h-8 w-full sm:h-9">
           <Image
             src={tool.src}
             alt={ariaHidden ? "" : `${tool.name} logo`}
             fill
-            className="object-contain object-center"
-            sizes="(max-width: 640px) 140px, 168px"
+            className="object-contain object-center grayscale opacity-70 transition-[filter,opacity] duration-200 ease-out group-hover/logo:grayscale-0 group-hover/logo:opacity-100"
+            sizes="(max-width: 640px) 132px, 156px"
             quality={95}
             unoptimized
             onError={() => setFailed(true)}
@@ -55,19 +55,18 @@ function StackLogoCard({
  * Motion is CSS-driven and forced on for all viewports (see globals.css).
  */
 export function OurStackMarquee() {
-  // Duplicate once for a seamless -50% translateX loop (right → left)
   const items = [...STACK_TOOLS, ...STACK_TOOLS]
 
   return (
     <section
       id="our-stack"
       aria-labelledby="our-stack-heading"
-      className="relative overflow-hidden border-y border-ink-08 bg-cream py-10 sm:py-12 md:py-14"
+      className="relative overflow-hidden border-y border-ink-08 bg-cream py-12 sm:py-14 md:py-16"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <p
           id="our-stack-heading"
-          className="mb-6 text-center text-[11px] uppercase tracking-[0.22em] text-ink-40 sm:mb-8 sm:text-[11.5px]"
+          className="mb-7 text-center text-[11px] uppercase tracking-[0.22em] text-ink-40 sm:mb-9 sm:text-[11.5px]"
         >
           Our stack,{" "}
           <span className="font-semibold text-ink-60">
@@ -76,9 +75,9 @@ export function OurStackMarquee() {
         </p>
       </div>
 
-      <div className="marquee-track marquee-track--logos relative overflow-hidden mask-fade-x-40 sm:mask-fade-x-80">
+      <div className="marquee-track marquee-track--logos relative overflow-hidden mask-fade-x-160">
         <div
-          className="marquee flex w-max items-center gap-3 px-4 sm:gap-5 sm:px-6"
+          className="marquee flex w-max items-center gap-3 px-4 sm:gap-4 sm:px-6"
           style={{ animationPlayState: "running" }}
         >
           {items.map((tool, idx) => (
@@ -91,7 +90,7 @@ export function OurStackMarquee() {
         </div>
       </div>
 
-      <p className="mx-auto mt-5 max-w-xl px-4 text-center text-[10.5px] leading-relaxed text-ink-40/80 sm:mt-6 sm:px-6 sm:text-[11px]">
+      <p className="mx-auto mt-6 max-w-xl px-4 text-center text-[10.5px] leading-relaxed text-ink-40/80 sm:mt-7 sm:px-6 sm:text-[11px]">
         {STACK_DISCLAIMER}
       </p>
     </section>
