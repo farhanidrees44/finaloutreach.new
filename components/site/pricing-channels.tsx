@@ -78,23 +78,40 @@ function ChannelCard({
         reduced
           ? undefined
           : {
-              y: -4,
-              transition: { duration: 0.2, ease: "easeOut" },
+              y: -8,
+              transition: { type: "spring", stiffness: 280, damping: 22 },
             }
       }
       className={cn(
-        "relative flex h-full min-w-0 flex-col rounded-xl border border-ink-08 bg-card p-6 shadow-[var(--shadow-sm)] sm:p-8",
-        "transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]",
-        popular && "z-10",
+        "relative flex h-full min-w-0 flex-col rounded-2xl border bg-card p-6 sm:p-8",
+        popular
+          ? cn(
+              "z-10 border-primary/50 bg-gradient-to-b from-card via-card to-primary/[0.045]",
+              "shadow-[0_0_0_1px_oklch(0.55_0.24_295/0.2),0_28px_64px_-28px_oklch(0.55_0.24_295/0.45)]",
+              "xl:scale-[1.04] xl:py-10",
+            )
+          : "border-ink-08 shadow-md hover:border-primary/30 hover:shadow-xl",
       )}
     >
       {popular && (
-        <span
+        <motion.span
           aria-label="Most popular plan"
-          className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 rounded-full border border-ink-08 bg-background px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary shadow-[var(--shadow-sm)]"
+          animate={
+            reduced
+              ? undefined
+              : {
+                  scale: [1, 1.04, 1],
+                  transition: {
+                    duration: 2.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }
+          }
+          className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 rounded-full bg-primary px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-foreground shadow-md"
         >
           Most Popular
-        </span>
+        </motion.span>
       )}
 
       <div className="flex items-start justify-between gap-3">
@@ -105,7 +122,12 @@ function ChannelCard({
           <p className="text-[14px] leading-relaxed text-ink-60">{plan.subtitle}</p>
         </div>
         <span
-          className="grid size-11 shrink-0 place-items-center rounded-lg bg-primary/8 text-primary"
+          className={cn(
+            "grid size-11 shrink-0 place-items-center rounded-xl",
+            popular
+              ? "bg-primary/12 text-primary"
+              : "bg-electric-blue/10 text-electric-blue",
+          )}
           aria-hidden
         >
           <Icon className="size-5" strokeWidth={1.75} />
@@ -138,7 +160,14 @@ function ChannelCard({
             variants={featureItemVariants(reduced)}
             className="flex items-start gap-2.5 text-[13.5px] leading-[1.5] text-ink"
           >
-            <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+            <span
+              className={cn(
+                "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full",
+                popular
+                  ? "bg-primary/12 text-primary"
+                  : "bg-electric-blue/10 text-electric-blue",
+              )}
+            >
               <Check className="size-3" strokeWidth={2.5} aria-hidden />
             </span>
             <span>{feature}</span>
@@ -155,9 +184,11 @@ function ChannelCard({
         <BookCallLink
           source={`${sourcePrefix}-${plan.name.toLowerCase().replace(/\s+/g, "-")}`}
           className={cn(
-            "group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full text-[14.5px] font-semibold transition-shadow duration-200 ease-out",
+            "group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full text-[14.5px] font-semibold transition-shadow",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            "bg-primary text-primary-foreground shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)]",
+            popular
+              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
+              : "bg-ink text-background shadow-md hover:shadow-lg",
           )}
         >
           Book a strategy call
@@ -217,7 +248,7 @@ export function Pricing() {
         }}
       />
 
-      <div className="mx-auto max-w-7xl px-6 py-28 md:px-10 md:py-36 lg:px-12">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-28 lg:px-12">
         <div className="mx-auto max-w-3xl text-center">
           <SectionEyebrow label="Pricing" className="justify-center" />
           <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">

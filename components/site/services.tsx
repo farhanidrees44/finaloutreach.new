@@ -56,80 +56,57 @@ const SERVICES = [
 
 function EmailFlowVisual() {
   return (
-    <div className="relative h-[180px] w-full overflow-hidden rounded-xl border border-ink-08 bg-cream/40">
+    <div className="relative h-[180px] w-full overflow-hidden rounded-xl border border-ink-08 bg-background">
       <svg
         viewBox="0 0 480 180"
         className="absolute inset-0 h-full w-full"
         aria-hidden="true"
-        preserveAspectRatio="xMidYMid meet"
       >
-        {/* Abstract funnel — illustrative only, no metrics */}
+        {/* Connecting line */}
         <motion.path
-          d="M 48 36 L 160 36 L 148 144 L 60 144 Z"
+          d="M 60 90 C 140 90, 140 50, 220 50 S 300 130, 380 130"
           fill="none"
-          stroke="var(--brand)"
-          strokeWidth="1.25"
-          strokeOpacity="0.35"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-        />
-        <motion.path
-          d="M 176 52 L 304 52 L 288 144 L 192 144 Z"
-          fill="none"
-          stroke="var(--brand)"
-          strokeWidth="1.25"
-          strokeOpacity="0.55"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.12, ease: "easeOut" }}
-        />
-        <motion.path
-          d="M 320 68 L 432 68 L 412 144 L 340 144 Z"
-          fill="none"
-          stroke="var(--brand)"
+          stroke="var(--ink-08)"
           strokeWidth="1.5"
-          strokeOpacity="0.85"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.24, ease: "easeOut" }}
-        />
-        {/* Stage nodes */}
-        {[
-          { cx: 104, cy: 90 },
-          { cx: 240, cy: 98 },
-          { cx: 376, cy: 106 },
-        ].map((n, i) => (
-          <motion.circle
-            key={n.cx}
-            cx={n.cx}
-            cy={n.cy}
-            r="4"
-            fill="var(--brand)"
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.45 + i * 0.12, duration: 0.35, ease: "easeOut" }}
-          />
-        ))}
-        {/* Connector sparkline */}
-        <motion.path
-          d="M 112 90 C 160 78, 184 110, 232 98 S 320 88, 368 106"
-          fill="none"
-          stroke="var(--brand)"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-          strokeDasharray="3 5"
+          strokeDasharray="4 6"
           initial={{ pathLength: 0 }}
           whileInView={{ pathLength: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.2, delay: 0.35, ease: "easeOut" }}
+          transition={{ duration: 1.6, ease: "easeInOut" }}
         />
+        {/* Nodes */}
+        {[
+          { cx: 60, cy: 90, label: "Send" },
+          { cx: 220, cy: 50, label: "Reply" },
+          { cx: 380, cy: 130, label: "Booked" },
+        ].map((n, i) => (
+          <g key={n.label}>
+            <motion.circle
+              cx={n.cx}
+              cy={n.cy}
+              r="5"
+              fill="var(--primary)"
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 + i * 0.3, duration: 0.4 }}
+            />
+            <motion.circle
+              cx={n.cx}
+              cy={n.cy}
+              r="14"
+              fill="none"
+              stroke="var(--primary)"
+              strokeOpacity="0.25"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 + i * 0.3, duration: 0.4 }}
+            />
+          </g>
+        ))}
       </svg>
-      <div className="absolute inset-x-0 bottom-3 flex justify-between px-6 text-[11px] font-medium uppercase tracking-[0.14em] text-ink-40">
+      <div className="absolute inset-x-0 bottom-3 flex justify-between px-6 text-[11px] uppercase tracking-[0.14em] text-ink-40">
         <span>Send</span>
         <span>Reply</span>
         <span>Booked</span>
@@ -159,18 +136,18 @@ function ServiceCard({
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
       className={cn(
-        "group relative flex flex-col justify-between overflow-hidden rounded-xl border border-ink-08 bg-card p-7 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-ink-20 hover:shadow-[var(--shadow-lg)] sm:p-8",
-        featured && "lg:p-10",
+        "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-ink-08 bg-card p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-electric-blue/40 hover:shadow-lg hover:shadow-electric-blue/20 card-flip sm:p-8",
+        featured && "lg:p-10 bg-gradient-to-br from-white to-soft-peach dark:from-card dark:to-card border-electric-blue/30 shadow-lg shadow-electric-blue/10",
         className,
       )}
     >
       <div className="flex items-start justify-between gap-4">
         {Icon && (
-          <div className="grid size-10 place-items-center rounded-lg bg-primary/8 text-primary">
+          <div className="grid size-10 place-items-center rounded-lg bg-gradient-to-br from-electric-blue/20 to-vibrant-purple/20 text-electric-blue group-hover:shadow-lg group-hover:shadow-electric-blue/30 transition-all duration-300">
             <Icon className="size-5" strokeWidth={1.6} />
           </div>
         )}
-        <span className="rounded-full border border-ink-08 bg-cream px-2.5 py-1 text-[11px] font-medium text-ink-60">
+        <span className="rounded-full border border-electric-blue/30 bg-electric-blue/5 px-2.5 py-1 text-[11px] font-medium text-electric-blue">
           {price}
         </span>
       </div>
@@ -213,7 +190,7 @@ export function Services() {
   const [featured, ...rest] = SERVICES
   return (
     <section id="services" className="border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-28 md:py-36">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-28">
         <div className="flex flex-col gap-5 text-center md:mx-auto md:max-w-3xl">
           <div>
             <SectionEyebrow label="Services" className="justify-center" />
