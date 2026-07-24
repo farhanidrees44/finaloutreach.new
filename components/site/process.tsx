@@ -153,7 +153,7 @@ export function Process() {
 
   return (
     <section id="process" className="relative border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-28 md:py-36">
+      <div className="mx-auto max-w-7xl px-6 py-24 md:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <SectionEyebrow label="Process" className="justify-center" />
           <h2 className="mt-6 text-balance text-[clamp(2.1rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight text-ink">

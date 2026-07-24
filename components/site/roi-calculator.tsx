@@ -29,7 +29,7 @@ export function RoiCalculator() {
   return (
     <section
       id="roi-calculator"
-      className="relative overflow-hidden border-y border-ink-08 py-28 md:py-36"
+      className="relative overflow-hidden border-y border-ink-08 py-24 md:py-28"
     >
       <div
         aria-hidden="true"
