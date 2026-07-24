@@ -4,97 +4,98 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ──────────────────────────────────────────────────────────────
-   FinalOutreach — Luxury B2B design system.
-   ONE accent (deep desaturated indigo). Neutrals do the work.
-   Dark navy blocks are intentional contrast moments only.
-   Inspired by: Linear, Ramp, Stripe, Arc.
+   FinalOutreach — Premium B2B SaaS design system.
+   ONE disciplined palette:
+   - Brand violet→electric→cyan spectrum (primary accent, used sparingly)
+   - Deep emerald (secondary, trust signals)
+   - Warm gold (tertiary, highlights)
+   - Inks (the workhorse — most of the site is just ink + white)
+   Inspired by: Stripe, Linear, Vercel, Attio, Ramp, Mercury.
    ────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Neutrals */
-  --background: oklch(0.985 0.004 95);
-  --foreground: oklch(0.20 0.01 285);
-  --cream: oklch(0.968 0.006 95);
-  --ink: oklch(0.20 0.01 285);
-  --ink-80: oklch(0.20 0.01 285 / 0.86);
-  --ink-60: oklch(0.42 0.01 285);
-  --ink-40: oklch(0.55 0.01 285);
-  --ink-20: oklch(0.20 0.01 285 / 0.20);
-  --ink-10: oklch(0.20 0.01 285 / 0.10);
-  --ink-08: oklch(0.20 0.01 285 / 0.08);
-  --ink-04: oklch(0.20 0.01 285 / 0.04);
+  --background: oklch(0.985 0.003 95);
+  --foreground: oklch(0.156 0 0);
+  --cream: oklch(0.965 0.008 87);
+  --ink: oklch(0.156 0 0);
+  --ink-80: oklch(0.156 0 0 / 0.86);
+  --ink-60: oklch(0.156 0 0 / 0.74);
+  --ink-40: oklch(0.156 0 0 / 0.55);
+  --ink-20: oklch(0.156 0 0 / 0.20);
+  --ink-10: oklch(0.156 0 0 / 0.10);
+  --ink-08: oklch(0.156 0 0 / 0.08);
+  --ink-04: oklch(0.156 0 0 / 0.04);
 
-  --card: oklch(0.995 0.002 95);
-  --card-foreground: oklch(0.20 0.01 285);
-  --popover: oklch(0.985 0.004 95);
-  --popover-foreground: oklch(0.20 0.01 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.156 0 0);
+  --popover: oklch(0.985 0.003 95);
+  --popover-foreground: oklch(0.156 0 0);
 
-  /* SINGLE ACCENT — deep desaturated indigo (~#4F3FF0, restrained) */
-  --brand: oklch(0.50 0.17 285);
-  --primary: var(--brand);
-  --primary-foreground: oklch(0.99 0.002 95);
-  /* Legacy aliases → same accent (no competing blue/purple) */
-  --vibrant-purple: var(--brand);
-  --electric-blue: var(--brand);
-  --bright-cyan: oklch(0.50 0.08 285);
-  --hot-pink: var(--brand);
+  /* PRIMARY brand spectrum — violet → electric → cyan */
+  --primary: oklch(0.55 0.24 295);
+  --primary-foreground: oklch(0.985 0.003 95);
+  --vibrant-purple: oklch(0.55 0.24 295);
+  --electric-blue: oklch(0.58 0.22 250);
+  --bright-cyan: oklch(0.74 0.16 200);
+  --hot-pink: oklch(0.65 0.26 350);
 
-  /* Semantic only — not brand accents on marketing surfaces */
-  --emerald: oklch(0.46 0.08 162);
-  --emerald-dark: oklch(0.32 0.06 162);
-  --emerald-light: oklch(0.62 0.08 162);
-  --emerald-bright: oklch(0.70 0.10 162);
+  /* SECONDARY — emerald (trust, finance signal) */
+  --emerald: oklch(0.46 0.10 162);
+  --emerald-dark: oklch(0.32 0.075 162);
+  --emerald-light: oklch(0.62 0.13 162);
+  --emerald-bright: oklch(0.72 0.18 162);
 
-  --gold: oklch(0.72 0.08 86);
-  --amber: oklch(0.72 0.08 86);
-  --coral-warm: oklch(0.55 0.08 35);
-  --soft-peach: var(--cream);
+  /* TERTIARY — warm gold (highlights only) */
+  --gold: oklch(0.78 0.16 86);
+  --amber: oklch(0.78 0.16 86);
+  --coral-warm: oklch(0.68 0.20 35);
+  --soft-peach: oklch(0.88 0.06 50);
 
-  --secondary: oklch(0.965 0.005 95);
-  --secondary-foreground: oklch(0.20 0.01 285);
-  --muted: oklch(0.965 0.005 95);
-  --muted-foreground: oklch(0.42 0.01 285);
+  --secondary: oklch(0.96 0.01 87);
+  --secondary-foreground: oklch(0.156 0 0);
+  --muted: oklch(0.96 0.01 87);
+  --muted-foreground: oklch(0.156 0 0 / 0.74);
 
-  --accent: var(--brand);
-  --accent-foreground: oklch(0.99 0.002 95);
-  --accent-warm: oklch(0.50 0.06 285);
-  --accent-warm-muted: oklch(0.50 0.17 285 / 0.10);
-  --amber-foreground: oklch(0.20 0.01 285);
+  --accent: oklch(0.55 0.24 295);
+  --accent-foreground: oklch(0.985 0.003 95);
+  /* Warm accent for mega-menu icon tiles / soft lifts — not a second brand palette */
+  --accent-warm: oklch(0.78 0.16 86);
+  --accent-warm-muted: oklch(0.78 0.16 86 / 0.14);
+  --amber-foreground: oklch(0.156 0 0);
 
-  --destructive: oklch(0.52 0.18 27);
-  --destructive-foreground: oklch(0.99 0.002 95);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.985 0.003 95);
 
-  --border: oklch(0.20 0.01 285 / 0.08);
-  --input: oklch(0.20 0.01 285 / 0.08);
-  --ring: var(--brand);
+  --border: oklch(0.156 0 0 / 0.08);
+  --input: oklch(0.156 0 0 / 0.08);
+  --ring: oklch(0.55 0.24 295);
 
-  --chart-1: var(--brand);
-  --chart-2: oklch(0.50 0.10 285);
-  --chart-3: oklch(0.42 0.01 285);
-  --chart-4: oklch(0.55 0.01 285);
-  --chart-5: oklch(0.72 0.02 95);
+  --chart-1: oklch(0.55 0.24 295);
+  --chart-2: oklch(0.58 0.22 250);
+  --chart-3: oklch(0.74 0.16 200);
+  --chart-4: oklch(0.46 0.10 162);
+  --chart-5: oklch(0.78 0.16 86);
 
-  /* Radius scale: cards 12px, buttons 8px, pills 999px */
-  --radius: 0.75rem;
+  --radius: 1rem;
 
-  /* Soft luxury shadows — no harsh drops */
-  --shadow-xs: 0 1px 2px rgba(20, 18, 40, 0.04);
-  --shadow-sm: 0 2px 8px rgba(20, 18, 40, 0.05);
-  --shadow-md: 0 4px 16px rgba(20, 18, 40, 0.06);
-  --shadow-lg: 0 4px 24px rgba(20, 18, 40, 0.07);
-  --shadow-xl: 0 8px 32px rgba(20, 18, 40, 0.08);
-  --shadow-2xl: 0 16px 48px rgba(20, 18, 40, 0.10);
-  --shadow-glow-purple: 0 4px 24px oklch(0.50 0.17 285 / 0.18);
-  --shadow-glow-emerald: 0 4px 24px oklch(0.46 0.08 162 / 0.14);
+  /* Premium spring shadow system — layered for real depth */
+  --shadow-xs: 0 1px 2px -1px oklch(0.156 0 0 / 0.06);
+  --shadow-sm: 0 2px 4px -2px oklch(0.156 0 0 / 0.08), 0 1px 2px -1px oklch(0.156 0 0 / 0.04);
+  --shadow-md: 0 4px 8px -4px oklch(0.156 0 0 / 0.10), 0 2px 4px -2px oklch(0.156 0 0 / 0.06);
+  --shadow-lg: 0 12px 24px -8px oklch(0.156 0 0 / 0.12), 0 4px 8px -4px oklch(0.156 0 0 / 0.06);
+  --shadow-xl: 0 24px 48px -16px oklch(0.156 0 0 / 0.16), 0 8px 16px -8px oklch(0.156 0 0 / 0.08);
+  --shadow-2xl: 0 32px 64px -16px oklch(0.156 0 0 / 0.20), 0 12px 24px -8px oklch(0.156 0 0 / 0.10);
+  --shadow-glow-purple: 0 16px 48px -16px oklch(0.55 0.24 295 / 0.45), 0 0 0 1px oklch(0.55 0.24 295 / 0.10);
+  --shadow-glow-emerald: 0 16px 48px -16px oklch(0.46 0.10 162 / 0.40), 0 0 0 1px oklch(0.46 0.10 162 / 0.10);
 
-  --sidebar: oklch(0.985 0.004 95);
-  --sidebar-foreground: oklch(0.20 0.01 285);
-  --sidebar-primary: var(--brand);
-  --sidebar-primary-foreground: oklch(0.99 0.002 95);
-  --sidebar-accent: oklch(0.965 0.005 95);
-  --sidebar-accent-foreground: oklch(0.20 0.01 285);
-  --sidebar-border: oklch(0.20 0.01 285 / 0.08);
-  --sidebar-ring: var(--brand);
+  --sidebar: oklch(0.985 0.003 95);
+  --sidebar-foreground: oklch(0.156 0 0);
+  --sidebar-primary: oklch(0.55 0.24 295);
+  --sidebar-primary-foreground: oklch(0.985 0.003 95);
+  --sidebar-accent: oklch(0.96 0.01 87);
+  --sidebar-accent-foreground: oklch(0.156 0 0);
+  --sidebar-border: oklch(0.156 0 0 / 0.08);
+  --sidebar-ring: oklch(0.55 0.24 295);
 
   /* Instrument-panel tool pages (cream/ink editorial register) */
   --surface-base: #fafaf7;
@@ -175,12 +176,12 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  --radius-sm: 0.5rem;   /* 8px — buttons */
-  --radius-md: 0.625rem;
-  --radius-lg: var(--radius); /* 12px — cards */
-  --radius-xl: 1rem;
-  --radius-2xl: 1.25rem;
-  --radius-3xl: 1.5rem;
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 8px);
+  --radius-2xl: calc(var(--radius) + 16px);
+  --radius-3xl: calc(var(--radius) + 32px);
 
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -301,16 +302,18 @@
     opacity: 0.06;
   }
 
-  /* ───── HERO MESH — single-accent restrained atmosphere ───── */
+  /* ───── HERO MESH — Stripe/Linear-tier multi-color animated background ───── */
   .hero-mesh {
     position: absolute;
     inset: -20%;
     z-index: -10;
     background:
-      radial-gradient(ellipse 80% 60% at 20% 20%, oklch(0.50 0.17 285 / 0.18), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 80% 30%, oklch(0.50 0.12 285 / 0.12), transparent 60%),
-      radial-gradient(ellipse 60% 70% at 50% 80%, oklch(0.50 0.08 285 / 0.08), transparent 60%);
-    filter: blur(48px) saturate(1.05);
+      radial-gradient(ellipse 80% 60% at 20% 20%, oklch(0.55 0.24 295 / 0.45), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 30%, oklch(0.58 0.22 250 / 0.40), transparent 60%),
+      radial-gradient(ellipse 60% 70% at 70% 80%, oklch(0.74 0.16 200 / 0.35), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 20% 80%, oklch(0.68 0.20 35 / 0.28), transparent 60%),
+      radial-gradient(ellipse 40% 50% at 50% 50%, oklch(0.78 0.16 86 / 0.22), transparent 70%);
+    filter: blur(40px) saturate(1.3);
     animation: hero-mesh-drift 28s ease-in-out infinite alternate;
     will-change: transform, filter;
   }
@@ -322,44 +325,66 @@
   }
   .dark .hero-mesh {
     background:
-      radial-gradient(ellipse 80% 60% at 20% 20%, oklch(0.55 0.14 285 / 0.22), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 80% 30%, oklch(0.50 0.10 285 / 0.16), transparent 60%);
+      radial-gradient(ellipse 80% 60% at 20% 20%, oklch(0.66 0.24 295 / 0.30), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 30%, oklch(0.66 0.22 250 / 0.28), transparent 60%),
+      radial-gradient(ellipse 60% 70% at 70% 80%, oklch(0.78 0.16 200 / 0.22), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 20% 80%, oklch(0.72 0.20 35 / 0.20), transparent 60%);
   }
 
-  /* ───── CONIC SHIMMER — single accent ───── */
+  /* ───── CONIC SHIMMER — for accent decoration ───── */
   .conic-shimmer {
     background: conic-gradient(
       from 0deg at 50% 50%,
-      oklch(0.50 0.17 285) 0deg,
-      oklch(0.58 0.10 285) 120deg,
-      oklch(0.42 0.12 285) 240deg,
-      oklch(0.50 0.17 285) 360deg
+      oklch(0.55 0.24 295) 0deg,
+      oklch(0.58 0.22 250) 90deg,
+      oklch(0.74 0.16 200) 180deg,
+      oklch(0.68 0.20 35) 270deg,
+      oklch(0.55 0.24 295) 360deg
     );
     animation: conic-spin 14s linear infinite;
   }
   @keyframes conic-spin { to { transform: rotate(360deg); } }
 
-  /* ───── TEXT ACCENTS — solid brand, no rainbow gradients ───── */
+  /* ───── ANIMATED GRADIENT TEXT ───── */
   .gradient-text-animated {
-    color: var(--brand);
-    background: none;
-    -webkit-text-fill-color: unset;
-    animation: none;
+    background: linear-gradient(
+      120deg,
+      var(--vibrant-purple) 0%,
+      var(--electric-blue) 35%,
+      var(--bright-cyan) 65%,
+      var(--vibrant-purple) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradient-flow 8s ease-in-out infinite;
+  }
+  @keyframes gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
   .gradient-text {
-    color: var(--brand);
-    background: none;
-    -webkit-text-fill-color: unset;
+    background: linear-gradient(120deg, var(--vibrant-purple), var(--electric-blue), var(--bright-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .gradient-text-warm {
-    color: var(--brand);
-    background: none;
-    -webkit-text-fill-color: unset;
+    background: linear-gradient(120deg, var(--coral-warm), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .gradient-text-emerald {
-    color: var(--brand);
-    background: none;
-    -webkit-text-fill-color: unset;
+    background: linear-gradient(120deg, var(--emerald-dark), var(--emerald-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   /* ───── LAYERED GLASS — premium blur with saturation pump ───── */
