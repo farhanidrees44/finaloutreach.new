@@ -47,7 +47,7 @@ const TEAM = [
 export function FounderStory() {
   return (
     <section id="about" className="border-t border-ink-08 bg-background">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12 py-28 md:py-40">
         <div className="mx-auto max-w-3xl text-center">
           <SectionEyebrow label="About the founder" className="justify-center" />
         </div>
@@ -63,43 +63,52 @@ export function FounderStory() {
           >
             {/* Main photo container */}
             <div className="relative mx-auto w-full max-w-[420px] lg:mx-0">
-              {/* Decorative emerald offset frame */}
               <div
                 aria-hidden="true"
-                className="absolute -bottom-4 -right-4 h-full w-full rounded-2xl bg-gradient-to-br from-emerald-deep/20 to-emerald-deep/10"
+                className="absolute -bottom-3 -right-3 h-full w-full rounded-xl bg-primary/8"
               />
-              {/* Main headshot */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-ink-08 bg-cream shadow-[0_20px_50px_-20px_rgba(0,0,0,0.15)]">
+              {/* Main headshot — hover swaps to AI portrait */}
+              <div className="group/photo relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-ink-08 bg-cream shadow-[var(--shadow-lg)]">
                 <Image
                   src="/farhan-headshot.jpg"
                   alt="Farhan Idrees, founder of FinalOutreach"
                   fill
                   sizes="(max-width: 1024px) 100vw, 420px"
-                  className="object-cover object-top transition-transform duration-700 hover:scale-[1.02]"
+                  className="object-cover object-top transition-opacity duration-300 ease-out group-hover/photo:opacity-0"
                   priority
+                />
+                <Image
+                  src="/farhan-avatar.jpg"
+                  alt=""
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 420px"
+                  className="object-cover object-top opacity-0 transition-opacity duration-300 ease-out group-hover/photo:opacity-100"
+                  aria-hidden
                 />
               </div>
 
-              {/* AI avatar overlay */}
-              <div className="absolute -bottom-6 -left-6 z-10">
-                <div className="relative size-28 overflow-hidden rounded-2xl border-4 border-background shadow-lg sm:size-32">
-                  <Image
-                    src="/farhan-avatar.jpg"
-                    alt="Farhan Idrees AI portrait"
-                    fill
-                    sizes="128px"
-                    className="object-cover"
-                  />
-                </div>
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-2 py-0.5 text-[9px] uppercase tracking-[0.12em] text-background">
-                  AI portrait
+              <p className="mt-4 text-center text-[12px] text-ink-40 lg:text-left">
+                <span className="inline-flex items-center gap-2 rounded-full border border-ink-08 bg-card px-3 py-1.5 shadow-[var(--shadow-xs)]">
+                  <span className="relative size-6 shrink-0 overflow-hidden rounded-full border border-ink-08">
+                    <Image
+                      src="/farhan-avatar.jpg"
+                      alt=""
+                      fill
+                      sizes="24px"
+                      className="object-cover"
+                      aria-hidden
+                    />
+                  </span>
+                  <span>
+                    AI portrait —{" "}
+                    <span className="font-medium text-ink-60">hover photo to compare</span>
+                  </span>
                 </span>
-              </div>
-
+              </p>
             </div>
 
             {/* Founder social links — Upwork & LinkedIn (centered under image) */}
-            <div className="mx-auto mt-14 flex w-full max-w-[420px] items-center justify-center gap-3 lg:mx-0">
+            <div className="mx-auto mt-8 flex w-full max-w-[420px] items-center justify-center gap-3 lg:mx-0">
               {/* Upwork — brand green pill */}
               <a
                 href="https://www.upwork.com/freelancers/~011313c5d00451195e"
