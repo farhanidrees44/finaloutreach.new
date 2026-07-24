@@ -44,22 +44,17 @@ export function Hero() {
           <button
             type="button"
             onClick={() => setVideoOpen(true)}
-            aria-label="Watch 60-second intro — how FinalOutreach runs outbound"
-            className="group relative z-10 flex flex-col items-center gap-3"
+            aria-label="Play FinalOutreach walkthrough video"
+            className="group relative z-10 grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[0_16px_48px_-14px_rgba(15,15,15,0.4)] transition-transform duration-300 hover:scale-105 sm:size-[5rem]"
           >
-            <span className="relative grid size-[4.5rem] place-items-center rounded-full border border-ink-08 bg-background text-ink shadow-[var(--shadow-lg)] transition-transform duration-200 ease-out hover:scale-[1.03] sm:size-[5rem]">
-              <span
-                aria-hidden
-                className="absolute inset-0 animate-ping rounded-full bg-primary/10 opacity-40 [animation-duration:2.8s]"
-              />
-              <Play
-                className="relative size-6 fill-ink pl-0.5 sm:size-7"
-                aria-hidden
-              />
-            </span>
-            <span className="text-[12px] font-medium tracking-wide text-ink-60">
-              Watch 60-sec intro
-            </span>
+            <span
+              aria-hidden
+              className="absolute inset-0 animate-ping rounded-full bg-vibrant-purple/15 opacity-40 [animation-duration:2.4s]"
+            />
+            <Play
+              className="relative size-6 fill-ink pl-0.5 sm:size-7"
+              aria-hidden
+            />
           </button>
           <svg
             aria-hidden
@@ -70,10 +65,10 @@ export function Hero() {
             <path
               className="hero-wave hero-wave--a"
               d="M8 22 C 70 6, 120 30, 180 16 S 300 8, 412 20"
-              stroke="var(--brand)"
-              strokeWidth="2"
+              stroke="oklch(0.62 0.18 250)"
+              strokeWidth="2.4"
               strokeLinecap="round"
-              opacity="0.35"
+              opacity="0.6"
             >
               <animate
                 attributeName="d"
@@ -89,10 +84,10 @@ export function Hero() {
             <path
               className="hero-wave hero-wave--b"
               d="M12 26 C 90 12, 140 34, 210 20 S 320 14, 408 24"
-              stroke="var(--brand)"
-              strokeWidth="1.8"
+              stroke="oklch(0.55 0.24 295)"
+              strokeWidth="2.2"
               strokeLinecap="round"
-              opacity="0.55"
+              opacity="0.75"
             >
               <animate
                 attributeName="d"
@@ -109,10 +104,10 @@ export function Hero() {
             <path
               className="hero-wave hero-wave--c"
               d="M20 28 C 100 18, 160 32, 230 22 S 340 18, 400 26"
-              stroke="var(--brand)"
-              strokeWidth="1.5"
+              stroke="oklch(0.72 0.14 25)"
+              strokeWidth="1.8"
               strokeLinecap="round"
-              opacity="0.25"
+              opacity="0.55"
             >
               <animate
                 attributeName="d"
